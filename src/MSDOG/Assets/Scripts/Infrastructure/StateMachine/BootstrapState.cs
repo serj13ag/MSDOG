@@ -11,7 +11,7 @@ namespace Infrastructure.StateMachine
 
         public void Enter()
         {
-            // TODO: init global services
+            GlobalServices.Initialize();
             _gameStateMachine.ResolveStates();
             _gameStateMachine.Enter<MainMenuState>();
         }
