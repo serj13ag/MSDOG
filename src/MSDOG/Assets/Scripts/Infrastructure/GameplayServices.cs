@@ -12,7 +12,8 @@ namespace Infrastructure
         public static void Initialize(AssetProviderService assetProviderService, SoundService soundService,
             UpdateService updateService)
         {
-            var gameFactory = new GameFactory(assetProviderService);
+            var inputService = new InputService();
+            var gameFactory = new GameFactory(assetProviderService, inputService, updateService);
             var cameraService = assetProviderService.Instantiate<CameraService>(AssetPaths.CameraServicePath);
             cameraService.Init(updateService);
 
