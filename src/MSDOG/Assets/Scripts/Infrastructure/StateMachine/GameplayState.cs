@@ -5,22 +5,19 @@ namespace Infrastructure.StateMachine
 {
     public class GameplayState : IResolvableState
     {
-        // private IAssetProviderService _assetProviderService;
+        private AssetProviderService _assetProviderService;
         private LoadingCurtainService _loadingCurtainService;
-
         private SceneLoadService _sceneLoadService;
-        // private IUpdateService _updateService;
-        // private ISoundService _soundService;
-        //
-        // private IGameplayServices _gameplayServices;
+        private SoundService _soundService;
+        private UpdateService _updateService;
 
         public void Resolve()
         {
-            // _assetProviderService = globalServices.AssetProviderService;
+            _assetProviderService = GlobalServices.AssetProviderService;
             _loadingCurtainService = GlobalServices.LoadingCurtainService;
             _sceneLoadService = GlobalServices.SceneLoadService;
-            // _updateService = globalServices.UpdateService;
-            // _soundService = globalServices.SoundService;
+            _soundService = GlobalServices.SoundService;
+            _updateService = GlobalServices.UpdateService;
         }
 
         public void Enter()
@@ -31,15 +28,13 @@ namespace Infrastructure.StateMachine
 
         public void Exit()
         {
-            // _gameplayServices.Cleanup();
-            // _gameplayServices = null;
+            GameplayServices.Cleanup();
         }
 
         private void OnSceneLoaded()
         {
-            // _gameplayServices = new GameplayServices(_updateService, _assetProviderService, _soundService);
-            //
-            // _gameplayServices.Start();
+            GameplayServices.Initialize(_assetProviderService, _soundService, _updateService);
+            GameplayServices.Start();
 
             _loadingCurtainService.FadeOffWithDelay();
         }

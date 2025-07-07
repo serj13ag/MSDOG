@@ -4,7 +4,7 @@ namespace Constants
     {
         // Service Prefabs
         public const string LoadingCurtainServicePath = "Prefabs/Services/LoadingCurtainService";
-        public const string SoundServicePath = "Prefabs/Services/Global/SoundService";
+        public const string SoundServicePath = "Prefabs/Services/SoundService";
 
         // Gameplay Prefabs
         public const string GamePieceViewPath = "Prefabs/Gameplay/GamePieceView";
