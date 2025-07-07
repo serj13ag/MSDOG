@@ -2,6 +2,6 @@ namespace Interfaces
 {
     public interface IUpdatable
     {
-        void Update(float deltaTime);
+        void OnUpdate(float deltaTime);
     }
 }
