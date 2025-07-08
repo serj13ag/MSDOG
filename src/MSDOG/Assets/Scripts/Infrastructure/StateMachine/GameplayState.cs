@@ -10,6 +10,7 @@ namespace Infrastructure.StateMachine
         private SceneLoadService _sceneLoadService;
         private SoundService _soundService;
         private UpdateService _updateService;
+        private DataService _dataService;
 
         public void Resolve()
         {
@@ -18,6 +19,7 @@ namespace Infrastructure.StateMachine
             _sceneLoadService = GlobalServices.SceneLoadService;
             _soundService = GlobalServices.SoundService;
             _updateService = GlobalServices.UpdateService;
+            _dataService = GlobalServices.DataService;
         }
 
         public void Enter()
@@ -33,7 +35,7 @@ namespace Infrastructure.StateMachine
 
         private void OnSceneLoaded()
         {
-            GameplayServices.Initialize(_assetProviderService, _soundService, _updateService);
+            GameplayServices.Initialize(_assetProviderService, _soundService, _updateService, _dataService);
             GameplayServices.Start();
 
             _loadingCurtainService.FadeOffWithDelay();

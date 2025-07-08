@@ -8,7 +8,11 @@ namespace Constants
         public const string CameraServicePath = "Prefabs/Services/CameraService";
 
         // Gameplay Prefabs
-        public const string PlayerPrefab = "Prefabs/Player";
+        public const string PlayerPrefab = "Prefabs/Actors/Player";
+        public const string EnemyPrefab = "Prefabs/Actors/Enemy";
+
+        // Data
+        public const string LevelsData = "Data/Levels";
 
         // Sounds
         public const string DestroySoundPath = "Sounds/Break";

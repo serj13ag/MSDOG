@@ -10,7 +10,7 @@ namespace Services
 
         private void Update()
         {
-            foreach (var updatable in _updatables)
+            foreach (var updatable in _updatables.ToArray())
             {
                 updatable.OnUpdate(Time.deltaTime);
             }

@@ -10,6 +10,7 @@ namespace Infrastructure
         public static GameStateMachine GameStateMachine { get; private set; }
 
         public static AssetProviderService AssetProviderService { get; private set; }
+        public static DataService DataService { get; private set; }
         public static LoadingCurtainService LoadingCurtainService { get; private set; }
         public static SceneLoadService SceneLoadService { get; private set; }
         public static SoundService SoundService { get; private set; }
@@ -25,6 +26,7 @@ namespace Infrastructure
                 .AddComponent<UpdateService>();
 
             var assetProviderService = new AssetProviderService();
+            var dataService = new DataService();
             var sceneLoadService = new SceneLoadService(coroutineService);
             var loadingCurtainService =
                 assetProviderService.Instantiate<LoadingCurtainService>(AssetPaths.LoadingCurtainServicePath);
@@ -34,6 +36,7 @@ namespace Infrastructure
 
             UpdateService = updateService;
             AssetProviderService = assetProviderService;
+            DataService = dataService;
             LoadingCurtainService = loadingCurtainService;
             SceneLoadService = sceneLoadService;
             SoundService = soundService;
