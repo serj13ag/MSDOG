@@ -33,6 +33,11 @@ namespace Core.Enemies
             _state.OnUpdate(deltaTime);
         }
 
+        public void TakeDamage(int damage)
+        {
+            Debug.Log("DAMAGED!"); // TODO: impl
+        }
+
         public void ChangeStateToWaiting()
         {
             _state = new WaitingEnemyState(this, Random.Range(1f, 3f));

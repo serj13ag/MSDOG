@@ -1,3 +1,4 @@
+using Core.Abilities;
 using Interfaces;
 using Services;
 using Services.Gameplay;
@@ -14,6 +15,8 @@ namespace Core
         private UpdateService _updateService;
         private ArenaService _arenaService;
 
+        private HorizontalSlashAbility _ability;
+
         public void Init(InputService inputService, UpdateService updateService, ArenaService arenaService)
         {
             _arenaService = arenaService;
@@ -21,9 +24,17 @@ namespace Core
             _inputService = inputService;
 
             updateService.Register(this);
+
+            _ability = new HorizontalSlashAbility(this); // TODO: load dynamically
         }
 
         public void OnUpdate(float deltaTime)
+        {
+            HandleMove(deltaTime);
+            HandleAbilities(deltaTime);
+        }
+
+        private void HandleMove(float deltaTime)
         {
             var moveInput = _inputService.MoveInput;
             if (moveInput == Vector2.zero)
@@ -46,6 +57,11 @@ namespace Core
             }
 
             _characterController.Move(move);
+        }
+
+        private void HandleAbilities(float deltaTime)
+        {
+            _ability.OnUpdate(deltaTime);
         }
 
         private void OnDestroy()
