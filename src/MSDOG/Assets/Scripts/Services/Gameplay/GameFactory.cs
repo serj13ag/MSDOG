@@ -1,5 +1,6 @@
 using Constants;
 using Core;
+using Core.Enemies;
 using UnityEngine;
 
 namespace Services.Gameplay
@@ -30,7 +31,7 @@ namespace Services.Gameplay
         public Enemy CreateEnemy(Vector3 position)
         {
             var enemy = _assetProviderService.Instantiate<Enemy>(AssetPaths.EnemyPrefab, position);
-            enemy.Init(_updateService, _arenaService);
+            enemy.Init(_updateService);
             return enemy;
         }
     }
