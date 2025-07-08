@@ -12,9 +12,11 @@ namespace Core
 
         private InputService _inputService;
         private UpdateService _updateService;
+        private ArenaService _arenaService;
 
-        public void Init(InputService inputService, UpdateService updateService)
+        public void Init(InputService inputService, UpdateService updateService, ArenaService arenaService)
         {
+            _arenaService = arenaService;
             _updateService = updateService;
             _inputService = inputService;
 
@@ -31,6 +33,18 @@ namespace Core
 
             var moveDirection = new Vector3(moveInput.x, 0, moveInput.y);
             var move = moveDirection * (_moveSpeed * deltaTime);
+
+            var nextPosition = transform.position + move;
+            if (Mathf.Abs(nextPosition.x) > _arenaService.HalfSize.X)
+            {
+                move.x = 0f;
+            }
+
+            if (Mathf.Abs(nextPosition.z) > _arenaService.HalfSize.Y)
+            {
+                move.z = 0f;
+            }
+
             _characterController.Move(move);
         }
 

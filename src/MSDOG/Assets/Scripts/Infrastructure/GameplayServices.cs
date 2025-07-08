@@ -13,7 +13,8 @@ namespace Infrastructure
             UpdateService updateService)
         {
             var inputService = new InputService();
-            var gameFactory = new GameFactory(assetProviderService, inputService, updateService);
+            var arenaService = new ArenaService();
+            var gameFactory = new GameFactory(assetProviderService, updateService, inputService, arenaService);
             var cameraService = assetProviderService.Instantiate<CameraService>(AssetPaths.CameraServicePath);
             cameraService.Init(updateService);
 

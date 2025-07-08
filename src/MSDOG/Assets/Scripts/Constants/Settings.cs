@@ -8,6 +8,11 @@ namespace Constants
             public const string LevelSceneName = "Level";
         }
 
+        public static class Arena
+        {
+            public const int Size = 40;
+        }
+
         public static class ScreenFader
         {
             public const float SolidAlpha = 1;
