@@ -32,7 +32,7 @@ namespace Infrastructure
             var player = _gameFactory.CreatePlayer();
             _cameraService.SetFollowTarget(player.transform);
 
-            _enemyService.ActivateLevel(0); // TODO: add level selection
+            _enemyService.ActivateLevel(0, player.transform); // TODO: add level selection
         }
 
         public static void Cleanup()
