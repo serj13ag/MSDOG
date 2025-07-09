@@ -30,6 +30,11 @@ namespace Core.Enemies.EnemyBehaviour
 
         public void OnUpdate(float deltaTime)
         {
+            if (!_agent.isActiveAndEnabled)
+            {
+                return;
+            }
+
             _elapsedTime += deltaTime;
             if (_elapsedTime > WalkingTimeout)
             {

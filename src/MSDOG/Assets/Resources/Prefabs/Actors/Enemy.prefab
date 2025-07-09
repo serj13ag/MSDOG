@@ -192,6 +192,7 @@ MonoBehaviour:
   _characterController: {fileID: 8305246133135563056}
   _agent: {fileID: 6251957368140847398}
   _moveSpeed: 6
+  _maxHealth: 2
   _walkingTargetRadius: 10
 --- !u!143 &8305246133135563056
 CharacterController:

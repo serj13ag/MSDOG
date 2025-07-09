@@ -13,15 +13,20 @@ namespace Core.Enemies
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private float _moveSpeed;
+        [SerializeField] private int _maxHealth;
         [SerializeField] private float _walkingTargetRadius;
 
         private UpdateService _updateService;
 
         private IEnemyState _state;
 
+        private int _health;
+
         public void Init(UpdateService updateService)
         {
             _updateService = updateService;
+
+            _health = _maxHealth;
 
             updateService.Register(this);
 
@@ -35,7 +40,11 @@ namespace Core.Enemies
 
         public void TakeDamage(int damage)
         {
-            Debug.Log("DAMAGED!"); // TODO: impl
+            _health -= damage;
+            if (_health <= 0)
+            {
+                Destroy(gameObject); // TODO: fix
+            }
         }
 
         public void ChangeStateToWaiting()
