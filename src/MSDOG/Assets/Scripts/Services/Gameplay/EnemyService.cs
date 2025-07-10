@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.Enemies;
 using Data;
 using Interfaces;
 using UnityEngine;
@@ -21,6 +22,8 @@ namespace Services.Gameplay
         private List<WaveData> _waves;
         private int _nextWaveIndex;
         private float _timeTillSpawnNextWave;
+
+        private List<Enemy> _enemies = new List<Enemy>();
 
         public EnemyService(UpdateService updateService, DataService dataService, GameFactory gameFactory,
             ArenaService arenaService)
@@ -75,7 +78,21 @@ namespace Services.Gameplay
                 var position = FindValidSpawnPosition(spawnedEnemyPositions);
                 spawnedEnemyPositions.Add(position);
 
-                _gameFactory.CreateEnemy(position);
+                var enemy = _gameFactory.CreateEnemy(position);
+                _enemies.Add(enemy);
+
+                enemy.OnDestroyed += OnEnemyDestroyed;
+            }
+        }
+
+        private void OnEnemyDestroyed(Enemy enemy)
+        {
+            _enemies.Remove(enemy);
+            enemy.OnDestroyed -= OnEnemyDestroyed;
+
+            if (!_isActive && _enemies.Count == 0)
+            {
+                Debug.Log("FINISH!");
             }
         }
 

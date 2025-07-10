@@ -1,9 +1,11 @@
+using System;
 using Core.Enemies.EnemyBehaviour;
 using Interfaces;
 using Services;
 using UI;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace Core.Enemies
 {
@@ -23,6 +25,8 @@ namespace Core.Enemies
         private IEnemyState _state;
 
         private HealthBlock _healthBlock;
+
+        public event Action<Enemy> OnDestroyed;
 
         public void Init(UpdateService updateService)
         {
@@ -81,6 +85,8 @@ namespace Core.Enemies
         private void OnDestroy()
         {
             _updateService.Remove(this);
+
+            OnDestroyed?.Invoke(this);
         }
     }
 }

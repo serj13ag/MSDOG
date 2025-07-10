@@ -7,7 +7,7 @@ namespace Core.Abilities
     public class HorizontalSlashAbility
     {
         private const float BoxHeight = 2f;
-        private const float BoxWidth = 0.5f;
+        private const float BoxWidth = 1f;
 
         private readonly int _enemyLayerMask = LayerMask.GetMask("Enemy");
 
@@ -24,7 +24,7 @@ namespace Core.Abilities
             _player = player;
             _cooldown = 2f;
             _damage = 1;
-            _length = 4f;
+            _length = 7f;
 
             ResetTimeTillSlash();
         }
