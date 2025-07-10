@@ -1,6 +1,7 @@
 using Core.Enemies.EnemyBehaviour;
 using Interfaces;
 using Services;
+using UI;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,6 +11,7 @@ namespace Core.Enemies
     {
         private const int NumberOfAttemptsToFindDestination = 30;
 
+        [SerializeField] private HealthBarDebugView _healthBarDebugView;
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private float _moveSpeed;
@@ -20,13 +22,14 @@ namespace Core.Enemies
 
         private IEnemyState _state;
 
-        private int _health;
+        private HealthBlock _healthBlock;
 
         public void Init(UpdateService updateService)
         {
             _updateService = updateService;
 
-            _health = _maxHealth;
+            _healthBlock = new HealthBlock(_maxHealth);
+            _healthBarDebugView.Init(_healthBlock);
 
             updateService.Register(this);
 
@@ -40,8 +43,8 @@ namespace Core.Enemies
 
         public void TakeDamage(int damage)
         {
-            _health -= damage;
-            if (_health <= 0)
+            _healthBlock.ReduceHealth(damage);
+            if (_healthBlock.HasZeroHealth)
             {
                 Destroy(gameObject); // TODO: fix
             }
