@@ -23,7 +23,7 @@ namespace Core.Abilities
         {
             _player = player;
             _cooldown = 2f;
-            _damage = 1;
+            _damage = 2;
             _length = 7f;
 
             ResetTimeTillSlash();

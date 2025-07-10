@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Core.Enemies;
 using Data;
+using Infrastructure;
+using Infrastructure.StateMachine;
 using Interfaces;
 using UnityEngine;
 
@@ -23,7 +25,7 @@ namespace Services.Gameplay
         private int _nextWaveIndex;
         private float _timeTillSpawnNextWave;
 
-        private List<Enemy> _enemies = new List<Enemy>();
+        private readonly List<Enemy> _enemies = new List<Enemy>();
 
         public EnemyService(UpdateService updateService, DataService dataService, GameFactory gameFactory,
             ArenaService arenaService)
@@ -92,7 +94,7 @@ namespace Services.Gameplay
 
             if (!_isActive && _enemies.Count == 0)
             {
-                Debug.Log("FINISH!");
+                GlobalServices.GameStateMachine.Enter<GameplayState>(); // TODO: show window
             }
         }
 

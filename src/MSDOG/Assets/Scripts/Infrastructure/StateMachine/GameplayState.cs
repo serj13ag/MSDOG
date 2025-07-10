@@ -25,7 +25,7 @@ namespace Infrastructure.StateMachine
         public void Enter()
         {
             _loadingCurtainService.FadeOnInstantly();
-            _sceneLoadService.LoadScene(Settings.SceneNames.LevelSceneName, OnSceneLoaded);
+            _sceneLoadService.LoadScene(Settings.SceneNames.LevelSceneName, OnSceneLoaded, true);
         }
 
         public void Exit()
