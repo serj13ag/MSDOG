@@ -10,6 +10,7 @@ namespace Constants
         // Gameplay Prefabs
         public const string PlayerPrefab = "Prefabs/Actors/Player";
         public const string EnemyPrefab = "Prefabs/Actors/Enemy";
+        public const string PlayerProjectilePrefab = "Prefabs/PlayerProjectile";
 
         // Data
         public const string LevelsData = "Data/Levels";

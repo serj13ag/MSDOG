@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Core.Abilities;
 using Interfaces;
 using Services;
@@ -15,9 +16,10 @@ namespace Core
         private UpdateService _updateService;
         private ArenaService _arenaService;
 
-        private HorizontalSlashAbility _ability;
+        private List<IAbility> _abilities;
 
-        public void Init(InputService inputService, UpdateService updateService, ArenaService arenaService)
+        public void Init(InputService inputService, UpdateService updateService, ArenaService arenaService,
+            AbilityFactory abilityFactory)
         {
             _arenaService = arenaService;
             _updateService = updateService;
@@ -25,7 +27,11 @@ namespace Core
 
             updateService.Register(this);
 
-            _ability = new HorizontalSlashAbility(this); // TODO: load dynamically
+            _abilities = new List<IAbility>()
+            {
+                abilityFactory.CreateHorizontalSlashAbility(this),
+                abilityFactory.CreateForwardShotAbility(this),
+            }; // TODO: load dynamically
         }
 
         public void OnUpdate(float deltaTime)
@@ -61,7 +67,10 @@ namespace Core
 
         private void HandleAbilities(float deltaTime)
         {
-            _ability.OnUpdate(deltaTime);
+            foreach (var ability in _abilities)
+            {
+                ability.OnUpdate(deltaTime);
+            }
         }
 
         private void OnDestroy()

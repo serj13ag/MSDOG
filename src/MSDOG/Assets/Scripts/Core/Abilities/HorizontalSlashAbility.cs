@@ -1,15 +1,14 @@
 using System.Collections.Generic;
+using Constants;
 using Core.Enemies;
 using UnityEngine;
 
 namespace Core.Abilities
 {
-    public class HorizontalSlashAbility
+    public class HorizontalSlashAbility : IAbility
     {
         private const float BoxHeight = 2f;
         private const float BoxWidth = 1f;
-
-        private readonly int _enemyLayerMask = LayerMask.GetMask("Enemy");
 
         private readonly Player _player;
         private readonly float _cooldown;
@@ -58,7 +57,7 @@ namespace Core.Abilities
             var boxCenter = _player.transform.position;
             var boxSize = new Vector3(_length, BoxHeight, BoxWidth);
 
-            var hits = Physics.OverlapBoxNonAlloc(boxCenter, boxSize * 0.5f, _hitBuffer, Quaternion.identity, _enemyLayerMask);
+            var hits = Physics.OverlapBoxNonAlloc(boxCenter, boxSize * 0.5f, _hitBuffer, Quaternion.identity, Settings.LayerMasks.Enemy);
             for (var i = 0; i < hits; i++)
             {
                 var collider = _hitBuffer[i];

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Constants
 {
     public static class Settings
@@ -19,6 +21,11 @@ namespace Constants
             public const float ClearAlpha = 0;
             public const float Delay = 1f;
             public const float TimeToFade = 1f;
+        }
+
+        public static class LayerMasks
+        {
+            public static readonly int Enemy = LayerMask.GetMask("Enemy");
         }
     }
 }
