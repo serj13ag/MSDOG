@@ -30,7 +30,7 @@ namespace Core
             _abilities = new List<IAbility>()
             {
                 abilityFactory.CreateCuttingBlowAbility(this),
-                abilityFactory.CreateForwardShotAbility(this),
+                abilityFactory.CreateGunShotAbility(this),
                 abilityFactory.CreateBulletHellAbility(this),
             }; // TODO: load dynamically
         }

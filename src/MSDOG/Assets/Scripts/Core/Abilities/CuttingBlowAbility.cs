@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Core.Abilities
 {
-    public class HorizontalSlashAbility : BaseCooldownAbility
+    public class CuttingBlowAbility : BaseCooldownAbility
     {
         private const float BoxHeight = 2f;
         private const float BoxWidth = 1f;
@@ -15,7 +15,7 @@ namespace Core.Abilities
         private readonly float _length;
         private readonly Collider[] _hitBuffer = new Collider[32];
 
-        public HorizontalSlashAbility(Player player)
+        public CuttingBlowAbility(Player player)
             : base(cooldown: 2f)
         {
             _player = player;

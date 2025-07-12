@@ -14,12 +14,12 @@ namespace Services.Gameplay
 
         public IAbility CreateCuttingBlowAbility(Player player)
         {
-            return new HorizontalSlashAbility(player);
+            return new CuttingBlowAbility(player);
         }
 
-        public IAbility CreateForwardShotAbility(Player player)
+        public IAbility CreateGunShotAbility(Player player)
         {
-            return new ForwardShotAbility(player, _projectileFactory);
+            return new GunShotAbility(player, _projectileFactory);
         }
 
         public IAbility CreateBulletHellAbility(Player player)

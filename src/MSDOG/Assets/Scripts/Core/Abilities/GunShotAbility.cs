@@ -3,7 +3,7 @@ using Services.Gameplay;
 
 namespace Core.Abilities
 {
-    public class ForwardShotAbility : BaseCooldownAbility
+    public class GunShotAbility : BaseCooldownAbility
     {
         private readonly Player _player;
         private readonly ProjectileFactory _projectileFactory;
@@ -11,7 +11,7 @@ namespace Core.Abilities
         private readonly float _speed;
         private readonly int _pierce;
 
-        public ForwardShotAbility(Player player, ProjectileFactory projectileFactory)
+        public GunShotAbility(Player player, ProjectileFactory projectileFactory)
             : base(cooldown: 1f)
         {
             _player = player;
