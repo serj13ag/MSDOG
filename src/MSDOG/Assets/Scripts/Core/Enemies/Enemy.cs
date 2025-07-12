@@ -18,9 +18,11 @@ namespace Core.Enemies
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private float _moveSpeed;
         [SerializeField] private int _maxHealth;
-        [SerializeField] private float _walkingTargetRadius;
+        [SerializeField] private float _minWalkingRadiusFromPlayer = 5f;
+        [SerializeField] private float _maxWalkingRadiusFromPlayer = 15f;
 
         private UpdateService _updateService;
+        private Player _player;
 
         private IEnemyState _state;
 
@@ -28,8 +30,9 @@ namespace Core.Enemies
 
         public event Action<Enemy> OnDestroyed;
 
-        public void Init(UpdateService updateService)
+        public void Init(UpdateService updateService, Player player)
         {
+            _player = player;
             _updateService = updateService;
 
             _healthBlock = new HealthBlock(_maxHealth);
@@ -61,18 +64,16 @@ namespace Core.Enemies
 
         public void ChangeStateToWalking()
         {
-            var destination = GetRandomDestination();
+            var destination = GetRandomDestinationNearPlayer();
             _state = new WalkingEnemyState(this, _agent, destination);
         }
 
-        private Vector3 GetRandomDestination()
+        private Vector3 GetRandomDestinationNearPlayer()
         {
             for (var i = 0; i < NumberOfAttemptsToFindDestination; i++)
             {
-                var randomDirection = Random.insideUnitSphere * _walkingTargetRadius;
-                randomDirection += transform.position;
-
-                if (NavMesh.SamplePosition(randomDirection, out var hit, _walkingTargetRadius, NavMesh.AllAreas))
+                var positionNearPlayer = GetPositionNearPlayer();
+                if (NavMesh.SamplePosition(positionNearPlayer, out var hit, 50f, NavMesh.AllAreas))
                 {
                     return hit.position;
                 }
@@ -80,6 +81,23 @@ namespace Core.Enemies
 
             Debug.LogWarning($"Enemy {gameObject.name} could not find valid wander point");
             return Vector3.zero;
+        }
+
+        private Vector3 GetPositionNearPlayer()
+        {
+            // Random angle in radians
+            var angle = Random.Range(0f, Mathf.PI * 2f);
+
+            // Random radius between min and max, with square root to ensure uniform distribution
+            var radius = Mathf.Sqrt(Random.Range(_minWalkingRadiusFromPlayer * _minWalkingRadiusFromPlayer,
+                _maxWalkingRadiusFromPlayer * _maxWalkingRadiusFromPlayer));
+
+            // Convert polar coordinates to Cartesian (X-Z plane)
+            var x = Mathf.Cos(angle) * radius;
+            var z = Mathf.Sin(angle) * radius;
+
+            var randomPositionInsideCircle = new Vector3(x, 0f, z);
+            return randomPositionInsideCircle + _player.transform.position;
         }
 
         private void OnDestroy()

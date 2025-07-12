@@ -13,6 +13,8 @@ namespace Services.Gameplay
         private readonly AbilityFactory _abilityFactory;
         private readonly UpdateService _updateService;
 
+        private Player _player; // TODO: remove?
+
         public GameFactory(AssetProviderService assetProviderService, UpdateService updateService, InputService inputService,
             ArenaService arenaService, AbilityFactory abilityFactory)
         {
@@ -27,13 +29,14 @@ namespace Services.Gameplay
         {
             var player = _assetProviderService.Instantiate<Player>(AssetPaths.PlayerPrefab);
             player.Init(_inputService, _updateService, _arenaService, _abilityFactory);
+            _player = player;
             return player;
         }
 
         public Enemy CreateEnemy(Vector3 position)
         {
             var enemy = _assetProviderService.Instantiate<Enemy>(AssetPaths.EnemyPrefab, position);
-            enemy.Init(_updateService);
+            enemy.Init(_updateService, _player);
             return enemy;
         }
     }
