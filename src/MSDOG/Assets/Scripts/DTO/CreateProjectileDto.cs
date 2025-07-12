@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace DTO
 {
-    public struct CreateProjectileDTO
+    public struct CreateProjectileDto
     {
         public Vector3 SpawnPosition { get; }
         public Vector3 ForwardDirection { get; }
@@ -10,7 +10,7 @@ namespace DTO
         public float Speed { get; }
         public int Pierce { get; }
 
-        public CreateProjectileDTO(Vector3 spawnPosition, Vector3 forwardDirection, int damage, float speed, int pierce)
+        public CreateProjectileDto(Vector3 spawnPosition, Vector3 forwardDirection, int damage, float speed, int pierce)
         {
             SpawnPosition = spawnPosition;
             ForwardDirection = forwardDirection;

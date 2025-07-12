@@ -5,40 +5,28 @@ using UnityEngine;
 
 namespace Core.Abilities
 {
-    public class HorizontalSlashAbility : IAbility
+    public class HorizontalSlashAbility : BaseCooldownAbility
     {
         private const float BoxHeight = 2f;
         private const float BoxWidth = 1f;
 
         private readonly Player _player;
-        private readonly float _cooldown;
         private readonly int _damage;
         private readonly float _length;
         private readonly Collider[] _hitBuffer = new Collider[32];
 
-        private float _timeTillSlash;
-
         public HorizontalSlashAbility(Player player)
+            : base(cooldown: 2f)
         {
             _player = player;
-            _cooldown = 2f;
             _damage = 2;
             _length = 7f;
-
-            ResetTimeTillSlash();
         }
 
-        public void OnUpdate(float deltaTime)
+        protected override void InvokeAction()
         {
-            if (_timeTillSlash > 0f)
-            {
-                _timeTillSlash -= deltaTime;
-                return;
-            }
-
             Slash();
             ShowSlashEffect();
-            ResetTimeTillSlash();
         }
 
         private void Slash()
@@ -57,7 +45,8 @@ namespace Core.Abilities
             var boxCenter = _player.transform.position;
             var boxSize = new Vector3(_length, BoxHeight, BoxWidth);
 
-            var hits = Physics.OverlapBoxNonAlloc(boxCenter, boxSize * 0.5f, _hitBuffer, Quaternion.identity, Settings.LayerMasks.Enemy);
+            var hits = Physics.OverlapBoxNonAlloc(boxCenter, boxSize * 0.5f, _hitBuffer, Quaternion.identity,
+                Settings.LayerMasks.Enemy);
             for (var i = 0; i < hits; i++)
             {
                 var collider = _hitBuffer[i];
@@ -68,11 +57,6 @@ namespace Core.Abilities
             }
 
             return hitEnemies;
-        }
-
-        private void ResetTimeTillSlash()
-        {
-            _timeTillSlash = _cooldown;
         }
 
         private void ShowSlashEffect()

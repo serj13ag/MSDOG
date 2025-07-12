@@ -16,7 +16,7 @@ namespace Services.Gameplay
             _updateService = updateService;
         }
 
-        public void CreatePlayerProjectile(CreateProjectileDTO createProjectileDto)
+        public void CreatePlayerProjectile(CreateProjectileDto createProjectileDto)
         {
             var projectile =
                 _assetProviderService.Instantiate<Projectile>(AssetPaths.PlayerProjectilePrefab,

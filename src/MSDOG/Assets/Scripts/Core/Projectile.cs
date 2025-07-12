@@ -18,7 +18,7 @@ namespace Core
         private float _speed;
         private int _pierce;
 
-        public void Init(CreateProjectileDTO createProjectileDto, UpdateService updateService)
+        public void Init(CreateProjectileDto createProjectileDto, UpdateService updateService)
         {
             _updateService = updateService;
 
