@@ -12,7 +12,7 @@ namespace Services.Gameplay
             _projectileFactory = projectileFactory;
         }
 
-        public IAbility CreateHorizontalSlashAbility(Player player)
+        public IAbility CreateCuttingBlowAbility(Player player)
         {
             return new HorizontalSlashAbility(player);
         }
@@ -20,6 +20,11 @@ namespace Services.Gameplay
         public IAbility CreateForwardShotAbility(Player player)
         {
             return new ForwardShotAbility(player, _projectileFactory);
+        }
+
+        public IAbility CreateBulletHellAbility(Player player)
+        {
+            return new BulletHellAbility(player, _projectileFactory);
         }
     }
 }

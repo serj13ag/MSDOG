@@ -29,8 +29,9 @@ namespace Core
 
             _abilities = new List<IAbility>()
             {
-                abilityFactory.CreateHorizontalSlashAbility(this),
+                abilityFactory.CreateCuttingBlowAbility(this),
                 abilityFactory.CreateForwardShotAbility(this),
+                abilityFactory.CreateBulletHellAbility(this),
             }; // TODO: load dynamically
         }
 
