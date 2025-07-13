@@ -1,6 +1,6 @@
 using Core.Enemies.EnemyBehaviour.Wanderer;
 
-namespace Core.Enemies.EnemyBehaviour
+namespace Core.Enemies.EnemyBehaviour.States
 {
     public class WaitingEnemyState : IEnemyState
     {

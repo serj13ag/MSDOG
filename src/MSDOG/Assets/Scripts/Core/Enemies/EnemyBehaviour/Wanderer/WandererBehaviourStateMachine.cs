@@ -1,3 +1,4 @@
+using Core.Enemies.EnemyBehaviour.States;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -36,7 +37,7 @@ namespace Core.Enemies.EnemyBehaviour.Wanderer
         public void ChangeStateToWalking()
         {
             var destination = GetRandomDestinationNearPlayer();
-            _state = new WalkingEnemyState(this, _agent, destination);
+            _state = new WalkingToDestinationEnemyState(this, _agent, destination);
         }
 
         private Vector3 GetRandomDestinationNearPlayer()

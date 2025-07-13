@@ -2,9 +2,9 @@ using Core.Enemies.EnemyBehaviour.Wanderer;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Core.Enemies.EnemyBehaviour
+namespace Core.Enemies.EnemyBehaviour.States
 {
-    public class WalkingEnemyState : IEnemyState
+    public class WalkingToDestinationEnemyState : IEnemyState
     {
         private const float WalkingTimeout = 10f;
 
@@ -13,7 +13,7 @@ namespace Core.Enemies.EnemyBehaviour
 
         private float _elapsedTime;
 
-        public WalkingEnemyState(WandererBehaviourStateMachine stateMachine, NavMeshAgent agent, Vector3 destination)
+        public WalkingToDestinationEnemyState(WandererBehaviourStateMachine stateMachine, NavMeshAgent agent, Vector3 destination)
         {
             _stateMachine = stateMachine;
             _agent = agent;
