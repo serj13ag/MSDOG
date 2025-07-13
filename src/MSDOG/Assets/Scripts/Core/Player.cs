@@ -40,6 +40,8 @@ namespace Core
                 abilityFactory.CreateGunShotAbility(this),
                 abilityFactory.CreateBulletHellAbility(this),
             }; // TODO: load dynamically
+
+            _healthBlock.OnHealthChanged += OnHealthChanged;
         }
 
         public void OnUpdate(float deltaTime)
@@ -93,9 +95,16 @@ namespace Core
             }
         }
 
+        private void OnHealthChanged()
+        {
+            Debug.Log($"Player ({_healthBlock.CurrentHealth}/{_healthBlock.MaxHealth})"); // TODO: remove when add UI
+        }
+
         private void OnDestroy()
         {
             _updateService.Remove(this);
+
+            _healthBlock.OnHealthChanged -= OnHealthChanged;
         }
     }
 }
