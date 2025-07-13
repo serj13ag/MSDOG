@@ -9,7 +9,7 @@ namespace Core
 {
     public class Projectile : MonoBehaviour, IUpdatable
     {
-        [SerializeField] private OnTriggerEnterProvider _onTriggerEnterProvider;
+        [SerializeField] private ColliderEventProvider _colliderEventProvider;
 
         private UpdateService _updateService;
 
@@ -28,7 +28,7 @@ namespace Core
             _forwardDirection = createProjectileDto.ForwardDirection;
 
             updateService.Register(this);
-            _onTriggerEnterProvider.OnTriggerEntered += OnTriggerEntered;
+            _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
 
         public void OnUpdate(float deltaTime)
@@ -59,7 +59,7 @@ namespace Core
         private void OnDestroy()
         {
             _updateService.Remove(this);
-            _onTriggerEnterProvider.OnTriggerEntered -= OnTriggerEntered;
+            _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;
         }
     }
 }

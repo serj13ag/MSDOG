@@ -16,6 +16,9 @@ namespace Core
         private UpdateService _updateService;
         private ArenaService _arenaService;
 
+        private HealthBlock _healthBlock;
+        private PlayerDamageBlock _playerDamageBlock;
+
         private List<IAbility> _abilities;
 
         public void Init(InputService inputService, UpdateService updateService, ArenaService arenaService,
@@ -24,6 +27,9 @@ namespace Core
             _arenaService = arenaService;
             _updateService = updateService;
             _inputService = inputService;
+
+            _healthBlock = new HealthBlock(100);
+            _playerDamageBlock = new PlayerDamageBlock(_healthBlock);
 
             updateService.Register(this);
 
@@ -39,6 +45,13 @@ namespace Core
         {
             HandleMove(deltaTime);
             HandleAbilities(deltaTime);
+
+            _playerDamageBlock.OnUpdate(deltaTime);
+        }
+
+        public void RegisterDamage(int damage)
+        {
+            _playerDamageBlock.RegisterDamage(damage);
         }
 
         private void HandleMove(float deltaTime)

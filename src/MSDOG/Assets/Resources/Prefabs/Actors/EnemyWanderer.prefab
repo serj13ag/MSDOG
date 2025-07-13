@@ -478,8 +478,7 @@ MonoBehaviour:
   _characterController: {fileID: 8305246133135563056}
   _agent: {fileID: 6251957368140847398}
   _healthBarDebugView: {fileID: 8376822688814715283}
-  _moveSpeed: 6
-  _maxHealth: 2
+  _triggerEnterProvider: {fileID: 0}
 --- !u!143 &8305246133135563056
 CharacterController:
   m_ObjectHideFlags: 0

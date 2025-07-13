@@ -28,6 +28,10 @@ namespace Core.Enemies.EnemyBehaviour
             _state.OnUpdate(deltaTime);
         }
 
+        public void OnTriggerEntered(Collider collider)
+        {
+        }
+
         public void ChangeStateToWaiting()
         {
             var waitTime = Random.Range(1f, 3f);

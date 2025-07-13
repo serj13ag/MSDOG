@@ -6,6 +6,7 @@ using Services;
 using UI;
 using UnityEngine;
 using UnityEngine.AI;
+using UtilityComponents;
 
 namespace Core.Enemies
 {
@@ -14,6 +15,7 @@ namespace Core.Enemies
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private HealthBarDebugView _healthBarDebugView;
+        [SerializeField] private ColliderEventProvider _triggerEnterProvider;
 
         private UpdateService _updateService;
 
@@ -35,11 +37,16 @@ namespace Core.Enemies
             _stateMachine = data.Type switch
             {
                 EnemyType.Wanderer => new WandererBehaviourStateMachine(_agent, player),
-                EnemyType.Melee => new MeleeBehaviourStateMachine(_agent, player),
+                EnemyType.Melee => new MeleeBehaviourStateMachine(_agent, data.Damage, player),
                 _ => throw new ArgumentOutOfRangeException(nameof(data.Type), data.Type, null),
             };
 
             updateService.Register(this);
+
+            if (_triggerEnterProvider)
+            {
+                _triggerEnterProvider.OnTriggerEntered += OnTriggerEntered;
+            }
         }
 
         public void OnUpdate(float deltaTime)
@@ -56,9 +63,18 @@ namespace Core.Enemies
             }
         }
 
+        private void OnTriggerEntered(Collider obj)
+        {
+            _stateMachine.OnTriggerEntered(obj);
+        }
+
         private void OnDestroy()
         {
             _updateService.Remove(this);
+            if (_triggerEnterProvider)
+            {
+                _triggerEnterProvider.OnTriggerEntered -= OnTriggerEntered;
+            }
         }
     }
 }

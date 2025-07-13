@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f15a658ce1434190ae930828513fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _onTriggerEnterProvider: {fileID: 4177332983165476607}
+  _colliderEventProvider: {fileID: 4177332983165476607}
 --- !u!1 &5522554161654993670
 GameObject:
   m_ObjectHideFlags: 0
