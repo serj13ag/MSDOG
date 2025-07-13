@@ -1,5 +1,6 @@
 using System;
 using Core.Enemies.EnemyBehaviour;
+using Data;
 using Interfaces;
 using Services;
 using UI;
@@ -13,8 +14,6 @@ namespace Core.Enemies
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private HealthBarDebugView _healthBarDebugView;
-        [SerializeField] private float _moveSpeed;
-        [SerializeField] private int _maxHealth;
 
         private UpdateService _updateService;
 
@@ -22,20 +21,22 @@ namespace Core.Enemies
 
         private HealthBlock _healthBlock;
 
-        public event Action<Enemy> OnDestroyed;
+        public event Action<Enemy> OnDied;
 
-        public void Init(UpdateService updateService, Player player, EnemyType type)
+        public void Init(UpdateService updateService, Player player, EnemyData data)
         {
             _updateService = updateService;
 
-            _healthBlock = new HealthBlock(_maxHealth);
+            _agent.speed = data.Speed;
+
+            _healthBlock = new HealthBlock(data.MaxHealth);
             _healthBarDebugView.Init(_healthBlock);
 
-            _stateMachine = type switch
+            _stateMachine = data.Type switch
             {
                 EnemyType.Wanderer => new WandererBehaviourStateMachine(_agent, player),
                 EnemyType.Melee => new MeleeBehaviourStateMachine(_agent, player),
-                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
+                _ => throw new ArgumentOutOfRangeException(nameof(data.Type), data.Type, null),
             };
 
             updateService.Register(this);
@@ -51,15 +52,13 @@ namespace Core.Enemies
             _healthBlock.ReduceHealth(damage);
             if (_healthBlock.HasZeroHealth)
             {
-                Destroy(gameObject); // TODO: fix
+                OnDied?.Invoke(this);
             }
         }
 
         private void OnDestroy()
         {
             _updateService.Remove(this);
-
-            OnDestroyed?.Invoke(this);
         }
     }
 }

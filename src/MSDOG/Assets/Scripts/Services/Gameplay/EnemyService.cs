@@ -82,18 +82,20 @@ namespace Services.Gameplay
                     var position = FindValidSpawnPosition(spawnedEnemyPositions);
                     spawnedEnemyPositions.Add(position);
 
-                    var enemy = _gameFactory.CreateEnemy(position, enemyWaveData.Type);
+                    var enemy = _gameFactory.CreateEnemy(position, enemyWaveData.Data);
                     _enemies.Add(enemy);
 
-                    enemy.OnDestroyed += OnEnemyDestroyed;
+                    enemy.OnDied += OnEnemyDied;
                 }
             }
         }
 
-        private void OnEnemyDestroyed(Enemy enemy)
+        private void OnEnemyDied(Enemy enemy)
         {
             _enemies.Remove(enemy);
-            enemy.OnDestroyed -= OnEnemyDestroyed;
+            enemy.OnDied -= OnEnemyDied;
+
+            Object.Destroy(enemy.gameObject); // TODO: pool?
 
             if (!_isActive && _enemies.Count == 0)
             {

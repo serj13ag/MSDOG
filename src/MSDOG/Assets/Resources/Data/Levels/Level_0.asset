@@ -15,14 +15,14 @@ MonoBehaviour:
   LevelIndex: 0
   Waves:
   - Enemies:
-    - Type: 0
+    - Data: {fileID: 11400000, guid: 4d82f5b7ebd0bb24286bfa242184822c, type: 2}
       Count: 3
     TimeTillNextWave: 3
   - Enemies:
-    - Type: 0
+    - Data: {fileID: 11400000, guid: ded3371667f69254984e6cbaa89ee98a, type: 2}
       Count: 4
     TimeTillNextWave: 3
   - Enemies:
-    - Type: 1
+    - Data: {fileID: 11400000, guid: 28fb93b068123e342a2ef887c9fb7960, type: 2}
       Count: 5
     TimeTillNextWave: 3
