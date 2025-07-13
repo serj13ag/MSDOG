@@ -2,9 +2,9 @@ using Core.Enemies.EnemyBehaviour.States;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Core.Enemies.EnemyBehaviour.Wanderer
+namespace Core.Enemies.EnemyBehaviour
 {
-    public class WandererBehaviourStateMachine
+    public class WandererBehaviourStateMachine : IEnemyStateMachine
     {
         private const int NumberOfAttemptsToFindDestination = 30;
         private const float MinWalkingRadiusFromPlayer = 5f;

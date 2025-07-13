@@ -1,5 +1,5 @@
 using System;
-using Core.Enemies.EnemyBehaviour.Wanderer;
+using Core.Enemies.EnemyBehaviour;
 using Interfaces;
 using Services;
 using UI;
@@ -18,7 +18,7 @@ namespace Core.Enemies
 
         private UpdateService _updateService;
 
-        private WandererBehaviourStateMachine _stateMachine;
+        private IEnemyStateMachine _stateMachine;
 
         private HealthBlock _healthBlock;
 
@@ -34,7 +34,7 @@ namespace Core.Enemies
             _stateMachine = type switch
             {
                 EnemyType.Wanderer => new WandererBehaviourStateMachine(_agent, player),
-                // EnemyType.Melee => new WandererBehaviourStateMachine(this, _agent), TODO: impl
+                EnemyType.Melee => new MeleeBehaviourStateMachine(_agent, player),
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
             };
 

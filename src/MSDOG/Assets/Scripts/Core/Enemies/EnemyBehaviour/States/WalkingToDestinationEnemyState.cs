@@ -1,4 +1,3 @@
-using Core.Enemies.EnemyBehaviour.Wanderer;
 using UnityEngine;
 using UnityEngine.AI;
 
