@@ -45,8 +45,15 @@ namespace Services.Gameplay
             };
 
             var enemy = _assetProviderService.Instantiate<Enemy>(prefabPath, position);
-            enemy.Init(_updateService, _player, data);
+            enemy.Init(_updateService, this, _player, data);
             return enemy;
+        }
+
+        public ExperiencePiece CreateExperiencePiece(Vector3 position)
+        {
+            var experiencePiece = _assetProviderService.Instantiate<ExperiencePiece>(AssetPaths.ExperiencePiecePrefab, position);
+            experiencePiece.Init(_updateService);
+            return experiencePiece;
         }
     }
 }

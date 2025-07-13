@@ -14,14 +14,14 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - PlayerExperienceCatch
   - Player
   - Enemy
   - EnemyTrigger
   - 
   - 
   - PlayerProjectile
-  - 
+  - ExperiencePiece
   - 
   - 
   - 

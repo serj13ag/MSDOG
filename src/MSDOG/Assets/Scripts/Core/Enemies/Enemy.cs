@@ -3,6 +3,7 @@ using Core.Enemies.EnemyBehaviour;
 using Data;
 using Interfaces;
 using Services;
+using Services.Gameplay;
 using UI;
 using UnityEngine;
 using UnityEngine.AI;
@@ -18,6 +19,7 @@ namespace Core.Enemies
         [SerializeField] private ColliderEventProvider _triggerEnterProvider;
 
         private UpdateService _updateService;
+        private GameFactory _gameFactory;
 
         private Guid _id;
         private Player _player;
@@ -32,8 +34,9 @@ namespace Core.Enemies
 
         public event Action<Enemy> OnDied;
 
-        public void Init(UpdateService updateService, Player player, EnemyData data)
+        public void Init(UpdateService updateService, GameFactory gameFactory, Player player, EnemyData data)
         {
+            _gameFactory = gameFactory;
             _updateService = updateService;
 
             _id = Guid.NewGuid();
@@ -65,6 +68,8 @@ namespace Core.Enemies
             _healthBlock.ReduceHealth(damage);
             if (_healthBlock.HasZeroHealth)
             {
+                _gameFactory.CreateExperiencePiece(transform.position);
+
                 OnDied?.Invoke(this);
             }
         }

@@ -11,7 +11,7 @@ namespace Core
     public class Player : MonoBehaviour, IUpdatable
     {
         [SerializeField] private CharacterController _characterController;
-        [SerializeField] private float _moveSpeed;
+        [SerializeField] private float _moveSpeed = 6f;
 
         private InputService _inputService;
         private UpdateService _updateService;
