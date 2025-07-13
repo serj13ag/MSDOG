@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.Abilities;
 using Interfaces;
@@ -49,9 +50,14 @@ namespace Core
             _playerDamageBlock.OnUpdate(deltaTime);
         }
 
-        public void RegisterDamage(int damage)
+        public void RegisterDamager(Guid id, int damage)
         {
-            _playerDamageBlock.RegisterDamage(damage);
+            _playerDamageBlock.RegisterDamager(id, damage);
+        }
+
+        public void RemoveDamager(Guid id)
+        {
+            _playerDamageBlock.RemoveDamager(id);
         }
 
         private void HandleMove(float deltaTime)

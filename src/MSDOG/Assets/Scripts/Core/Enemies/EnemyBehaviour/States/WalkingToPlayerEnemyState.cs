@@ -1,26 +1,67 @@
-using UnityEngine.AI;
+using UnityEngine;
+using UtilityComponents;
 
 namespace Core.Enemies.EnemyBehaviour.States
 {
     public class WalkingToPlayerEnemyState : IEnemyState
     {
-        private readonly NavMeshAgent _agent;
-        private readonly Player _player;
+        private readonly Enemy _enemy;
+        private readonly ColliderEventProvider _triggerEnterProvider;
 
-        public WalkingToPlayerEnemyState(NavMeshAgent agent, Player player)
+        public WalkingToPlayerEnemyState(Enemy enemy, ColliderEventProvider triggerEnterProvider)
         {
-            _agent = agent;
-            _player = player;
+            _enemy = enemy;
+            _triggerEnterProvider = triggerEnterProvider;
+
+            if (triggerEnterProvider)
+            {
+                triggerEnterProvider.OnTriggerEntered += OnTriggerEntered;
+                triggerEnterProvider.OnTriggerExited += OnTriggerExited;
+            }
         }
 
         public void OnUpdate(float deltaTime)
         {
-            if (!_agent.isActiveAndEnabled)
+            var enemyAgent = _enemy.Agent;
+            if (!enemyAgent.isActiveAndEnabled)
             {
                 return;
             }
 
-            _agent.SetDestination(_player.transform.position);
+            enemyAgent.SetDestination(_enemy.Player.transform.position);
+        }
+
+        private void OnTriggerEntered(Collider obj)
+        {
+            var player = obj.GetComponentInParent<Player>();
+            if (!player)
+            {
+                return;
+            }
+
+            player.RegisterDamager(_enemy.Id, _enemy.Damage);
+        }
+
+        private void OnTriggerExited(Collider obj)
+        {
+            var player = obj.GetComponentInParent<Player>();
+            if (!player)
+            {
+                return;
+            }
+
+            player.RemoveDamager(_enemy.Id);
+        }
+
+        public void Dispose()
+        {
+            if (_triggerEnterProvider)
+            {
+                _enemy.Player.RemoveDamager(_enemy.Id);
+
+                _triggerEnterProvider.OnTriggerEntered -= OnTriggerEntered;
+                _triggerEnterProvider.OnTriggerExited -= OnTriggerExited;
+            }
         }
     }
 }

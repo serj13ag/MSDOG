@@ -1,10 +1,9 @@
-using UnityEngine;
+using System;
 
 namespace Core.Enemies.EnemyBehaviour
 {
-    public interface IEnemyStateMachine
+    public interface IEnemyStateMachine : IDisposable
     {
         void OnUpdate(float deltaTime);
-        void OnTriggerEntered(Collider collider);
     }
 }

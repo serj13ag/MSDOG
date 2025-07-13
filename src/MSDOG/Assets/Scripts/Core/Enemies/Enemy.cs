@@ -19,9 +19,16 @@ namespace Core.Enemies
 
         private UpdateService _updateService;
 
+        private Guid _id;
+        private Player _player;
+        private int _damage;
+        private HealthBlock _healthBlock;
         private IEnemyStateMachine _stateMachine;
 
-        private HealthBlock _healthBlock;
+        public Guid Id => _id;
+        public NavMeshAgent Agent => _agent;
+        public Player Player => _player;
+        public int Damage => _damage;
 
         public event Action<Enemy> OnDied;
 
@@ -29,24 +36,23 @@ namespace Core.Enemies
         {
             _updateService = updateService;
 
-            _agent.speed = data.Speed;
+            _id = Guid.NewGuid();
+            _player = player;
+            _damage = data.Damage;
 
             _healthBlock = new HealthBlock(data.MaxHealth);
             _healthBarDebugView.Init(_healthBlock);
 
             _stateMachine = data.Type switch
             {
-                EnemyType.Wanderer => new WandererBehaviourStateMachine(_agent, player),
-                EnemyType.Melee => new MeleeBehaviourStateMachine(_agent, data.Damage, player),
+                EnemyType.Wanderer => new WandererBehaviourStateMachine(this),
+                EnemyType.Melee => new MeleeBehaviourStateMachine(this, _triggerEnterProvider),
                 _ => throw new ArgumentOutOfRangeException(nameof(data.Type), data.Type, null),
             };
 
-            updateService.Register(this);
+            _agent.speed = data.Speed;
 
-            if (_triggerEnterProvider)
-            {
-                _triggerEnterProvider.OnTriggerEntered += OnTriggerEntered;
-            }
+            updateService.Register(this);
         }
 
         public void OnUpdate(float deltaTime)
@@ -63,18 +69,11 @@ namespace Core.Enemies
             }
         }
 
-        private void OnTriggerEntered(Collider obj)
-        {
-            _stateMachine.OnTriggerEntered(obj);
-        }
-
         private void OnDestroy()
         {
+            _stateMachine.Dispose();
+
             _updateService.Remove(this);
-            if (_triggerEnterProvider)
-            {
-                _triggerEnterProvider.OnTriggerEntered -= OnTriggerEntered;
-            }
         }
     }
 }

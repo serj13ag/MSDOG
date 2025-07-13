@@ -1,18 +1,15 @@
 using Core.Enemies.EnemyBehaviour.States;
-using UnityEngine;
-using UnityEngine.AI;
+using UtilityComponents;
 
 namespace Core.Enemies.EnemyBehaviour
 {
     public class MeleeBehaviourStateMachine : IEnemyStateMachine
     {
-        private readonly int _damage;
         private readonly IEnemyState _state;
 
-        public MeleeBehaviourStateMachine(NavMeshAgent agent, int damage, Player player)
+        public MeleeBehaviourStateMachine(Enemy enemy, ColliderEventProvider triggerEnterProvider)
         {
-            _damage = damage;
-            _state = new WalkingToPlayerEnemyState(agent, player);
+            _state = new WalkingToPlayerEnemyState(enemy, triggerEnterProvider);
         }
 
         public void OnUpdate(float deltaTime)
@@ -20,15 +17,9 @@ namespace Core.Enemies.EnemyBehaviour
             _state.OnUpdate(deltaTime);
         }
 
-        public void OnTriggerEntered(Collider collider)
+        public void Dispose()
         {
-            var player = collider.GetComponentInParent<Player>();
-            if (!player)
-            {
-                return;
-            }
-
-            player.RegisterDamage(_damage);
+            _state.Dispose();
         }
     }
 }

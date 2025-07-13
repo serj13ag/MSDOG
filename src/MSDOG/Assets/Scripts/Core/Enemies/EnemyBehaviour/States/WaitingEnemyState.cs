@@ -22,5 +22,9 @@ namespace Core.Enemies.EnemyBehaviour.States
 
             _stateMachine.ChangeStateToWalking();
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

@@ -15,10 +15,10 @@ namespace Core.Enemies.EnemyBehaviour
 
         private IEnemyState _state;
 
-        public WandererBehaviourStateMachine(NavMeshAgent agent, Player player)
+        public WandererBehaviourStateMachine(Enemy enemy)
         {
-            _agent = agent;
-            _player = player;
+            _agent = enemy.Agent;
+            _player = enemy.Player;
 
             ChangeStateToWaiting();
         }
@@ -26,10 +26,6 @@ namespace Core.Enemies.EnemyBehaviour
         public void OnUpdate(float deltaTime)
         {
             _state.OnUpdate(deltaTime);
-        }
-
-        public void OnTriggerEntered(Collider collider)
-        {
         }
 
         public void ChangeStateToWaiting()
@@ -74,6 +70,11 @@ namespace Core.Enemies.EnemyBehaviour
 
             var randomPositionInsideCircle = new Vector3(x, 0f, z);
             return randomPositionInsideCircle + _player.transform.position;
+        }
+
+        public void Dispose()
+        {
+            _state.Dispose();
         }
     }
 }

@@ -48,5 +48,9 @@ namespace Core.Enemies.EnemyBehaviour.States
                 _stateMachine.ChangeStateToWaiting();
             }
         }
+
+        public void Dispose()
+        {
+        }
     }
 }

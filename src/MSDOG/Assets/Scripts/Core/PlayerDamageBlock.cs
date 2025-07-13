@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace Core
 {
     public class PlayerDamageBlock
@@ -5,9 +9,8 @@ namespace Core
         private const float TakeDamageCooldown = 0.2f;
 
         private readonly HealthBlock _healthBlock;
-
+        private readonly Dictionary<Guid, int> _damageDealers = new Dictionary<Guid, int>(10);
         private float _timeTillTakeDamage;
-        private int _accumulatedDamage;
 
         public PlayerDamageBlock(HealthBlock healthBlock)
         {
@@ -26,20 +29,34 @@ namespace Core
             _timeTillTakeDamage = TakeDamageCooldown;
         }
 
-        public void RegisterDamage(int damage)
+        public void RegisterDamager(Guid id, int damage)
         {
             if (damage <= 0)
             {
+                Debug.LogWarning("Damage is less or equal to zero");
                 return;
             }
 
-            _accumulatedDamage += damage;
+            if (!_damageDealers.TryAdd(id, damage))
+            {
+                Debug.LogWarning("Damager has already been registered");
+            }
+        }
+
+        public void RemoveDamager(Guid id)
+        {
+            _damageDealers.Remove(id);
         }
 
         private void TakeDamage()
         {
-            _healthBlock.ReduceHealth(_accumulatedDamage);
-            _accumulatedDamage = 0;
+            var accumulatedDamage = 0;
+            foreach (var damageDealer in _damageDealers)
+            {
+                accumulatedDamage += damageDealer.Value;
+            }
+
+            _healthBlock.ReduceHealth(accumulatedDamage);
         }
     }
 }
