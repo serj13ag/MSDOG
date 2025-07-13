@@ -1,3 +1,4 @@
+using Core.Enemies.EnemyBehaviour.Wanderer;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,14 +8,14 @@ namespace Core.Enemies.EnemyBehaviour
     {
         private const float WalkingTimeout = 10f;
 
-        private readonly Enemy _enemy;
+        private readonly WandererBehaviourStateMachine _stateMachine;
         private readonly NavMeshAgent _agent;
 
         private float _elapsedTime;
 
-        public WalkingEnemyState(Enemy enemy, NavMeshAgent agent, Vector3 destination)
+        public WalkingEnemyState(WandererBehaviourStateMachine stateMachine, NavMeshAgent agent, Vector3 destination)
         {
-            _enemy = enemy;
+            _stateMachine = stateMachine;
             _agent = agent;
 
             var path = new NavMeshPath();
@@ -24,7 +25,7 @@ namespace Core.Enemies.EnemyBehaviour
             }
             else
             {
-                Debug.LogWarning($"Enemy {enemy.name} could not calculate path to {destination}");
+                Debug.LogWarning($"{GetType().Name}: Could not calculate path to {destination}");
             }
         }
 
@@ -38,14 +39,14 @@ namespace Core.Enemies.EnemyBehaviour
             _elapsedTime += deltaTime;
             if (_elapsedTime > WalkingTimeout)
             {
-                _enemy.ChangeStateToWaiting();
+                _stateMachine.ChangeStateToWaiting();
                 return;
             }
 
             var hasReachedDestination = !_agent.pathPending && _agent.remainingDistance < 0.5f;
             if (hasReachedDestination)
             {
-                _enemy.ChangeStateToWaiting();
+                _stateMachine.ChangeStateToWaiting();
             }
         }
     }

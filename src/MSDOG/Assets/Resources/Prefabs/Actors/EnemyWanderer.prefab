@@ -440,7 +440,7 @@ GameObject:
   - component: {fileID: 6251957368140847398}
   - component: {fileID: 4752615237146045688}
   m_Layer: 11
-  m_Name: Enemy
+  m_Name: EnemyWanderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

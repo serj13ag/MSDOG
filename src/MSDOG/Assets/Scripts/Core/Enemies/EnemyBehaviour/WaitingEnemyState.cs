@@ -1,15 +1,16 @@
+using Core.Enemies.EnemyBehaviour.Wanderer;
+
 namespace Core.Enemies.EnemyBehaviour
 {
     public class WaitingEnemyState : IEnemyState
     {
-        private readonly Enemy _enemy;
+        private readonly WandererBehaviourStateMachine _stateMachine;
 
         private float _timeTillStartWalking;
 
-        public WaitingEnemyState(Enemy enemy, float waitTime)
+        public WaitingEnemyState(WandererBehaviourStateMachine stateMachine, float waitTime)
         {
-            _enemy = enemy;
-
+            _stateMachine = stateMachine;
             _timeTillStartWalking = waitTime;
         }
 
@@ -21,7 +22,7 @@ namespace Core.Enemies.EnemyBehaviour
                 return;
             }
 
-            _enemy.ChangeStateToWalking();
+            _stateMachine.ChangeStateToWalking();
         }
     }
 }

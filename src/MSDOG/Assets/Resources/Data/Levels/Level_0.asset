@@ -12,10 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 721dc5d060184ac9a24d9884c562867a, type: 3}
   m_Name: Level_0
   m_EditorClassIdentifier: 
+  LevelIndex: 0
   Waves:
-  - Enemies: 3
+  - Enemies:
+    - Type: 0
+      Count: 3
     TimeTillNextWave: 3
-  - Enemies: 4
+  - Enemies:
+    - Type: 0
+      Count: 4
     TimeTillNextWave: 3
-  - Enemies: 5
+  - Enemies:
+    - Type: 0
+      Count: 5
     TimeTillNextWave: 3

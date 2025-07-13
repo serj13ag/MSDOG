@@ -75,15 +75,18 @@ namespace Services.Gameplay
 
             var spawnedEnemyPositions = new List<Vector3>();
 
-            for (var i = 0; i < waveData.Enemies; i++)
+            foreach (var enemyWaveData in waveData.Enemies)
             {
-                var position = FindValidSpawnPosition(spawnedEnemyPositions);
-                spawnedEnemyPositions.Add(position);
+                for (var i = 0; i < enemyWaveData.Count; i++)
+                {
+                    var position = FindValidSpawnPosition(spawnedEnemyPositions);
+                    spawnedEnemyPositions.Add(position);
 
-                var enemy = _gameFactory.CreateEnemy(position);
-                _enemies.Add(enemy);
+                    var enemy = _gameFactory.CreateEnemy(position, enemyWaveData.Type);
+                    _enemies.Add(enemy);
 
-                enemy.OnDestroyed += OnEnemyDestroyed;
+                    enemy.OnDestroyed += OnEnemyDestroyed;
+                }
             }
         }
 

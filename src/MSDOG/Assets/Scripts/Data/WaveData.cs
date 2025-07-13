@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 
 namespace Data
 {
     [Serializable]
     public class WaveData
     {
-        public int Enemies;
+        public List<EnemyWaveData> Enemies;
         public float TimeTillNextWave;
     }
 }

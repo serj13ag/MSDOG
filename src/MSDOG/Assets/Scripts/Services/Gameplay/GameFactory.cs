@@ -1,3 +1,4 @@
+using System;
 using Constants;
 using Core;
 using Core.Enemies;
@@ -33,11 +34,25 @@ namespace Services.Gameplay
             return player;
         }
 
-        public Enemy CreateEnemy(Vector3 position)
+        public Enemy CreateEnemy(Vector3 position, EnemyType type)
         {
-            var enemy = _assetProviderService.Instantiate<Enemy>(AssetPaths.EnemyPrefab, position);
-            enemy.Init(_updateService, _player);
-            return enemy;
+            switch (type)
+            {
+                case EnemyType.Wanderer:
+                {
+                    var enemy = _assetProviderService.Instantiate<Enemy>(AssetPaths.WandererEnemyPrefab, position);
+                    enemy.Init(_updateService, _player, type);
+                    return enemy;
+                }
+                case EnemyType.Melee:
+                {
+                    var enemy = _assetProviderService.Instantiate<Enemy>(AssetPaths.MeleeEnemyPrefab, position);
+                    enemy.Init(_updateService, _player, type);
+                    return enemy;
+                }
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
         }
     }
 }
