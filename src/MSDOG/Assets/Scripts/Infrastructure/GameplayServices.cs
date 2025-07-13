@@ -1,6 +1,8 @@
 using Constants;
 using Services;
 using Services.Gameplay;
+using UI.HUD;
+using UnityEngine;
 
 namespace Infrastructure
 {
@@ -33,6 +35,9 @@ namespace Infrastructure
         {
             var player = _gameFactory.CreatePlayer();
             _cameraService.SetFollowTarget(player.transform);
+
+            var hudController = Object.FindFirstObjectByType<HudController>();
+            hudController.Init(player);
 
             _enemyService.ActivateLevel(0, player.transform); // TODO: add level selection
         }

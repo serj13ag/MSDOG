@@ -22,6 +22,15 @@ namespace Core
 
         private List<IAbility> _abilities;
 
+        public int CurrentHealth => _healthBlock.CurrentHealth;
+        public int MaxHealth => _healthBlock.MaxHealth;
+
+        public event Action OnHealthChanged
+        {
+            add => _healthBlock.OnHealthChanged += value;
+            remove => _healthBlock.OnHealthChanged -= value;
+        }
+
         public void Init(InputService inputService, UpdateService updateService, ArenaService arenaService,
             AbilityFactory abilityFactory)
         {
@@ -40,8 +49,6 @@ namespace Core
                 abilityFactory.CreateGunShotAbility(this),
                 abilityFactory.CreateBulletHellAbility(this),
             }; // TODO: load dynamically
-
-            _healthBlock.OnHealthChanged += OnHealthChanged;
         }
 
         public void OnUpdate(float deltaTime)
@@ -95,16 +102,9 @@ namespace Core
             }
         }
 
-        private void OnHealthChanged()
-        {
-            Debug.Log($"Player ({_healthBlock.CurrentHealth}/{_healthBlock.MaxHealth})"); // TODO: remove when add UI
-        }
-
         private void OnDestroy()
         {
             _updateService.Remove(this);
-
-            _healthBlock.OnHealthChanged -= OnHealthChanged;
         }
     }
 }
