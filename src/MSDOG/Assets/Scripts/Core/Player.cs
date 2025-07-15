@@ -86,6 +86,11 @@ namespace Core
             _experienceBlock.AddExperience(experience);
         }
 
+        public void ResetExperience()
+        {
+            _experienceBlock.ResetExperience();
+        }
+
         private void HandleAbilities(float deltaTime)
         {
             foreach (var ability in _abilities)

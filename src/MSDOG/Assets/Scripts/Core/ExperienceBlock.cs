@@ -11,7 +11,6 @@ namespace Core
 
         public int CurrentExperience => _currentExperience;
         public int MaxExperience => MaxExperienceConst;
-        public bool IsFull => _currentExperience == MaxExperience;
 
         public event Action OnExperienceChanged;
 
@@ -25,9 +24,19 @@ namespace Core
             var newExperience = _currentExperience + experience;
             newExperience = Mathf.Min(newExperience, MaxExperienceConst);
 
-            if (_currentExperience != newExperience)
+            SetCurrentExperience(newExperience);
+        }
+
+        public void ResetExperience()
+        {
+            SetCurrentExperience(0);
+        }
+
+        private void SetCurrentExperience(int value)
+        {
+            if (_currentExperience != value)
             {
-                _currentExperience = newExperience;
+                _currentExperience = value;
                 OnExperienceChanged?.Invoke();
             }
         }
