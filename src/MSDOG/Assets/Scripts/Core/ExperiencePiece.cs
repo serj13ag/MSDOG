@@ -7,6 +7,8 @@ namespace Core
 {
     public class ExperiencePiece : MonoBehaviour, IUpdatable
     {
+        private const int Experience = 1;
+
         [SerializeField] private ColliderEventProvider _colliderEventProvider;
 
         private UpdateService _updateService;
@@ -30,7 +32,7 @@ namespace Core
             var vectorToPlayer = _player.transform.position - transform.position;
             if (vectorToPlayer.sqrMagnitude < 0.1f)
             {
-                // TODO: add exp to player
+                _player.CollectExperience(Experience);
                 Destroy(gameObject);
                 return;
             }

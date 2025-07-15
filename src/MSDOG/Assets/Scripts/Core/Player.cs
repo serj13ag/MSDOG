@@ -18,6 +18,7 @@ namespace Core
         private ArenaService _arenaService;
 
         private HealthBlock _healthBlock;
+        private ExperienceBlock _experienceBlock;
         private PlayerDamageBlock _playerDamageBlock;
 
         private List<IAbility> _abilities;
@@ -25,12 +26,21 @@ namespace Core
         public int CurrentHealth => _healthBlock.CurrentHealth;
         public int MaxHealth => _healthBlock.MaxHealth;
 
+        public int CurrentExperience => _experienceBlock.CurrentExperience;
+        public int MaxExperience => _experienceBlock.MaxExperience;
+        
         public event Action OnHealthChanged
         {
             add => _healthBlock.OnHealthChanged += value;
             remove => _healthBlock.OnHealthChanged -= value;
         }
 
+        public event Action OnExperienceChanged
+        {
+            add => _experienceBlock.OnExperienceChanged += value;
+            remove => _experienceBlock.OnExperienceChanged -= value;
+        }
+        
         public void Init(InputService inputService, UpdateService updateService, ArenaService arenaService,
             AbilityFactory abilityFactory)
         {
@@ -39,6 +49,7 @@ namespace Core
             _inputService = inputService;
 
             _healthBlock = new HealthBlock(100);
+            _experienceBlock = new ExperienceBlock();
             _playerDamageBlock = new PlayerDamageBlock(_healthBlock);
 
             updateService.Register(this);
@@ -67,6 +78,11 @@ namespace Core
         public void RemoveDamager(Guid id)
         {
             _playerDamageBlock.RemoveDamager(id);
+        }
+
+        public void CollectExperience(int experience)
+        {
+            _experienceBlock.AddExperience(experience);
         }
 
         private void HandleMove(float deltaTime)
