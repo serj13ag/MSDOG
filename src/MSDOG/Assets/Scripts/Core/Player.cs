@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Abilities;
+using Core.Details;
 using Interfaces;
 using Services;
 using Services.Gameplay;
@@ -14,6 +15,7 @@ namespace Core
         [SerializeField] private float _moveSpeed = 6f;
 
         private UpdateService _updateService;
+        private AbilityFactory _abilityFactory;
 
         private HealthBlock _healthBlock;
         private ExperienceBlock _experienceBlock;
@@ -46,6 +48,7 @@ namespace Core
         public void Init(InputService inputService, UpdateService updateService, ArenaService arenaService,
             AbilityFactory abilityFactory)
         {
+            _abilityFactory = abilityFactory;
             _updateService = updateService;
 
             _healthBlock = new HealthBlock(100);
@@ -58,9 +61,7 @@ namespace Core
             _abilities = new List<IAbility>()
             {
                 abilityFactory.CreateCuttingBlowAbility(this),
-                abilityFactory.CreateGunShotAbility(this),
-                abilityFactory.CreateBulletHellAbility(this),
-            }; // TODO: load dynamically
+            };
         }
 
         public void OnUpdate(float deltaTime)
@@ -91,9 +92,15 @@ namespace Core
             _experienceBlock.ResetExperience();
         }
 
+        public void AddAbility(Detail detail)
+        {
+            var ability = _abilityFactory.CreateAbility(detail, this);
+            _abilities.Add(ability);
+        }
+
         private void HandleAbilities(float deltaTime)
         {
-            foreach (var ability in _abilities)
+            foreach (var ability in _abilities.ToArray())
             {
                 ability.OnUpdate(deltaTime);
             }

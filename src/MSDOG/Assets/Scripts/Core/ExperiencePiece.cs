@@ -7,7 +7,7 @@ namespace Core
 {
     public class ExperiencePiece : MonoBehaviour, IUpdatable
     {
-        private const int Experience = 1;
+        private const int Experience = 10;
 
         [SerializeField] private ColliderEventProvider _colliderEventProvider;
 
