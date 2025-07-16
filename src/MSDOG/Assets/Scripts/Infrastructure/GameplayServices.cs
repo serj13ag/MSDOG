@@ -11,6 +11,7 @@ namespace Infrastructure
         private static EnemyService _enemyService;
         private static GameFactory _gameFactory;
         private static CameraService _cameraService;
+        private static DataService _dataService;
 
         public static void Initialize(AssetProviderService assetProviderService, SoundService soundService,
             UpdateService updateService, DataService dataService)
@@ -19,7 +20,7 @@ namespace Infrastructure
             var arenaService = new ArenaService();
             var projectileFactory = new ProjectileFactory(assetProviderService, updateService);
             var abilityFactory = new AbilityFactory(projectileFactory);
-            var gameFactory = new GameFactory(assetProviderService, updateService, inputService, arenaService, abilityFactory);
+            var gameFactory = new GameFactory(assetProviderService, updateService, inputService, arenaService, abilityFactory, dataService);
 
             var cameraService = assetProviderService.Instantiate<CameraService>(AssetPaths.CameraServicePath);
             cameraService.Init(updateService);
@@ -29,6 +30,7 @@ namespace Infrastructure
             _gameFactory = gameFactory;
             _cameraService = cameraService;
             _enemyService = enemyService;
+            _dataService = dataService;
         }
 
         public static void Start()
@@ -37,7 +39,7 @@ namespace Infrastructure
             _cameraService.SetFollowTarget(player.transform);
 
             var hudController = Object.FindFirstObjectByType<HudController>();
-            hudController.Init(player);
+            hudController.Init(player, _dataService);
 
             _enemyService.ActivateLevel(0, player.transform); // TODO: add level selection
         }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.Abilities;
-using Core.Details;
+using Data;
 using Interfaces;
 using Services;
 using Services.Gameplay;
@@ -46,7 +46,7 @@ namespace Core
         }
 
         public void Init(InputService inputService, UpdateService updateService, ArenaService arenaService,
-            AbilityFactory abilityFactory)
+            AbilityFactory abilityFactory, DataService dataService)
         {
             _abilityFactory = abilityFactory;
             _updateService = updateService;
@@ -60,7 +60,7 @@ namespace Core
 
             _abilities = new List<IAbility>()
             {
-                abilityFactory.CreateCuttingBlowAbility(this),
+                abilityFactory.CreateAbility(dataService.GetStartAbilityData(), this),
             };
         }
 
@@ -92,9 +92,9 @@ namespace Core
             _experienceBlock.ResetExperience();
         }
 
-        public void AddAbility(Detail detail)
+        public void AddAbility(AbilityData abilityData)
         {
-            var ability = _abilityFactory.CreateAbility(detail, this);
+            var ability = _abilityFactory.CreateAbility(abilityData, this);
             _abilities.Add(ability);
         }
 

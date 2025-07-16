@@ -1,6 +1,6 @@
-namespace Core.Details
+namespace Core.Abilities
 {
-    public enum DetailType
+    public enum AbilityType
     {
         CuttingBlow,
         GunShot,

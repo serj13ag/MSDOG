@@ -1,5 +1,5 @@
 using Core;
-using Core.Details;
+using Services;
 using TMPro;
 using UI.HUD.DetailsZone;
 using UnityEngine;
@@ -14,11 +14,13 @@ namespace UI.HUD
         [SerializeField] private Button _craftButton;
 
         private Player _player;
+        private DataService _dataService;
         private DetailsZoneHud _detailsZoneHud;
 
-        public void Init(Player player, DetailsZoneHud detailsZoneHud)
+        public void Init(Player player, DataService dataService, DetailsZoneHud detailsZoneHud)
         {
             _player = player;
+            _dataService = dataService;
             _detailsZoneHud = detailsZoneHud;
 
             UpdateView();
@@ -29,7 +31,8 @@ namespace UI.HUD
 
         private void OnCraftButtonClick()
         {
-            _detailsZoneHud.CreateDetail(DetailType.BulletHell);
+            var abilityData = _dataService.GetRandomCraftAbilityData();
+            _detailsZoneHud.CreateDetail(abilityData);
             _player.ResetExperience();
         }
 

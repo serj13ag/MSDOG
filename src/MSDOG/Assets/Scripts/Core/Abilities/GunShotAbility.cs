@@ -1,3 +1,4 @@
+using Data;
 using DTO;
 using Services.Gameplay;
 
@@ -11,15 +12,15 @@ namespace Core.Abilities
         private readonly float _speed;
         private readonly int _pierce;
 
-        public GunShotAbility(Player player, ProjectileFactory projectileFactory)
-            : base(cooldown: 1f)
+        public GunShotAbility(AbilityData abilityData, Player player, ProjectileFactory projectileFactory)
+            : base(abilityData.Cooldown)
         {
             _player = player;
             _projectileFactory = projectileFactory;
 
-            _damage = 1;
-            _speed = 5f;
-            _pierce = 1;
+            _damage = abilityData.Damage;
+            _speed = abilityData.Speed;
+            _pierce = abilityData.Pierce;
         }
 
         protected override void InvokeAction()

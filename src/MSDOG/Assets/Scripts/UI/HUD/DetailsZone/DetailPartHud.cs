@@ -1,4 +1,4 @@
-using Core.Details;
+using Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,15 +15,15 @@ namespace UI.HUD.DetailsZone
 
         private Transform _originalParent;
         private int _originalSiblingIndex;
-        private Detail _detail;
+        private AbilityData _abilityData;
 
-        public Detail Detail => _detail;
+        public AbilityData AbilityData => _abilityData;
 
-        public void Init(Detail detail, Canvas parentCanvas)
+        public void Init(AbilityData abilityData, Canvas parentCanvas)
         {
-            _detail = detail;
+            _abilityData = abilityData;
             _parentCanvas = parentCanvas;
-            _text.text = detail.ToString();
+            _text.text = _abilityData.AbilityType.ToString();
         }
 
         public void OnBeginDrag(PointerEventData eventData)

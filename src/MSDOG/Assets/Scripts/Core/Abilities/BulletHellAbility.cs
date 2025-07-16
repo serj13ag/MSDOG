@@ -1,3 +1,4 @@
+using Data;
 using DTO;
 using Services.Gameplay;
 using UnityEngine;
@@ -12,15 +13,15 @@ namespace Core.Abilities
         private readonly float _speed;
         private readonly int _pierce;
 
-        public BulletHellAbility(Player player, ProjectileFactory projectileFactory)
-            : base(cooldown: 0.5f)
+        public BulletHellAbility(AbilityData abilityData, Player player, ProjectileFactory projectileFactory)
+            : base(abilityData.Cooldown)
         {
             _player = player;
             _projectileFactory = projectileFactory;
 
-            _damage = 1;
-            _speed = 10f;
-            _pierce = 0;
+            _damage = abilityData.Damage;
+            _speed = abilityData.Speed;
+            _pierce = abilityData.Pierce;
         }
 
         protected override void InvokeAction()

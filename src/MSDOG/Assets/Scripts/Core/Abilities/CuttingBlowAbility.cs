@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Constants;
 using Core.Enemies;
+using Data;
 using UnityEngine;
 
 namespace Core.Abilities
@@ -15,12 +16,12 @@ namespace Core.Abilities
         private readonly float _length;
         private readonly Collider[] _hitBuffer = new Collider[32];
 
-        public CuttingBlowAbility(Player player)
-            : base(cooldown: 2f)
+        public CuttingBlowAbility(AbilityData abilityData, Player player)
+            : base(abilityData.Cooldown)
         {
             _player = player;
-            _damage = 2;
-            _length = 7f;
+            _damage = abilityData.Damage;
+            _length = abilityData.Size;
         }
 
         protected override void InvokeAction()

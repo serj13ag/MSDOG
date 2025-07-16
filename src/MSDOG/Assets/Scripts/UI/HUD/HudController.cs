@@ -1,4 +1,5 @@
 using Core;
+using Services;
 using UI.HUD.DetailsZone;
 using UnityEngine;
 
@@ -11,10 +12,10 @@ namespace UI.HUD
         [SerializeField] private DetailsZoneHud _detailsZoneHud;
         [SerializeField] private ActiveZoneHud _activeZoneHud;
 
-        public void Init(Player player)
+        public void Init(Player player, DataService dataService)
         {
             _healthBarHud.Init(player);
-            _experienceBarHud.Init(player, _detailsZoneHud);
+            _experienceBarHud.Init(player, dataService, _detailsZoneHud);
             _activeZoneHud.Init(player);
         }
     }

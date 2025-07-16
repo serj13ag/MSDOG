@@ -1,7 +1,7 @@
 using System;
 using Core;
 using Core.Abilities;
-using Core.Details;
+using Data;
 
 namespace Services.Gameplay
 {
@@ -14,30 +14,15 @@ namespace Services.Gameplay
             _projectileFactory = projectileFactory;
         }
 
-        public IAbility CreateAbility(Detail detail, Player player)
+        public IAbility CreateAbility(AbilityData abilityData, Player player)
         {
-            return detail.Type switch
+            return abilityData.AbilityType switch
             {
-                DetailType.CuttingBlow => CreateCuttingBlowAbility(player),
-                DetailType.GunShot => CreateGunShotAbility(player),
-                DetailType.BulletHell => CreateBulletHellAbility(player),
+                AbilityType.CuttingBlow => new CuttingBlowAbility(abilityData, player),
+                AbilityType.GunShot => new GunShotAbility(abilityData, player, _projectileFactory),
+                AbilityType.BulletHell => new BulletHellAbility(abilityData, player, _projectileFactory),
                 _ => throw new ArgumentOutOfRangeException(),
             };
-        }
-
-        public IAbility CreateCuttingBlowAbility(Player player)
-        {
-            return new CuttingBlowAbility(player);
-        }
-
-        private IAbility CreateGunShotAbility(Player player)
-        {
-            return new GunShotAbility(player, _projectileFactory);
-        }
-
-        private IAbility CreateBulletHellAbility(Player player)
-        {
-            return new BulletHellAbility(player, _projectileFactory);
         }
     }
 }

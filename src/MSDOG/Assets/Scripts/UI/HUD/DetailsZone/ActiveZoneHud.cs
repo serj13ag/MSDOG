@@ -39,7 +39,7 @@ namespace UI.HUD.DetailsZone
 
             _detailParts.Add(detailPart);
             detailPart.transform.SetParent(_grid.transform);
-            _player.AddAbility(detailPart.Detail);
+            _player.AddAbility(detailPart.AbilityData);
         }
     }
 }

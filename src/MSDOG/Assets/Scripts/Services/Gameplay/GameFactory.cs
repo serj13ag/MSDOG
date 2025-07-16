@@ -16,10 +16,12 @@ namespace Services.Gameplay
         private readonly UpdateService _updateService;
 
         private Player _player; // TODO: remove?
+        private DataService _dataService;
 
         public GameFactory(AssetProviderService assetProviderService, UpdateService updateService, InputService inputService,
-            ArenaService arenaService, AbilityFactory abilityFactory)
+            ArenaService arenaService, AbilityFactory abilityFactory, DataService dataService)
         {
+            _dataService = dataService;
             _assetProviderService = assetProviderService;
             _inputService = inputService;
             _arenaService = arenaService;
@@ -30,7 +32,7 @@ namespace Services.Gameplay
         public Player CreatePlayer()
         {
             var player = _assetProviderService.Instantiate<Player>(AssetPaths.PlayerPrefab);
-            player.Init(_inputService, _updateService, _arenaService, _abilityFactory);
+            player.Init(_inputService, _updateService, _arenaService, _abilityFactory, _dataService);
             _player = player;
             return player;
         }
