@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Abilities;
 using Data;
 using Interfaces;
@@ -97,10 +98,17 @@ namespace Core
             _experienceBlock.ResetExperience();
         }
 
-        public void AddAbility(AbilityData abilityData)
+        public void AddAbility(Guid id, AbilityData abilityData)
         {
             var ability = _abilityFactory.CreateAbility(abilityData, this);
+            ability.SetId(id); // TODO: to ctor
             _abilities.Add(ability);
+        }
+
+        public void RemoveAbility(Guid id)
+        {
+            var abilityToRemove = _abilities.Single(x => x.Id == id);
+            _abilities.Remove(abilityToRemove);
         }
 
         private void HandleAbilities(float deltaTime)

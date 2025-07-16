@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01749b93f6c1463a97e64d3b02419ba7, type: 3}
   m_Name: CuttingBlow_0
   m_EditorClassIdentifier: 
+  Code: CuttingBlow_0
   AbilityType: 0
   Damage: 2
   Cooldown: 2

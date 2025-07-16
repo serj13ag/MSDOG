@@ -167,8 +167,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26
-  m_fontSizeBase: 26
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -264,7 +264,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _text: {fileID: 2047229791093500310}
   _canvasGroup: {fileID: 669501845661168045}
-  _canvas: {fileID: 0}
   _rectTransform: {fileID: 7281500132908236255}
 --- !u!225 &669501845661168045
 CanvasGroup:

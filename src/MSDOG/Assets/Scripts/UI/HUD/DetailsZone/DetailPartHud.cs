@@ -1,3 +1,4 @@
+using System;
 using Data;
 using TMPro;
 using UnityEngine;
@@ -16,14 +17,28 @@ namespace UI.HUD.DetailsZone
         private Transform _originalParent;
         private int _originalSiblingIndex;
         private AbilityData _abilityData;
+        private IDetailsZone _currentDetailsZone;
 
+        public Guid Id { get; private set; }
         public AbilityData AbilityData => _abilityData;
 
         public void Init(AbilityData abilityData, Canvas parentCanvas)
         {
+            Id = Guid.NewGuid();
             _abilityData = abilityData;
             _parentCanvas = parentCanvas;
             _text.text = _abilityData.AbilityType.ToString();
+        }
+
+        public void SetCurrentZone(IDetailsZone newZone)
+        {
+            if (_currentDetailsZone != null && _currentDetailsZone != newZone)
+            {
+                _currentDetailsZone.Exit(this);
+            }
+
+            _currentDetailsZone = newZone;
+            newZone.Enter(this);
         }
 
         public void OnBeginDrag(PointerEventData eventData)

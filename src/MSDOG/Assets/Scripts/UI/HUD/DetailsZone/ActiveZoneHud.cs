@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace UI.HUD.DetailsZone
 {
-    public class ActiveZoneHud : MonoBehaviour, IDropHandler
+    public class ActiveZoneHud : MonoBehaviour, IDetailsZone, IDropHandler
     {
         private const int MaxNumberOfActiveParts = 4;
 
@@ -37,9 +37,20 @@ namespace UI.HUD.DetailsZone
                 return;
             }
 
+            detailPart.SetCurrentZone(this);
+        }
+
+        public void Enter(DetailPartHud detailPart)
+        {
             _detailParts.Add(detailPart);
             detailPart.transform.SetParent(_grid.transform);
-            _player.AddAbility(detailPart.AbilityData);
+            _player.AddAbility(detailPart.Id, detailPart.AbilityData);
+        }
+
+        public void Exit(DetailPartHud detailPart)
+        {
+            _detailParts.Remove(detailPart);
+            _player.RemoveAbility(detailPart.Id);
         }
     }
 }
