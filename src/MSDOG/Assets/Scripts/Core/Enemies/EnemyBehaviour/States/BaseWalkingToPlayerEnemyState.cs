@@ -3,12 +3,14 @@ using UtilityComponents;
 
 namespace Core.Enemies.EnemyBehaviour.States
 {
-    public class WalkingToPlayerEnemyState : IEnemyState
+    public abstract class BaseWalkingToPlayerEnemyState : IEnemyState
     {
         private readonly Enemy _enemy;
         private readonly ColliderEventProvider _triggerEnterProvider;
 
-        public WalkingToPlayerEnemyState(Enemy enemy, ColliderEventProvider triggerEnterProvider)
+        protected Enemy Enemy => _enemy;
+
+        protected BaseWalkingToPlayerEnemyState(Enemy enemy, ColliderEventProvider triggerEnterProvider)
         {
             _enemy = enemy;
             _triggerEnterProvider = triggerEnterProvider;
@@ -20,7 +22,7 @@ namespace Core.Enemies.EnemyBehaviour.States
             }
         }
 
-        public void OnUpdate(float deltaTime)
+        public virtual void OnUpdate(float deltaTime)
         {
             var enemyAgent = _enemy.Agent;
             if (!enemyAgent.isActiveAndEnabled)

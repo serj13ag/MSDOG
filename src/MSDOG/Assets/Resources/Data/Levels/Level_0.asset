@@ -26,3 +26,7 @@ MonoBehaviour:
     - Data: {fileID: 11400000, guid: 28fb93b068123e342a2ef887c9fb7960, type: 2}
       Count: 5
     TimeTillNextWave: 3
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
+      Count: 5
+    TimeTillNextWave: 3

@@ -4,5 +4,6 @@ namespace Core.Enemies
     {
         Wanderer,
         Melee,
+        Range,
     }
 }

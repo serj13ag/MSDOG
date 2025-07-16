@@ -47,7 +47,7 @@ namespace Core.Abilities
             var boxSize = new Vector3(_length, BoxHeight, BoxWidth);
 
             var hits = Physics.OverlapBoxNonAlloc(boxCenter, boxSize * 0.5f, _hitBuffer, Quaternion.identity,
-                Settings.LayerMasks.Enemy);
+                Settings.LayerMasks.EnemyLayer);
             for (var i = 0; i < hits; i++)
             {
                 var collider = _hitBuffer[i];

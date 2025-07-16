@@ -9,7 +9,8 @@ namespace Data
         public EnemyType Type;
         public float Speed;
         public int MaxHealth;
-        public float AttackSpeed;
+        public float Cooldown;
         public int Damage;
+        public float ProjectileSpeed;
     }
 }

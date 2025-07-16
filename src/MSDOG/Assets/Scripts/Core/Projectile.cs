@@ -1,3 +1,4 @@
+using System;
 using Core.Enemies;
 using DTO;
 using Interfaces;
@@ -13,15 +14,19 @@ namespace Core
 
         private UpdateService _updateService;
 
+        private bool _isPlayer;
+        private Guid _id;
         private Vector3 _forwardDirection;
         private int _damage;
         private float _speed;
         private int _pierce;
 
-        public void Init(CreateProjectileDto createProjectileDto, UpdateService updateService)
+        public void Init(CreateProjectileDto createProjectileDto, UpdateService updateService, bool isPlayer)
         {
             _updateService = updateService;
 
+            _isPlayer = isPlayer;
+            _id = Guid.NewGuid();
             _pierce = createProjectileDto.Pierce;
             _speed = createProjectileDto.Speed;
             _damage = createProjectileDto.Damage;
@@ -38,13 +43,26 @@ namespace Core
 
         private void OnTriggerEntered(Collider other)
         {
-            var enemy = other.gameObject.GetComponentInParent<Enemy>();
-            if (!enemy)
+            if (_isPlayer)
             {
-                return;
-            }
+                var enemy = other.gameObject.GetComponentInParent<Enemy>();
+                if (!enemy)
+                {
+                    return;
+                }
 
-            enemy.TakeDamage(_damage);
+                enemy.TakeDamage(_damage);
+            }
+            else
+            {
+                var player = other.gameObject.GetComponentInParent<Player>();
+                if (!player)
+                {
+                    return;
+                }
+
+                player.RegisterProjectileDamager(_id, _damage);
+            }
 
             if (_pierce > 0)
             {

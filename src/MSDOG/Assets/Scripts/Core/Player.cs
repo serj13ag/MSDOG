@@ -77,6 +77,11 @@ namespace Core
             _playerDamageBlock.RegisterDamager(id, damage);
         }
 
+        public void RegisterProjectileDamager(Guid id, int damage)
+        {
+            _playerDamageBlock.RegisterProjectileDamager(id, damage);
+        }
+
         public void RemoveDamager(Guid id)
         {
             _playerDamageBlock.RemoveDamager(id);

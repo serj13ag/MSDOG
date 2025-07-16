@@ -9,7 +9,7 @@ namespace Core.Enemies.EnemyBehaviour
 
         public MeleeBehaviourStateMachine(Enemy enemy, ColliderEventProvider triggerEnterProvider)
         {
-            _state = new WalkingToPlayerEnemyState(enemy, triggerEnterProvider);
+            _state = new MeleeWalkingToPlayerEnemyState(enemy, triggerEnterProvider);
         }
 
         public void OnUpdate(float deltaTime)

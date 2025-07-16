@@ -1,7 +1,6 @@
 using Constants;
 using Core;
 using DTO;
-using UnityEngine;
 
 namespace Services.Gameplay
 {
@@ -21,7 +20,15 @@ namespace Services.Gameplay
             var projectile =
                 _assetProviderService.Instantiate<Projectile>(AssetPaths.PlayerProjectilePrefab,
                     createProjectileDto.SpawnPosition);
-            projectile.Init(createProjectileDto, _updateService);
+            projectile.Init(createProjectileDto, _updateService, true);
+        }
+
+        public void CreateEnemyProjectile(CreateProjectileDto createProjectileDto)
+        {
+            var projectile =
+                _assetProviderService.Instantiate<Projectile>(AssetPaths.EnemyProjectilePrefab,
+                    createProjectileDto.SpawnPosition);
+            projectile.Init(createProjectileDto, _updateService, false);
         }
     }
 }

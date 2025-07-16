@@ -10,6 +10,7 @@ namespace Core
 
         private readonly HealthBlock _healthBlock;
         private readonly Dictionary<Guid, int> _damageDealers = new Dictionary<Guid, int>(10);
+        private readonly Dictionary<Guid, int> _projectileDamageDealers = new Dictionary<Guid, int>(20);
         private float _timeTillTakeDamage;
 
         public PlayerDamageBlock(HealthBlock healthBlock)
@@ -43,6 +44,20 @@ namespace Core
             }
         }
 
+        public void RegisterProjectileDamager(Guid id, int damage)
+        {
+            if (damage <= 0)
+            {
+                Debug.LogWarning("Damage is less or equal to zero");
+                return;
+            }
+
+            if (!_projectileDamageDealers.TryAdd(id, damage))
+            {
+                Debug.LogWarning("Projectile damager has already been registered");
+            }
+        }
+
         public void RemoveDamager(Guid id)
         {
             _damageDealers.Remove(id);
@@ -55,6 +70,13 @@ namespace Core
             {
                 accumulatedDamage += damageDealer.Value;
             }
+
+            foreach (var projectileDamageDealer in _projectileDamageDealers)
+            {
+                accumulatedDamage += projectileDamageDealer.Value;
+            }
+
+            _projectileDamageDealers.Clear();
 
             _healthBlock.ReduceHealth(accumulatedDamage);
         }

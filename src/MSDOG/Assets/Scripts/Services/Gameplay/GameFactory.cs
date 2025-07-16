@@ -13,19 +13,22 @@ namespace Services.Gameplay
         private readonly InputService _inputService;
         private readonly ArenaService _arenaService;
         private readonly AbilityFactory _abilityFactory;
+        private readonly ProjectileFactory _projectileFactory;
         private readonly UpdateService _updateService;
+        private readonly DataService _dataService;
 
         private Player _player; // TODO: remove?
-        private DataService _dataService;
 
         public GameFactory(AssetProviderService assetProviderService, UpdateService updateService, InputService inputService,
-            ArenaService arenaService, AbilityFactory abilityFactory, DataService dataService)
+            ArenaService arenaService, DataService dataService, AbilityFactory abilityFactory,
+            ProjectileFactory projectileFactory)
         {
             _dataService = dataService;
             _assetProviderService = assetProviderService;
             _inputService = inputService;
             _arenaService = arenaService;
             _abilityFactory = abilityFactory;
+            _projectileFactory = projectileFactory;
             _updateService = updateService;
         }
 
@@ -43,11 +46,12 @@ namespace Services.Gameplay
             {
                 EnemyType.Wanderer => AssetPaths.WandererEnemyPrefab,
                 EnemyType.Melee => AssetPaths.MeleeEnemyPrefab,
+                EnemyType.Range => AssetPaths.RangeEnemyPrefab,
                 _ => throw new ArgumentOutOfRangeException(),
             };
 
             var enemy = _assetProviderService.Instantiate<Enemy>(prefabPath, position);
-            enemy.Init(_updateService, this, _player, data);
+            enemy.Init(_updateService, this, _projectileFactory, _player, data);
             return enemy;
         }
 

@@ -25,7 +25,13 @@ namespace Constants
 
         public static class LayerMasks
         {
-            public static readonly int Enemy = LayerMask.GetMask("Enemy");
+            public static readonly int EnemyLayer = LayerMask.GetMask("Enemy");
+        }
+
+        public static class Enemy
+        {
+            public const float RangeCloseDistance = 5f;
+            public const float RangeCloseDistanceOut = RangeCloseDistance + 1f;
         }
     }
 }
