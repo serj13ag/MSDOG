@@ -11,6 +11,7 @@ namespace Infrastructure.StateMachine
         private SoundService _soundService;
         private UpdateService _updateService;
         private DataService _dataService;
+        private WindowService _windowService;
 
         public void Resolve()
         {
@@ -20,6 +21,7 @@ namespace Infrastructure.StateMachine
             _soundService = GlobalServices.SoundService;
             _updateService = GlobalServices.UpdateService;
             _dataService = GlobalServices.DataService;
+            _windowService = GlobalServices.WindowService;
         }
 
         public void Enter()
@@ -35,7 +37,7 @@ namespace Infrastructure.StateMachine
 
         private void OnSceneLoaded()
         {
-            GameplayServices.Initialize(_assetProviderService, _soundService, _updateService, _dataService);
+            GameplayServices.Initialize(_assetProviderService, _soundService, _updateService, _dataService, _windowService);
             GameplayServices.Start();
 
             _loadingCurtainService.FadeOffWithDelay();

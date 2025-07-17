@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using Core.Enemies;
 using Data;
-using Infrastructure;
-using Infrastructure.StateMachine;
 using Interfaces;
 using UnityEngine;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 namespace Services.Gameplay
 {
@@ -26,6 +27,8 @@ namespace Services.Gameplay
         private float _timeTillSpawnNextWave;
 
         private readonly List<Enemy> _enemies = new List<Enemy>();
+
+        public event Action OnAllEnemiesDied;
 
         public EnemyService(UpdateService updateService, DataService dataService, GameFactory gameFactory,
             ArenaService arenaService)
@@ -99,7 +102,7 @@ namespace Services.Gameplay
 
             if (!_isActive && _enemies.Count == 0)
             {
-                GlobalServices.GameStateMachine.Enter<GameplayState>(); // TODO: show window
+                OnAllEnemiesDied?.Invoke();
             }
         }
 

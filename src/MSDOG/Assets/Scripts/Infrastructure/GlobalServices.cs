@@ -15,6 +15,7 @@ namespace Infrastructure
         public static SceneLoadService SceneLoadService { get; private set; }
         public static SoundService SoundService { get; private set; }
         public static UpdateService UpdateService { get; private set; }
+        public static WindowService WindowService { get; private set; }
 
         public static void Initialize(GameStateMachine gameStateMachine)
         {
@@ -34,12 +35,15 @@ namespace Infrastructure
             var soundService = assetProviderService.Instantiate<SoundService>(AssetPaths.SoundServicePath);
             soundService.Init(assetProviderService);
 
+            var windowService = new WindowService(assetProviderService);
+
             UpdateService = updateService;
             AssetProviderService = assetProviderService;
             DataService = dataService;
             LoadingCurtainService = loadingCurtainService;
             SceneLoadService = sceneLoadService;
             SoundService = soundService;
+            WindowService = windowService;
         }
     }
 }
