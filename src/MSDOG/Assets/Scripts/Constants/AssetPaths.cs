@@ -24,7 +24,6 @@ namespace Constants
         public const string DestroySoundPath = "Sounds/Break";
 
         // Ui Prefabs
-        public const string UiRootCanvasPath = "Prefabs/Ui/UiRootCanvas";
-        public const string MainMenuPath = "Prefabs/Ui/MainMenu";
+        public const string DetailPartPrefabPath = "Prefabs/Hud/DetailPartHud";
     }
 }

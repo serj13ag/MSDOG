@@ -1728,7 +1728,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parentCanvas: {fileID: 8321623607874761516}
-  _detailPartPrefab: {fileID: 5008620555445404248, guid: cc9a0b06c7674a7418a764b9c17ba9a3, type: 3}
   _detailsGrid: {fileID: 4812623954420421030}
 --- !u!1 &6064456123543192789
 GameObject:
@@ -2036,6 +2035,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 352fae6bc10c43d0a660b9c97bef2f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _parentCanvas: {fileID: 8321623607874761516}
   _grid: {fileID: 8004422459804137271}
 --- !u!1 &6942563091214015317
 GameObject:

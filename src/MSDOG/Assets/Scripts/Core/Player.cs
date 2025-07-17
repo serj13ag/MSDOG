@@ -23,7 +23,7 @@ namespace Core
         private PlayerDamageBlock _playerDamageBlock;
         private InputMoveBlock _moveBlock;
 
-        private List<IAbility> _abilities;
+        private Dictionary<Guid, IAbility> _abilities = new Dictionary<Guid, IAbility>();
 
         public CharacterController CharacterController => _characterController;
         public float MoveSpeed => _moveSpeed;
@@ -58,11 +58,6 @@ namespace Core
             _moveBlock = new InputMoveBlock(this, inputService, arenaService);
 
             updateService.Register(this);
-
-            _abilities = new List<IAbility>()
-            {
-                abilityFactory.CreateAbility(dataService.GetStartAbilityData(), this),
-            };
         }
 
         public void OnUpdate(float deltaTime)
@@ -101,19 +96,17 @@ namespace Core
         public void AddAbility(Guid id, AbilityData abilityData)
         {
             var ability = _abilityFactory.CreateAbility(abilityData, this);
-            ability.SetId(id); // TODO: to ctor
-            _abilities.Add(ability);
+            _abilities.Add(id, ability);
         }
 
         public void RemoveAbility(Guid id)
         {
-            var abilityToRemove = _abilities.Single(x => x.Id == id);
-            _abilities.Remove(abilityToRemove);
+            _abilities.Remove(id);
         }
 
         private void HandleAbilities(float deltaTime)
         {
-            foreach (var ability in _abilities.ToArray())
+            foreach (var ability in _abilities.Values.ToArray())
             {
                 ability.OnUpdate(deltaTime);
             }

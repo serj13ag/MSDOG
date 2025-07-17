@@ -12,10 +12,12 @@ namespace Infrastructure
         private static GameFactory _gameFactory;
         private static CameraService _cameraService;
         private static DataService _dataService;
+        private static AssetProviderService _assetProviderService;
 
         public static void Initialize(AssetProviderService assetProviderService, SoundService soundService,
             UpdateService updateService, DataService dataService)
         {
+            _assetProviderService = assetProviderService;
             var inputService = new InputService();
             var arenaService = new ArenaService();
             var projectileFactory = new ProjectileFactory(assetProviderService, updateService);
@@ -40,8 +42,10 @@ namespace Infrastructure
             _cameraService.SetFollowTarget(player.transform);
 
             var hudController = Object.FindFirstObjectByType<HudController>();
-            hudController.Init(player, _dataService);
+            hudController.Init(player, _dataService, _assetProviderService);
 
+            hudController.AddStartAbility();
+            
             _enemyService.ActivateLevel(0, player.transform); // TODO: add level selection
         }
 

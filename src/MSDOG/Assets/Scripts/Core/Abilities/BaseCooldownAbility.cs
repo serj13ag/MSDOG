@@ -1,5 +1,3 @@
-using System;
-
 namespace Core.Abilities
 {
     public abstract class BaseCooldownAbility : IAbility
@@ -7,18 +5,11 @@ namespace Core.Abilities
         private readonly float _cooldown;
         private float _timeTillAction;
 
-        public Guid Id { get; private set; }
-
         protected BaseCooldownAbility(float cooldown)
         {
             _cooldown = cooldown;
 
             ResetTimeTillAction();
-        }
-
-        public void SetId(Guid id)
-        {
-            Id = id;
         }
 
         public void OnUpdate(float deltaTime)

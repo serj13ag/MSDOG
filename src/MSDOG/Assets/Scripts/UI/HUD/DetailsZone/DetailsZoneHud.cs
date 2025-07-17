@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Constants;
 using Data;
+using Services;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,14 +11,20 @@ namespace UI.HUD.DetailsZone
     public class DetailsZoneHud : MonoBehaviour, IDetailsZone, IDropHandler
     {
         [SerializeField] private Canvas _parentCanvas;
-        [SerializeField] private DetailPartHud _detailPartPrefab;
         [SerializeField] private GridLayoutGroup _detailsGrid;
+
+        private AssetProviderService _assetProviderService;
 
         private readonly List<DetailPartHud> _detailParts = new List<DetailPartHud>();
 
+        public void Init(AssetProviderService assetProviderService)
+        {
+            _assetProviderService = assetProviderService;
+        }
+
         public void CreateDetail(AbilityData abilityData)
         {
-            var detailPart = Instantiate(_detailPartPrefab, _detailsGrid.transform);
+            var detailPart = _assetProviderService.Instantiate<DetailPartHud>(AssetPaths.DetailPartPrefabPath, _detailsGrid.transform);
             detailPart.Init(abilityData, _parentCanvas);
             detailPart.SetCurrentZone(this);
         }
