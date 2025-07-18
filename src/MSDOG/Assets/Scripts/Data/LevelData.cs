@@ -7,6 +7,7 @@ namespace Data
     public class LevelData : ScriptableObject
     {
         public int LevelIndex;
+        public string LevelName;
         public List<WaveData> Waves;
     }
 }

@@ -9,6 +9,7 @@ namespace UI.Menu
     {
         [SerializeField] private Button _startGameButton;
         [SerializeField] private Button _quitGameButton;
+        [SerializeField] private MenuLevelsWindow _menuLevelsWindow;
 
         private void OnEnable()
         {
@@ -24,7 +25,7 @@ namespace UI.Menu
 
         private void StartGame()
         {
-            GlobalServices.GameStateMachine.Enter<GameplayState>();
+            _menuLevelsWindow.Show();
         }
 
         private void Quit()

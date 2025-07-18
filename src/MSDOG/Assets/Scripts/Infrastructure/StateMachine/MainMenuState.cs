@@ -3,7 +3,7 @@ using Services;
 
 namespace Infrastructure.StateMachine
 {
-    public class MainMenuState : IResolvableState
+    public class MainMenuState : IResolvableState, IState
     {
         private LoadingCurtainService _loadingCurtainService;
         private SceneLoadService _sceneLoadService;

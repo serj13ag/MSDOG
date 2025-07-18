@@ -10,24 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 721dc5d060184ac9a24d9884c562867a, type: 3}
-  m_Name: Level_0
+  m_Name: Level_1
   m_EditorClassIdentifier: 
-  LevelIndex: 0
-  LevelName: Level_0
+  LevelIndex: 1
+  LevelName: Level_1
   Waves:
   - Enemies:
     - Data: {fileID: 11400000, guid: 4d82f5b7ebd0bb24286bfa242184822c, type: 2}
       Count: 3
-    TimeTillNextWave: 3
-  - Enemies:
-    - Data: {fileID: 11400000, guid: ded3371667f69254984e6cbaa89ee98a, type: 2}
-      Count: 3
-    TimeTillNextWave: 5
-  - Enemies:
-    - Data: {fileID: 11400000, guid: 28fb93b068123e342a2ef887c9fb7960, type: 2}
-      Count: 3
-    TimeTillNextWave: 5
-  - Enemies:
-    - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
-      Count: 4
     TimeTillNextWave: 3

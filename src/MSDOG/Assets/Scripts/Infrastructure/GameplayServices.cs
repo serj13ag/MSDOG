@@ -8,7 +8,6 @@ namespace Infrastructure
 {
     public static class GameplayServices
     {
-        private static GameStateService _gameStateService;
         private static EnemyService _enemyService;
         private static GameFactory _gameFactory;
         private static CameraService _cameraService;
@@ -17,9 +16,10 @@ namespace Infrastructure
         private static WindowService _windowService;
 
         public static InputService InputService { get; private set; }
+        public static GameStateService GameStateService { get; private set; }
 
-        public static void Initialize(AssetProviderService assetProviderService, SoundService soundService,
-            UpdateService updateService, DataService dataService, WindowService windowService)
+        public static void Initialize(int levelIndex, AssetProviderService assetProviderService, SoundService soundService,
+            UpdateService updateService, DataService dataService, WindowService windowService, ProgressService progressService)
         {
             var inputService = new InputService();
             var arenaService = new ArenaService();
@@ -32,7 +32,7 @@ namespace Infrastructure
             cameraService.Init(updateService);
 
             var enemyService = new EnemyService(updateService, dataService, gameFactory, arenaService);
-            var gameStateService = new GameStateService(enemyService, windowService);
+            var gameStateService = new GameStateService(levelIndex, enemyService, windowService, progressService);
 
             _assetProviderService = assetProviderService;
             _dataService = dataService;
@@ -41,9 +41,9 @@ namespace Infrastructure
             _gameFactory = gameFactory;
             _cameraService = cameraService;
             _enemyService = enemyService;
-            _gameStateService = gameStateService;
 
             InputService = inputService;
+            GameStateService = gameStateService;
         }
 
         public static void Start()
@@ -51,20 +51,20 @@ namespace Infrastructure
             _windowService.CreateRootCanvas();
 
             var player = _gameFactory.CreatePlayer();
-            _gameStateService.RegisterPlayer(player);
+            GameStateService.RegisterPlayer(player);
             _cameraService.SetFollowTarget(player.transform);
 
             var hudController = Object.FindFirstObjectByType<HudController>();
             hudController.Init(player, _dataService, _assetProviderService);
             hudController.AddStartAbility();
 
-            _enemyService.ActivateLevel(0, player.transform); // TODO: add level selection
+            _enemyService.ActivateLevel(GameStateService.CurrentLevelIndex, player.transform);
         }
 
         public static void Cleanup()
         {
             _enemyService.Cleanup();
-            _gameStateService.Cleanup();
+            GameStateService.Cleanup();
         }
     }
 }

@@ -3,8 +3,10 @@ using Services;
 
 namespace Infrastructure.StateMachine
 {
-    public class GameplayState : IResolvableState
+    public class GameplayState : IResolvableState, IPayloadedState<int>
     {
+        private int _levelIndex;
+
         private AssetProviderService _assetProviderService;
         private LoadingCurtainService _loadingCurtainService;
         private SceneLoadService _sceneLoadService;
@@ -12,6 +14,7 @@ namespace Infrastructure.StateMachine
         private UpdateService _updateService;
         private DataService _dataService;
         private WindowService _windowService;
+        private ProgressService _progressService;
 
         public void Resolve()
         {
@@ -22,10 +25,13 @@ namespace Infrastructure.StateMachine
             _updateService = GlobalServices.UpdateService;
             _dataService = GlobalServices.DataService;
             _windowService = GlobalServices.WindowService;
+            _progressService = GlobalServices.ProgressService;
         }
 
-        public void Enter()
+        public void Enter(int levelIndex)
         {
+            _levelIndex = levelIndex;
+
             _loadingCurtainService.FadeOnInstantly();
             _sceneLoadService.LoadScene(Settings.SceneNames.LevelSceneName, OnSceneLoaded, true);
         }
@@ -37,7 +43,8 @@ namespace Infrastructure.StateMachine
 
         private void OnSceneLoaded()
         {
-            GameplayServices.Initialize(_assetProviderService, _soundService, _updateService, _dataService, _windowService);
+            GameplayServices.Initialize(_levelIndex, _assetProviderService, _soundService, _updateService, _dataService,
+                _windowService, _progressService);
             GameplayServices.Start();
 
             _loadingCurtainService.FadeOffWithDelay();

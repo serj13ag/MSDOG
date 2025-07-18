@@ -1,5 +1,6 @@
 using Infrastructure;
 using Infrastructure.StateMachine;
+using Services.Gameplay;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,13 @@ namespace UI.Windows
     {
         [SerializeField] private Button _toMainMenuButton;
         [SerializeField] private Button _restartLevelButton;
+
+        private GameStateService _gameStateService;
+
+        private void Awake()
+        {
+            _gameStateService = GameplayServices.GameStateService;
+        }
 
         private void OnEnable()
         {
@@ -20,7 +28,7 @@ namespace UI.Windows
 
         private void OnRestartLevelButtonClicked()
         {
-            GlobalServices.GameStateMachine.Enter<GameplayState>();
+            GlobalServices.GameStateMachine.Enter<GameplayState, int>(_gameStateService.CurrentLevelIndex);
         }
 
         private void OnToMainMenuButtonClicked()
