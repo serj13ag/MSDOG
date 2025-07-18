@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Constants;
 using Core;
@@ -19,7 +20,8 @@ namespace UI.HUD.DetailsZone
         private AssetProviderService _assetProviderService;
         private Player _player;
 
-        private readonly List<DetailPartHud> _detailParts = new List<DetailPartHud>(MaxNumberOfActiveParts);
+        private readonly Dictionary<Guid, DetailPartHud> _detailParts =
+            new Dictionary<Guid, DetailPartHud>(MaxNumberOfActiveParts);
 
         public void Init(Player player, AssetProviderService assetProviderService)
         {
@@ -52,6 +54,11 @@ namespace UI.HUD.DetailsZone
                 return;
             }
 
+            if (_detailParts.ContainsKey(detailPart.Id))
+            {
+                return;
+            }
+
             if (_detailParts.Count >= MaxNumberOfActiveParts)
             {
                 return;
@@ -62,14 +69,14 @@ namespace UI.HUD.DetailsZone
 
         public void Enter(DetailPartHud detailPart)
         {
-            _detailParts.Add(detailPart);
+            _detailParts.Add(detailPart.Id, detailPart);
             detailPart.transform.SetParent(_grid.transform);
             _player.AddAbility(detailPart.Id, detailPart.AbilityData);
         }
 
         public void Exit(DetailPartHud detailPart)
         {
-            _detailParts.Remove(detailPart);
+            _detailParts.Remove(detailPart.Id);
             _player.RemoveAbility(detailPart.Id);
         }
     }

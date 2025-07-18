@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Constants;
 using Data;
@@ -15,7 +16,7 @@ namespace UI.HUD.DetailsZone
 
         private AssetProviderService _assetProviderService;
 
-        private readonly List<DetailPartHud> _detailParts = new List<DetailPartHud>();
+        private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
 
         public void Init(AssetProviderService assetProviderService)
         {
@@ -41,7 +42,7 @@ namespace UI.HUD.DetailsZone
                 return;
             }
 
-            if (_detailParts.Contains(detailPart))
+            if (_detailParts.ContainsKey(detailPart.Id))
             {
                 return;
             }
@@ -52,12 +53,12 @@ namespace UI.HUD.DetailsZone
         public void Enter(DetailPartHud detailPart)
         {
             detailPart.transform.SetParent(_detailsGrid.transform);
-            _detailParts.Add(detailPart);
+            _detailParts.Add(detailPart.Id, detailPart);
         }
 
         public void Exit(DetailPartHud detailPart)
         {
-            _detailParts.Remove(detailPart);
+            _detailParts.Remove(detailPart.Id);
         }
     }
 }
