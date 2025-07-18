@@ -30,7 +30,11 @@ namespace UI.Menu
 
             var lastPassedLevel = progressService.LastPassedLevel;
 
-            var availableLevels = lastPassedLevel == -1 ? 1 : lastPassedLevel + 2;
+            var availableLevels = lastPassedLevel == -1
+                ? 1
+                : lastPassedLevel + 2;
+            availableLevels = Mathf.Min(availableLevels, dataService.GetNumberOfLevels());
+
             for (var i = 0; i < availableLevels; i++)
             {
                 var button = Instantiate(_levelButtonPrefab, _buttonsContainer);

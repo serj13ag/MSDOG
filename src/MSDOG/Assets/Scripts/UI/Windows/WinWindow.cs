@@ -1,5 +1,6 @@
 using Infrastructure;
 using Infrastructure.StateMachine;
+using Services;
 using Services.Gameplay;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,10 +12,12 @@ namespace UI.Windows
         [SerializeField] private Button _toMainMenuButton;
         [SerializeField] private Button _toNextLevelButton;
 
+        private DataService _dataService;
         private GameStateService _gameStateService;
 
         private void Awake()
         {
+            _dataService = GlobalServices.DataService;
             _gameStateService = GameplayServices.GameStateService;
         }
 
@@ -28,7 +31,15 @@ namespace UI.Windows
 
         private void OnToNextLevelButtonClicked()
         {
-            GlobalServices.GameStateMachine.Enter<GameplayState, int>(_gameStateService.CurrentLevelIndex + 1); // TODO: fix final level
+            var nextLevelIndex = _gameStateService.CurrentLevelIndex + 1;
+            if (nextLevelIndex < _dataService.GetNumberOfLevels())
+            {
+                GlobalServices.GameStateMachine.Enter<GameplayState, int>(nextLevelIndex);
+            }
+            else
+            {
+                GlobalServices.GameStateMachine.Enter<MainMenuState>();
+            }
         }
 
         private void OnToMainMenuButtonClicked()

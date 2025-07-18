@@ -3,6 +3,7 @@ using System.Linq;
 using Constants;
 using Data;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace Services
 {
@@ -14,7 +15,17 @@ namespace Services
         public DataService()
         {
             _levelsData = Resources.LoadAll<LevelData>(AssetPaths.LevelsData).ToDictionary(k => k.LevelIndex);
+            for (var i = 0; i < _levelsData.Count; i++)
+            {
+                Assert.IsTrue(_levelsData.ContainsKey(i));
+            }
+
             _levelAbilityData = Resources.Load<LevelAbilityData>(AssetPaths.LevelAbilityData);
+        }
+
+        public int GetNumberOfLevels()
+        {
+            return _levelsData.Count;
         }
 
         public LevelData GetLevelData(int levelIndex)
