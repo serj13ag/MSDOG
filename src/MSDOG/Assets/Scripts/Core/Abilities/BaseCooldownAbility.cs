@@ -12,6 +12,10 @@ namespace Core.Abilities
             ResetTimeTillAction();
         }
 
+        public void Activate()
+        {
+        }
+
         public void OnUpdate(float deltaTime)
         {
             if (_timeTillAction > 0f)
@@ -22,6 +26,10 @@ namespace Core.Abilities
 
             InvokeAction();
             ResetTimeTillAction();
+        }
+
+        public void Deactivate()
+        {
         }
 
         protected abstract void InvokeAction();

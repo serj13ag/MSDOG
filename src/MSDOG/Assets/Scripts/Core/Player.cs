@@ -23,10 +23,11 @@ namespace Core
         private PlayerDamageBlock _playerDamageBlock;
         private InputMoveBlock _moveBlock;
 
-        private Dictionary<Guid, IAbility> _abilities = new Dictionary<Guid, IAbility>();
+        private readonly Dictionary<Guid, IAbility> _abilities = new Dictionary<Guid, IAbility>();
+        private float _additionalMoveSpeed;
 
         public CharacterController CharacterController => _characterController;
-        public float MoveSpeed => _moveSpeed;
+        public float MoveSpeed => _moveSpeed + _additionalMoveSpeed;
 
         public int CurrentHealth => _healthBlock.CurrentHealth;
         public int MaxHealth => _healthBlock.MaxHealth;
@@ -96,12 +97,21 @@ namespace Core
         public void AddAbility(Guid id, AbilityData abilityData)
         {
             var ability = _abilityFactory.CreateAbility(abilityData, this);
+            ability.Activate();
             _abilities.Add(id, ability);
         }
 
         public void RemoveAbility(Guid id)
         {
+            _abilities[id].Deactivate();
             _abilities.Remove(id);
+        }
+
+        public void ChangeAdditionalSpeed(float speed)
+        {
+            var newAdditionalSpeed = _additionalMoveSpeed + speed;
+            newAdditionalSpeed = Mathf.Max(newAdditionalSpeed, 0);
+            _additionalMoveSpeed = newAdditionalSpeed;
         }
 
         private void HandleAbilities(float deltaTime)
