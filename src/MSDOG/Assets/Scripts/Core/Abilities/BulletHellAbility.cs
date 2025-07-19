@@ -7,21 +7,16 @@ namespace Core.Abilities
 {
     public class BulletHellAbility : BaseCooldownAbility
     {
+        private readonly AbilityData _abilityData;
         private readonly Player _player;
         private readonly ProjectileFactory _projectileFactory;
-        private readonly int _damage;
-        private readonly float _speed;
-        private readonly int _pierce;
 
         public BulletHellAbility(AbilityData abilityData, Player player, ProjectileFactory projectileFactory)
             : base(abilityData.Cooldown)
         {
+            _abilityData = abilityData;
             _player = player;
             _projectileFactory = projectileFactory;
-
-            _damage = abilityData.Damage;
-            _speed = abilityData.Speed;
-            _pierce = abilityData.Pierce;
         }
 
         protected override void InvokeAction()
@@ -34,8 +29,7 @@ namespace Core.Abilities
 
             randomDirection.Normalize();
 
-            var createProjectileDto =
-                new CreateProjectileDto(_player.transform.position, randomDirection, _player, _damage, _speed, _pierce);
+            var createProjectileDto = new CreateProjectileDto(_player.transform.position, randomDirection, _player, _abilityData);
             _projectileFactory.CreatePlayerProjectile(createProjectileDto);
         }
     }

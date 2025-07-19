@@ -1,16 +1,17 @@
 using Data;
 using DTO;
 using Services.Gameplay;
+using UnityEngine;
 
 namespace Core.Abilities
 {
-    public class GunShotAbility : BaseCooldownAbility
+    public class PuncturedTankAbility : BaseCooldownAbility
     {
         private readonly AbilityData _abilityData;
         private readonly Player _player;
         private readonly ProjectileFactory _projectileFactory;
 
-        public GunShotAbility(AbilityData abilityData, Player player, ProjectileFactory projectileFactory)
+        public PuncturedTankAbility(AbilityData abilityData, Player player, ProjectileFactory projectileFactory)
             : base(abilityData.Cooldown)
         {
             _abilityData = abilityData;
@@ -20,8 +21,8 @@ namespace Core.Abilities
 
         protected override void InvokeAction()
         {
-            var createProjectileDto = new CreateProjectileDto(_player.transform.position, _player.transform.forward, _player, _abilityData);
-            _projectileFactory.CreatePlayerProjectile(createProjectileDto);
+            var createProjectileDto = new CreateProjectileDto(_player.transform.position, Vector3.zero, _player, _abilityData);
+            _projectileFactory.CreatePlayerPuddleProjectile(createProjectileDto);
         }
     }
 }

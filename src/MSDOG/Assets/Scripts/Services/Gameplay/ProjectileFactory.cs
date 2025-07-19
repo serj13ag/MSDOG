@@ -23,7 +23,7 @@ namespace Services.Gameplay
             projectile.Init(createProjectileDto, _updateService, true);
         }
 
-        public void CreateEnemyProjectile(CreateProjectileDto createProjectileDto)
+        public void CreateEnemyProjectile(CreateEnemyProjectileDto createProjectileDto)
         {
             var projectile =
                 _assetProviderService.Instantiate<Projectile>(AssetPaths.EnemyProjectilePrefab,
@@ -37,6 +37,14 @@ namespace Services.Gameplay
                 _assetProviderService.Instantiate<BuzzSawProjectile>(AssetPaths.PlayerBuzzSawProjectilePrefab,
                     createProjectileDto.SpawnPosition);
             projectile.Init(createProjectileDto, _updateService, true);
+        }
+
+        public void CreatePlayerPuddleProjectile(CreateProjectileDto createProjectileDto)
+        {
+            var projectile =
+                _assetProviderService.Instantiate<PuddleProjectile>(AssetPaths.PlayerPuddleProjectilePrefab,
+                    createProjectileDto.SpawnPosition);
+            projectile.Init(createProjectileDto, _updateService);
         }
     }
 }

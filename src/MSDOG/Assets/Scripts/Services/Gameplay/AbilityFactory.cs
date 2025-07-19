@@ -23,6 +23,7 @@ namespace Services.Gameplay
                 AbilityType.GunShot => new GunShotAbility(abilityData, player, _projectileFactory),
                 AbilityType.BulletHell => new BulletHellAbility(abilityData, player, _projectileFactory),
                 AbilityType.BuzzSaw => new BuzzSawAbility(abilityData, player, _projectileFactory),
+                AbilityType.PuncturedTank => new PuncturedTankAbility(abilityData, player, _projectileFactory),
 
                 AbilityType.AntiGravity => new AntiGravityAbility(abilityData, player),
                 AbilityType.EnergyShield => new EnergyShieldAbility(abilityData, player),

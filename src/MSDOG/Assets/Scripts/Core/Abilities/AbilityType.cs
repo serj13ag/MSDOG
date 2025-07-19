@@ -8,6 +8,7 @@ namespace Core.Abilities
         GunShot = 3,
         BulletHell = 4,
         BuzzSaw = 5,
+        PuncturedTank = 6,
 
         // Stats
         AntiGravity = 20,

@@ -27,6 +27,21 @@ namespace Core
 
             _isPlayer = isPlayer;
             _id = Guid.NewGuid();
+            _pierce = createProjectileDto.AbilityData.Pierce;
+            _speed = createProjectileDto.AbilityData.Speed;
+            _damage = createProjectileDto.AbilityData.Damage;
+            _forwardDirection = createProjectileDto.ForwardDirection;
+
+            updateService.Register(this);
+            _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
+        }
+
+        public void Init(CreateEnemyProjectileDto createProjectileDto, UpdateService updateService, bool isPlayer)
+        {
+            _updateService = updateService;
+
+            _isPlayer = isPlayer;
+            _id = Guid.NewGuid();
             _pierce = createProjectileDto.Pierce;
             _speed = createProjectileDto.Speed;
             _damage = createProjectileDto.Damage;

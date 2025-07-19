@@ -13,5 +13,7 @@ namespace Data
         public int Pierce;
         public float Size;
         public int DamageReductionPercent;
+        public float Lifetime;
+        public float TickTimeout;
     }
 }

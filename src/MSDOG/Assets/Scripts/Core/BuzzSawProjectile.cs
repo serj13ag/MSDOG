@@ -33,9 +33,9 @@ namespace Core
             _isPlayer = isPlayer;
             _id = Guid.NewGuid();
             _player = createProjectileDto.Player;
-            _pierce = createProjectileDto.Pierce;
-            _speed = createProjectileDto.Speed;
-            _damage = createProjectileDto.Damage;
+            _pierce = createProjectileDto.AbilityData.Pierce;
+            _speed = createProjectileDto.AbilityData.Speed;
+            _damage = createProjectileDto.AbilityData.Damage;
 
             _velocity = createProjectileDto.ForwardDirection * _speed;
             _velocity.y = 0f;

@@ -1,26 +1,22 @@
 using Core;
+using Data;
 using UnityEngine;
 
 namespace DTO
 {
-    public struct CreateProjectileDto
+    public class CreateProjectileDto
     {
         public Vector3 SpawnPosition { get; }
         public Vector3 ForwardDirection { get; }
         public Player Player { get; }
-        public int Damage { get; }
-        public float Speed { get; }
-        public int Pierce { get; }
+        public AbilityData AbilityData { get; }
 
-        public CreateProjectileDto(Vector3 spawnPosition, Vector3 forwardDirection, Player player, int damage, float speed,
-            int pierce)
+        public CreateProjectileDto(Vector3 spawnPosition, Vector3 forwardDirection, Player player, AbilityData abilityData)
         {
             SpawnPosition = spawnPosition;
             ForwardDirection = forwardDirection;
             Player = player;
-            Damage = damage;
-            Speed = speed;
-            Pierce = pierce;
+            AbilityData = abilityData;
         }
     }
 }
