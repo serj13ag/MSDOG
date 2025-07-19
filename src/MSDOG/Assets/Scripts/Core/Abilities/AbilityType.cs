@@ -3,13 +3,14 @@ namespace Core.Abilities
     public enum AbilityType
     {
         // Damage
-        CuttingBlow,
-        RoundAttack,
-        GunShot,
-        BulletHell,
+        CuttingBlow = 1,
+        RoundAttack = 2,
+        GunShot = 3,
+        BulletHell = 4,
+        BuzzSaw = 5,
 
         // Stats
-        AntiGravity,
-        EnergyShield,
+        AntiGravity = 20,
+        EnergyShield = 21,
     }
 }

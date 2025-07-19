@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01749b93f6c1463a97e64d3b02419ba7, type: 3}
   m_Name: RoundAttack_0
   m_EditorClassIdentifier: 
-  AbilityType: 1
+  AbilityType: 2
   Damage: 2
   Cooldown: 2
   Speed: 0
   Pierce: 0
   Size: 3
+  DamageReductionPercent: 0

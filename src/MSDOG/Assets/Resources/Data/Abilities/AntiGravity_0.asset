@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01749b93f6c1463a97e64d3b02419ba7, type: 3}
   m_Name: AntiGravity_0
   m_EditorClassIdentifier: 
-  AbilityType: 4
+  AbilityType: 20
   Damage: 0
   Cooldown: 0
   Speed: 1
   Pierce: 0
   Size: 0
+  DamageReductionPercent: 0

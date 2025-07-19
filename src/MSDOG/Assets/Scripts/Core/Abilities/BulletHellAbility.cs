@@ -35,7 +35,7 @@ namespace Core.Abilities
             randomDirection.Normalize();
 
             var createProjectileDto =
-                new CreateProjectileDto(_player.transform.position, randomDirection, _damage, _speed, _pierce);
+                new CreateProjectileDto(_player.transform.position, randomDirection, _player, _damage, _speed, _pierce);
             _projectileFactory.CreatePlayerProjectile(createProjectileDto);
         }
     }

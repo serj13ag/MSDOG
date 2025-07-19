@@ -30,5 +30,13 @@ namespace Services.Gameplay
                     createProjectileDto.SpawnPosition);
             projectile.Init(createProjectileDto, _updateService, false);
         }
+
+        public void CreatePlayerBuzzSawProjectile(CreateProjectileDto createProjectileDto)
+        {
+            var projectile =
+                _assetProviderService.Instantiate<BuzzSawProjectile>(AssetPaths.PlayerBuzzSawProjectilePrefab,
+                    createProjectileDto.SpawnPosition);
+            projectile.Init(createProjectileDto, _updateService, true);
+        }
     }
 }
