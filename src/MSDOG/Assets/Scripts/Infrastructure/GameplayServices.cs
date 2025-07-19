@@ -25,7 +25,7 @@ namespace Infrastructure
             var arenaService = new ArenaService();
             var projectileFactory = new ProjectileFactory(assetProviderService, updateService);
             var abilityFactory = new AbilityFactory(projectileFactory);
-            var gameFactory = new GameFactory(assetProviderService, updateService, inputService, arenaService, dataService,
+            var gameFactory = new GameFactory(assetProviderService, updateService, inputService, arenaService,
                 abilityFactory, projectileFactory);
 
             var cameraService = assetProviderService.Instantiate<CameraService>(AssetPaths.CameraServicePath);

@@ -12,5 +12,6 @@ namespace Data
         public float Speed;
         public int Pierce;
         public float Size;
+        public int DamageReductionPercent;
     }
 }

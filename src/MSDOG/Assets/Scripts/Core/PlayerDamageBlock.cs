@@ -8,13 +8,16 @@ namespace Core
     {
         private const float TakeDamageCooldown = 0.2f;
 
+        private readonly Player _player;
         private readonly HealthBlock _healthBlock;
+
         private readonly Dictionary<Guid, int> _damageDealers = new Dictionary<Guid, int>(10);
         private readonly Dictionary<Guid, int> _projectileDamageDealers = new Dictionary<Guid, int>(20);
         private float _timeTillTakeDamage;
 
-        public PlayerDamageBlock(HealthBlock healthBlock)
+        public PlayerDamageBlock(Player player, HealthBlock healthBlock)
         {
+            _player = player;
             _healthBlock = healthBlock;
         }
 
@@ -75,6 +78,9 @@ namespace Core
             {
                 accumulatedDamage += projectileDamageDealer.Value;
             }
+
+            var percent = (100 - _player.CurrentDamageReductionPercent) / 100f;
+            accumulatedDamage = Mathf.CeilToInt(accumulatedDamage * percent);
 
             _projectileDamageDealers.Clear();
 

@@ -28,7 +28,7 @@ namespace Core
             }
 
             var moveDirection = new Vector3(moveInput.x, 0, moveInput.y);
-            var move = moveDirection * (_player.MoveSpeed * deltaTime);
+            var move = moveDirection * (_player.CurrentMoveSpeed * deltaTime);
 
             var nextPosition = _player.transform.position + move;
             if (Mathf.Abs(nextPosition.x) > _arenaService.HalfSize.X)

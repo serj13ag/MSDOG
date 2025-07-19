@@ -12,6 +12,8 @@ namespace Core
 {
     public class Player : MonoBehaviour, IUpdatable
     {
+        private const int MaxDamageReductionPercent = 80;
+
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private float _moveSpeed = 6f;
 
@@ -25,9 +27,12 @@ namespace Core
 
         private readonly Dictionary<Guid, IAbility> _abilities = new Dictionary<Guid, IAbility>();
         private float _additionalMoveSpeed;
+        private int _damageReductionPercent;
 
         public CharacterController CharacterController => _characterController;
-        public float MoveSpeed => _moveSpeed + _additionalMoveSpeed;
+
+        public float CurrentMoveSpeed => _moveSpeed + _additionalMoveSpeed;
+        public int CurrentDamageReductionPercent => _damageReductionPercent;
 
         public int CurrentHealth => _healthBlock.CurrentHealth;
         public int MaxHealth => _healthBlock.MaxHealth;
@@ -48,14 +53,14 @@ namespace Core
         }
 
         public void Init(InputService inputService, UpdateService updateService, ArenaService arenaService,
-            AbilityFactory abilityFactory, DataService dataService)
+            AbilityFactory abilityFactory)
         {
             _abilityFactory = abilityFactory;
             _updateService = updateService;
 
             _healthBlock = new HealthBlock(100);
             _experienceBlock = new ExperienceBlock();
-            _playerDamageBlock = new PlayerDamageBlock(_healthBlock);
+            _playerDamageBlock = new PlayerDamageBlock(this, _healthBlock);
             _moveBlock = new InputMoveBlock(this, inputService, arenaService);
 
             updateService.Register(this);
@@ -112,6 +117,13 @@ namespace Core
             var newAdditionalSpeed = _additionalMoveSpeed + speed;
             newAdditionalSpeed = Mathf.Max(newAdditionalSpeed, 0);
             _additionalMoveSpeed = newAdditionalSpeed;
+        }
+
+        public void ChangeDamageReductionPercent(int damageReductionPercent)
+        {
+            var newDamageReductionPercent = _damageReductionPercent + damageReductionPercent;
+            newDamageReductionPercent = Mathf.Clamp(newDamageReductionPercent, 0, MaxDamageReductionPercent);
+            _damageReductionPercent = newDamageReductionPercent;
         }
 
         private void HandleAbilities(float deltaTime)

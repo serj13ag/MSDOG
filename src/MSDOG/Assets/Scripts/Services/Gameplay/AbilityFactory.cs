@@ -24,6 +24,7 @@ namespace Services.Gameplay
                 AbilityType.BulletHell => new BulletHellAbility(abilityData, player, _projectileFactory),
 
                 AbilityType.AntiGravity => new AntiGravityAbility(abilityData, player),
+                AbilityType.EnergyShield => new EnergyShieldAbility(abilityData, player),
                 _ => throw new ArgumentOutOfRangeException(),
             };
         }

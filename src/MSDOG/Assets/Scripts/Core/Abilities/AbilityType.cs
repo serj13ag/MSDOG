@@ -10,5 +10,6 @@ namespace Core.Abilities
 
         // Stats
         AntiGravity,
+        EnergyShield,
     }
 }
