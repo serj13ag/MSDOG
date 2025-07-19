@@ -19,6 +19,7 @@ namespace Services.Gameplay
             return abilityData.AbilityType switch
             {
                 AbilityType.CuttingBlow => new CuttingBlowAbility(abilityData, player),
+                AbilityType.RoundAttack => new RoundAttackAbility(abilityData, player),
                 AbilityType.GunShot => new GunShotAbility(abilityData, player, _projectileFactory),
                 AbilityType.BulletHell => new BulletHellAbility(abilityData, player, _projectileFactory),
                 _ => throw new ArgumentOutOfRangeException(),

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Constants;
 using Core.Enemies;
@@ -7,48 +6,42 @@ using UnityEngine;
 
 namespace Core.Abilities
 {
-    public class CuttingBlowAbility : BaseCooldownAbility
+    public class RoundAttackAbility : BaseCooldownAbility
     {
-        private const float BoxHeight = 2f;
-        private const float BoxWidth = 1f;
-
         private readonly Player _player;
         private readonly int _damage;
-        private readonly float _length;
+        private readonly float _radius;
         private readonly Collider[] _hitBuffer = new Collider[32];
 
-        public CuttingBlowAbility(AbilityData abilityData, Player player)
+        public RoundAttackAbility(AbilityData abilityData, Player player)
             : base(abilityData.Cooldown)
         {
             _player = player;
             _damage = abilityData.Damage;
-            _length = abilityData.Size;
+            _radius = abilityData.Size;
         }
 
         protected override void InvokeAction()
         {
             Slash();
-            ShowSlashEffect();
+            ShowEffect();
         }
 
         private void Slash()
         {
-            var hitEnemies = DetectEnemiesInStrikeBox();
+            var hitEnemies = DetectEnemiesInRadius();
             foreach (var enemy in hitEnemies)
             {
                 enemy.TakeDamage(_damage);
             }
         }
 
-        private List<Enemy> DetectEnemiesInStrikeBox()
+        private List<Enemy> DetectEnemiesInRadius()
         {
             var hitEnemies = new List<Enemy>();
 
-            var boxCenter = _player.transform.position;
-            var boxSize = new Vector3(_length, BoxHeight, BoxWidth);
-
-            var hits = Physics.OverlapBoxNonAlloc(boxCenter, boxSize * 0.5f, _hitBuffer, Quaternion.identity,
-                Settings.LayerMasks.EnemyLayer);
+            var circleCenter = _player.transform.position;
+            var hits = Physics.OverlapSphereNonAlloc(circleCenter, _radius, _hitBuffer, Settings.LayerMasks.EnemyLayer);
             for (var i = 0; i < hits; i++)
             {
                 var collider = _hitBuffer[i];
@@ -61,12 +54,13 @@ namespace Core.Abilities
             return hitEnemies;
         }
 
-        private void ShowSlashEffect()
+        private void ShowEffect()
         {
-            var slashIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            var slashIndicator = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             slashIndicator.transform.position = _player.transform.position;
             slashIndicator.transform.rotation = Quaternion.identity;
-            slashIndicator.transform.localScale = new Vector3(_length, BoxHeight, BoxWidth);
+            var diameter = _radius * 2;
+            slashIndicator.transform.localScale = new Vector3(diameter, 0.5f, diameter);
 
             var renderer = slashIndicator.GetComponent<Renderer>();
             var mat = renderer.material;

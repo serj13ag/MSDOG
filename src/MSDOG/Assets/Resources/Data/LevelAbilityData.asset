@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d03722d676b84e5d95956c5fb16a3b0b, type: 3}
   m_Name: LevelAbilityData
   m_EditorClassIdentifier: 
-  StartAbility: {fileID: 11400000, guid: e030c441daee39a4c90ba32f57f37375, type: 2}
+  StartAbility: {fileID: 11400000, guid: 1e3f4d2efedb2da47beefd721c0c571b, type: 2}
   AbilitiesAvailableToCraft:
   - {fileID: 11400000, guid: 42a3706f893115e4d8b751fcfe47869f, type: 2}
   - {fileID: 11400000, guid: e030c441daee39a4c90ba32f57f37375, type: 2}
