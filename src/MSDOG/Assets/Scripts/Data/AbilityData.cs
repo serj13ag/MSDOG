@@ -7,6 +7,7 @@ namespace Data
     public class AbilityData : ScriptableObject
     {
         public AbilityType AbilityType;
+        public int Level;
         public int Damage;
         public float Cooldown;
         public float Speed;

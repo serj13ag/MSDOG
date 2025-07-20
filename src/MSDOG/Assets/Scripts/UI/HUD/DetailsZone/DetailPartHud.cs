@@ -27,7 +27,7 @@ namespace UI.HUD.DetailsZone
             Id = Guid.NewGuid();
             _abilityData = abilityData;
             _parentCanvas = parentCanvas;
-            _text.text = _abilityData.AbilityType.ToString();
+            _text.text = $"{_abilityData.AbilityType}_{_abilityData.Level}";
         }
 
         public void SetCurrentZone(IDetailsZone newZone)

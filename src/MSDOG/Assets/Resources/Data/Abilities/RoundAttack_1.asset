@@ -9,9 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d03722d676b84e5d95956c5fb16a3b0b, type: 3}
-  m_Name: LevelAbilityData
+  m_Script: {fileID: 11500000, guid: 01749b93f6c1463a97e64d3b02419ba7, type: 3}
+  m_Name: RoundAttack_1
   m_EditorClassIdentifier: 
-  StartAbility: {fileID: 11400000, guid: e030c441daee39a4c90ba32f57f37375, type: 2}
-  AbilitiesAvailableToCraft:
-  - {fileID: 11400000, guid: e030c441daee39a4c90ba32f57f37375, type: 2}
+  AbilityType: 2
+  Level: 1
+  Damage: 2
+  Cooldown: 1
+  Speed: 0
+  Pierce: 0
+  Size: 4
+  DamageReductionPercent: 0
+  Lifetime: 0
+  TickTimeout: 0

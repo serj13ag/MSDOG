@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Constants;
+using Core.Abilities;
 using Data;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -11,6 +12,7 @@ namespace Services
     {
         private readonly Dictionary<int, LevelData> _levelsData;
         private readonly LevelAbilityData _levelAbilityData;
+        private readonly AbilityUpgradesData _abilityUpgradesData;
 
         public DataService()
         {
@@ -21,6 +23,7 @@ namespace Services
             }
 
             _levelAbilityData = Resources.Load<LevelAbilityData>(AssetPaths.LevelAbilityData);
+            _abilityUpgradesData = Resources.Load<AbilityUpgradesData>(AssetPaths.AbilityUpgradesData);
         }
 
         public int GetNumberOfLevels()
@@ -42,6 +45,32 @@ namespace Services
         {
             var randomIndex = Random.Range(0, _levelAbilityData.AbilitiesAvailableToCraft.Count);
             return _levelAbilityData.AbilitiesAvailableToCraft[randomIndex];
+        }
+
+        public bool TryGetAbilityUpgradeData(AbilityType abilityType, int level, out AbilityData upgradedAbilityData)
+        {
+            upgradedAbilityData = null;
+
+            foreach (var abilityUpgradeEntry in _abilityUpgradesData.AbilityUpgrades)
+            {
+                if (abilityUpgradeEntry.AbilityType != abilityType)
+                {
+                    continue;
+                }
+
+                foreach (var abilityUpgrade in abilityUpgradeEntry.AbilityUpgrades)
+                {
+                    if (abilityUpgrade.Level != level + 1)
+                    {
+                        continue;
+                    }
+
+                    upgradedAbilityData = abilityUpgrade;
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
