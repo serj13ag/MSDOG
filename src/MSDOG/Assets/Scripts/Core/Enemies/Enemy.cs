@@ -14,7 +14,6 @@ namespace Core.Enemies
 {
     public class Enemy : MonoBehaviour, IUpdatable
     {
-        [SerializeField] private CharacterController _characterController;
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private HealthBarDebugView _healthBarDebugView;
         [SerializeField] private ColliderEventProvider _triggerEnterProvider;
