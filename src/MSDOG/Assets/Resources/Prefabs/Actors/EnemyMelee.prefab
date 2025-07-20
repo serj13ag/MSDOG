@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _agent: {fileID: 6251957368140847398}
+  _animator: {fileID: 4674256933996013706}
   _healthBarDebugView: {fileID: 8376822688814715283}
   _damagePlayerColliderTriggerEnterProvider: {fileID: 1404204055704754030}
 --- !u!195 &6251957368140847398
@@ -585,5 +586,10 @@ PrefabInstance:
 --- !u!4 &1602832033623634672 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0c6d16d4e100fba4fbfcd42ee57a66d8, type: 3}
+  m_PrefabInstance: {fileID: 1275888975684146459}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4674256933996013706 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 0c6d16d4e100fba4fbfcd42ee57a66d8, type: 3}
   m_PrefabInstance: {fileID: 1275888975684146459}
   m_PrefabAsset: {fileID: 0}

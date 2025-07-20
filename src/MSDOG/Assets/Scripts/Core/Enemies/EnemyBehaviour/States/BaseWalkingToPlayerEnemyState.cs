@@ -6,13 +6,16 @@ namespace Core.Enemies.EnemyBehaviour.States
     public abstract class BaseWalkingToPlayerEnemyState : IEnemyState
     {
         private readonly Enemy _enemy;
+        private readonly AnimationBlock _animationBlock;
         private readonly ColliderEventProvider _triggerEnterProvider;
 
         protected Enemy Enemy => _enemy;
 
-        protected BaseWalkingToPlayerEnemyState(Enemy enemy, ColliderEventProvider triggerEnterProvider)
+        protected BaseWalkingToPlayerEnemyState(Enemy enemy, AnimationBlock animationBlock,
+            ColliderEventProvider triggerEnterProvider)
         {
             _enemy = enemy;
+            _animationBlock = animationBlock;
             _triggerEnterProvider = triggerEnterProvider;
 
             if (triggerEnterProvider)
@@ -20,6 +23,11 @@ namespace Core.Enemies.EnemyBehaviour.States
                 triggerEnterProvider.OnTriggerEntered += OnTriggerEntered;
                 triggerEnterProvider.OnTriggerExited += OnTriggerExited;
             }
+        }
+
+        public void Enter()
+        {
+            _animationBlock.SetRunning(true);
         }
 
         public virtual void OnUpdate(float deltaTime)
@@ -31,6 +39,11 @@ namespace Core.Enemies.EnemyBehaviour.States
             }
 
             enemyAgent.SetDestination(_enemy.Player.transform.position);
+        }
+
+        public void Exit()
+        {
+            _animationBlock.SetRunning(false);
         }
 
         private void OnTriggerEntered(Collider obj)

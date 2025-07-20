@@ -15,6 +15,7 @@ namespace Core.Enemies
     public class Enemy : MonoBehaviour, IUpdatable
     {
         [SerializeField] private NavMeshAgent _agent;
+        [SerializeField] private Animator _animator;
         [SerializeField] private HealthBarDebugView _healthBarDebugView;
         [SerializeField] private ColliderEventProvider _damagePlayerColliderTriggerEnterProvider;
 
@@ -28,10 +29,12 @@ namespace Core.Enemies
         private float _cooldown;
         private float _projectileSpeed;
         private HealthBlock _healthBlock;
+        private AnimationBlock _animationBlock;
         private IEnemyStateMachine _stateMachine;
 
         public Guid Id => _id;
         public NavMeshAgent Agent => _agent;
+        public AnimationBlock AnimationBlock => _animationBlock;
         public Player Player => _player;
         public int Damage => _damage;
         public float Cooldown => _cooldown;
@@ -52,6 +55,7 @@ namespace Core.Enemies
             _projectileSpeed = data.ProjectileSpeed;
 
             _healthBlock = new HealthBlock(data.MaxHealth);
+            _animationBlock = new AnimationBlock(_animator);
             _healthBarDebugView.Init(_healthBlock);
 
             _stateMachine = data.Type switch
@@ -76,7 +80,8 @@ namespace Core.Enemies
         {
             var directionToPlayer = (_player.transform.position - transform.position).normalized;
             directionToPlayer.y = 0f;
-            var createProjectileDto = new CreateEnemyProjectileDto(transform.position, directionToPlayer, _player, Damage, _projectileSpeed, 0);
+            var createProjectileDto =
+                new CreateEnemyProjectileDto(transform.position, directionToPlayer, _player, Damage, _projectileSpeed, 0);
             _projectileFactory.CreateEnemyProjectile(createProjectileDto);
         }
 

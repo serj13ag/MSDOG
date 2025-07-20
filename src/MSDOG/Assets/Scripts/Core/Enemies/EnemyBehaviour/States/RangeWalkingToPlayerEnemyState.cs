@@ -9,9 +9,9 @@ namespace Core.Enemies.EnemyBehaviour.States
         private readonly RangeBehaviourStateMachine _stateMachine;
         private float _timeTillShoot;
 
-        public RangeWalkingToPlayerEnemyState(RangeBehaviourStateMachine stateMachine, Enemy enemy,
+        public RangeWalkingToPlayerEnemyState(RangeBehaviourStateMachine stateMachine, Enemy enemy, AnimationBlock animationBlock,
             ColliderEventProvider triggerEnterProvider, float timeTillShoot)
-            : base(enemy, triggerEnterProvider)
+            : base(enemy, animationBlock, triggerEnterProvider)
         {
             _stateMachine = stateMachine;
             _timeTillShoot = timeTillShoot;

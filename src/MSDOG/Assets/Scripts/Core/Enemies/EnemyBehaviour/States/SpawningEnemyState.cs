@@ -12,6 +12,10 @@ namespace Core.Enemies.EnemyBehaviour.States
             _timeTillSpawnEnd = spawnTime;
         }
 
+        public void Enter()
+        {
+        }
+
         public void OnUpdate(float deltaTime)
         {
             if (_timeTillSpawnEnd > 0f)
@@ -21,6 +25,10 @@ namespace Core.Enemies.EnemyBehaviour.States
             }
 
             _stateMachine.ChangeStateToPostSpawn();
+        }
+
+        public void Exit()
+        {
         }
 
         public void Dispose()

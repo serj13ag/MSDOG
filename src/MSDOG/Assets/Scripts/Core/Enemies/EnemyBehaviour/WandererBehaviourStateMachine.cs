@@ -4,7 +4,7 @@ using UnityEngine.AI;
 
 namespace Core.Enemies.EnemyBehaviour
 {
-    public class WandererBehaviourStateMachine : IEnemyStateMachine
+    public class WandererBehaviourStateMachine : BaseBehaviourStateMachine, IEnemyStateMachine
     {
         private const float SpawnTime = 1.4f;
 
@@ -14,23 +14,18 @@ namespace Core.Enemies.EnemyBehaviour
 
         private readonly NavMeshAgent _agent;
         private readonly Player _player;
-
-        private IEnemyState _state;
+        private readonly AnimationBlock _animationBLock;
 
         public WandererBehaviourStateMachine(Enemy enemy)
         {
             _agent = enemy.Agent;
             _player = enemy.Player;
+            _animationBLock = enemy.AnimationBlock;
 
-            _state = new SpawningEnemyState(this, SpawnTime);
+            State = new SpawningEnemyState(this, SpawnTime);
         }
 
-        public void OnUpdate(float deltaTime)
-        {
-            _state.OnUpdate(deltaTime);
-        }
-
-        public void ChangeStateToPostSpawn()
+        public override void ChangeStateToPostSpawn()
         {
             ChangeStateToWaiting();
         }
@@ -38,13 +33,13 @@ namespace Core.Enemies.EnemyBehaviour
         public void ChangeStateToWaiting()
         {
             var waitTime = Random.Range(1f, 3f);
-            _state = new WaitingEnemyState(this, waitTime);
+            ChangeState(new WaitingEnemyState(this, waitTime));
         }
 
         public void ChangeStateToWalking()
         {
             var destination = GetRandomDestinationNearPlayer();
-            _state = new WalkingToDestinationEnemyState(this, _agent, destination);
+            ChangeState(new WalkingToDestinationEnemyState(this, _animationBLock, _agent, destination));
         }
 
         private Vector3 GetRandomDestinationNearPlayer()
@@ -77,11 +72,6 @@ namespace Core.Enemies.EnemyBehaviour
 
             var randomPositionInsideCircle = new Vector3(x, 0f, z);
             return randomPositionInsideCircle + _player.transform.position;
-        }
-
-        public void Dispose()
-        {
-            _state.Dispose();
         }
     }
 }

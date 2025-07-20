@@ -18,6 +18,10 @@ namespace Core.Enemies.EnemyBehaviour.States
             _timeTillShoot = timeTillShoot;
         }
 
+        public void Enter()
+        {
+        }
+
         public void OnUpdate(float deltaTime)
         {
             if (Vector3.Distance(_enemy.transform.position, _enemy.Player.transform.position) > Settings.Enemy.RangeCloseDistanceOut)
@@ -33,6 +37,10 @@ namespace Core.Enemies.EnemyBehaviour.States
 
             _enemy.ShootProjectileToPlayer();
             _timeTillShoot = _enemy.Cooldown;
+        }
+
+        public void Exit()
+        {
         }
 
         public void Dispose()

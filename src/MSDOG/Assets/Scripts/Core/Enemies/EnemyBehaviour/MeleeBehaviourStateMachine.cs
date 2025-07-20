@@ -3,37 +3,26 @@ using UtilityComponents;
 
 namespace Core.Enemies.EnemyBehaviour
 {
-    public class MeleeBehaviourStateMachine : IEnemyStateMachine
+    public class MeleeBehaviourStateMachine : BaseBehaviourStateMachine
     {
         private const float SpawnTime = 1.3f;
 
         private readonly Enemy _enemy;
         private readonly ColliderEventProvider _triggerEnterProvider;
-
-        private IEnemyState _state;
+        private readonly AnimationBlock _animationBlock;
 
         public MeleeBehaviourStateMachine(Enemy enemy, ColliderEventProvider triggerEnterProvider)
         {
             _enemy = enemy;
             _triggerEnterProvider = triggerEnterProvider;
+            _animationBlock = enemy.AnimationBlock;
 
-            _state = new SpawningEnemyState(this, SpawnTime);
+            State = new SpawningEnemyState(this, SpawnTime);
         }
 
-
-        public void OnUpdate(float deltaTime)
+        public override void ChangeStateToPostSpawn()
         {
-            _state.OnUpdate(deltaTime);
-        }
-
-        public void ChangeStateToPostSpawn()
-        {
-            _state = new MeleeWalkingToPlayerEnemyState(_enemy, _triggerEnterProvider);
-        }
-
-        public void Dispose()
-        {
-            _state.Dispose();
+            ChangeState(new MeleeWalkingToPlayerEnemyState(_enemy, _animationBlock, _triggerEnterProvider));
         }
     }
 }

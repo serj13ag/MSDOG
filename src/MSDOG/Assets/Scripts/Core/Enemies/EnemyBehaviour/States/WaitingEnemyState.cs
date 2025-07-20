@@ -12,6 +12,10 @@ namespace Core.Enemies.EnemyBehaviour.States
             _timeTillStartWalking = waitTime;
         }
 
+        public void Enter()
+        {
+        }
+
         public void OnUpdate(float deltaTime)
         {
             if (_timeTillStartWalking > 0f)
@@ -21,6 +25,10 @@ namespace Core.Enemies.EnemyBehaviour.States
             }
 
             _stateMachine.ChangeStateToWalking();
+        }
+
+        public void Exit()
+        {
         }
 
         public void Dispose()
