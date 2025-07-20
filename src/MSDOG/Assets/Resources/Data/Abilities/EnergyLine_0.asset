@@ -9,9 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d03722d676b84e5d95956c5fb16a3b0b, type: 3}
-  m_Name: LevelAbilityData
+  m_Script: {fileID: 11500000, guid: 01749b93f6c1463a97e64d3b02419ba7, type: 3}
+  m_Name: EnergyLine_0
   m_EditorClassIdentifier: 
-  StartAbility: {fileID: 11400000, guid: 9c9ad72bbd4973d4986da7e1ba41a5ce, type: 2}
-  AbilitiesAvailableToCraft:
-  - {fileID: 11400000, guid: 9c9ad72bbd4973d4986da7e1ba41a5ce, type: 2}
+  AbilityType: 7
+  Damage: 1
+  Cooldown: 3
+  Speed: 1
+  Pierce: 0
+  Size: 1
+  DamageReductionPercent: 0
+  Lifetime: 2
+  TickTimeout: 0.2

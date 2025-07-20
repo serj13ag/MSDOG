@@ -9,6 +9,7 @@ namespace Core.Abilities
         BulletHell = 4,
         BuzzSaw = 5,
         PuncturedTank = 6,
+        EnergyLine = 7,
 
         // Stats
         AntiGravity = 20,

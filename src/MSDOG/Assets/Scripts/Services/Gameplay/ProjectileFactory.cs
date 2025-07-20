@@ -46,5 +46,13 @@ namespace Services.Gameplay
                     createProjectileDto.SpawnPosition);
             projectile.Init(createProjectileDto, _updateService);
         }
+
+        public void CreatePlayerEnergyLineProjectile(CreateProjectileDto createProjectileDto)
+        {
+            var projectile =
+                _assetProviderService.Instantiate<EnergyLineProjectile>(AssetPaths.PlayerEnergyLineProjectilePrefab,
+                    createProjectileDto.SpawnPosition);
+            projectile.Init(createProjectileDto, _updateService);
+        }
     }
 }

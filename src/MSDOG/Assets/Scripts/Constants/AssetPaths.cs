@@ -12,6 +12,7 @@ namespace Constants
         public const string PlayerProjectilePrefab = "Prefabs/PlayerProjectile";
         public const string PlayerBuzzSawProjectilePrefab = "Prefabs/PlayerBuzzSawProjectile";
         public const string PlayerPuddleProjectilePrefab = "Prefabs/PlayerPuddleProjectile";
+        public const string PlayerEnergyLineProjectilePrefab = "Prefabs/PlayerEnergyLineProjectile";
         public const string EnemyProjectilePrefab = "Prefabs/EnemyProjectile";
         public const string ExperiencePiecePrefab = "Prefabs/ExperiencePiece";
         public const string WandererEnemyPrefab = "Prefabs/Actors/EnemyWanderer";
