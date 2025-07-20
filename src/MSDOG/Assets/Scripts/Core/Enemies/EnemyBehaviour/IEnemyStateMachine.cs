@@ -5,5 +5,6 @@ namespace Core.Enemies.EnemyBehaviour
     public interface IEnemyStateMachine : IDisposable
     {
         void OnUpdate(float deltaTime);
+        void ChangeStateToPostSpawn();
     }
 }

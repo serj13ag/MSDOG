@@ -6,6 +6,8 @@ namespace Core.Enemies.EnemyBehaviour
 {
     public class WandererBehaviourStateMachine : IEnemyStateMachine
     {
+        private const float SpawnTime = 1.4f;
+
         private const int NumberOfAttemptsToFindDestination = 30;
         private const float MinWalkingRadiusFromPlayer = 5f;
         private const float MaxWalkingRadiusFromPlayer = 15f;
@@ -20,12 +22,17 @@ namespace Core.Enemies.EnemyBehaviour
             _agent = enemy.Agent;
             _player = enemy.Player;
 
-            ChangeStateToWaiting();
+            _state = new SpawningEnemyState(this, SpawnTime);
         }
 
         public void OnUpdate(float deltaTime)
         {
             _state.OnUpdate(deltaTime);
+        }
+
+        public void ChangeStateToPostSpawn()
+        {
+            ChangeStateToWaiting();
         }
 
         public void ChangeStateToWaiting()

@@ -5,6 +5,8 @@ namespace Core.Enemies.EnemyBehaviour
 {
     public class RangeBehaviourStateMachine : IEnemyStateMachine
     {
+        private const float SpawnTime = 2f;
+
         private readonly Enemy _enemy;
         private readonly ColliderEventProvider _triggerEnterProvider;
 
@@ -15,12 +17,17 @@ namespace Core.Enemies.EnemyBehaviour
             _enemy = enemy;
             _triggerEnterProvider = triggerEnterProvider;
 
-            _state = new RangeWalkingToPlayerEnemyState(this, enemy, triggerEnterProvider, 0f);
+            _state = new SpawningEnemyState(this, SpawnTime);
         }
 
         public void OnUpdate(float deltaTime)
         {
             _state.OnUpdate(deltaTime);
+        }
+
+        public void ChangeStateToPostSpawn()
+        {
+            ChangeStateToWalking(0f);
         }
 
         public void ChangeStateToWalking(float timeTillShoot)
