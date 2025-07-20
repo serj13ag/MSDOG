@@ -13,7 +13,8 @@ namespace Services.Gameplay
     {
         private const int MaxSpawnAttempts = 30;
         private const float MinDistanceFromPlayer = 4f;
-        private const float MinDistanceBetweenEnemies = 2f;
+        private const float MaxDistanceFromPlayer = 12f;
+        private const float MinDistanceBetweenEnemies = 1f;
 
         private readonly GameFactory _gameFactory;
         private readonly ArenaService _arenaService;
@@ -132,7 +133,8 @@ namespace Services.Gameplay
             if (_playerTransform)
             {
                 var distanceToPlayer = Vector3.Distance(position, _playerTransform.position);
-                if (distanceToPlayer < MinDistanceFromPlayer)
+                if (distanceToPlayer < MinDistanceFromPlayer ||
+                    distanceToPlayer > MaxDistanceFromPlayer)
                 {
                     return false;
                 }
