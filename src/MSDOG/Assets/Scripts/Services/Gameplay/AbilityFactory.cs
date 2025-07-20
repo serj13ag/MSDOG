@@ -24,6 +24,7 @@ namespace Services.Gameplay
                 AbilityType.BulletHell => new BulletHellAbility(abilityData, player, _projectileFactory),
                 AbilityType.BuzzSaw => new BuzzSawAbility(abilityData, player, _projectileFactory),
                 AbilityType.PuncturedTank => new PuncturedTankAbility(abilityData, player, _projectileFactory),
+                AbilityType.EnergyLine => new EnergyLineAbility(abilityData, player, _projectileFactory),
 
                 AbilityType.AntiGravity => new AntiGravityAbility(abilityData, player),
                 AbilityType.EnergyShield => new EnergyShieldAbility(abilityData, player),
