@@ -367,7 +367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _agent: {fileID: 6251957368140847398}
   _healthBarDebugView: {fileID: 8376822688814715283}
-  _triggerEnterProvider: {fileID: 0}
+  _damagePlayerColliderTriggerEnterProvider: {fileID: 0}
 --- !u!195 &6251957368140847398
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -412,7 +412,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 4

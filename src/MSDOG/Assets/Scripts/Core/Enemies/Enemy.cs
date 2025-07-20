@@ -16,7 +16,7 @@ namespace Core.Enemies
     {
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private HealthBarDebugView _healthBarDebugView;
-        [SerializeField] private ColliderEventProvider _triggerEnterProvider;
+        [SerializeField] private ColliderEventProvider _damagePlayerColliderTriggerEnterProvider;
 
         private UpdateService _updateService;
         private GameFactory _gameFactory;
@@ -57,8 +57,8 @@ namespace Core.Enemies
             _stateMachine = data.Type switch
             {
                 EnemyType.Wanderer => new WandererBehaviourStateMachine(this),
-                EnemyType.Melee => new MeleeBehaviourStateMachine(this, _triggerEnterProvider),
-                EnemyType.Range => new RangeBehaviourStateMachine(this, _triggerEnterProvider),
+                EnemyType.Melee => new MeleeBehaviourStateMachine(this, _damagePlayerColliderTriggerEnterProvider),
+                EnemyType.Range => new RangeBehaviourStateMachine(this, _damagePlayerColliderTriggerEnterProvider),
                 _ => throw new ArgumentOutOfRangeException(nameof(data.Type), data.Type, null),
             };
 
