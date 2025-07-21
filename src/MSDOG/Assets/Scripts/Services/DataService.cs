@@ -11,6 +11,7 @@ namespace Services
     public class DataService
     {
         private readonly Dictionary<int, LevelData> _levelsData;
+        private readonly AbilityData[] _abilitiesData;
         private readonly LevelAbilityData _levelAbilityData;
         private readonly AbilityUpgradesData _abilityUpgradesData;
 
@@ -22,6 +23,7 @@ namespace Services
                 Assert.IsTrue(_levelsData.ContainsKey(i));
             }
 
+            _abilitiesData = Resources.LoadAll<AbilityData>(AssetPaths.AbilitiesData);
             _levelAbilityData = Resources.Load<LevelAbilityData>(AssetPaths.LevelAbilityData);
             _abilityUpgradesData = Resources.Load<AbilityUpgradesData>(AssetPaths.AbilityUpgradesData);
         }
@@ -45,6 +47,14 @@ namespace Services
         {
             var randomIndex = Random.Range(0, _levelAbilityData.AbilitiesAvailableToCraft.Count);
             return _levelAbilityData.AbilitiesAvailableToCraft[randomIndex];
+        }
+
+        public IEnumerable<AbilityData> GetAbilitiesData()
+        {
+            foreach (var abilityData in _abilitiesData)
+            {
+                yield return abilityData;
+            }
         }
 
         public bool TryGetAbilityUpgradeData(AbilityType abilityType, int level, out AbilityData upgradedAbilityData)

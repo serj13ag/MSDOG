@@ -1,4 +1,5 @@
 using Core;
+using Data;
 using Services;
 using UI.HUD.DetailsZone;
 using UnityEngine;
@@ -30,6 +31,11 @@ namespace UI.HUD
         {
             var startAbilityData = _dataService.GetStartAbilityData();
             _activeZoneHud.AddDetail(startAbilityData);
+        }
+
+        public void AddAbility(AbilityData abilityData)
+        {
+            _detailsZoneHud.CreateDetail(abilityData);
         }
     }
 }

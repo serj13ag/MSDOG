@@ -8,6 +8,7 @@ namespace Infrastructure
 {
     public static class GameplayServices
     {
+        private static DebugService _debugService;
         private static EnemyService _enemyService;
         private static GameFactory _gameFactory;
         private static CameraService _cameraService;
@@ -34,9 +35,13 @@ namespace Infrastructure
             var enemyService = new EnemyService(updateService, dataService, gameFactory, arenaService);
             var gameStateService = new GameStateService(levelIndex, enemyService, windowService, progressService);
 
+            var debugService = new GameObject("DebugService").AddComponent<DebugService>();
+            debugService.Init(updateService);
+
             _assetProviderService = assetProviderService;
             _dataService = dataService;
             _windowService = windowService;
+            _debugService = debugService;
 
             _gameFactory = gameFactory;
             _cameraService = cameraService;
@@ -58,6 +63,8 @@ namespace Infrastructure
             hudController.Init(player, _dataService, _assetProviderService);
             hudController.AddStartAbility();
 
+            _debugService.Setup(hudController);
+                
             _enemyService.ActivateLevel(GameStateService.CurrentLevelIndex, player.transform);
         }
 

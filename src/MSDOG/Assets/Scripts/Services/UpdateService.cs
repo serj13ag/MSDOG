@@ -8,11 +8,15 @@ namespace Services
     {
         private readonly List<IUpdatable> _updatables = new List<IUpdatable>();
 
+        private float _gameTime = 1f;
+
+        public bool IsPaused => _gameTime == 0f;
+
         private void Update()
         {
             foreach (var updatable in _updatables.ToArray())
             {
-                updatable.OnUpdate(Time.deltaTime);
+                updatable.OnUpdate(Time.deltaTime * _gameTime);
             }
         }
 
@@ -24,6 +28,16 @@ namespace Services
         public void Remove(IUpdatable updatable)
         {
             _updatables.Remove(updatable);
+        }
+
+        public void Pause()
+        {
+            _gameTime = 0f;
+        }
+
+        public void Unpause()
+        {
+            _gameTime = 1f;
         }
     }
 }
