@@ -32,7 +32,7 @@ namespace Core.Enemies.EnemyBehaviour
 
         public void ChangeStateToShooting(float timeTillShoot)
         {
-            ChangeState(new ShootingEnemyState(this, _enemy, timeTillShoot));
+            ChangeState(new ShootingEnemyState(this, _enemy, _triggerEnterProvider, timeTillShoot));
         }
     }
 }
