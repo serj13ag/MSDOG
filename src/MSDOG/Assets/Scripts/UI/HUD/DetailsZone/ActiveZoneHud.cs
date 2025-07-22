@@ -6,7 +6,6 @@ using Data;
 using Services;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace UI.HUD.DetailsZone
 {
@@ -15,7 +14,7 @@ namespace UI.HUD.DetailsZone
         private const int MaxNumberOfActiveParts = 4;
 
         [SerializeField] private Canvas _parentCanvas;
-        [SerializeField] private GridLayoutGroup _grid;
+        [SerializeField] private Transform _grid;
 
         private AssetProviderService _assetProviderService;
         private Player _player;
