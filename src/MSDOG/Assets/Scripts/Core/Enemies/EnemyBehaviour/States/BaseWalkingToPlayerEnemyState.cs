@@ -1,37 +1,30 @@
-using Helpers;
-using UnityEngine;
 using UtilityComponents;
 
 namespace Core.Enemies.EnemyBehaviour.States
 {
-    public abstract class BaseWalkingToPlayerEnemyState : IEnemyState
+    public abstract class BaseWalkingToPlayerEnemyState : BaseTriggerAffectedEnemyState
     {
         private readonly Enemy _enemy;
         private readonly AnimationBlock _animationBlock;
-        private readonly ColliderEventProvider _triggerEnterProvider;
 
         protected Enemy Enemy => _enemy;
 
         protected BaseWalkingToPlayerEnemyState(Enemy enemy, AnimationBlock animationBlock,
             ColliderEventProvider triggerEnterProvider)
+            : base(enemy, triggerEnterProvider)
         {
             _enemy = enemy;
             _animationBlock = animationBlock;
-            _triggerEnterProvider = triggerEnterProvider;
-
-            if (triggerEnterProvider)
-            {
-                triggerEnterProvider.OnTriggerEntered += OnTriggerEntered;
-                triggerEnterProvider.OnTriggerExited += OnTriggerExited;
-            }
         }
 
-        public void Enter()
+        public override void Enter()
         {
+            base.Enter();
+
             _animationBlock.SetRunning(true);
         }
 
-        public virtual void OnUpdate(float deltaTime)
+        public override void OnUpdate(float deltaTime)
         {
             var enemyAgent = _enemy.Agent;
             if (!enemyAgent.isActiveAndEnabled)
@@ -42,43 +35,11 @@ namespace Core.Enemies.EnemyBehaviour.States
             enemyAgent.SetDestination(_enemy.Player.transform.position);
         }
 
-        public void Exit()
+        public override void Exit()
         {
+            base.Exit();
+
             _animationBlock.SetRunning(false);
-
-            RemoveDamager();
-        }
-
-        private void OnTriggerEntered(Collider obj)
-        {
-            if (obj.gameObject.TryGetComponentInHierarchy<Player>(out var player))
-            {
-                player.RegisterDamager(_enemy.Id, _enemy.Damage);
-            }
-        }
-
-        private void OnTriggerExited(Collider obj)
-        {
-            if (obj.gameObject.TryGetComponentInHierarchy<Player>(out var player))
-            {
-                player.RemoveDamager(_enemy.Id);
-            }
-        }
-
-        private void RemoveDamager()
-        {
-            if (_triggerEnterProvider)
-            {
-                _enemy.Player.RemoveDamager(_enemy.Id);
-
-                _triggerEnterProvider.OnTriggerEntered -= OnTriggerEntered;
-                _triggerEnterProvider.OnTriggerExited -= OnTriggerExited;
-            }
-        }
-
-        public void Dispose()
-        {
-            RemoveDamager();
         }
     }
 }

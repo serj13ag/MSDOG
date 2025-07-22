@@ -1,39 +1,27 @@
 using Constants;
-using Helpers;
 using UnityEngine;
 using UtilityComponents;
 
 namespace Core.Enemies.EnemyBehaviour.States
 {
-    public class ShootingEnemyState : IEnemyState
+    public class ShootingEnemyState : BaseTriggerAffectedEnemyState
     {
         private readonly RangeBehaviourStateMachine _stateMachine;
         private readonly Enemy _enemy;
-        private readonly ColliderEventProvider _triggerEnterProvider;
 
         private float _timeTillShoot;
 
         public ShootingEnemyState(RangeBehaviourStateMachine stateMachine, Enemy enemy,
             ColliderEventProvider triggerEnterProvider, float timeTillShoot)
+            : base(enemy, triggerEnterProvider)
         {
-            _triggerEnterProvider = triggerEnterProvider;
             _stateMachine = stateMachine;
             _enemy = enemy;
 
             _timeTillShoot = timeTillShoot;
-
-            if (triggerEnterProvider)
-            {
-                triggerEnterProvider.OnTriggerEntered += OnTriggerEntered;
-                triggerEnterProvider.OnTriggerExited += OnTriggerExited;
-            }
         }
 
-        public void Enter()
-        {
-        }
-
-        public void OnUpdate(float deltaTime)
+        public override void OnUpdate(float deltaTime)
         {
             _enemy.transform.LookAt(_enemy.Player.transform);
 
@@ -51,43 +39,6 @@ namespace Core.Enemies.EnemyBehaviour.States
 
             _enemy.Shoot();
             _timeTillShoot = _enemy.Cooldown;
-        }
-
-        public void Exit()
-        {
-            RemoveDamager();
-        }
-
-        private void OnTriggerEntered(Collider obj)
-        {
-            if (obj.gameObject.TryGetComponentInHierarchy<Player>(out var player))
-            {
-                player.RegisterDamager(_enemy.Id, _enemy.Damage);
-            }
-        }
-
-        private void OnTriggerExited(Collider obj)
-        {
-            if (obj.gameObject.TryGetComponentInHierarchy<Player>(out var player))
-            {
-                player.RemoveDamager(_enemy.Id);
-            }
-        }
-
-        private void RemoveDamager()
-        {
-            if (_triggerEnterProvider)
-            {
-                _enemy.Player.RemoveDamager(_enemy.Id);
-
-                _triggerEnterProvider.OnTriggerEntered -= OnTriggerEntered;
-                _triggerEnterProvider.OnTriggerExited -= OnTriggerExited;
-            }
-        }
-
-        public void Dispose()
-        {
-            RemoveDamager();
         }
     }
 }
