@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraPositionOffset: {x: 0, y: 20, z: -3}
-  _cameraRotationOffset: {x: 80, y: 0, z: -90}
+  _cameraRotationOffset: {x: 90, y: 0, z: -90}
