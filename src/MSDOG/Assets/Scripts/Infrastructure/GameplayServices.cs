@@ -2,6 +2,7 @@ using Constants;
 using Services;
 using Services.Gameplay;
 using UI.HUD;
+using UI.HUD.Actions;
 using UnityEngine;
 
 namespace Infrastructure
@@ -63,6 +64,9 @@ namespace Infrastructure
             hudController.Init(player, _dataService, _assetProviderService);
             hudController.AddStartAbility();
 
+            var hudActions = Object.FindFirstObjectByType<HudActions>();
+            hudActions.Init(player);
+            
             _debugService.Setup(hudController);
                 
             _enemyService.ActivateLevel(GameStateService.CurrentLevelIndex, player.transform);

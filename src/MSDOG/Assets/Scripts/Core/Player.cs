@@ -28,10 +28,11 @@ namespace Core
         private readonly Dictionary<Guid, IAbility> _abilities = new Dictionary<Guid, IAbility>();
         private float _additionalMoveSpeed;
         private int _damageReductionPercent;
+        private bool _movementIsActive;
 
         public CharacterController CharacterController => _characterController;
 
-        public float CurrentMoveSpeed => _moveSpeed + _additionalMoveSpeed;
+        public float CurrentMoveSpeed => _movementIsActive ? _moveSpeed + _additionalMoveSpeed : 0.5f;
         public int CurrentDamageReductionPercent => _damageReductionPercent;
 
         public int CurrentHealth => _healthBlock.CurrentHealth;
@@ -58,6 +59,8 @@ namespace Core
             _abilityFactory = abilityFactory;
             _updateService = updateService;
 
+            _movementIsActive = true;
+
             _healthBlock = new HealthBlock(100);
             _experienceBlock = new ExperienceBlock();
             _playerDamageBlock = new PlayerDamageBlock(this, _healthBlock);
@@ -72,6 +75,11 @@ namespace Core
 
             _playerDamageBlock.OnUpdate(deltaTime);
             _moveBlock.OnUpdate(deltaTime);
+        }
+
+        public void MovementSetActive(bool value)
+        {
+            _movementIsActive = value;
         }
 
         public void RegisterDamager(Guid id, int damage)
