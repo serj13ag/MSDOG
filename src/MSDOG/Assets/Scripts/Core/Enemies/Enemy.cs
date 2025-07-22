@@ -18,6 +18,7 @@ namespace Core.Enemies
         [SerializeField] private Animator _animator;
         [SerializeField] private HealthBarDebugView _healthBarDebugView;
         [SerializeField] private ColliderEventProvider _damagePlayerColliderTriggerEnterProvider;
+        [SerializeField] private AnimatorEventsProvider _animatorEventsProvider;
 
         private UpdateService _updateService;
         private GameFactory _gameFactory;
@@ -31,6 +32,8 @@ namespace Core.Enemies
         private HealthBlock _healthBlock;
         private AnimationBlock _animationBlock;
         private IEnemyStateMachine _stateMachine;
+
+        private bool _waitingToShootProjectile;
 
         public Guid Id => _id;
         public NavMeshAgent Agent => _agent;
@@ -69,6 +72,11 @@ namespace Core.Enemies
             _agent.speed = data.Speed;
 
             updateService.Register(this);
+
+            if (_animatorEventsProvider)
+            {
+                _animatorEventsProvider.OnAnimationAttackHit += OnAnimationAttackHit;
+            }
         }
 
         public void OnUpdate(float deltaTime)
@@ -76,13 +84,21 @@ namespace Core.Enemies
             _stateMachine.OnUpdate(deltaTime);
         }
 
-        public void ShootProjectileToPlayer()
+        private void OnAnimationAttackHit()
         {
-            var directionToPlayer = (_player.transform.position - transform.position).normalized;
-            directionToPlayer.y = 0f;
-            var createProjectileDto =
-                new CreateEnemyProjectileDto(transform.position, directionToPlayer, _player, Damage, _projectileSpeed, 0);
-            _projectileFactory.CreateEnemyProjectile(createProjectileDto);
+            if (!_waitingToShootProjectile)
+            {
+                return;
+            }
+
+            ShootProjectileTowardsPlayer();
+            _waitingToShootProjectile = false;
+        }
+
+        public void Shoot()
+        {
+            _waitingToShootProjectile = true;
+            _animationBlock.TriggerAttack();
         }
 
         public void TakeDamage(int damage)
@@ -96,11 +112,25 @@ namespace Core.Enemies
             }
         }
 
+        private void ShootProjectileTowardsPlayer()
+        {
+            var directionToPlayer = (_player.transform.position - transform.position).normalized;
+            directionToPlayer.y = 0f;
+            var createProjectileDto =
+                new CreateEnemyProjectileDto(transform.position, directionToPlayer, _player, Damage, _projectileSpeed, 0);
+            _projectileFactory.CreateEnemyProjectile(createProjectileDto);
+        }
+
         private void OnDestroy()
         {
             _stateMachine.Dispose();
 
             _updateService.Remove(this);
+
+            if (_animatorEventsProvider)
+            {
+                _animatorEventsProvider.OnAnimationAttackHit -= OnAnimationAttackHit;
+            }
         }
     }
 }

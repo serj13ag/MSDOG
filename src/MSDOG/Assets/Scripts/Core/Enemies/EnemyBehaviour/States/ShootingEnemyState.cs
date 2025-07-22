@@ -34,6 +34,8 @@ namespace Core.Enemies.EnemyBehaviour.States
 
         public void OnUpdate(float deltaTime)
         {
+            _enemy.transform.LookAt(_enemy.Player.transform);
+
             if (Vector3.Distance(_enemy.transform.position, _enemy.Player.transform.position) > Settings.Enemy.RangeCloseDistanceOut)
             {
                 _stateMachine.ChangeStateToWalking(_timeTillShoot);
@@ -45,7 +47,7 @@ namespace Core.Enemies.EnemyBehaviour.States
                 return;
             }
 
-            _enemy.ShootProjectileToPlayer();
+            _enemy.Shoot();
             _timeTillShoot = _enemy.Cooldown;
         }
 
