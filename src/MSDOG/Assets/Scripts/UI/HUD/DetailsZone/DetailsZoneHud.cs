@@ -13,6 +13,7 @@ namespace UI.HUD.DetailsZone
     {
         [SerializeField] private Canvas _parentCanvas;
         [SerializeField] private GridLayoutGroup _detailsGrid;
+        [SerializeField] private int _maxNumberOfParts;
 
         private AssetProviderService _assetProviderService;
 
@@ -25,6 +26,12 @@ namespace UI.HUD.DetailsZone
 
         public void CreateDetail(AbilityData abilityData)
         {
+            if (_detailParts.Count >= _maxNumberOfParts)
+            {
+                Debug.LogWarning("Maximum number of parts exceeded!");
+                return;
+            }
+
             var detailPart = _assetProviderService.Instantiate<DetailPartHud>(AssetPaths.DetailPartPrefabPath, _detailsGrid.transform);
             detailPart.Init(abilityData, _parentCanvas);
             detailPart.SetCurrentZone(this);
@@ -43,6 +50,11 @@ namespace UI.HUD.DetailsZone
             }
 
             if (_detailParts.ContainsKey(detailPart.Id))
+            {
+                return;
+            }
+
+            if (_detailParts.Count >= _maxNumberOfParts)
             {
                 return;
             }

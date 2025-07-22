@@ -11,16 +11,14 @@ namespace UI.HUD.DetailsZone
 {
     public class ActiveZoneHud : MonoBehaviour, IDetailsZone, IDropHandler
     {
-        private const int MaxNumberOfActiveParts = 4;
-
         [SerializeField] private Canvas _parentCanvas;
         [SerializeField] private Transform _grid;
+        [SerializeField] private int _maxNumberOfActiveParts;
 
         private AssetProviderService _assetProviderService;
         private Player _player;
 
-        private readonly Dictionary<Guid, DetailPartHud> _detailParts =
-            new Dictionary<Guid, DetailPartHud>(MaxNumberOfActiveParts);
+        private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
 
         public void Init(Player player, AssetProviderService assetProviderService)
         {
@@ -30,7 +28,7 @@ namespace UI.HUD.DetailsZone
 
         public void AddDetail(AbilityData abilityData)
         {
-            if (_detailParts.Count >= MaxNumberOfActiveParts)
+            if (_detailParts.Count >= _maxNumberOfActiveParts)
             {
                 Debug.LogError("Too many active detail parts");
                 return;
@@ -58,7 +56,7 @@ namespace UI.HUD.DetailsZone
                 return;
             }
 
-            if (_detailParts.Count >= MaxNumberOfActiveParts)
+            if (_detailParts.Count >= _maxNumberOfActiveParts)
             {
                 return;
             }
