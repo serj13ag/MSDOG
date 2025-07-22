@@ -22,7 +22,12 @@ namespace Core.Enemies.EnemyBehaviour
 
         public override void ChangeStateToPostSpawn()
         {
-            ChangeState(new MeleeWalkingToPlayerEnemyState(_enemy, _animationBlock, _triggerEnterProvider));
+            ChangeState(new MeleeWalkingToPlayerEnemyState(this, _enemy, _animationBlock, _triggerEnterProvider));
+        }
+
+        public void ChangeStateToAttacking()
+        {
+            ChangeState(new AttackingEnemyState(this, _enemy, _animationBlock, _triggerEnterProvider, 2f));
         }
     }
 }

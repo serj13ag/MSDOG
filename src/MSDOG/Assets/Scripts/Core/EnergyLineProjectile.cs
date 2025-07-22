@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Constants;
 using Core.Enemies;
 using DTO;
+using Helpers;
 using Interfaces;
 using Services;
 using UnityEngine;
@@ -88,7 +89,7 @@ namespace Core
             for (var i = 0; i < hits; i++)
             {
                 var hitCollider = _hitBuffer[i];
-                if (hitCollider.TryGetComponent<Enemy>(out var enemy))
+                if (hitCollider.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
                 {
                     hitEnemies.Add(enemy);
                 }

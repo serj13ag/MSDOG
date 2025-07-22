@@ -1,4 +1,5 @@
 using Constants;
+using Helpers;
 using UnityEngine;
 using UtilityComponents;
 
@@ -36,7 +37,8 @@ namespace Core.Enemies.EnemyBehaviour.States
         {
             _enemy.transform.LookAt(_enemy.Player.transform);
 
-            if (Vector3.Distance(_enemy.transform.position, _enemy.Player.transform.position) > Settings.Enemy.RangeCloseDistanceOut)
+            if (Vector3.Distance(_enemy.transform.position, _enemy.Player.transform.position) >
+                Settings.Enemy.RangeCloseDistanceOut)
             {
                 _stateMachine.ChangeStateToWalking(_timeTillShoot);
             }
@@ -53,31 +55,26 @@ namespace Core.Enemies.EnemyBehaviour.States
 
         public void Exit()
         {
+            RemoveDamager();
         }
 
         private void OnTriggerEntered(Collider obj)
         {
-            var player = obj.GetComponentInParent<Player>();
-            if (!player)
+            if (obj.gameObject.TryGetComponentInHierarchy<Player>(out var player))
             {
-                return;
+                player.RegisterDamager(_enemy.Id, _enemy.Damage);
             }
-
-            player.RegisterDamager(_enemy.Id, _enemy.Damage);
         }
 
         private void OnTriggerExited(Collider obj)
         {
-            var player = obj.GetComponentInParent<Player>();
-            if (!player)
+            if (obj.gameObject.TryGetComponentInHierarchy<Player>(out var player))
             {
-                return;
+                player.RemoveDamager(_enemy.Id);
             }
-
-            player.RemoveDamager(_enemy.Id);
         }
 
-        public void Dispose()
+        private void RemoveDamager()
         {
             if (_triggerEnterProvider)
             {
@@ -86,6 +83,11 @@ namespace Core.Enemies.EnemyBehaviour.States
                 _triggerEnterProvider.OnTriggerEntered -= OnTriggerEntered;
                 _triggerEnterProvider.OnTriggerExited -= OnTriggerExited;
             }
+        }
+
+        public void Dispose()
+        {
+            RemoveDamager();
         }
     }
 }

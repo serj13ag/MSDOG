@@ -1,6 +1,7 @@
 using System;
 using Core.Enemies;
 using DTO;
+using Helpers;
 using Interfaces;
 using Services;
 using UnityEngine;
@@ -60,23 +61,17 @@ namespace Core
         {
             if (_isPlayer)
             {
-                var enemy = other.gameObject.GetComponentInParent<Enemy>();
-                if (!enemy)
+                if (other.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
                 {
-                    return;
+                    enemy.TakeDamage(_damage);
                 }
-
-                enemy.TakeDamage(_damage);
             }
             else
             {
-                var player = other.gameObject.GetComponentInParent<Player>();
-                if (!player)
+                if (other.gameObject.TryGetComponentInHierarchy<Player>(out var player))
                 {
-                    return;
+                    player.RegisterProjectileDamager(_id, _damage);
                 }
-
-                player.RegisterProjectileDamager(_id, _damage);
             }
 
             if (_pierce > 0)

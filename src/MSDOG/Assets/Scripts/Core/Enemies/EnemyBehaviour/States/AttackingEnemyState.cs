@@ -4,20 +4,23 @@ using UtilityComponents;
 
 namespace Core.Enemies.EnemyBehaviour.States
 {
-    public abstract class BaseWalkingToPlayerEnemyState : IEnemyState
+    public class AttackingEnemyState : IEnemyState
     {
+        private readonly IEnemyStateMachine _stateMachine;
         private readonly Enemy _enemy;
         private readonly AnimationBlock _animationBlock;
         private readonly ColliderEventProvider _triggerEnterProvider;
 
-        protected Enemy Enemy => _enemy;
+        private float _timeTillSpawnEnd;
 
-        protected BaseWalkingToPlayerEnemyState(Enemy enemy, AnimationBlock animationBlock,
-            ColliderEventProvider triggerEnterProvider)
+        public AttackingEnemyState(IEnemyStateMachine stateMachine, Enemy enemy, AnimationBlock animationBlock,
+            ColliderEventProvider triggerEnterProvider, float spawnTime)
         {
+            _stateMachine = stateMachine;
             _enemy = enemy;
             _animationBlock = animationBlock;
             _triggerEnterProvider = triggerEnterProvider;
+            _timeTillSpawnEnd = spawnTime;
 
             if (triggerEnterProvider)
             {
@@ -28,24 +31,24 @@ namespace Core.Enemies.EnemyBehaviour.States
 
         public void Enter()
         {
-            _animationBlock.SetRunning(true);
+            _enemy.transform.LookAt(_enemy.Player.transform);
+            _animationBlock.TriggerAttack();
+            _enemy.Agent.ResetPath();
         }
 
-        public virtual void OnUpdate(float deltaTime)
+        public void OnUpdate(float deltaTime)
         {
-            var enemyAgent = _enemy.Agent;
-            if (!enemyAgent.isActiveAndEnabled)
+            if (_timeTillSpawnEnd > 0f)
             {
+                _timeTillSpawnEnd -= deltaTime;
                 return;
             }
 
-            enemyAgent.SetDestination(_enemy.Player.transform.position);
+            _stateMachine.ChangeStateToPostSpawn();
         }
 
         public void Exit()
         {
-            _animationBlock.SetRunning(false);
-
             RemoveDamager();
         }
 

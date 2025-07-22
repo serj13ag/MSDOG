@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Constants;
 using Core.Enemies;
 using Data;
+using Helpers;
 using UnityEngine;
 
 namespace Core.Abilities
@@ -51,7 +52,7 @@ namespace Core.Abilities
             for (var i = 0; i < hits; i++)
             {
                 var collider = _hitBuffer[i];
-                if (collider.TryGetComponent<Enemy>(out var enemy))
+                if (collider.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
                 {
                     hitEnemies.Add(enemy);
                 }

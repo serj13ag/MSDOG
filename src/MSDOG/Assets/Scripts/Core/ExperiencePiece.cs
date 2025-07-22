@@ -1,3 +1,4 @@
+using Helpers;
 using Interfaces;
 using Services;
 using UnityEngine;
@@ -43,13 +44,10 @@ namespace Core
 
         private void OnTriggerEntered(Collider obj)
         {
-            var player = obj.GetComponentInParent<Player>();
-            if (!player)
+            if (obj.gameObject.TryGetComponentInHierarchy<Player>(out var player))
             {
-                return;
+                _player = player;
             }
-
-            _player = player;
         }
 
         private void OnDestroy()
