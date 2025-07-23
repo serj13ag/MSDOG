@@ -500,6 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e458ddd50549400f86961610217ffc1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modelRootTransform: {fileID: 7985257621076522287}
   _agent: {fileID: 6251957368140847398}
   _animator: {fileID: 4674256933996013706}
   _healthBarDebugView: {fileID: 8376822688814715283}

@@ -11,11 +11,7 @@ namespace Services
 
         public T Instantiate<T>(string path) where T : Object
         {
-            var prefab = LoadAsset<T>(path);
-            var instance = Object.Instantiate(prefab, Vector3.zero, Quaternion.identity);
-            instance.name = prefab.name;
-
-            return instance;
+            return Instantiate<T>(path, Vector3.zero, Quaternion.identity);
         }
 
         public T Instantiate<T>(string path, Transform parentTransform) where T : Object
@@ -29,8 +25,13 @@ namespace Services
 
         public T Instantiate<T>(string path, Vector3 position) where T : Object
         {
+            return Instantiate<T>(path, position, Quaternion.identity);
+        }
+
+        public T Instantiate<T>(string path, Vector3 position, Quaternion rotation) where T : Object
+        {
             var prefab = LoadAsset<T>(path);
-            var instance = Object.Instantiate(prefab, position, Quaternion.identity);
+            var instance = Object.Instantiate(prefab, position, rotation);
             instance.name = prefab.name;
 
             return instance;

@@ -99,6 +99,7 @@ namespace Services.Gameplay
             _enemies.Remove(enemy);
             enemy.OnDied -= OnEnemyDied;
 
+            SpawnDeathkit(enemy);
             Object.Destroy(enemy.gameObject); // TODO: pool?
 
             if (!_isActive && _enemies.Count == 0)
@@ -150,6 +151,11 @@ namespace Services.Gameplay
             }
 
             return true;
+        }
+
+        private void SpawnDeathkit(Enemy enemy)
+        {
+            _gameFactory.CreateEnemyDeathkit(enemy.Type, enemy.ModelRootPosition, enemy.transform.rotation);
         }
 
         public void Cleanup()

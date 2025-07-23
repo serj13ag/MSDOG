@@ -14,6 +14,7 @@ namespace Core.Enemies
 {
     public class Enemy : MonoBehaviour, IUpdatable
     {
+        [SerializeField] private Transform _modelRootTransform;
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private Animator _animator;
         [SerializeField] private HealthBarDebugView _healthBarDebugView;
@@ -38,9 +39,12 @@ namespace Core.Enemies
         public Guid Id => _id;
         public NavMeshAgent Agent => _agent;
         public AnimationBlock AnimationBlock => _animationBlock;
+        public Vector3 ModelRootPosition => _modelRootTransform.position;
         public Player Player => _player;
         public int Damage => _damage;
         public float Cooldown => _cooldown;
+
+        public EnemyType Type { get; private set; }
 
         public event Action<Enemy> OnDied;
 
@@ -56,6 +60,7 @@ namespace Core.Enemies
             _damage = data.Damage;
             _cooldown = data.Cooldown;
             _projectileSpeed = data.ProjectileSpeed;
+            Type = data.Type;
 
             _healthBlock = new HealthBlock(data.MaxHealth);
             _animationBlock = new AnimationBlock(_animator);

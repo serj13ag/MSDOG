@@ -434,6 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e458ddd50549400f86961610217ffc1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _modelRootTransform: {fileID: 8552495414825559056}
   _agent: {fileID: 6251957368140847398}
   _animator: {fileID: 6394988125383801269}
   _healthBarDebugView: {fileID: 8376822688814715283}
@@ -1024,5 +1025,10 @@ Transform:
 --- !u!95 &6394988125383801269 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 33dbcdce191c1df4d873d8427013a3d3, type: 3}
+  m_PrefabInstance: {fileID: 708501621756593188}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8552495414825559056 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -43475527947608012, guid: 33dbcdce191c1df4d873d8427013a3d3, type: 3}
   m_PrefabInstance: {fileID: 708501621756593188}
   m_PrefabAsset: {fileID: 0}

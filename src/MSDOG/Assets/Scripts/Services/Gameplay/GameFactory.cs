@@ -52,6 +52,21 @@ namespace Services.Gameplay
             return enemy;
         }
 
+        public EnemyDeathkit CreateEnemyDeathkit(EnemyType enemyType, Vector3 position, Quaternion rotation)
+        {
+            var prefabPath = enemyType switch
+            {
+                EnemyType.Wanderer => AssetPaths.WandererEnemyDeathkitPrefab,
+                EnemyType.Melee => AssetPaths.MeleeEnemyDeathkitPrefab,
+                EnemyType.Range => AssetPaths.RangeEnemyDeathkitPrefab,
+                _ => throw new ArgumentOutOfRangeException(),
+            };
+
+            var enemyDeathkit = _assetProviderService.Instantiate<EnemyDeathkit>(prefabPath, position, rotation);
+            enemyDeathkit.Init();
+            return enemyDeathkit;
+        }
+
         public ExperiencePiece CreateExperiencePiece(Vector3 position)
         {
             var experiencePiece = _assetProviderService.Instantiate<ExperiencePiece>(AssetPaths.ExperiencePiecePrefab, position);
