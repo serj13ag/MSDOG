@@ -19,6 +19,7 @@ namespace Services
         {
             _lastPassedLevel = level;
             PlayerPrefs.SetInt(LastPassedLevelKey, level);
+            PlayerPrefs.Save();
         }
     }
 }

@@ -4,6 +4,7 @@ using Constants;
 using Core;
 using Data;
 using Services;
+using Sounds;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -16,12 +17,14 @@ namespace UI.HUD.DetailsZone
         [SerializeField] private int _maxNumberOfActiveParts;
 
         private AssetProviderService _assetProviderService;
+        private SoundService _soundService;
         private Player _player;
 
         private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
 
-        public void Init(Player player, AssetProviderService assetProviderService)
+        public void Init(Player player, AssetProviderService assetProviderService, SoundService soundService)
         {
+            _soundService = soundService;
             _assetProviderService = assetProviderService;
             _player = player;
         }
@@ -69,6 +72,7 @@ namespace UI.HUD.DetailsZone
             _detailParts.Add(detailPart.Id, detailPart);
             detailPart.transform.SetParent(_grid.transform);
             _player.AddAbility(detailPart.Id, detailPart.AbilityData);
+            _soundService.PlaySfx(SfxType.Activate);
         }
 
         public void Exit(DetailPartHud detailPart)

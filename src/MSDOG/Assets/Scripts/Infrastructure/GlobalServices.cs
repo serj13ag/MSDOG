@@ -35,7 +35,6 @@ namespace Infrastructure
                 assetProviderService.Instantiate<LoadingCurtainService>(AssetPaths.LoadingCurtainServicePath);
 
             var soundService = assetProviderService.Instantiate<SoundService>(AssetPaths.SoundServicePath);
-            soundService.Init(assetProviderService);
 
             var windowService = new WindowService(assetProviderService);
 

@@ -16,6 +16,7 @@ namespace Infrastructure
         private static DataService _dataService;
         private static AssetProviderService _assetProviderService;
         private static WindowService _windowService;
+        private static SoundService _soundService;
 
         public static InputService InputService { get; private set; }
         public static GameStateService GameStateService { get; private set; }
@@ -39,6 +40,7 @@ namespace Infrastructure
             var debugService = new GameObject("DebugService").AddComponent<DebugService>();
             debugService.Init(updateService);
 
+            _soundService = soundService;
             _assetProviderService = assetProviderService;
             _dataService = dataService;
             _windowService = windowService;
@@ -61,7 +63,7 @@ namespace Infrastructure
             _cameraService.SetFollowTarget(player.transform);
 
             var hudController = Object.FindFirstObjectByType<HudController>();
-            hudController.Init(player, _dataService, _assetProviderService);
+            hudController.Init(player, _dataService, _assetProviderService, _soundService);
             hudController.AddStartAbility();
 
             var hudActions = Object.FindFirstObjectByType<HudActions>();

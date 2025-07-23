@@ -16,7 +16,8 @@ namespace UI.HUD
         private DataService _dataService;
         private AssetProviderService _assetProviderService;
 
-        public void Init(Player player, DataService dataService, AssetProviderService assetProviderService)
+        public void Init(Player player, DataService dataService, AssetProviderService assetProviderService,
+            SoundService soundService)
         {
             _assetProviderService = assetProviderService;
             _dataService = dataService;
@@ -24,7 +25,7 @@ namespace UI.HUD
             _healthBarHud.Init(player);
             _experienceBarHud.Init(player, dataService, _detailsZoneHud);
             _detailsZoneHud.Init(assetProviderService);
-            _activeZoneHud.Init(player, assetProviderService);
+            _activeZoneHud.Init(player, assetProviderService, soundService);
         }
 
         public void AddStartAbility()
