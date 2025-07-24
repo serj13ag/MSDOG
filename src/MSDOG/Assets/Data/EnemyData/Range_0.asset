@@ -18,3 +18,4 @@ MonoBehaviour:
   Cooldown: 1
   Damage: 1
   ProjectileSpeed: 3
+  Experience: 1

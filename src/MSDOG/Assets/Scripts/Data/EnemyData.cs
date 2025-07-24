@@ -12,5 +12,6 @@ namespace Data
         public float Cooldown;
         public int Damage;
         public float ProjectileSpeed;
+        public int Experience = 1;
     }
 }

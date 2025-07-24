@@ -8,16 +8,16 @@ namespace Core
 {
     public class ExperiencePiece : MonoBehaviour, IUpdatable
     {
-        private const int Experience = 10;
-
         [SerializeField] private ColliderEventProvider _colliderEventProvider;
 
         private UpdateService _updateService;
         private Player _player;
+        private int _experience;
 
-        public void Init(UpdateService updateService)
+        public void Init(int experience, UpdateService updateService)
         {
             _updateService = updateService;
+            _experience = experience;
 
             updateService.Register(this);
             _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
@@ -33,7 +33,7 @@ namespace Core
             var vectorToPlayer = _player.transform.position - transform.position;
             if (vectorToPlayer.sqrMagnitude < 0.1f)
             {
-                _player.CollectExperience(Experience);
+                _player.CollectExperience(_experience);
                 Destroy(gameObject);
                 return;
             }

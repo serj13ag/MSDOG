@@ -67,10 +67,10 @@ namespace Services.Gameplay
             return enemyDeathkit;
         }
 
-        public ExperiencePiece CreateExperiencePiece(Vector3 position)
+        public ExperiencePiece CreateExperiencePiece(Vector3 position, int experience)
         {
             var experiencePiece = _assetProviderService.Instantiate<ExperiencePiece>(AssetPaths.ExperiencePiecePrefab, position);
-            experiencePiece.Init(_updateService);
+            experiencePiece.Init(experience, _updateService);
             return experiencePiece;
         }
     }

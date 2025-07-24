@@ -30,6 +30,7 @@ namespace Core.Enemies
         private int _damage;
         private float _cooldown;
         private float _projectileSpeed;
+        private int _experience;
         private HealthBlock _healthBlock;
         private AnimationBlock _animationBlock;
         private IEnemyStateMachine _stateMachine;
@@ -60,6 +61,7 @@ namespace Core.Enemies
             _damage = data.Damage;
             _cooldown = data.Cooldown;
             _projectileSpeed = data.ProjectileSpeed;
+            _experience = data.Experience;
             Type = data.Type;
 
             _healthBlock = new HealthBlock(data.MaxHealth);
@@ -111,7 +113,7 @@ namespace Core.Enemies
             _healthBlock.ReduceHealth(damage);
             if (_healthBlock.HasZeroHealth)
             {
-                _gameFactory.CreateExperiencePiece(transform.position);
+                _gameFactory.CreateExperiencePiece(transform.position, _experience);
 
                 OnDied?.Invoke(this);
             }

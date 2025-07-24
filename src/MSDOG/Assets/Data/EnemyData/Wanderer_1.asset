@@ -15,5 +15,7 @@ MonoBehaviour:
   Type: 0
   Speed: 5
   MaxHealth: 4
-  AttackSpeed: 0
+  Cooldown: 0
   Damage: 0
+  ProjectileSpeed: 0
+  Experience: 1
