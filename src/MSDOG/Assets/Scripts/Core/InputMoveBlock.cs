@@ -28,6 +28,10 @@ namespace Core
             }
 
             var moveDirection = new Vector3(moveInput.x, 0, moveInput.y);
+
+            var targetRotation = Quaternion.LookRotation(moveDirection);
+            _player.transform.rotation = Quaternion.RotateTowards(_player.transform.rotation, targetRotation, _player.RotationSpeed * deltaTime);
+
             var move = moveDirection * (_player.CurrentMoveSpeed * deltaTime);
 
             var nextPosition = _player.transform.position + move;

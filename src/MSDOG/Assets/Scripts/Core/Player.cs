@@ -16,6 +16,7 @@ namespace Core
 
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private float _moveSpeed = 6f;
+        [SerializeField] private float _rotationSpeed = 720f;
 
         private UpdateService _updateService;
         private AbilityFactory _abilityFactory;
@@ -32,6 +33,7 @@ namespace Core
 
         public CharacterController CharacterController => _characterController;
 
+        public float RotationSpeed => _rotationSpeed;
         public float CurrentMoveSpeed => _movementIsActive ? _moveSpeed + _additionalMoveSpeed : 0.5f;
         public int CurrentDamageReductionPercent => _damageReductionPercent;
 
