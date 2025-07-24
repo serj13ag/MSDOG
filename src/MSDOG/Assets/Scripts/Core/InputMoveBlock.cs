@@ -22,15 +22,17 @@ namespace Core
         public void OnUpdate(float deltaTime)
         {
             var moveInput = _inputService.MoveInput;
-            if (moveInput == Vector2.zero)
+            if (moveInput == Vector2.zero || _player.CurrentMoveSpeed <= 0f)
             {
+                _player.AnimationBlock.SetRunning(false);
                 return;
             }
 
             var moveDirection = new Vector3(moveInput.x, 0, moveInput.y);
 
             var targetRotation = Quaternion.LookRotation(moveDirection);
-            _player.transform.rotation = Quaternion.RotateTowards(_player.transform.rotation, targetRotation, _player.RotationSpeed * deltaTime);
+            _player.transform.rotation = Quaternion.RotateTowards(_player.transform.rotation, targetRotation,
+                _player.RotationSpeed * deltaTime);
 
             var move = moveDirection * (_player.CurrentMoveSpeed * deltaTime);
 
@@ -46,6 +48,8 @@ namespace Core
             }
 
             _characterController.Move(move);
+
+            _player.AnimationBlock.SetRunning(true);
         }
     }
 }

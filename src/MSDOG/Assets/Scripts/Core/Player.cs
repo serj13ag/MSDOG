@@ -15,6 +15,7 @@ namespace Core
         private const int MaxDamageReductionPercent = 80;
 
         [SerializeField] private CharacterController _characterController;
+        [SerializeField] private Animator _animator;
         [SerializeField] private float _moveSpeed = 6f;
         [SerializeField] private float _rotationSpeed = 720f;
 
@@ -25,6 +26,7 @@ namespace Core
         private ExperienceBlock _experienceBlock;
         private PlayerDamageBlock _playerDamageBlock;
         private InputMoveBlock _moveBlock;
+        private AnimationBlock _animationBlock;
 
         private readonly Dictionary<Guid, IAbility> _abilities = new Dictionary<Guid, IAbility>();
         private float _additionalMoveSpeed;
@@ -32,9 +34,10 @@ namespace Core
         private bool _movementIsActive;
 
         public CharacterController CharacterController => _characterController;
+        public AnimationBlock AnimationBlock => _animationBlock;
 
         public float RotationSpeed => _rotationSpeed;
-        public float CurrentMoveSpeed => _movementIsActive ? _moveSpeed + _additionalMoveSpeed : 0.5f;
+        public float CurrentMoveSpeed => _movementIsActive ? _moveSpeed + _additionalMoveSpeed : 0f;
         public int CurrentDamageReductionPercent => _damageReductionPercent;
 
         public int CurrentHealth => _healthBlock.CurrentHealth;
@@ -63,6 +66,7 @@ namespace Core
 
             _movementIsActive = true;
 
+            _animationBlock = new AnimationBlock(_animator);
             _healthBlock = new HealthBlock(100);
             _experienceBlock = new ExperienceBlock();
             _playerDamageBlock = new PlayerDamageBlock(this, _healthBlock);
@@ -82,6 +86,7 @@ namespace Core
         public void MovementSetActive(bool value)
         {
             _movementIsActive = value;
+            _animationBlock.SetMoveless(!value);
         }
 
         public void RegisterDamager(Guid id, int damage)

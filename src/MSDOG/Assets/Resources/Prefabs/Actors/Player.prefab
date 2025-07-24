@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterController: {fileID: 8305246133135563056}
+  _animator: {fileID: 1509800540055780042}
   _moveSpeed: 6
   _rotationSpeed: 720
 --- !u!143 &8305246133135563056
@@ -155,7 +156,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 2
-  m_Radius: 0.5
+  m_Radius: 0.7
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -261,6 +262,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd4a09c3a034744439a1dc7c1d49adea, type: 3}
+--- !u!95 &1509800540055780042 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: cd4a09c3a034744439a1dc7c1d49adea, type: 3}
+  m_PrefabInstance: {fileID: 5015169670801983323}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4761377117777322160 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cd4a09c3a034744439a1dc7c1d49adea, type: 3}
