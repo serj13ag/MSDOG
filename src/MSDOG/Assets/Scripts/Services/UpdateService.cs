@@ -33,11 +33,13 @@ namespace Services
         public void Pause()
         {
             _gameTime = 0f;
+            Time.timeScale = 0f;
         }
 
         public void Unpause()
         {
             _gameTime = 1f;
+            Time.timeScale = 1f;
         }
     }
 }

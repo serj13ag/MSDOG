@@ -57,17 +57,17 @@ namespace Services.Gameplay
 
             GUILayout.Label("GENERAL");
 
-            // if (GUILayout.Button("Pause/Unpause", style))
-            // {
-            //     if (_updateService.IsPaused)
-            //     {
-            //         _updateService.Unpause();
-            //     }
-            //     else
-            //     {
-            //         _updateService.Pause();
-            //     }
-            // }
+            if (GUILayout.Button("Pause/Unpause", style))
+            {
+                if (_updateService.IsPaused)
+                {
+                    _updateService.Unpause();
+                }
+                else
+                {
+                    _updateService.Pause();
+                }
+            }
 
             GUILayout.Label("ABILITIES");
 
