@@ -32,7 +32,8 @@ namespace Infrastructure
             {
                 var debugService = new GameObject("DebugService").AddComponent<DebugService>();
                 var updateService = resolver.Resolve<UpdateService>();
-                debugService.Init(updateService);
+                var dataService = resolver.Resolve<DataService>();
+                debugService.Construct(updateService, dataService);
                 return debugService;
             }, Lifetime.Scoped);
 

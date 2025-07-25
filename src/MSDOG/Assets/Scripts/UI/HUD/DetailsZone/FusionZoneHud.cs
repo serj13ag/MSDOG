@@ -1,7 +1,8 @@
 using Data;
-using Infrastructure;
+using Services;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace UI.HUD.DetailsZone
 {
@@ -12,7 +13,15 @@ namespace UI.HUD.DetailsZone
         [SerializeField] private FusionSlotHud _fusionSlotHud2;
         [SerializeField] private Button _upgradeButton;
 
+        private DataService _dataService;
+
         private AbilityData _upgradedAbilityData;
+
+        [Inject]
+        public void Construct(DataService dataService)
+        {
+            _dataService = dataService;
+        }
 
         private void OnEnable()
         {
@@ -48,9 +57,8 @@ namespace UI.HUD.DetailsZone
                 return;
             }
 
-            var dataService = GlobalServices.DataService;
             var hasUpgrade =
-                dataService.TryGetAbilityUpgradeData(abilityData1.AbilityType, abilityData1.Level, out _upgradedAbilityData);
+                _dataService.TryGetAbilityUpgradeData(abilityData1.AbilityType, abilityData1.Level, out _upgradedAbilityData);
 
             _upgradeButton.gameObject.SetActive(hasUpgrade);
         }
