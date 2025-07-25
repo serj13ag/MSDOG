@@ -10,6 +10,7 @@ namespace Data
         public int Level;
         public int Damage;
         public float Cooldown;
+        public float FirstCooldownReduction;
         public float Speed;
         public int Pierce;
         public float Size;

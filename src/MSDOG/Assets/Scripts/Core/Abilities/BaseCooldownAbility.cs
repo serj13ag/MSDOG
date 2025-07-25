@@ -5,11 +5,11 @@ namespace Core.Abilities
         private readonly float _cooldown;
         private float _timeTillAction;
 
-        protected BaseCooldownAbility(float cooldown)
+        protected BaseCooldownAbility(float cooldown, float firstCooldownReduction)
         {
             _cooldown = cooldown;
 
-            ResetTimeTillAction();
+            _timeTillAction = cooldown - firstCooldownReduction;
         }
 
         public void Activate()

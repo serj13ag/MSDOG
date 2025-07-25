@@ -12,7 +12,7 @@ namespace Core.Abilities
         private readonly ProjectileFactory _projectileFactory;
 
         public EnergyLineAbility(AbilityData abilityData, Player player, ProjectileFactory projectileFactory)
-            : base(abilityData.Cooldown)
+            : base(abilityData.Cooldown, abilityData.FirstCooldownReduction)
         {
             _abilityData = abilityData;
             _player = player;

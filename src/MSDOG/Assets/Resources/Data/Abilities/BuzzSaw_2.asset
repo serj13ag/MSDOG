@@ -16,6 +16,7 @@ MonoBehaviour:
   Level: 2
   Damage: 5
   Cooldown: 7
+  FirstCooldownReduction: 6
   Speed: 6
   Pierce: 8
   Size: 0

@@ -18,7 +18,7 @@ namespace Core.Abilities
         private readonly Collider[] _hitBuffer = new Collider[32];
 
         public CuttingBlowAbility(AbilityData abilityData, Player player)
-            : base(abilityData.Cooldown)
+            : base(abilityData.Cooldown, abilityData.FirstCooldownReduction)
         {
             _player = player;
             _damage = abilityData.Damage;
