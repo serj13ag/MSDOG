@@ -26,6 +26,7 @@ namespace Infrastructure
             builder.Register<GameFactory>(Lifetime.Scoped);
             builder.Register<EnemyService>(Lifetime.Scoped);
             builder.Register<GameStateService>(Lifetime.Scoped);
+            builder.Register<GameplayWindowService>(Lifetime.Scoped);
 
             builder.Register<DebugService>(resolver =>
             {

@@ -14,13 +14,13 @@ namespace Infrastructure
         private readonly CameraService _cameraService;
         private readonly DataService _dataService;
         private readonly AssetProviderService _assetProviderService;
-        private readonly WindowService _windowService;
+        private readonly GameplayWindowService _gameplayWindowService;
         private readonly SoundService _soundService;
         private readonly GameStateService _gameStateService;
 
         public GameplayInitializer(DebugService debugService, EnemyService enemyService, GameFactory gameFactory,
             CameraService cameraService, DataService dataService, AssetProviderService assetProviderService,
-            WindowService windowService, SoundService soundService, GameStateService gameStateService)
+            GameplayWindowService gameplayWindowService, SoundService soundService, GameStateService gameStateService)
         {
             _debugService = debugService;
             _enemyService = enemyService;
@@ -28,14 +28,14 @@ namespace Infrastructure
             _cameraService = cameraService;
             _dataService = dataService;
             _assetProviderService = assetProviderService;
-            _windowService = windowService;
+            _gameplayWindowService = gameplayWindowService;
             _soundService = soundService;
             _gameStateService = gameStateService;
         }
 
         public void Start(int levelIndex)
         {
-            _windowService.CreateRootCanvas();
+            _gameplayWindowService.CreateRootCanvas();
 
             var player = _gameFactory.CreatePlayer();
 

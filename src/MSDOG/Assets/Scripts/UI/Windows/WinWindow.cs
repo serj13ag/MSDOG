@@ -4,6 +4,7 @@ using Services;
 using Services.Gameplay;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace UI.Windows
 {
@@ -14,16 +15,19 @@ namespace UI.Windows
 
         private DataService _dataService;
         private GameStateService _gameStateService;
+        private InputService _inputService;
 
-        private void Awake()
+        [Inject]
+        public void Construct(DataService dataService, GameStateService gameStateService, InputService inputService)
         {
-            _dataService = GlobalServices.DataService;
-            _gameStateService = GameplayServices.GameStateService;
+            _inputService = inputService;
+            _dataService = dataService;
+            _gameStateService = gameStateService;
         }
 
         private void OnEnable()
         {
-            GameplayServices.InputService.LockInput();
+            _inputService.LockInput();
 
             _toMainMenuButton.onClick.AddListener(OnToMainMenuButtonClicked);
             _toNextLevelButton.onClick.AddListener(OnToNextLevelButtonClicked);

@@ -35,8 +35,6 @@ namespace Infrastructure.StateMachine
             var gameplayScope = Object.FindFirstObjectByType<GameplayServicesScope>();
             gameplayScope.BuildContainer();
 
-            GameplayServices.Initialize(gameplayScope.Container);
-
             var gameplayInitializer = gameplayScope.Container.Resolve<GameplayInitializer>();
             gameplayInitializer.Start(_levelIndex);
 

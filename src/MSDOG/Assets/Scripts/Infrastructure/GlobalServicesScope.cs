@@ -37,7 +37,6 @@ namespace Infrastructure
             builder.Register<DataService>(Lifetime.Singleton);
             builder.Register<ProgressService>(Lifetime.Singleton);
             builder.Register<SceneLoadService>(Lifetime.Singleton);
-            builder.Register<WindowService>(Lifetime.Singleton);
 
             builder.RegisterInstance(_loadingCurtainService);
             builder.RegisterInstance(_soundService);

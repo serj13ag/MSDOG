@@ -3,6 +3,7 @@ using Infrastructure.StateMachine;
 using Services.Gameplay;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace UI.Windows
 {
@@ -12,15 +13,18 @@ namespace UI.Windows
         [SerializeField] private Button _restartLevelButton;
 
         private GameStateService _gameStateService;
+        private InputService _inputService;
 
-        private void Awake()
+        [Inject]
+        public void Construct(InputService inputService, GameStateService gameStateService)
         {
-            _gameStateService = GameplayServices.GameStateService;
+            _inputService = inputService;
+            _gameStateService = gameStateService;
         }
 
         private void OnEnable()
         {
-            GameplayServices.InputService.LockInput();
+            _inputService.LockInput();
 
             _toMainMenuButton.onClick.AddListener(OnToMainMenuButtonClicked);
             _restartLevelButton.onClick.AddListener(OnRestartLevelButtonClicked);
