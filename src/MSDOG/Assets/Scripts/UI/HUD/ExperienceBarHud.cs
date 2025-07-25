@@ -1,9 +1,10 @@
-using Core;
 using Services;
+using Services.Gameplay;
 using TMPro;
 using UI.HUD.DetailsZone;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace UI.HUD
 {
@@ -13,27 +14,34 @@ namespace UI.HUD
         [SerializeField] private Image _fillImage;
         [SerializeField] private Button _craftButton;
 
-        private Player _player;
         private DataService _dataService;
+        private GameFactory _gameFactory;
+
         private DetailsZoneHud _detailsZoneHud;
 
-        public void Init(Player player, DataService dataService, DetailsZoneHud detailsZoneHud)
+        [Inject]
+        public void Construct(GameFactory gameFactory, DataService dataService)
         {
-            _player = player;
+            _gameFactory = gameFactory;
             _dataService = dataService;
+        }
+
+        public void Init(DetailsZoneHud detailsZoneHud)
+        {
+            // TODO: refactor
             _detailsZoneHud = detailsZoneHud;
 
             UpdateView();
 
             _craftButton.onClick.AddListener(OnCraftButtonClick);
-            player.OnExperienceChanged += OnPlayerExperienceChanged;
+            _gameFactory.Player.OnExperienceChanged += OnPlayerExperienceChanged;
         }
 
         private void OnCraftButtonClick()
         {
             var abilityData = _dataService.GetRandomCraftAbilityData();
             _detailsZoneHud.CreateDetail(abilityData);
-            _player.ResetExperience();
+            _gameFactory.Player.ResetExperience();
         }
 
         private void OnPlayerExperienceChanged()
@@ -43,16 +51,18 @@ namespace UI.HUD
 
         private void UpdateView()
         {
-            _text.text = $"{_player.CurrentExperience}/{_player.MaxExperience}";
-            _fillImage.fillAmount = (float)_player.CurrentExperience / _player.MaxExperience;
+            var player = _gameFactory.Player;
 
-            _craftButton.interactable = _player.CurrentExperience >= _player.MaxExperience;
+            _text.text = $"{player.CurrentExperience}/{player.MaxExperience}";
+            _fillImage.fillAmount = (float)player.CurrentExperience / player.MaxExperience;
+
+            _craftButton.interactable = player.CurrentExperience >= player.MaxExperience;
         }
 
         private void OnDestroy()
         {
             _craftButton.onClick.RemoveListener(OnCraftButtonClick);
-            _player.OnExperienceChanged -= OnPlayerExperienceChanged;
+            _gameFactory.Player.OnExperienceChanged -= OnPlayerExperienceChanged;
         }
     }
 }

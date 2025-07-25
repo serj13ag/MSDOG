@@ -1,8 +1,8 @@
-using Core;
 using Data;
 using Services;
 using UI.HUD.DetailsZone;
 using UnityEngine;
+using VContainer;
 
 namespace UI.HUD
 {
@@ -15,15 +15,17 @@ namespace UI.HUD
 
         private DataService _dataService;
 
-        public void Init(Player player, DataService dataService, AssetProviderService assetProviderService,
-            SoundService soundService)
+        [Inject]
+        public void Construct(DataService dataService)
         {
             _dataService = dataService;
+        }
 
-            _healthBarHud.Init(player);
-            _experienceBarHud.Init(player, dataService, _detailsZoneHud);
-            _detailsZoneHud.Init(assetProviderService);
-            _activeZoneHud.Init(player, assetProviderService, soundService);
+        public void Init()
+        {
+            // TODO: refactor
+            _healthBarHud.Init();
+            _experienceBarHud.Init(_detailsZoneHud);
         }
 
         public void AddStartAbility()

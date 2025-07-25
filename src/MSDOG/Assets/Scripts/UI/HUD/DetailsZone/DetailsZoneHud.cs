@@ -6,6 +6,7 @@ using Services;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using VContainer;
 
 namespace UI.HUD.DetailsZone
 {
@@ -19,7 +20,8 @@ namespace UI.HUD.DetailsZone
 
         private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
 
-        public void Init(AssetProviderService assetProviderService)
+        [Inject]
+        public void Construct(AssetProviderService assetProviderService)
         {
             _assetProviderService = assetProviderService;
         }

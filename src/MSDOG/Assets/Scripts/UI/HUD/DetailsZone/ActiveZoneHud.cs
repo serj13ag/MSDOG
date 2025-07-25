@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Constants;
-using Core;
 using Data;
 using Services;
+using Services.Gameplay;
 using Sounds;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using VContainer;
 
 namespace UI.HUD.DetailsZone
 {
@@ -16,17 +17,18 @@ namespace UI.HUD.DetailsZone
         [SerializeField] private Transform _grid;
         [SerializeField] private int _maxNumberOfActiveParts;
 
+        private GameFactory _gameFactory;
         private AssetProviderService _assetProviderService;
         private SoundService _soundService;
-        private Player _player;
 
         private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
 
-        public void Init(Player player, AssetProviderService assetProviderService, SoundService soundService)
+        [Inject]
+        public void Construct(GameFactory gameFactory, AssetProviderService assetProviderService, SoundService soundService)
         {
+            _gameFactory = gameFactory;
             _soundService = soundService;
             _assetProviderService = assetProviderService;
-            _player = player;
         }
 
         public void AddDetail(AbilityData abilityData)
@@ -71,14 +73,14 @@ namespace UI.HUD.DetailsZone
         {
             _detailParts.Add(detailPart.Id, detailPart);
             detailPart.transform.SetParent(_grid.transform);
-            _player.AddAbility(detailPart.Id, detailPart.AbilityData);
+            _gameFactory.Player.AddAbility(detailPart.Id, detailPart.AbilityData);
             _soundService.PlaySfx(SfxType.Activate);
         }
 
         public void Exit(DetailPartHud detailPart)
         {
             _detailParts.Remove(detailPart.Id);
-            _player.RemoveAbility(detailPart.Id);
+            _gameFactory.Player.RemoveAbility(detailPart.Id);
         }
     }
 }

@@ -1,7 +1,8 @@
-using Core;
+using Services.Gameplay;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace UI.HUD
 {
@@ -10,15 +11,19 @@ namespace UI.HUD
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Image _healthFillImage;
 
-        private Player _player;
+        private GameFactory _gameFactory;
 
-        public void Init(Player player)
+        [Inject]
+        public void Construct(GameFactory gameFactory)
         {
-            _player = player;
+            _gameFactory = gameFactory;
+        }
 
+        public void Init()
+        {
             UpdateView();
 
-            player.OnHealthChanged += OnPlayerHealthChanged;
+            _gameFactory.Player.OnHealthChanged += OnPlayerHealthChanged;
         }
 
         private void OnPlayerHealthChanged()
@@ -28,13 +33,14 @@ namespace UI.HUD
 
         private void UpdateView()
         {
-            _text.text = _player.CurrentHealth.ToString();
-            _healthFillImage.fillAmount = (float)_player.CurrentHealth / _player.MaxHealth;
+            var player = _gameFactory.Player;
+            _text.text = player.CurrentHealth.ToString();
+            _healthFillImage.fillAmount = (float)player.CurrentHealth / player.MaxHealth;
         }
 
         private void OnDestroy()
         {
-            _player.OnHealthChanged -= OnPlayerHealthChanged;
+            _gameFactory.Player.OnHealthChanged -= OnPlayerHealthChanged;
         }
     }
 }

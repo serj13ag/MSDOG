@@ -1,4 +1,3 @@
-using Services;
 using Services.Gameplay;
 using UI.HUD;
 using UI.HUD.Actions;
@@ -12,24 +11,17 @@ namespace Infrastructure
         private readonly EnemyService _enemyService;
         private readonly GameFactory _gameFactory;
         private readonly CameraService _cameraService;
-        private readonly DataService _dataService;
-        private readonly AssetProviderService _assetProviderService;
         private readonly GameplayWindowService _gameplayWindowService;
-        private readonly SoundService _soundService;
         private readonly GameStateService _gameStateService;
 
         public GameplayInitializer(DebugService debugService, EnemyService enemyService, GameFactory gameFactory,
-            CameraService cameraService, DataService dataService, AssetProviderService assetProviderService,
-            GameplayWindowService gameplayWindowService, SoundService soundService, GameStateService gameStateService)
+            CameraService cameraService, GameplayWindowService gameplayWindowService, GameStateService gameStateService)
         {
             _debugService = debugService;
             _enemyService = enemyService;
             _gameFactory = gameFactory;
             _cameraService = cameraService;
-            _dataService = dataService;
-            _assetProviderService = assetProviderService;
             _gameplayWindowService = gameplayWindowService;
-            _soundService = soundService;
             _gameStateService = gameStateService;
         }
 
@@ -44,7 +36,7 @@ namespace Infrastructure
             _enemyService.ActivateLevel(levelIndex, player.transform);
 
             var hudController = Object.FindFirstObjectByType<HudController>();
-            hudController.Init(player, _dataService, _assetProviderService, _soundService);
+            hudController.Init();
             hudController.AddStartAbility();
 
             var hudActions = Object.FindFirstObjectByType<HudActions>();
