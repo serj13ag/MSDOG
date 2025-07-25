@@ -31,6 +31,7 @@ namespace Constants
         public const string AbilitiesData = "Data/Abilities";
         public const string LevelAbilityData = "Data/LevelAbilityData";
         public const string AbilityUpgradesData = "Data/AbilityUpgradesData";
+        public const string SettingsData = "Data/SettingsData";
 
         // Sounds
         public const string DestroySoundPath = "Sounds/Break";

@@ -42,6 +42,7 @@ namespace Core
 
         public int CurrentHealth => _healthBlock.CurrentHealth;
         public int MaxHealth => _healthBlock.MaxHealth;
+        public bool IsFullHealth => _healthBlock.CurrentHealth == _healthBlock.MaxHealth;
 
         public int CurrentExperience => _experienceBlock.CurrentExperience;
         public int MaxExperience => _experienceBlock.MaxExperience;
@@ -139,6 +140,11 @@ namespace Core
             var newDamageReductionPercent = _damageReductionPercent + damageReductionPercent;
             newDamageReductionPercent = Mathf.Clamp(newDamageReductionPercent, 0, MaxDamageReductionPercent);
             _damageReductionPercent = newDamageReductionPercent;
+        }
+
+        public void Heal(int value)
+        {
+            _healthBlock.Heal(value);
         }
 
         private void HandleAbilities(float deltaTime)

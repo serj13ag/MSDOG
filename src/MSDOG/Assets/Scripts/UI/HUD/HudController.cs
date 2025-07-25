@@ -14,12 +14,10 @@ namespace UI.HUD
         [SerializeField] private ActiveZoneHud _activeZoneHud;
 
         private DataService _dataService;
-        private AssetProviderService _assetProviderService;
 
         public void Init(Player player, DataService dataService, AssetProviderService assetProviderService,
             SoundService soundService)
         {
-            _assetProviderService = assetProviderService;
             _dataService = dataService;
 
             _healthBarHud.Init(player);

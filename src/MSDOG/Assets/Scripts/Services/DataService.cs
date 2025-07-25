@@ -14,6 +14,7 @@ namespace Services
         private readonly AbilityData[] _abilitiesData;
         private readonly LevelAbilityData _levelAbilityData;
         private readonly AbilityUpgradesData _abilityUpgradesData;
+        private readonly SettingsData _settingsData;
 
         public DataService()
         {
@@ -26,6 +27,7 @@ namespace Services
             _abilitiesData = Resources.LoadAll<AbilityData>(AssetPaths.AbilitiesData);
             _levelAbilityData = Resources.Load<LevelAbilityData>(AssetPaths.LevelAbilityData);
             _abilityUpgradesData = Resources.Load<AbilityUpgradesData>(AssetPaths.AbilityUpgradesData);
+            _settingsData = Resources.Load<SettingsData>(AssetPaths.SettingsData);
         }
 
         public int GetNumberOfLevels()
@@ -81,6 +83,11 @@ namespace Services
             }
 
             return false;
+        }
+
+        public SettingsData GetSettingsData()
+        {
+            return _settingsData;
         }
     }
 }

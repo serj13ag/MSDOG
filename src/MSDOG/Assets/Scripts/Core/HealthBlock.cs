@@ -38,5 +38,23 @@ namespace Core
 
             OnHealthChanged?.Invoke();
         }
+
+        public void Heal(int value)
+        {
+            if (value <= 0)
+            {
+                return;
+            }
+
+            if (_currentHealth == _maxHealth)
+            {
+                return;
+            }
+
+            _currentHealth += value;
+            _currentHealth = Mathf.Min(_currentHealth, _maxHealth);
+
+            OnHealthChanged?.Invoke();
+        }
     }
 }

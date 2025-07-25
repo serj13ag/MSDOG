@@ -18,6 +18,8 @@ namespace Services.Gameplay
 
         private Player _player; // TODO: remove?
 
+        public Player Player => _player;
+
         public GameFactory(AssetProviderService assetProviderService, UpdateService updateService, InputService inputService,
             ArenaService arenaService, AbilityFactory abilityFactory, ProjectileFactory projectileFactory)
         {
