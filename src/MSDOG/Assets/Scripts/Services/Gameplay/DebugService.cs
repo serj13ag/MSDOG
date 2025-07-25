@@ -1,4 +1,3 @@
-using Infrastructure;
 using UI.HUD;
 using UnityEngine;
 
@@ -7,12 +6,15 @@ namespace Services.Gameplay
     public class DebugService : MonoBehaviour
     {
         private UpdateService _updateService;
+        private DataService _dataService;
+
         private HudController _hudController;
 
         private bool _isActive;
 
-        public void Init(UpdateService updateService)
+        public void Construct(UpdateService updateService, DataService dataService)
         {
+            _dataService = dataService;
             _updateService = updateService;
         }
 
@@ -71,7 +73,7 @@ namespace Services.Gameplay
 
             GUILayout.Label("ABILITIES");
 
-            var abilities = GlobalServices.DataService.GetAbilitiesData();
+            var abilities = _dataService.GetAbilitiesData();
             foreach (var abilityData in abilities)
             {
                 if (GUILayout.Button(abilityData.name, style))

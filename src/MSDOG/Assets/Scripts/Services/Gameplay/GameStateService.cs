@@ -5,7 +5,7 @@ namespace Services.Gameplay
     public class GameStateService
     {
         private readonly EnemyService _enemyService;
-        private readonly WindowService _windowService;
+        private readonly GameplayWindowService _gameplayWindowService;
         private readonly ProgressService _progressService;
 
         private int _levelIndex;
@@ -13,11 +13,11 @@ namespace Services.Gameplay
 
         public int CurrentLevelIndex => _levelIndex;
 
-        public GameStateService(EnemyService enemyService, WindowService windowService, ProgressService progressService)
+        public GameStateService(EnemyService enemyService, GameplayWindowService gameplayWindowService, ProgressService progressService)
         {
             _progressService = progressService;
             _enemyService = enemyService;
-            _windowService = windowService;
+            _gameplayWindowService = gameplayWindowService;
 
             _enemyService.OnAllEnemiesDied += OnAllEnemiesDied;
         }
@@ -34,14 +34,14 @@ namespace Services.Gameplay
         {
             if (_player.CurrentHealth <= 0)
             {
-                _windowService.CreateLoseWindow();
+                _gameplayWindowService.CreateLoseWindow();
             }
         }
 
         private void OnAllEnemiesDied()
         {
             _progressService.SetLastPassedLevel(_levelIndex);
-            _windowService.CreateWinWindow();
+            _gameplayWindowService.CreateWinWindow();
         }
 
         public void Cleanup()

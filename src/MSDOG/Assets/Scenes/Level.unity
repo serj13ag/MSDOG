@@ -316,7 +316,8 @@ MonoBehaviour:
   parentReference:
     TypeName: Infrastructure.GlobalServicesScope
   autoRun: 0
-  autoInjectGameObjects: []
+  autoInjectGameObjects:
+  - {fileID: 6294132970679443289}
 --- !u!4 &636791271
 Transform:
   m_ObjectHideFlags: 0
@@ -747,6 +748,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+--- !u!1 &6294132970679443289 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5801496262982422642, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+  m_PrefabInstance: {fileID: 6294132970679443288}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8922148837154948328
 PrefabInstance:
   m_ObjectHideFlags: 0

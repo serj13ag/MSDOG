@@ -5,17 +5,18 @@ using VContainer;
 
 namespace Infrastructure.StateMachine
 {
-    public class GameplayState : IResolvableState, IPayloadedState<int>
+    public class GameplayState : IPayloadedState<int>
     {
         private int _levelIndex;
 
         private LoadingCurtainService _loadingCurtainService;
         private SceneLoadService _sceneLoadService;
 
-        public void Resolve()
+        [Inject]
+        public void Construct(LoadingCurtainService  loadingCurtainService, SceneLoadService sceneLoadService)
         {
-            _loadingCurtainService = GlobalServices.LoadingCurtainService;
-            _sceneLoadService = GlobalServices.SceneLoadService;
+            _loadingCurtainService = loadingCurtainService;
+            _sceneLoadService = sceneLoadService;
         }
 
         public void Enter(int levelIndex)
@@ -34,8 +35,6 @@ namespace Infrastructure.StateMachine
         {
             var gameplayScope = Object.FindFirstObjectByType<GameplayServicesScope>();
             gameplayScope.BuildContainer();
-
-            GameplayServices.Initialize(gameplayScope.Container);
 
             var gameplayInitializer = gameplayScope.Container.Resolve<GameplayInitializer>();
             gameplayInitializer.Start(_levelIndex);

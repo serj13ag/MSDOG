@@ -1,7 +1,9 @@
 using System.Collections.Generic;
-using Infrastructure;
+using Services;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
+using VContainer.Unity;
 
 namespace UI.Menu
 {
@@ -12,6 +14,18 @@ namespace UI.Menu
         [SerializeField] private Button _backButton;
 
         private readonly List<MenuLevelButton> _buttons = new List<MenuLevelButton>();
+
+        private IObjectResolver _container;
+        private ProgressService _progressService;
+        private DataService _dataService;
+
+        [Inject]
+        public void Construct(IObjectResolver container, ProgressService progressService, DataService dataService)
+        {
+            _container = container;
+            _dataService = dataService;
+            _progressService = progressService;
+        }
 
         private void OnEnable()
         {
@@ -25,20 +39,17 @@ namespace UI.Menu
 
         public void Show()
         {
-            var progressService = GlobalServices.ProgressService;
-            var dataService = GlobalServices.DataService;
-
-            var lastPassedLevel = progressService.LastPassedLevel;
+            var lastPassedLevel = _progressService.LastPassedLevel;
 
             var availableLevels = lastPassedLevel == -1
                 ? 1
                 : lastPassedLevel + 2;
-            availableLevels = Mathf.Min(availableLevels, dataService.GetNumberOfLevels());
+            availableLevels = Mathf.Min(availableLevels, _dataService.GetNumberOfLevels());
 
             for (var i = 0; i < availableLevels; i++)
             {
-                var button = Instantiate(_levelButtonPrefab, _buttonsContainer);
-                var levelData = dataService.GetLevelData(i);
+                var button = _container.Instantiate(_levelButtonPrefab, _buttonsContainer);
+                var levelData = _dataService.GetLevelData(i);
                 button.Init(levelData);
 
                 _buttons.Add(button);

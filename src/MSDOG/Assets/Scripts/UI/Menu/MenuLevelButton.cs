@@ -1,9 +1,9 @@
 using Data;
-using Infrastructure;
 using Infrastructure.StateMachine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace UI.Menu
 {
@@ -16,9 +16,10 @@ namespace UI.Menu
 
         private int _levelIndex;
 
-        private void Awake()
+        [Inject]
+        public void Construct(GameStateMachine gameStateMachine)
         {
-            _gameStateMachine = GlobalServices.GameStateMachine;
+            _gameStateMachine = gameStateMachine;
         }
 
         public void Init(LevelData levelData)

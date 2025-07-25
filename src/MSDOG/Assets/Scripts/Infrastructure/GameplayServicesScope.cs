@@ -26,12 +26,14 @@ namespace Infrastructure
             builder.Register<GameFactory>(Lifetime.Scoped);
             builder.Register<EnemyService>(Lifetime.Scoped);
             builder.Register<GameStateService>(Lifetime.Scoped);
+            builder.Register<GameplayWindowService>(Lifetime.Scoped);
 
             builder.Register<DebugService>(resolver =>
             {
                 var debugService = new GameObject("DebugService").AddComponent<DebugService>();
                 var updateService = resolver.Resolve<UpdateService>();
-                debugService.Init(updateService);
+                var dataService = resolver.Resolve<DataService>();
+                debugService.Construct(updateService, dataService);
                 return debugService;
             }, Lifetime.Scoped);
 
