@@ -24,6 +24,7 @@ namespace Core.Enemies
         private UpdateService _updateService;
         private GameFactory _gameFactory;
         private ProjectileFactory _projectileFactory;
+        private ParticleFactory _particleFactory;
 
         private Guid _id;
         private Player _player;
@@ -50,8 +51,9 @@ namespace Core.Enemies
         public event Action<Enemy> OnDied;
 
         public void Init(UpdateService updateService, GameFactory gameFactory, ProjectileFactory projectileFactory, Player player,
-            EnemyData data)
+            EnemyData data, ParticleFactory particleFactory)
         {
+            _particleFactory = particleFactory;
             _projectileFactory = projectileFactory;
             _gameFactory = gameFactory;
             _updateService = updateService;
@@ -114,6 +116,7 @@ namespace Core.Enemies
             if (_healthBlock.HasZeroHealth)
             {
                 _gameFactory.CreateExperiencePiece(transform.position, _experience);
+                _particleFactory.CreateBloodVfx(transform.position);
 
                 OnDied?.Invoke(this);
             }
