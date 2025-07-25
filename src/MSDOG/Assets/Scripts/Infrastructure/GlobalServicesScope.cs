@@ -2,11 +2,10 @@ using Infrastructure.StateMachine;
 using Services;
 using UnityEngine;
 using VContainer;
-using VContainer.Unity;
 
 namespace Infrastructure
 {
-    public class GlobalServicesScope : LifetimeScope
+    public class GlobalServicesScope : BaseServicesScope
     {
         [SerializeField] private LoadingCurtainService _loadingCurtainService;
         [SerializeField] private SoundService _soundService;
@@ -16,6 +15,7 @@ namespace Infrastructure
         protected override void Awake()
         {
             // Skip container building
+            DontDestroyOnLoad(gameObject);
         }
 
         public void SetGameStateMachine(GameStateMachine gameStateMachine)
@@ -23,12 +23,7 @@ namespace Infrastructure
             _gameStateMachine = gameStateMachine;
         }
 
-        public void BuildContainer()
-        {
-            Build();
-        }
-
-        protected override void Configure(IContainerBuilder builder)
+        protected override void ConfigureContainer(IContainerBuilder builder)
         {
             builder.RegisterInstance(_gameStateMachine);
 

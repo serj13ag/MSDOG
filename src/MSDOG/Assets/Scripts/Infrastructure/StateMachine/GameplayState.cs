@@ -1,5 +1,7 @@
 using Constants;
 using Services;
+using UnityEngine;
+using VContainer;
 
 namespace Infrastructure.StateMachine
 {
@@ -7,25 +9,13 @@ namespace Infrastructure.StateMachine
     {
         private int _levelIndex;
 
-        private AssetProviderService _assetProviderService;
         private LoadingCurtainService _loadingCurtainService;
         private SceneLoadService _sceneLoadService;
-        private SoundService _soundService;
-        private UpdateService _updateService;
-        private DataService _dataService;
-        private WindowService _windowService;
-        private ProgressService _progressService;
 
         public void Resolve()
         {
-            _assetProviderService = GlobalServices.AssetProviderService;
             _loadingCurtainService = GlobalServices.LoadingCurtainService;
             _sceneLoadService = GlobalServices.SceneLoadService;
-            _soundService = GlobalServices.SoundService;
-            _updateService = GlobalServices.UpdateService;
-            _dataService = GlobalServices.DataService;
-            _windowService = GlobalServices.WindowService;
-            _progressService = GlobalServices.ProgressService;
         }
 
         public void Enter(int levelIndex)
@@ -38,14 +28,17 @@ namespace Infrastructure.StateMachine
 
         public void Exit()
         {
-            GameplayServices.Cleanup();
         }
 
         private void OnSceneLoaded()
         {
-            GameplayServices.Initialize(_levelIndex, _assetProviderService, _soundService, _updateService, _dataService,
-                _windowService, _progressService);
-            GameplayServices.Start();
+            var gameplayScope = Object.FindFirstObjectByType<GameplayServicesScope>();
+            gameplayScope.BuildContainer();
+
+            GameplayServices.Initialize(gameplayScope.Container);
+
+            var gameplayInitializer = gameplayScope.Container.Resolve<GameplayInitializer>();
+            gameplayInitializer.Start(_levelIndex);
 
             _loadingCurtainService.FadeOffWithDelay();
         }

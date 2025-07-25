@@ -4,21 +4,17 @@ namespace Services.Gameplay
 {
     public class GameStateService
     {
-        private readonly int _levelIndex;
-
         private readonly EnemyService _enemyService;
         private readonly WindowService _windowService;
-        private ProgressService _progressService;
+        private readonly ProgressService _progressService;
 
+        private int _levelIndex;
         private Player _player;
 
         public int CurrentLevelIndex => _levelIndex;
 
-        public GameStateService(int levelIndex, EnemyService enemyService, WindowService windowService,
-            ProgressService progressService)
+        public GameStateService(EnemyService enemyService, WindowService windowService, ProgressService progressService)
         {
-            _levelIndex = levelIndex;
-
             _progressService = progressService;
             _enemyService = enemyService;
             _windowService = windowService;
@@ -26,8 +22,9 @@ namespace Services.Gameplay
             _enemyService.OnAllEnemiesDied += OnAllEnemiesDied;
         }
 
-        public void RegisterPlayer(Player player)
+        public void RegisterPlayer(Player player, int levelIndex)
         {
+            _levelIndex = levelIndex;
             _player = player;
 
             player.OnHealthChanged += OnPlayerHealthChanged;
