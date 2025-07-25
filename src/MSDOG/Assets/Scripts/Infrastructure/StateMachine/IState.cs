@@ -14,9 +14,4 @@ namespace Infrastructure.StateMachine
     {
         void Enter(TPayload payload);
     }
-
-    public interface IResolvableState
-    {
-        void Resolve();
-    }
 }

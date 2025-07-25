@@ -1,17 +1,19 @@
 using Constants;
 using Services;
+using VContainer;
 
 namespace Infrastructure.StateMachine
 {
-    public class MainMenuState : IResolvableState, IState
+    public class MainMenuState : IState
     {
         private LoadingCurtainService _loadingCurtainService;
         private SceneLoadService _sceneLoadService;
 
-        public void Resolve()
+        [Inject]
+        public void Construct(LoadingCurtainService loadingCurtainService, SceneLoadService sceneLoadService)
         {
-            _loadingCurtainService = GlobalServices.LoadingCurtainService;
-            _sceneLoadService = GlobalServices.SceneLoadService;
+            _loadingCurtainService = loadingCurtainService;
+            _sceneLoadService = sceneLoadService;
         }
 
         public void Enter()

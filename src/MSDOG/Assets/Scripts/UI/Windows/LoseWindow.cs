@@ -1,4 +1,3 @@
-using Infrastructure;
 using Infrastructure.StateMachine;
 using Services.Gameplay;
 using UnityEngine;
@@ -12,12 +11,14 @@ namespace UI.Windows
         [SerializeField] private Button _toMainMenuButton;
         [SerializeField] private Button _restartLevelButton;
 
+        private GameStateMachine _gameStateMachine;
         private GameStateService _gameStateService;
         private InputService _inputService;
 
         [Inject]
-        public void Construct(InputService inputService, GameStateService gameStateService)
+        public void Construct(GameStateMachine gameStateMachine, InputService inputService, GameStateService gameStateService)
         {
+            _gameStateMachine = gameStateMachine;
             _inputService = inputService;
             _gameStateService = gameStateService;
         }
@@ -32,12 +33,12 @@ namespace UI.Windows
 
         private void OnRestartLevelButtonClicked()
         {
-            GlobalServices.GameStateMachine.Enter<GameplayState, int>(_gameStateService.CurrentLevelIndex);
+            _gameStateMachine.Enter<GameplayState, int>(_gameStateService.CurrentLevelIndex);
         }
 
         private void OnToMainMenuButtonClicked()
         {
-            GlobalServices.GameStateMachine.Enter<MainMenuState>();
+            _gameStateMachine.Enter<MainMenuState>();
         }
 
         private void OnDisable()

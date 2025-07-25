@@ -1,33 +1,16 @@
-using System;
-using System.Collections.Generic;
+using VContainer;
 
 namespace Infrastructure.StateMachine
 {
     public class GameStateMachine
     {
-        private readonly Dictionary<Type, IExitableState> _states;
+        private readonly IObjectResolver _container;
 
         private IExitableState _currentState;
 
-        public GameStateMachine()
+        public GameStateMachine(IObjectResolver container)
         {
-            _states = new Dictionary<Type, IExitableState>
-            {
-                [typeof(BootstrapState)] = new BootstrapState(this),
-                [typeof(MainMenuState)] = new MainMenuState(),
-                [typeof(GameplayState)] = new GameplayState(),
-            };
-        }
-
-        public void ResolveStates()
-        {
-            foreach (var state in _states.Values)
-            {
-                if (state is IResolvableState resolvableState)
-                {
-                    resolvableState.Resolve();
-                }
-            }
+            _container = container;
         }
 
         public void Enter<TState>() where TState : class, IState
@@ -54,7 +37,7 @@ namespace Infrastructure.StateMachine
 
         private TState GetState<TState>() where TState : class, IExitableState
         {
-            return _states[typeof(TState)] as TState;
+            return _container.Resolve<TState>();
         }
     }
 }

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Infrastructure.StateMachine
 {
     public class BootstrapState : IState
@@ -13,11 +11,6 @@ namespace Infrastructure.StateMachine
 
         public void Enter()
         {
-            var globalScope = Object.FindFirstObjectByType<GlobalServicesScope>();
-            globalScope.BuildContainer();
-
-            GlobalServices.Initialize(globalScope.Container);
-            _gameStateMachine.ResolveStates();
             _gameStateMachine.Enter<MainMenuState>();
         }
 

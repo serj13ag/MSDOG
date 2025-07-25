@@ -1,5 +1,6 @@
 using Infrastructure.StateMachine;
 using UnityEngine;
+using VContainer;
 
 namespace Infrastructure
 {
@@ -11,9 +12,8 @@ namespace Infrastructure
 
         private void Awake()
         {
-            _gameStateMachine = new GameStateMachine();
-            _globalServicesScope.SetGameStateMachine(_gameStateMachine);
-            _gameStateMachine.Enter<BootstrapState>();
+            _globalServicesScope.BuildContainer();
+            _globalServicesScope.Container.Resolve<GameStateMachine>().Enter<BootstrapState>();
         }
     }
 }

@@ -3,6 +3,7 @@ using Services;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
+using VContainer.Unity;
 
 namespace UI.Menu
 {
@@ -14,12 +15,14 @@ namespace UI.Menu
 
         private readonly List<MenuLevelButton> _buttons = new List<MenuLevelButton>();
 
+        private IObjectResolver _container;
         private ProgressService _progressService;
         private DataService _dataService;
 
         [Inject]
-        public void Construct(ProgressService progressService, DataService dataService)
+        public void Construct(IObjectResolver container, ProgressService progressService, DataService dataService)
         {
+            _container = container;
             _dataService = dataService;
             _progressService = progressService;
         }
@@ -45,7 +48,7 @@ namespace UI.Menu
 
             for (var i = 0; i < availableLevels; i++)
             {
-                var button = Instantiate(_levelButtonPrefab, _buttonsContainer);
+                var button = _container.Instantiate(_levelButtonPrefab, _buttonsContainer);
                 var levelData = _dataService.GetLevelData(i);
                 button.Init(levelData);
 

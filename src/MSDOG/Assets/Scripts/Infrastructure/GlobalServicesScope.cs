@@ -10,28 +10,26 @@ namespace Infrastructure
         [SerializeField] private LoadingCurtainService _loadingCurtainService;
         [SerializeField] private SoundService _soundService;
 
-        private GameStateMachine _gameStateMachine;
-
         protected override void Awake()
         {
-            // Skip container building
-            DontDestroyOnLoad(gameObject);
-        }
+            base.Awake();
 
-        public void SetGameStateMachine(GameStateMachine gameStateMachine)
-        {
-            _gameStateMachine = gameStateMachine;
+            DontDestroyOnLoad(gameObject);
         }
 
         protected override void ConfigureContainer(IContainerBuilder builder)
         {
-            builder.RegisterInstance(_gameStateMachine);
-
             var coroutineService = new GameObject("CoroutineService").AddComponent<CoroutineService>();
             builder.RegisterInstance(coroutineService);
 
             var updateService = new GameObject("UpdateService").AddComponent<UpdateService>();
             builder.RegisterInstance(updateService);
+
+            builder.Register<BootstrapState>(Lifetime.Singleton);
+            builder.Register<MainMenuState>(Lifetime.Singleton);
+            builder.Register<GameplayState>(Lifetime.Singleton);
+
+            builder.Register<GameStateMachine>(Lifetime.Singleton);
 
             builder.Register<AssetProviderService>(Lifetime.Singleton);
             builder.Register<DataService>(Lifetime.Singleton);
