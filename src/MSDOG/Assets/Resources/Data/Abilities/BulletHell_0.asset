@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: BulletHell_0
   m_EditorClassIdentifier: 
   AbilityType: 4
+  Level: 0
   Damage: 1
   Cooldown: 0.5
-  Speed: 10
+  Speed: 8
   Pierce: 0
   Size: 0
   DamageReductionPercent: 0
+  Lifetime: 0
+  TickTimeout: 0

@@ -13,21 +13,61 @@ MonoBehaviour:
   m_Name: Level_0
   m_EditorClassIdentifier: 
   LevelIndex: 0
-  LevelName: Level_0
+  LevelName: It's on!
   Waves:
   - Enemies:
     - Data: {fileID: 11400000, guid: 4d82f5b7ebd0bb24286bfa242184822c, type: 2}
-      Count: 3
-    TimeTillNextWave: 3
+      Count: 10
+    TimeTillNextWave: 18
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 4d82f5b7ebd0bb24286bfa242184822c, type: 2}
+      Count: 10
+    TimeTillNextWave: 18
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 4d82f5b7ebd0bb24286bfa242184822c, type: 2}
+      Count: 6
+    - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
+      Count: 4
+    TimeTillNextWave: 18
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 4d82f5b7ebd0bb24286bfa242184822c, type: 2}
+      Count: 5
+    - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
+      Count: 5
+    TimeTillNextWave: 18
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 4d82f5b7ebd0bb24286bfa242184822c, type: 2}
+      Count: 5
+    - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
+      Count: 5
+    TimeTillNextWave: 10
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 4d82f5b7ebd0bb24286bfa242184822c, type: 2}
+      Count: 5
+    - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
+      Count: 5
+    TimeTillNextWave: 10
+  - Enemies:
+    - Data: {fileID: 11400000, guid: ded3371667f69254984e6cbaa89ee98a, type: 2}
+      Count: 2
+    - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
+      Count: 5
+    TimeTillNextWave: 10
+  - Enemies:
+    - Data: {fileID: 11400000, guid: ded3371667f69254984e6cbaa89ee98a, type: 2}
+      Count: 2
+    - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
+      Count: 5
+    TimeTillNextWave: 8
   - Enemies:
     - Data: {fileID: 11400000, guid: ded3371667f69254984e6cbaa89ee98a, type: 2}
       Count: 3
-    TimeTillNextWave: 5
-  - Enemies:
-    - Data: {fileID: 11400000, guid: 28fb93b068123e342a2ef887c9fb7960, type: 2}
-      Count: 3
-    TimeTillNextWave: 5
-  - Enemies:
     - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
+      Count: 6
+    TimeTillNextWave: 8
+  - Enemies:
+    - Data: {fileID: 11400000, guid: ded3371667f69254984e6cbaa89ee98a, type: 2}
       Count: 4
-    TimeTillNextWave: 3
+    - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
+      Count: 6
+    TimeTillNextWave: 5

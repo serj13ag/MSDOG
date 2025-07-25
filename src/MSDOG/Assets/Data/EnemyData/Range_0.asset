@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Range_0
   m_EditorClassIdentifier: 
   Type: 2
-  Speed: 4
-  MaxHealth: 1
+  Speed: 2
+  MaxHealth: 2
   Cooldown: 1
   Damage: 1
   ProjectileSpeed: 3
-  Experience: 1
+  Experience: 3

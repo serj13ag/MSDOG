@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: BuzzSaw_0
   m_EditorClassIdentifier: 
   AbilityType: 5
-  Damage: 1
-  Cooldown: 3
-  Speed: 10
-  Pierce: 10
+  Level: 0
+  Damage: 4
+  Cooldown: 10
+  Speed: 5
+  Pierce: 5
   Size: 0
   DamageReductionPercent: 0
+  Lifetime: 0
+  TickTimeout: 0

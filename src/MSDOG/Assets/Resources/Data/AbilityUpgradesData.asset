@@ -13,11 +13,57 @@ MonoBehaviour:
   m_Name: AbilityUpgradesData
   m_EditorClassIdentifier: 
   AbilityUpgrades:
+  - AbilityType: 6
+    AbilityUpgrades:
+    - {fileID: 11400000, guid: dbe43647e313dfc409ea8cf0299e34b2, type: 2}
+    - {fileID: 11400000, guid: acfdf879d161207478958a20ff2b2d45, type: 2}
+    - {fileID: 11400000, guid: 70104f215e0ca9e4db588c10745b9f6d, type: 2}
+    - {fileID: 11400000, guid: 7f47b70907d83184fae8283133bf03f8, type: 2}
+  - AbilityType: 20
+    AbilityUpgrades:
+    - {fileID: 11400000, guid: 9c4d87b4beb3a8f408466af394d185be, type: 2}
+    - {fileID: 11400000, guid: 1625dc60440e0ad4bab31a7772009b73, type: 2}
+    - {fileID: 11400000, guid: 6d9c94c2d34d18d49b118e3497abea75, type: 2}
+    - {fileID: 11400000, guid: 041f8ade5425db14597485db1977bbb3, type: 2}
+  - AbilityType: 3
+    AbilityUpgrades:
+    - {fileID: 11400000, guid: c3c79da087e569c4a9fd17f5ba576633, type: 2}
+    - {fileID: 11400000, guid: ba9249a04b9cc2a4eb6c57951ad8d1c1, type: 2}
+    - {fileID: 11400000, guid: 1039aac0a5b59864aa5d2e3e3bd4b147, type: 2}
+    - {fileID: 11400000, guid: 23cb2f04c72197d4aaa38f343a3937ee, type: 2}
+  - AbilityType: 4
+    AbilityUpgrades:
+    - {fileID: 11400000, guid: 42a3706f893115e4d8b751fcfe47869f, type: 2}
+    - {fileID: 11400000, guid: ec813f0eda32c71458ccc4a3bf3a62c3, type: 2}
+    - {fileID: 11400000, guid: 9e469315d10f8f845a1023616cef3e1c, type: 2}
+    - {fileID: 11400000, guid: 351761422dea4e4458b5f140cb4b5a47, type: 2}
   - AbilityType: 1
     AbilityUpgrades:
     - {fileID: 11400000, guid: e030c441daee39a4c90ba32f57f37375, type: 2}
     - {fileID: 11400000, guid: 37427e44be6666746a2e0e4570fbe6e3, type: 2}
+    - {fileID: 11400000, guid: 977b6606f91602c438393c9adb734a2d, type: 2}
+    - {fileID: 11400000, guid: fb183af4450da3942ab13d68658bb543, type: 2}
+  - AbilityType: 7
+    AbilityUpgrades:
+    - {fileID: 11400000, guid: 9c9ad72bbd4973d4986da7e1ba41a5ce, type: 2}
+    - {fileID: 11400000, guid: 730306473cda16e49a15da596d788fb1, type: 2}
+    - {fileID: 11400000, guid: 3dd825ccc312f9f4caa1731c6d300e6e, type: 2}
+    - {fileID: 11400000, guid: b9900cdbf7343204abe21a208b58d211, type: 2}
+  - AbilityType: 5
+    AbilityUpgrades:
+    - {fileID: 11400000, guid: 4fc67021a512b6c418544765ca80569e, type: 2}
+    - {fileID: 11400000, guid: 44c97bc1d85afd442ad4fb8ce3ea27d1, type: 2}
+    - {fileID: 11400000, guid: 0d8cccb625e72514e9745cc87faef92d, type: 2}
+    - {fileID: 11400000, guid: d30a7755dc85aa443baff56011db60ac, type: 2}
+  - AbilityType: 21
+    AbilityUpgrades:
+    - {fileID: 11400000, guid: 402559d73c717494c9cd6feb8fcb3954, type: 2}
+    - {fileID: 11400000, guid: 3704be145b2d1a7498d3275416ce2b95, type: 2}
+    - {fileID: 11400000, guid: 6aef82cb9ca725e4fb3482c178f8717e, type: 2}
+    - {fileID: 11400000, guid: 56ae5b2ecea3d6e438971227e2bc85c2, type: 2}
   - AbilityType: 2
     AbilityUpgrades:
     - {fileID: 11400000, guid: 1e3f4d2efedb2da47beefd721c0c571b, type: 2}
     - {fileID: 11400000, guid: 9fa7f6729c519f74abcdc6172df88ea5, type: 2}
+    - {fileID: 11400000, guid: 96135ec3323c2d24797e244ec4c305d8, type: 2}
+    - {fileID: 11400000, guid: 5f2357a4491aff842bf7c7ef0e799a54, type: 2}

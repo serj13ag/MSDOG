@@ -9,13 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b12453bf32442949b71929488b04fa7, type: 3}
-  m_Name: Melee_0
+  m_Script: {fileID: 11500000, guid: 01749b93f6c1463a97e64d3b02419ba7, type: 3}
+  m_Name: EnergyShield_3
   m_EditorClassIdentifier: 
-  Type: 1
-  Speed: 3
-  MaxHealth: 3
+  AbilityType: 21
+  Level: 3
+  Damage: 0
   Cooldown: 0
-  Damage: 1
-  ProjectileSpeed: 0
-  Experience: 6
+  Speed: 0
+  Pierce: 0
+  Size: 0
+  DamageReductionPercent: 40
+  Lifetime: 0
+  TickTimeout: 0

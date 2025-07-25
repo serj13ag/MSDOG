@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Wanderer_1
   m_EditorClassIdentifier: 
   Type: 0
-  Speed: 5
+  Speed: 2.5
   MaxHealth: 4
   Cooldown: 0
   Damage: 0
   ProjectileSpeed: 0
-  Experience: 1
+  Experience: 3
