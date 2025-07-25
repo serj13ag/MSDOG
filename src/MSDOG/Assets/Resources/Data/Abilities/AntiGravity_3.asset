@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AntiGravity_3
   m_EditorClassIdentifier: 
   AbilityType: 20
-  Level: 1
+  Level: 3
   Damage: 0
   Cooldown: 0
   Speed: 1.4
