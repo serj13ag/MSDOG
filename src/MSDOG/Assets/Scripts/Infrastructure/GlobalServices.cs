@@ -1,51 +1,27 @@
-using Constants;
 using Infrastructure.StateMachine;
 using Services;
-using UnityEngine;
+using VContainer;
 
 namespace Infrastructure
 {
     public static class GlobalServices
     {
-        public static GameStateMachine GameStateMachine { get; private set; }
+        private static IObjectResolver _container;
 
-        public static AssetProviderService AssetProviderService { get; private set; }
-        public static DataService DataService { get; private set; }
-        public static LoadingCurtainService LoadingCurtainService { get; private set; }
-        public static SceneLoadService SceneLoadService { get; private set; }
-        public static SoundService SoundService { get; private set; }
-        public static UpdateService UpdateService { get; private set; }
-        public static WindowService WindowService { get; private set; }
-        public static ProgressService ProgressService { get; private set; }
+        public static GameStateMachine GameStateMachine => _container.Resolve<GameStateMachine>();
 
-        public static void Initialize(GameStateMachine gameStateMachine)
+        public static AssetProviderService AssetProviderService => _container.Resolve<AssetProviderService>();
+        public static DataService DataService => _container.Resolve<DataService>();
+        public static LoadingCurtainService LoadingCurtainService => _container.Resolve<LoadingCurtainService>();
+        public static SceneLoadService SceneLoadService => _container.Resolve<SceneLoadService>();
+        public static SoundService SoundService => _container.Resolve<SoundService>();
+        public static UpdateService UpdateService => _container.Resolve<UpdateService>();
+        public static WindowService WindowService => _container.Resolve<WindowService>();
+        public static ProgressService ProgressService => _container.Resolve<ProgressService>();
+
+        public static void Initialize(IObjectResolver container)
         {
-            GameStateMachine = gameStateMachine;
-
-            var coroutineService = new GameObject("CoroutineService")
-                .AddComponent<CoroutineService>();
-            var updateService = new GameObject("UpdateService")
-                .AddComponent<UpdateService>();
-
-            var assetProviderService = new AssetProviderService();
-            var dataService = new DataService();
-            var progressService = new ProgressService();
-            var sceneLoadService = new SceneLoadService(coroutineService);
-            var loadingCurtainService =
-                assetProviderService.Instantiate<LoadingCurtainService>(AssetPaths.LoadingCurtainServicePath);
-
-            var soundService = assetProviderService.Instantiate<SoundService>(AssetPaths.SoundServicePath);
-
-            var windowService = new WindowService(assetProviderService);
-
-            UpdateService = updateService;
-            AssetProviderService = assetProviderService;
-            DataService = dataService;
-            LoadingCurtainService = loadingCurtainService;
-            SceneLoadService = sceneLoadService;
-            SoundService = soundService;
-            WindowService = windowService;
-            ProgressService = progressService;
+            _container = container;
         }
     }
 }
