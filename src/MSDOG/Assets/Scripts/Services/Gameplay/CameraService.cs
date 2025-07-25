@@ -1,5 +1,6 @@
 using Interfaces;
 using UnityEngine;
+using VContainer;
 
 namespace Services.Gameplay
 {
@@ -13,18 +14,19 @@ namespace Services.Gameplay
 
         private Transform _targetTransform;
 
-        public void Init(UpdateService updateService)
+        [Inject]
+        public void Construct(UpdateService updateService)
         {
             _updateService = updateService;
-
-            _camera = Camera.main;
-
-            updateService.Register(this);
         }
 
         public void SetFollowTarget(Transform targetTransform)
         {
             _targetTransform = targetTransform;
+
+            _camera = Camera.main;
+
+            _updateService.Register(this);
         }
 
         public void OnUpdate(float deltaTime)

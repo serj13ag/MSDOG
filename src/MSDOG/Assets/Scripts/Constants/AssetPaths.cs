@@ -2,26 +2,21 @@ namespace Constants
 {
     public static class AssetPaths
     {
-        // Service Prefabs
-        public const string LoadingCurtainServicePath = "Prefabs/Services/LoadingCurtainService";
-        public const string SoundServicePath = "Prefabs/Services/SoundService";
-        public const string CameraServicePath = "Prefabs/Services/CameraService";
-
         // Gameplay Prefabs
         public const string PlayerPrefab = "Prefabs/Actors/Player";
-        
+
         public const string PlayerProjectilePrefab = "Prefabs/PlayerProjectile";
         public const string PlayerBuzzSawProjectilePrefab = "Prefabs/PlayerBuzzSawProjectile";
         public const string PlayerPuddleProjectilePrefab = "Prefabs/PlayerPuddleProjectile";
         public const string PlayerEnergyLineProjectilePrefab = "Prefabs/PlayerEnergyLineProjectile";
         public const string EnemyProjectilePrefab = "Prefabs/EnemyProjectile";
-        
+
         public const string ExperiencePiecePrefab = "Prefabs/ExperiencePiece";
-        
+
         public const string WandererEnemyPrefab = "Prefabs/Actors/EnemyWanderer";
         public const string MeleeEnemyPrefab = "Prefabs/Actors/EnemyMelee";
         public const string RangeEnemyPrefab = "Prefabs/Actors/EnemyRange";
-        
+
         public const string WandererEnemyDeathkitPrefab = "Prefabs/Actors/EnemyWandererDeathkit";
         public const string MeleeEnemyDeathkitPrefab = "Prefabs/Actors/EnemyMeleeDeathkit";
         public const string RangeEnemyDeathkitPrefab = "Prefabs/Actors/EnemyRangeDeathkit";
@@ -32,9 +27,6 @@ namespace Constants
         public const string LevelAbilityData = "Data/LevelAbilityData";
         public const string AbilityUpgradesData = "Data/AbilityUpgradesData";
         public const string SettingsData = "Data/SettingsData";
-
-        // Sounds
-        public const string DestroySoundPath = "Sounds/Break";
 
         // Ui Prefabs
         public const string UiRootCanvasPath = "Prefabs/Ui/UiRootCanvas";

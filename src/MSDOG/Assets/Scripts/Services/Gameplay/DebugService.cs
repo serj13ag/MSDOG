@@ -1,5 +1,6 @@
 using UI.HUD;
 using UnityEngine;
+using VContainer;
 
 namespace Services.Gameplay
 {
@@ -12,6 +13,7 @@ namespace Services.Gameplay
 
         private bool _isActive;
 
+        [Inject]
         public void Construct(UpdateService updateService, DataService dataService)
         {
             _dataService = dataService;

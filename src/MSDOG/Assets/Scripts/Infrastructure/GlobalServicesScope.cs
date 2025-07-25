@@ -2,6 +2,7 @@ using Infrastructure.StateMachine;
 using Services;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace Infrastructure
 {
@@ -20,10 +21,10 @@ namespace Infrastructure
         protected override void ConfigureContainer(IContainerBuilder builder)
         {
             var coroutineService = new GameObject("CoroutineService").AddComponent<CoroutineService>();
-            builder.RegisterInstance(coroutineService);
+            builder.RegisterComponent(coroutineService);
 
             var updateService = new GameObject("UpdateService").AddComponent<UpdateService>();
-            builder.RegisterInstance(updateService);
+            builder.RegisterComponent(updateService);
 
             builder.Register<BootstrapState>(Lifetime.Singleton);
             builder.Register<MainMenuState>(Lifetime.Singleton);
@@ -36,8 +37,8 @@ namespace Infrastructure
             builder.Register<ProgressService>(Lifetime.Singleton);
             builder.Register<SceneLoadService>(Lifetime.Singleton);
 
-            builder.RegisterInstance(_loadingCurtainService);
-            builder.RegisterInstance(_soundService);
+            builder.RegisterComponent(_loadingCurtainService);
+            builder.RegisterComponent(_soundService);
         }
     }
 }
