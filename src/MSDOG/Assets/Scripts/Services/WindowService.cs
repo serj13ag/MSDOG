@@ -69,6 +69,14 @@ namespace Services
             ShowWindow(loseWindow);
         }
 
+        public void CloseAllWindows()
+        {
+            while (_activeWindows.Count > 0)
+            {
+                CloseActiveWindow();
+            }
+        }
+
         public void CloseActiveWindow()
         {
             if (_activeWindows.Count == 0)

@@ -34,6 +34,7 @@ namespace Infrastructure.StateMachine
         public void Exit()
         {
             _windowService.RemoveGameplayWindowFactory();
+            _windowService.CloseAllWindows();
         }
 
         private void OnSceneLoaded()

@@ -110,6 +110,11 @@ namespace Core.Enemies
             _animationBlock.TriggerAttack();
         }
 
+        public void Kill()
+        {
+            TakeDamage(_healthBlock.CurrentHealth);
+        }
+
         public void TakeDamage(int damage)
         {
             _healthBlock.ReduceHealth(damage);

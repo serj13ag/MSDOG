@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace Services.Gameplay
 {
-    public class EnemyService : IUpdatable
+    public class EnemyService : IUpdatable, IDisposable
     {
         private const int MaxSpawnAttempts = 30;
         private const float MinDistanceFromPlayer = 4f;
@@ -70,6 +70,19 @@ namespace Services.Gameplay
             if (_nextWaveIndex >= _waves.Count)
             {
                 _isActive = false;
+            }
+        }
+
+        public void ForceSpawn()
+        {
+            _timeTillSpawnNextWave = 0f;
+        }
+
+        public void KillEnemies()
+        {
+            foreach (var enemy in _enemies.ToArray())
+            {
+                enemy.Kill();
             }
         }
 
@@ -158,7 +171,7 @@ namespace Services.Gameplay
             _gameFactory.CreateEnemyDeathkit(enemy.Type, enemy.ModelRootPosition, enemy.transform.rotation);
         }
 
-        public void Cleanup()
+        public void Dispose()
         {
             _updateService.Remove(this);
         }

@@ -39,11 +39,13 @@ namespace UI.Windows
         private void OnRestartLevelButtonClicked()
         {
             _gameStateMachine.Enter<GameplayState, int>(_gameStateService.CurrentLevelIndex);
+            OnCloseRequested?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnToMainMenuButtonClicked()
         {
             _gameStateMachine.Enter<MainMenuState>();
+            OnCloseRequested?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnDisable()
