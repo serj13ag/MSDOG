@@ -15,7 +15,8 @@ MonoBehaviour:
   AbilityType: 3
   Level: 3
   Damage: 3
-  Cooldown: 0.4
+  Cooldown: 0.2
+  FirstCooldownReduction: 0.1
   Speed: 7
   Pierce: 3
   Size: 0

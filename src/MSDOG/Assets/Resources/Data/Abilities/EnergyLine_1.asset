@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityType: 7
   Level: 1
-  Damage: 4
+  Damage: 2
   Cooldown: 3
-  FirstCooldownReduction: 0
+  FirstCooldownReduction: 2
   Speed: 2
   Pierce: 0
   Size: 0.6
   DamageReductionPercent: 0
   Lifetime: 2
-  TickTimeout: 0.2
+  TickTimeout: 0.5

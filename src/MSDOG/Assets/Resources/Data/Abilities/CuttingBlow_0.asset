@@ -13,9 +13,13 @@ MonoBehaviour:
   m_Name: CuttingBlow_0
   m_EditorClassIdentifier: 
   AbilityType: 1
+  Level: 0
   Damage: 2
   Cooldown: 2
+  FirstCooldownReduction: 1.5
   Speed: 0
   Pierce: 0
   Size: 7
   DamageReductionPercent: 0
+  Lifetime: 0
+  TickTimeout: 0
