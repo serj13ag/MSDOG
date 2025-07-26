@@ -3,6 +3,7 @@ using Data;
 using Services;
 using Services.Gameplay;
 using UI.HUD.DetailsZone;
+using UI.Windows;
 using UnityEngine;
 using VContainer;
 
@@ -17,16 +18,14 @@ namespace UI.HUD
         [SerializeField] private ActiveZoneHud _activeZoneHud;
 
         private DataService _dataService;
-        private GameplayWindowService _gameplayWindowService;
+        private WindowService _windowService;
         private InputService _inputService;
 
-        private bool _escapeWindowIsActive;
-
         [Inject]
-        public void Construct(DataService dataService, GameplayWindowService gameplayWindowService, InputService inputService)
+        public void Construct(DataService dataService, WindowService windowService, InputService inputService)
         {
             _inputService = inputService;
-            _gameplayWindowService = gameplayWindowService;
+            _windowService = windowService;
             _dataService = dataService;
 
             inputService.OnMenuActionPerformed += OnMenuActionPerformed;
@@ -52,15 +51,13 @@ namespace UI.HUD
 
         private void OnMenuActionPerformed(object sender, EventArgs e)
         {
-            if (_escapeWindowIsActive)
+            if (_windowService.WindowIsActive<EscapeWindow>())
             {
-                _gameplayWindowService.CloseActiveWindow();
-                _escapeWindowIsActive = false;
+                _windowService.CloseActiveWindow();
             }
             else
             {
-                _gameplayWindowService.ShowEscape();
-                _escapeWindowIsActive = true;
+                _windowService.ShowEscapeWindow();
             }
         }
 

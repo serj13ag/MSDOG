@@ -1,5 +1,6 @@
 using Constants;
 using Services;
+using Services.Gameplay;
 using UnityEngine;
 using VContainer;
 
@@ -11,10 +12,13 @@ namespace Infrastructure.StateMachine
 
         private LoadingCurtainService _loadingCurtainService;
         private SceneLoadService _sceneLoadService;
+        private WindowService _windowService;
 
         [Inject]
-        public void Construct(LoadingCurtainService  loadingCurtainService, SceneLoadService sceneLoadService)
+        public void Construct(LoadingCurtainService loadingCurtainService, SceneLoadService sceneLoadService,
+            WindowService windowService)
         {
+            _windowService = windowService;
             _loadingCurtainService = loadingCurtainService;
             _sceneLoadService = sceneLoadService;
         }
@@ -29,12 +33,16 @@ namespace Infrastructure.StateMachine
 
         public void Exit()
         {
+            _windowService.RemoveGameplayWindowFactory();
         }
 
         private void OnSceneLoaded()
         {
             var gameplayScope = Object.FindFirstObjectByType<GameplayServicesScope>();
             gameplayScope.BuildContainer();
+
+            var gameplayWindowFactory = gameplayScope.Container.Resolve<GameplayWindowFactory>();
+            _windowService.RegisterGameplayWindowFactory(gameplayWindowFactory);
 
             var gameplayInitializer = gameplayScope.Container.Resolve<GameplayInitializer>();
             gameplayInitializer.Start(_levelIndex);

@@ -1,3 +1,4 @@
+using System;
 using Infrastructure.StateMachine;
 using Services.Gameplay;
 using UnityEngine;
@@ -6,7 +7,7 @@ using VContainer;
 
 namespace UI.Windows
 {
-    public class LoseWindow : MonoBehaviour
+    public class LoseWindow : MonoBehaviour, IWindow
     {
         [SerializeField] private Button _toMainMenuButton;
         [SerializeField] private Button _restartLevelButton;
@@ -14,6 +15,10 @@ namespace UI.Windows
         private GameStateMachine _gameStateMachine;
         private GameStateService _gameStateService;
         private InputService _inputService;
+
+        public GameObject GameObject => gameObject;
+
+        public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
         public void Construct(GameStateMachine gameStateMachine, InputService inputService, GameStateService gameStateService)

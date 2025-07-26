@@ -1,3 +1,4 @@
+using System;
 using Infrastructure.StateMachine;
 using Services;
 using Services.Gameplay;
@@ -7,7 +8,7 @@ using VContainer;
 
 namespace UI.Windows
 {
-    public class WinWindow : MonoBehaviour
+    public class WinWindow : MonoBehaviour, IWindow
     {
         [SerializeField] private Button _toMainMenuButton;
         [SerializeField] private Button _toNextLevelButton;
@@ -16,6 +17,10 @@ namespace UI.Windows
         private DataService _dataService;
         private GameStateService _gameStateService;
         private InputService _inputService;
+
+        public GameObject GameObject => gameObject;
+
+        public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
         public void Construct(GameStateMachine gameStateMachine, DataService dataService, GameStateService gameStateService,

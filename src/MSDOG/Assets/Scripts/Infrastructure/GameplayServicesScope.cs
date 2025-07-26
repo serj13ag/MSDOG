@@ -20,7 +20,7 @@ namespace Infrastructure
             builder.Register<GameFactory>(Lifetime.Scoped);
             builder.Register<EnemyService>(Lifetime.Scoped);
             builder.Register<GameStateService>(Lifetime.Scoped);
-            builder.Register<GameplayWindowService>(Lifetime.Scoped);
+            builder.Register<GameplayWindowFactory>(Lifetime.Scoped);
             builder.Register<ParticleFactory>(Lifetime.Scoped);
 
             var debugService = new GameObject("DebugService").AddComponent<DebugService>();

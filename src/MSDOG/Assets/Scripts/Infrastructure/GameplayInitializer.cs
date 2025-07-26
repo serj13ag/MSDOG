@@ -11,24 +11,20 @@ namespace Infrastructure
         private readonly EnemyService _enemyService;
         private readonly GameFactory _gameFactory;
         private readonly CameraService _cameraService;
-        private readonly GameplayWindowService _gameplayWindowService;
         private readonly GameStateService _gameStateService;
 
         public GameplayInitializer(DebugService debugService, EnemyService enemyService, GameFactory gameFactory,
-            CameraService cameraService, GameplayWindowService gameplayWindowService, GameStateService gameStateService)
+            CameraService cameraService, GameStateService gameStateService)
         {
             _debugService = debugService;
             _enemyService = enemyService;
             _gameFactory = gameFactory;
             _cameraService = cameraService;
-            _gameplayWindowService = gameplayWindowService;
             _gameStateService = gameStateService;
         }
 
         public void Start(int levelIndex)
         {
-            _gameplayWindowService.CreateRootCanvas();
-
             var player = _gameFactory.CreatePlayer();
 
             _gameStateService.RegisterPlayer(player, levelIndex);
