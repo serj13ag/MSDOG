@@ -29,5 +29,15 @@ namespace Services.Gameplay
                 position + Vector3.up * 2f, Quaternion.Euler(90f, 0f, 0f));
             effect.transform.localScale = new Vector3(scale, scale, scale);
         }
+
+        public void CreateRoundAttackEffect(Vector3 position, float radius)
+        {
+            var t = Mathf.InverseLerp(3f, 6f, radius);
+            var scale = Mathf.LerpUnclamped(1f, 2.2f, t);
+
+            var effect = _assetProviderService.Instantiate<Component>(AssetPaths.RoundAttackVFXPath,
+                position + Vector3.up * 2f, Quaternion.Euler(90f, 0f, 0f));
+            effect.transform.localScale = new Vector3(scale, scale, scale);
+        }
     }
 }

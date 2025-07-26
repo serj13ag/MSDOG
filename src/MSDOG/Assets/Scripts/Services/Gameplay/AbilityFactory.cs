@@ -23,7 +23,7 @@ namespace Services.Gameplay
             return abilityData.AbilityType switch
             {
                 AbilityType.CuttingBlow => new CuttingBlowAbility(abilityData, player, _particleFactory, _dataService),
-                AbilityType.RoundAttack => new RoundAttackAbility(abilityData, player),
+                AbilityType.RoundAttack => new RoundAttackAbility(abilityData, player, _particleFactory, _dataService),
                 AbilityType.GunShot => new GunShotAbility(abilityData, player, _projectileFactory),
                 AbilityType.BulletHell => new BulletHellAbility(abilityData, player, _projectileFactory),
                 AbilityType.BuzzSaw => new BuzzSawAbility(abilityData, player, _projectileFactory),

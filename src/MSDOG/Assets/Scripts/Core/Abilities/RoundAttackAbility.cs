@@ -3,20 +3,29 @@ using Constants;
 using Core.Enemies;
 using Data;
 using Helpers;
+using Services;
+using Services.Gameplay;
 using UnityEngine;
 
 namespace Core.Abilities
 {
     public class RoundAttackAbility : BaseCooldownAbility
     {
+        private readonly ParticleFactory _particleFactory;
+        private readonly DataService _dataService;
+
         private readonly Player _player;
         private readonly int _damage;
         private readonly float _radius;
         private readonly Collider[] _hitBuffer = new Collider[32];
 
-        public RoundAttackAbility(AbilityData abilityData, Player player)
+        public RoundAttackAbility(AbilityData abilityData, Player player, ParticleFactory particleFactory,
+            DataService dataService)
             : base(abilityData.Cooldown, abilityData.FirstCooldownReduction)
         {
+            _particleFactory = particleFactory;
+            _dataService = dataService;
+
             _player = player;
             _damage = abilityData.Damage;
             _radius = abilityData.Size;
@@ -25,7 +34,13 @@ namespace Core.Abilities
         protected override void InvokeAction()
         {
             Slash();
-            ShowEffect();
+
+            _particleFactory.CreateRoundAttackEffect(_player.transform.position, _radius);
+
+            if (_dataService.GetSettingsData().ShowDebugHitboxes)
+            {
+                ShowDebugEffect();
+            }
         }
 
         private void Slash()
@@ -55,7 +70,7 @@ namespace Core.Abilities
             return hitEnemies;
         }
 
-        private void ShowEffect()
+        private void ShowDebugEffect()
         {
             var slashIndicator = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             slashIndicator.transform.position = _player.transform.position;
