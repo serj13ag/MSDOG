@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_3
   m_EditorClassIdentifier: 
   LevelIndex: 3
-  LevelName: PH
+  LevelName: Disconnect
   Waves:
   - Enemies:
     - Data: {fileID: 11400000, guid: 4d82f5b7ebd0bb24286bfa242184822c, type: 2}
