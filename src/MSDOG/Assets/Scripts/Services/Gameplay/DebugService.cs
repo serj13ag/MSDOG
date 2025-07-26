@@ -8,14 +8,16 @@ namespace Services.Gameplay
     {
         private UpdateService _updateService;
         private DataService _dataService;
+        private EnemyService _enemyService;
 
         private HudController _hudController;
 
         private bool _isActive;
 
         [Inject]
-        public void Construct(UpdateService updateService, DataService dataService)
+        public void Construct(UpdateService updateService, DataService dataService, EnemyService enemyService)
         {
+            _enemyService = enemyService;
             _dataService = dataService;
             _updateService = updateService;
         }
@@ -71,6 +73,16 @@ namespace Services.Gameplay
                 {
                     _updateService.Pause();
                 }
+            }
+
+            if (GUILayout.Button("Force spawn", style))
+            {
+                _enemyService.ForceSpawn();
+            }
+            
+            if (GUILayout.Button("Kill enemies", style))
+            {
+                _enemyService.KillEnemies();
             }
 
             GUILayout.Label("ABILITIES");
