@@ -11,7 +11,7 @@ namespace Core.Abilities
 {
     public class RoundAttackAbility : BaseCooldownAbility
     {
-        private readonly ParticleFactory _particleFactory;
+        private readonly VfxFactory _vfxFactory;
         private readonly DataService _dataService;
 
         private readonly Player _player;
@@ -19,11 +19,11 @@ namespace Core.Abilities
         private readonly float _radius;
         private readonly Collider[] _hitBuffer = new Collider[32];
 
-        public RoundAttackAbility(AbilityData abilityData, Player player, ParticleFactory particleFactory,
+        public RoundAttackAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory,
             DataService dataService)
             : base(abilityData.Cooldown, abilityData.FirstCooldownReduction)
         {
-            _particleFactory = particleFactory;
+            _vfxFactory = vfxFactory;
             _dataService = dataService;
 
             _player = player;
@@ -35,7 +35,7 @@ namespace Core.Abilities
         {
             Slash();
 
-            _particleFactory.CreateRoundAttackEffect(_player.transform.position, _radius);
+            _vfxFactory.CreateRoundAttackEffect(_player.transform.position, _radius);
 
             if (_dataService.GetSettingsData().ShowDebugHitboxes)
             {

@@ -30,7 +30,7 @@ namespace Core.Abilities
             randomDirection.Normalize();
 
             var createProjectileDto = new CreateProjectileDto(_player.transform.position, randomDirection, _player, _abilityData);
-            _projectileFactory.CreatePlayerProjectile(createProjectileDto);
+            _projectileFactory.CreatePlayerBulletHellProjectile(createProjectileDto);
         }
     }
 }

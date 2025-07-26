@@ -14,7 +14,7 @@ namespace Core.Abilities
         private const float BoxHeight = 2f;
         private const float BoxWidth = 1f;
 
-        private readonly ParticleFactory _particleFactory;
+        private readonly VfxFactory _vfxFactory;
         private readonly DataService _dataService;
 
         private readonly Player _player;
@@ -22,11 +22,11 @@ namespace Core.Abilities
         private readonly float _length;
         private readonly Collider[] _hitBuffer = new Collider[32];
 
-        public CuttingBlowAbility(AbilityData abilityData, Player player, ParticleFactory particleFactory,
+        public CuttingBlowAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory,
             DataService dataService)
             : base(abilityData.Cooldown, abilityData.FirstCooldownReduction)
         {
-            _particleFactory = particleFactory;
+            _vfxFactory = vfxFactory;
             _dataService = dataService;
 
             _player = player;
@@ -38,7 +38,7 @@ namespace Core.Abilities
         {
             Slash();
 
-            _particleFactory.CreateSlashEffect(_player.transform.position, _length);
+            _vfxFactory.CreateSlashEffect(_player.transform.position, _length);
 
             if (_dataService.GetSettingsData().ShowDebugHitboxes)
             {

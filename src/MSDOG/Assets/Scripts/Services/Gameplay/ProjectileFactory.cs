@@ -1,11 +1,14 @@
 using Constants;
 using Core;
 using DTO;
+using UnityEngine;
 
 namespace Services.Gameplay
 {
     public class ProjectileFactory
     {
+        private readonly Vector3 _playerProjectileOffset = Vector3.up * 1f;
+
         private readonly AssetProviderService _assetProviderService;
         private readonly UpdateService _updateService;
 
@@ -15,11 +18,21 @@ namespace Services.Gameplay
             _updateService = updateService;
         }
 
-        public void CreatePlayerProjectile(CreateProjectileDto createProjectileDto)
+        public void CreatePlayerGunShotProjectile(CreateProjectileDto createProjectileDto)
         {
             var projectile =
-                _assetProviderService.Instantiate<Projectile>(AssetPaths.PlayerProjectilePrefab,
-                    createProjectileDto.SpawnPosition);
+                _assetProviderService.Instantiate<Projectile>(AssetPaths.PlayerGunShotProjectilePrefab,
+                    createProjectileDto.SpawnPosition + _playerProjectileOffset,
+                    Quaternion.LookRotation(createProjectileDto.ForwardDirection));
+            projectile.Init(createProjectileDto, _updateService, true);
+        }
+
+        public void CreatePlayerBulletHellProjectile(CreateProjectileDto createProjectileDto)
+        {
+            var projectile =
+                _assetProviderService.Instantiate<Projectile>(AssetPaths.PlayerBulletHellProjectilePrefab,
+                    createProjectileDto.SpawnPosition + _playerProjectileOffset,
+                    Quaternion.LookRotation(createProjectileDto.ForwardDirection));
             projectile.Init(createProjectileDto, _updateService, true);
         }
 

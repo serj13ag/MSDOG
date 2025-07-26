@@ -3,21 +3,21 @@ using UnityEngine;
 
 namespace Services.Gameplay
 {
-    public class ParticleFactory
+    public class VfxFactory
     {
-        private const float HeightOffset = 1f;
+        private readonly Vector3 _playerAbilityVfxOffset = Vector3.up * 1f;
 
         private readonly AssetProviderService _assetProviderService;
 
-        public ParticleFactory(AssetProviderService assetProviderService)
+        public VfxFactory(AssetProviderService assetProviderService)
         {
             _assetProviderService = assetProviderService;
         }
 
-        public void CreateBloodVfx(Vector3 position)
+        public void CreateBloodEffect(Vector3 position)
         {
             _assetProviderService.Instantiate<ParticleSystem>(AssetPaths.BloodParticlesVFXPath,
-                position + Vector3.up * HeightOffset);
+                position + _playerAbilityVfxOffset);
         }
 
         public void CreateSlashEffect(Vector3 position, float length)
@@ -26,7 +26,7 @@ namespace Services.Gameplay
             var scale = Mathf.LerpUnclamped(0.7f, 1f, t);
 
             var effect = _assetProviderService.Instantiate<Component>(AssetPaths.CuttingBlowVFXPath,
-                position + Vector3.up * 2f, Quaternion.Euler(90f, 0f, 0f));
+                position + _playerAbilityVfxOffset, Quaternion.Euler(90f, 0f, 0f));
             effect.transform.localScale = new Vector3(scale, scale, scale);
         }
 
@@ -36,7 +36,7 @@ namespace Services.Gameplay
             var scale = Mathf.LerpUnclamped(1f, 2.2f, t);
 
             var effect = _assetProviderService.Instantiate<Component>(AssetPaths.RoundAttackVFXPath,
-                position + Vector3.up * 2f, Quaternion.Euler(90f, 0f, 0f));
+                position + _playerAbilityVfxOffset, Quaternion.Euler(90f, 0f, 0f));
             effect.transform.localScale = new Vector3(scale, scale, scale);
         }
     }

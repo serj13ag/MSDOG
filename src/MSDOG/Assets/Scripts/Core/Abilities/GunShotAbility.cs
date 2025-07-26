@@ -21,7 +21,7 @@ namespace Core.Abilities
         protected override void InvokeAction()
         {
             var createProjectileDto = new CreateProjectileDto(_player.transform.position, _player.transform.forward, _player, _abilityData);
-            _projectileFactory.CreatePlayerProjectile(createProjectileDto);
+            _projectileFactory.CreatePlayerGunShotProjectile(createProjectileDto);
         }
     }
 }
