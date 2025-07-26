@@ -3,6 +3,8 @@ using Constants;
 using Core.Enemies;
 using Data;
 using Helpers;
+using Services;
+using Services.Gameplay;
 using UnityEngine;
 
 namespace Core.Abilities
@@ -12,14 +14,21 @@ namespace Core.Abilities
         private const float BoxHeight = 2f;
         private const float BoxWidth = 1f;
 
+        private readonly ParticleFactory _particleFactory;
+        private readonly DataService _dataService;
+
         private readonly Player _player;
         private readonly int _damage;
         private readonly float _length;
         private readonly Collider[] _hitBuffer = new Collider[32];
 
-        public CuttingBlowAbility(AbilityData abilityData, Player player)
+        public CuttingBlowAbility(AbilityData abilityData, Player player, ParticleFactory particleFactory,
+            DataService dataService)
             : base(abilityData.Cooldown, abilityData.FirstCooldownReduction)
         {
+            _particleFactory = particleFactory;
+            _dataService = dataService;
+
             _player = player;
             _damage = abilityData.Damage;
             _length = abilityData.Size;
@@ -28,7 +37,13 @@ namespace Core.Abilities
         protected override void InvokeAction()
         {
             Slash();
-            ShowSlashEffect();
+
+            _particleFactory.CreateSlashEffect(_player.transform.position, _length);
+
+            if (_dataService.GetSettingsData().ShowDebugHitboxes)
+            {
+                ShowSlashDebugEffect();
+            }
         }
 
         private void Slash()
@@ -61,7 +76,7 @@ namespace Core.Abilities
             return hitEnemies;
         }
 
-        private void ShowSlashEffect()
+        private void ShowSlashDebugEffect()
         {
             var slashIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
             slashIndicator.transform.position = _player.transform.position;

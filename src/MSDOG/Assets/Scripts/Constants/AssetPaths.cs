@@ -38,5 +38,6 @@ namespace Constants
 
         // VFX
         public const string BloodParticlesVFXPath = "Prefabs/Vfx/BloodParticles";
+        public const string CuttingBlowVFXPath = "Prefabs/Vfx/AbilityVFX/HStrike";
     }
 }

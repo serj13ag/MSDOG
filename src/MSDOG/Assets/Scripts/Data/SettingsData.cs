@@ -7,5 +7,6 @@ namespace Data
     {
         public int HealPerDestructedDetail;
         public int ExperiencePerDestructedDetail;
+        public bool ShowDebugHitboxes;
     }
 }

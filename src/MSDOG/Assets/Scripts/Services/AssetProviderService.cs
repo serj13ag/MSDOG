@@ -31,6 +31,11 @@ namespace Services
             return InstantiateInner<T>(path, position, rotation, null);
         }
 
+        public T Instantiate<T>(string path, Vector3 position, Quaternion rotation, Transform parentTransform) where T : Component
+        {
+            return InstantiateInner<T>(path, position, rotation, parentTransform);
+        }
+
         private T InstantiateInner<T>(string path, Vector3 position, Quaternion rotation, Transform parent) where T : Component
         {
             var prefab = LoadAsset<T>(path);

@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 652d3db40e5eafa4b88067e0ead547d9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d3d84520551f58345bd5da1385dc82d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,7 +102,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 533531344881146968}
   _sprites:
-  - {fileID: 21300000, guid: 128c72c756c6fdf4ab6bca710efe26c1, type: 3}
   - {fileID: 21300000, guid: f98bd4f9a15c92044a9f831f5e07ee13, type: 3}
   - {fileID: 21300000, guid: e2cc95c06e2ef3c469f7fad65a749f6b, type: 3}
   - {fileID: 21300000, guid: d3d84520551f58345bd5da1385dc82d5, type: 3}
@@ -111,6 +110,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 652d3db40e5eafa4b88067e0ead547d9, type: 3}
   - {fileID: 21300000, guid: 5320d39f71a579943afe60012aaf86a6, type: 3}
   - {fileID: 21300000, guid: cf2bb5c4aa3989c4ea427bfe16fb5d1d, type: 3}
-  _timePerFrame: 0.033
-  _isLooped: 1
-  _destroyOnFinish: 0
+  _timePerFrame: 0.028
+  _isLooped: 0
+  _destroyOnFinish: 1

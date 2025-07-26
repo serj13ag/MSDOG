@@ -8,17 +8,21 @@ namespace Services.Gameplay
     public class AbilityFactory
     {
         private readonly ProjectileFactory _projectileFactory;
+        private readonly ParticleFactory _particleFactory;
+        private readonly DataService _dataService;
 
-        public AbilityFactory(ProjectileFactory projectileFactory)
+        public AbilityFactory(ProjectileFactory projectileFactory, ParticleFactory particleFactory, DataService dataService)
         {
+            _dataService = dataService;
             _projectileFactory = projectileFactory;
+            _particleFactory = particleFactory;
         }
 
         public IAbility CreateAbility(AbilityData abilityData, Player player)
         {
             return abilityData.AbilityType switch
             {
-                AbilityType.CuttingBlow => new CuttingBlowAbility(abilityData, player),
+                AbilityType.CuttingBlow => new CuttingBlowAbility(abilityData, player, _particleFactory, _dataService),
                 AbilityType.RoundAttack => new RoundAttackAbility(abilityData, player),
                 AbilityType.GunShot => new GunShotAbility(abilityData, player, _projectileFactory),
                 AbilityType.BulletHell => new BulletHellAbility(abilityData, player, _projectileFactory),
