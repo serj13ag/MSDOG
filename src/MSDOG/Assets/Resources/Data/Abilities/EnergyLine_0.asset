@@ -16,9 +16,10 @@ MonoBehaviour:
   Level: 0
   Damage: 4
   Cooldown: 4
+  FirstCooldownReduction: 0
   Speed: 1
   Pierce: 0
-  Size: 1
+  Size: 0.3
   DamageReductionPercent: 0
-  Lifetime: 1
+  Lifetime: 2
   TickTimeout: 0.2
