@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec34a5acdf14d52921c56b036df1961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvasTransform: {fileID: 733591136322228558}
   _startGameButton: {fileID: 5693701104745042076}
   _optionsButton: {fileID: 4159427311447625338}
   _quitGameButton: {fileID: 3941686659390077954}

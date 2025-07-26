@@ -1,6 +1,7 @@
 using System;
 using Sounds;
 using UnityEngine;
+using VContainer;
 
 namespace Services
 {
@@ -14,30 +15,16 @@ namespace Services
         [SerializeField] private SoundClip _actionSoundClip;
         [SerializeField] private SoundClip _activateSoundClip;
 
-        private float _masterVolume = 1f;
-        private float _musicVolume = 0.7f;
-        private float _sfxVolume = 1f;
+        private PlayerOptionsService _playerOptionsService;
 
-        private void Start()
+        [Inject]
+        public void Construct(PlayerOptionsService playerOptionsService)
         {
-            LoadVolumeSettings();
-        }
+            _playerOptionsService = playerOptionsService;
 
-        public void SetMasterVolume(float volume)
-        {
-            _masterVolume = Mathf.Clamp01(volume);
+            playerOptionsService.OnSoundOptionsUpdated += OnSoundOptionsUpdated;
+
             UpdateMusicVolume();
-        }
-
-        public void SetMusicVolume(float volume)
-        {
-            _musicVolume = Mathf.Clamp01(volume);
-            UpdateMusicVolume();
-        }
-
-        public void SetSFXVolume(float volume)
-        {
-            _sfxVolume = Mathf.Clamp01(volume);
         }
 
         public void PlayMusic()
@@ -63,6 +50,11 @@ namespace Services
 
         public void PlaySfx(SfxType type)
         {
+            if (_playerOptionsService.IsMuted)
+            {
+                return;
+            }
+
             var soundClip = type switch
             {
                 SfxType.Action => _actionSoundClip,
@@ -70,29 +62,25 @@ namespace Services
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
             };
 
-            _sfxAudioSource.PlayOneShot(soundClip.Clip, soundClip.Volume * _sfxVolume * _masterVolume);
+            _sfxAudioSource.PlayOneShot(soundClip.Clip,
+                soundClip.Volume * _playerOptionsService.MasterVolume * _playerOptionsService.SfxVolume);
+        }
+
+        private void OnSoundOptionsUpdated(object sender, EventArgs e)
+        {
+            UpdateMusicVolume();
         }
 
         private void UpdateMusicVolume()
         {
-            _musicAudioSource.volume = _musicVolume * _masterVolume;
+            _musicAudioSource.volume = _playerOptionsService.IsMuted
+                ? 0f
+                : _playerOptionsService.MasterVolume * _playerOptionsService.MusicVolume;
         }
 
-        private void SaveVolumeSettings()
+        private void OnDestroy()
         {
-            PlayerPrefs.SetFloat("MasterVolume", _masterVolume);
-            PlayerPrefs.SetFloat("MusicVolume", _musicVolume);
-            PlayerPrefs.SetFloat("SFXVolume", _sfxVolume);
-            PlayerPrefs.Save();
-        }
-
-        private void LoadVolumeSettings()
-        {
-            _masterVolume = PlayerPrefs.GetFloat("MasterVolume", 1f);
-            _musicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.7f);
-            _sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 1f);
-
-            UpdateMusicVolume();
+            _playerOptionsService.OnSoundOptionsUpdated -= OnSoundOptionsUpdated;
         }
     }
 }
