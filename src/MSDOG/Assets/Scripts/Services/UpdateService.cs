@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Services
 {
-    public class UpdateService : BaseMonoService
+    public class UpdateService : PersistentMonoService
     {
         private readonly List<IUpdatable> _updatables = new List<IUpdatable>();
 

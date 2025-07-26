@@ -1294,6 +1294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dfe94d8683f48fb92ae30756d2539d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvasTransform: {fileID: 1853682272033940953}
   _healthBarHud: {fileID: 4179722409870436676}
   _experienceBarHud: {fileID: 3087336828757248262}
   _detailsZoneHud: {fileID: 5324587836441854160}

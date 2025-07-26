@@ -6,7 +6,7 @@ using VContainer;
 
 namespace UI.Windows
 {
-    public class OptionsWindow : MonoBehaviour
+    public class OptionsWindow : MonoBehaviour, IWindow
     {
         [SerializeField] private Button _closeButton;
         [SerializeField] private Toggle _muteToggle;
@@ -16,6 +16,7 @@ namespace UI.Windows
 
         private PlayerOptionsService _playerOptionsService;
 
+        public GameObject GameObject => gameObject;
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]

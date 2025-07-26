@@ -1,34 +1,51 @@
 using System;
+using System.Collections.Generic;
 using Constants;
 using UI.Windows;
 using UnityEngine;
 using VContainer;
-using Object = UnityEngine.Object;
 
 namespace Services
 {
-    public class WindowService
+    public class WindowService : PersistentMonoService
     {
-        private readonly IObjectResolver _container;
-        private readonly AssetProviderService _assetProviderService;
+        [SerializeField] private Canvas _canvas;
 
-        public WindowService(IObjectResolver container, AssetProviderService assetProviderService)
+        private IObjectResolver _container;
+        private AssetProviderService _assetProviderService;
+
+        private readonly Stack<IWindow> _activeWindows = new Stack<IWindow>();
+
+        [Inject]
+        public void Construct(IObjectResolver container, AssetProviderService assetProviderService)
         {
             _container = container;
             _assetProviderService = assetProviderService;
         }
 
-        public void ShowOptions(Transform parent)
+        public void ShowOptions()
         {
             var optionsWindow =
-                _assetProviderService.Instantiate<OptionsWindow>(AssetPaths.OptionsWindowPath, parent, _container);
+                _assetProviderService.Instantiate<OptionsWindow>(AssetPaths.OptionsWindowPath, _canvas.transform, _container);
+            _activeWindows.Push(optionsWindow);
             optionsWindow.OnCloseRequested += CloseWindow;
         }
 
         private void CloseWindow(object sender, EventArgs e)
         {
-            var window = (OptionsWindow)sender;
-            Object.Destroy(window.gameObject);
+            CloseActiveWindow();
+        }
+
+        private void CloseActiveWindow()
+        {
+            if (_activeWindows.Count == 0)
+            {
+                Debug.LogError("Has no active windows!");
+                return;
+            }
+
+            var windowToClose = _activeWindows.Pop();
+            Destroy(windowToClose.GameObject);
         }
     }
 }

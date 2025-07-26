@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Services
 {
-    public abstract class BaseMonoService : MonoBehaviour
+    public abstract class PersistentMonoService : MonoBehaviour
     {
         private void Awake()
         {

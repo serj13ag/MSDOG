@@ -5,7 +5,7 @@ using VContainer;
 
 namespace Services
 {
-    public class SoundService : BaseMonoService
+    public class SoundService : PersistentMonoService
     {
         [SerializeField] private AudioSource _musicAudioSource;
         [SerializeField] private AudioSource _sfxAudioSource;

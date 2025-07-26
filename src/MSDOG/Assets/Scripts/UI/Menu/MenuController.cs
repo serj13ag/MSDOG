@@ -42,7 +42,7 @@ namespace UI.Menu
 
         private void ShowOptions()
         {
-            _windowService.ShowOptions(_canvasTransform);
+            _windowService.ShowOptions();
         }
 
         private void Quit()

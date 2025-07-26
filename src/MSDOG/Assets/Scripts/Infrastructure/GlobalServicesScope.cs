@@ -10,6 +10,7 @@ namespace Infrastructure
     {
         [SerializeField] private LoadingCurtainService _loadingCurtainService;
         [SerializeField] private SoundService _soundService;
+        [SerializeField] private WindowService _windowService;
 
         protected override void Awake()
         {
@@ -37,10 +38,10 @@ namespace Infrastructure
             builder.Register<ProgressService>(Lifetime.Singleton);
             builder.Register<PlayerOptionsService>(Lifetime.Singleton);
             builder.Register<SceneLoadService>(Lifetime.Singleton);
-            builder.Register<WindowService>(Lifetime.Singleton);
 
             builder.RegisterComponent(_loadingCurtainService);
             builder.RegisterComponent(_soundService);
+            builder.RegisterComponent(_windowService);
         }
     }
 }

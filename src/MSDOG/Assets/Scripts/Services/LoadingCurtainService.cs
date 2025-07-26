@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Services
 {
-    public class LoadingCurtainService : BaseMonoService
+    public class LoadingCurtainService : PersistentMonoService
     {
         [SerializeField] private MaskableGraphic _curtainMaskableGraphic;
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Services
 {
-    public class CoroutineService : BaseMonoService
+    public class CoroutineService : PersistentMonoService
     {
         public Coroutine StartCoroutine(IEnumerator coroutine, Action onComplete)
         {
