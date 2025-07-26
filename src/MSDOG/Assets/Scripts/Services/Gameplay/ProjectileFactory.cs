@@ -8,6 +8,7 @@ namespace Services.Gameplay
     public class ProjectileFactory
     {
         private readonly Vector3 _playerProjectileOffset = Vector3.up * 1f;
+        private readonly Vector3 _enemyProjectileOffset = Vector3.up * 0.8f;
 
         private readonly AssetProviderService _assetProviderService;
         private readonly UpdateService _updateService;
@@ -40,7 +41,8 @@ namespace Services.Gameplay
         {
             var projectile =
                 _assetProviderService.Instantiate<Projectile>(AssetPaths.EnemyProjectilePrefab,
-                    createProjectileDto.SpawnPosition);
+                    createProjectileDto.SpawnPosition + _enemyProjectileOffset,
+                    Quaternion.LookRotation(createProjectileDto.ForwardDirection));
             projectile.Init(createProjectileDto, _updateService, false);
         }
 
