@@ -22,4 +22,4 @@ MonoBehaviour:
   Size: 1
   DamageReductionPercent: 0
   Lifetime: 3
-  TickTimeout: 0.5
+  TickTimeout: 0.2
