@@ -11,7 +11,11 @@ namespace Core
 {
     public class EnergyLineProjectile : MonoBehaviour, IUpdatable
     {
+        private readonly Vector3 _playerProjectileOffset = Vector3.up * 1f; // TODO: to player?
         private const float LaserRange = 10f;
+
+        [SerializeField] private GameObject _boxObject;
+        [SerializeField] private GameObject _spriteObject;
 
         private UpdateService _updateService;
 
@@ -39,16 +43,23 @@ namespace Core
             _timeTillDamage = _tickTimeout;
             _timeTillDestroy = createProjectileDto.AbilityData.Lifetime;
 
-            transform.localScale = new Vector3(_size, 0.5f, LaserRange);
             transform.rotation = Quaternion.LookRotation(_direction);
-            transform.position = _player.transform.position + _direction * (LaserRange / 2f);
+            transform.position = _player.transform.position + _playerProjectileOffset + _direction * (LaserRange / 2f);
+            _boxObject.transform.localScale = new Vector3(_size, 0.5f, LaserRange);
+
+            var t = Mathf.InverseLerp(0.3f, 1.6f, _size);
+            var scale = Mathf.LerpUnclamped(0.2f, 1.2f, t);
+            _spriteObject.transform.localScale = new Vector3(scale, 1f, 1f);
+
+            // 0.3 - 0.2
+            // 1.6 - 1.2
 
             updateService.Register(this);
         }
 
         public void OnUpdate(float deltaTime)
         {
-            transform.position = _player.transform.position + _direction * (LaserRange / 2f);
+            transform.position = _player.transform.position + _playerProjectileOffset + _direction * (LaserRange / 2f);
 
             _timeTillDestroy -= deltaTime;
             if (_timeTillDestroy < 0f)
@@ -85,7 +96,8 @@ namespace Core
             var boxSize = new Vector3(_size, _size, LaserRange);
             var boxRotation = Quaternion.LookRotation(_direction);
 
-            var hits = Physics.OverlapBoxNonAlloc(boxCenter, boxSize / 2f, _hitBuffer, boxRotation, Settings.LayerMasks.EnemyLayer);
+            var hits = Physics.OverlapBoxNonAlloc(boxCenter, boxSize / 2f, _hitBuffer, boxRotation,
+                Settings.LayerMasks.EnemyLayer);
             for (var i = 0; i < hits; i++)
             {
                 var hitCollider = _hitBuffer[i];
