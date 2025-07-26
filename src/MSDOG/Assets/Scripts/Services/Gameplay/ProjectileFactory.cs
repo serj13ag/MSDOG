@@ -48,7 +48,7 @@ namespace Services.Gameplay
         {
             var projectile =
                 _assetProviderService.Instantiate<BuzzSawProjectile>(AssetPaths.PlayerBuzzSawProjectilePrefab,
-                    createProjectileDto.SpawnPosition);
+                    createProjectileDto.SpawnPosition + _playerProjectileOffset);
             projectile.Init(createProjectileDto, _updateService, true);
         }
 
