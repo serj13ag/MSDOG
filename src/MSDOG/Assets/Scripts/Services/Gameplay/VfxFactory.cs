@@ -3,18 +3,18 @@ using UnityEngine;
 
 namespace Services.Gameplay
 {
-    public class ParticleFactory
+    public class VfxFactory
     {
         private readonly Vector3 _playerAbilityVfxOffset = Vector3.up * 1f;
 
         private readonly AssetProviderService _assetProviderService;
 
-        public ParticleFactory(AssetProviderService assetProviderService)
+        public VfxFactory(AssetProviderService assetProviderService)
         {
             _assetProviderService = assetProviderService;
         }
 
-        public void CreateBloodVfx(Vector3 position)
+        public void CreateBloodEffect(Vector3 position)
         {
             _assetProviderService.Instantiate<ParticleSystem>(AssetPaths.BloodParticlesVFXPath,
                 position + _playerAbilityVfxOffset);
