@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityType: 4
   Level: 1
-  Damage: 1
+  Damage: 2
   Cooldown: 0.3
+  FirstCooldownReduction: 0
   Speed: 10
   Pierce: 0
   Size: 0
