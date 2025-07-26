@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 533531344881146968}
   - component: {fileID: 9026082903117992234}
   m_Layer: 0
-  m_Name: SpriteAnimation 2
+  m_Name: Im_Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,15 +102,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 533531344881146968}
   _sprites:
-  - {fileID: 21300000, guid: 128c72c756c6fdf4ab6bca710efe26c1, type: 3}
-  - {fileID: 21300000, guid: f98bd4f9a15c92044a9f831f5e07ee13, type: 3}
-  - {fileID: 21300000, guid: e2cc95c06e2ef3c469f7fad65a749f6b, type: 3}
-  - {fileID: 21300000, guid: d3d84520551f58345bd5da1385dc82d5, type: 3}
-  - {fileID: 21300000, guid: 5683a46d46dbebe4f927cadd220f34d1, type: 3}
-  - {fileID: 21300000, guid: c111a0aee5b7cc747b2e1363c5856a2f, type: 3}
-  - {fileID: 21300000, guid: 652d3db40e5eafa4b88067e0ead547d9, type: 3}
-  - {fileID: 21300000, guid: 5320d39f71a579943afe60012aaf86a6, type: 3}
-  - {fileID: 21300000, guid: cf2bb5c4aa3989c4ea427bfe16fb5d1d, type: 3}
-  _timePerFrame: 0.01
+  - {fileID: 21300000, guid: 6f5b12f44c5845e41b26e8a00e30bbdd, type: 3}
+  - {fileID: 21300000, guid: 6f5b12f44c5845e41b26e8a00e30bbdd, type: 3}
+  - {fileID: 21300000, guid: e8c60f83056247a4a859b93492e1d264, type: 3}
+  - {fileID: 21300000, guid: 6e79ee71f71751c45a67d683e3ad3398, type: 3}
+  - {fileID: 21300000, guid: a579971246e603243b45c696a4a2c7ac, type: 3}
+  - {fileID: 21300000, guid: 7ba63f08a427e46498bfc0a2302273d1, type: 3}
+  - {fileID: 21300000, guid: 28cef835b015af44cbdfa10aebccee05, type: 3}
+  _timePerFrame: 0.08
   _isLooped: 1
   _destroyOnFinish: 0

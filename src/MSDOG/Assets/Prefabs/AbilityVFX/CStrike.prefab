@@ -102,8 +102,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 533531344881146968}
   _sprites:
-  - {fileID: 21300000, guid: 128c72c756c6fdf4ab6bca710efe26c1, type: 3}
-  - {fileID: 21300000, guid: 128c72c756c6fdf4ab6bca710efe26c1, type: 3}
-  _timePerFrame: 0.033
+  - {fileID: 21300000, guid: bd019f7a816b6fe42a378665430e6dc2, type: 3}
+  - {fileID: 21300000, guid: 3d07d639a0961254ca74b6f692954af6, type: 3}
+  - {fileID: 21300000, guid: 53fa3b14b855fe5458cb4a2636a39cb7, type: 3}
+  - {fileID: 21300000, guid: 54414498f63608a4ca7cae2300c5337c, type: 3}
+  - {fileID: 21300000, guid: 7288715617cb01c45973cbce88e3f20f, type: 3}
+  - {fileID: 21300000, guid: faea99ff9fed92b479b56b119b93284b, type: 3}
+  - {fileID: 21300000, guid: 092188fba0e47cb41a4f88f8edb6d910, type: 3}
+  - {fileID: 21300000, guid: 3c41cf151dbdc2e46b31504a75013c14, type: 3}
+  - {fileID: 21300000, guid: 344d013a3e406064ea692fc554839eb2, type: 3}
+  - {fileID: 21300000, guid: 86c48abae1320cb4eb268c80bcb89bc2, type: 3}
+  - {fileID: 21300000, guid: ef27a89bdb514f84683f7892c6833a95, type: 3}
+  - {fileID: 21300000, guid: 1dfdba9e169c5264584ad9d4a07ef882, type: 3}
+  - {fileID: 21300000, guid: 232ee955fe1f81948ac48c5474234f39, type: 3}
+  - {fileID: 21300000, guid: 4689b87d794ce3a419b011f098c3325c, type: 3}
+  - {fileID: 21300000, guid: 55427f00e7d81f642b8eb377cd046ef1, type: 3}
+  _timePerFrame: 0.025
   _isLooped: 1
   _destroyOnFinish: 0
