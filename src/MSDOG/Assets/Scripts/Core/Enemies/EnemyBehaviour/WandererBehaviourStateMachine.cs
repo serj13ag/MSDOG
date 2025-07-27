@@ -1,6 +1,7 @@
 using Core.Enemies.EnemyBehaviour.States;
 using UnityEngine;
 using UnityEngine.AI;
+using UtilityComponents;
 
 namespace Core.Enemies.EnemyBehaviour
 {
@@ -15,9 +16,13 @@ namespace Core.Enemies.EnemyBehaviour
         private readonly NavMeshAgent _agent;
         private readonly Player _player;
         private readonly AnimationBlock _animationBLock;
+        private readonly Enemy _enemy;
+        private readonly ColliderEventProvider _triggerEnterProvider;
 
-        public WandererBehaviourStateMachine(Enemy enemy)
+        public WandererBehaviourStateMachine(Enemy enemy, ColliderEventProvider triggerEnterProvider)
         {
+            _triggerEnterProvider = triggerEnterProvider;
+            _enemy = enemy;
             _agent = enemy.Agent;
             _player = enemy.Player;
             _animationBLock = enemy.AnimationBlock;
@@ -33,13 +38,13 @@ namespace Core.Enemies.EnemyBehaviour
         public void ChangeStateToWaiting()
         {
             var waitTime = Random.Range(1f, 3f);
-            ChangeState(new WaitingEnemyState(this, waitTime));
+            ChangeState(new WaitingEnemyState(_enemy, this, _triggerEnterProvider, waitTime));
         }
 
         public void ChangeStateToWalking()
         {
             var destination = GetRandomDestinationNearPlayer();
-            ChangeState(new WalkingToDestinationEnemyState(this, _animationBLock, _agent, destination));
+            ChangeState(new WalkingToDestinationEnemyState(_enemy, this, _animationBLock, _agent, _triggerEnterProvider, destination));
         }
 
         private Vector3 GetRandomDestinationNearPlayer()

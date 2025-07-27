@@ -1,22 +1,22 @@
+using UtilityComponents;
+
 namespace Core.Enemies.EnemyBehaviour.States
 {
-    public class WaitingEnemyState : IEnemyState
+    public class WaitingEnemyState : BaseTriggerAffectedEnemyState
     {
         private readonly WandererBehaviourStateMachine _stateMachine;
 
         private float _timeTillStartWalking;
 
-        public WaitingEnemyState(WandererBehaviourStateMachine stateMachine, float waitTime)
+        public WaitingEnemyState(Enemy enemy, WandererBehaviourStateMachine stateMachine,
+            ColliderEventProvider triggerEnterProvider, float waitTime)
+            : base(enemy, triggerEnterProvider)
         {
             _stateMachine = stateMachine;
             _timeTillStartWalking = waitTime;
         }
 
-        public void Enter()
-        {
-        }
-
-        public void OnUpdate(float deltaTime)
+        public override void OnUpdate(float deltaTime)
         {
             if (_timeTillStartWalking > 0f)
             {
@@ -25,14 +25,6 @@ namespace Core.Enemies.EnemyBehaviour.States
             }
 
             _stateMachine.ChangeStateToWalking();
-        }
-
-        public void Exit()
-        {
-        }
-
-        public void Dispose()
-        {
         }
     }
 }

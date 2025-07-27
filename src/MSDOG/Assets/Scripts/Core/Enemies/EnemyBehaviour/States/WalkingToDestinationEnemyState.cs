@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.AI;
+using UtilityComponents;
 
 namespace Core.Enemies.EnemyBehaviour.States
 {
-    public class WalkingToDestinationEnemyState : IEnemyState
+    public class WalkingToDestinationEnemyState : BaseTriggerAffectedEnemyState
     {
         private const float WalkingTimeout = 10f;
 
@@ -13,8 +14,9 @@ namespace Core.Enemies.EnemyBehaviour.States
 
         private float _elapsedTime;
 
-        public WalkingToDestinationEnemyState(WandererBehaviourStateMachine stateMachine, AnimationBlock animationBLock,
-            NavMeshAgent agent, Vector3 destination)
+        public WalkingToDestinationEnemyState(Enemy enemy, WandererBehaviourStateMachine stateMachine,
+            AnimationBlock animationBLock, NavMeshAgent agent, ColliderEventProvider triggerEnterProvider, Vector3 destination)
+            : base(enemy, triggerEnterProvider)
         {
             _stateMachine = stateMachine;
             _animationBLock = animationBLock;
@@ -31,12 +33,14 @@ namespace Core.Enemies.EnemyBehaviour.States
             }
         }
 
-        public void Enter()
+        public override void Enter()
         {
+            base.Enter();
+
             _animationBLock.SetRunning(true);
         }
 
-        public void OnUpdate(float deltaTime)
+        public override void OnUpdate(float deltaTime)
         {
             if (!_agent.isActiveAndEnabled)
             {
@@ -57,13 +61,11 @@ namespace Core.Enemies.EnemyBehaviour.States
             }
         }
 
-        public void Exit()
+        public override void Exit()
         {
-            _animationBLock.SetRunning(false);
-        }
+            base.Exit();
 
-        public void Dispose()
-        {
+            _animationBLock.SetRunning(false);
         }
     }
 }

@@ -72,7 +72,7 @@ namespace Core.Enemies
 
             _stateMachine = data.Type switch
             {
-                EnemyType.Wanderer => new WandererBehaviourStateMachine(this),
+                EnemyType.Wanderer => new WandererBehaviourStateMachine(this, _damagePlayerColliderTriggerEnterProvider),
                 EnemyType.Melee => new MeleeBehaviourStateMachine(this, _damagePlayerColliderTriggerEnterProvider),
                 EnemyType.Range => new RangeBehaviourStateMachine(this, _damagePlayerColliderTriggerEnterProvider),
                 _ => throw new ArgumentOutOfRangeException(nameof(data.Type), data.Type, null),
