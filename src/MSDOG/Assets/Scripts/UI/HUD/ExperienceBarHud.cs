@@ -44,6 +44,7 @@ namespace UI.HUD
             var abilityData = _dataService.GetRandomCraftAbilityData(_gameStateService.CurrentLevelIndex);
             _detailsZoneHud.CreateDetail(abilityData);
             _gameFactory.Player.ResetExperience();
+            UpdateView();
         }
 
         private void OnPlayerExperienceChanged()

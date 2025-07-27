@@ -60,7 +60,7 @@ namespace Core
         }
 
         public void Init(InputService inputService, UpdateService updateService, ArenaService arenaService,
-            AbilityFactory abilityFactory)
+            AbilityFactory abilityFactory, DataService dataService)
         {
             _abilityFactory = abilityFactory;
             _updateService = updateService;
@@ -69,7 +69,7 @@ namespace Core
 
             _animationBlock = new AnimationBlock(_animator);
             _healthBlock = new HealthBlock(100);
-            _experienceBlock = new ExperienceBlock();
+            _experienceBlock = new ExperienceBlock(dataService);
             _playerDamageBlock = new PlayerDamageBlock(this, _healthBlock);
             _moveBlock = new InputMoveBlock(this, inputService, arenaService);
 

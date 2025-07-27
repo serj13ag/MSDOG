@@ -15,3 +15,4 @@ MonoBehaviour:
   HealPerDestructedDetail: 10
   ExperiencePerDestructedDetail: 5
   ShowDebugHitboxes: 0
+  ExperienceProgression: 0300000005000000070000000a000000
