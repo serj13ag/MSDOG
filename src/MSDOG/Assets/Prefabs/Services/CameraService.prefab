@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e1131f1ba934bbca6d650420341ccdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cameraPositionOffset: {x: 0, y: 20, z: -3}
-  _cameraRotationOffset: {x: 90, y: 0, z: -90}
+  _cameraPositionOffset: {x: 0, y: 20, z: -6}
+  _cameraRotationOffset: {x: 80, y: 0, z: -90}
