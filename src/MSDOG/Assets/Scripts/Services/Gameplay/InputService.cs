@@ -23,6 +23,17 @@ namespace Services.Gameplay
             menuAction.performed += OnInputMenuActionPerformed;
         }
 
+        public void LockInput()
+        {
+            _moveInput = Vector2.zero;
+            _inputLocked = true;
+        }
+
+        public void UnlockInput()
+        {
+            _inputLocked = false;
+        }
+
         private void OnInputMoveActionPerformed(InputAction.CallbackContext context)
         {
             if (_inputLocked)
@@ -46,12 +57,6 @@ namespace Services.Gameplay
         private void OnInputMenuActionPerformed(InputAction.CallbackContext obj)
         {
             OnMenuActionPerformed?.Invoke(this, EventArgs.Empty);
-        }
-
-        public void LockInput()
-        {
-            _moveInput = Vector2.zero;
-            _inputLocked = true;
         }
     }
 }

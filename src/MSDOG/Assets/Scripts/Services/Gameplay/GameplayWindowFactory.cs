@@ -1,4 +1,6 @@
+using System;
 using Constants;
+using Data;
 using UI.Windows;
 using UnityEngine;
 using VContainer;
@@ -29,6 +31,14 @@ namespace Services.Gameplay
         public EscapeWindow CreateEscapeWindow(Transform canvasTransform)
         {
             return _assetProviderService.Instantiate<EscapeWindow>(AssetPaths.EscapeWindowPath, canvasTransform, _container);
+        }
+
+        public IWindow CreateDialogueWindow(DialogueData dialogueData, Action onDialogueCompleted, Transform canvasTransform)
+        {
+            var dialogueWindow =
+                _assetProviderService.Instantiate<DialogueWindow>(AssetPaths.DialogueWindowPath, canvasTransform, _container);
+            dialogueWindow.Init(dialogueData, onDialogueCompleted);
+            return dialogueWindow;
         }
     }
 }
