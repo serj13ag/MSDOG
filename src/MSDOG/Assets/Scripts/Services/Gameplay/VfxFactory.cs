@@ -1,4 +1,6 @@
+using System;
 using Constants;
+using Core;
 using UnityEngine;
 using UtilityComponents;
 
@@ -43,10 +45,25 @@ namespace Services.Gameplay
             effect.transform.localScale = new Vector3(scale, scale, scale);
         }
 
-        public void CreatEnemyProjectileImpactEffect(Vector3 position)
+        public void CreatEnemyProjectileImpactEffect(Vector3 position, ProjectileType projectileType)
         {
-            _assetProviderService.Instantiate<SpriteAnimatorComponent>(AssetPaths.EnemyProjectileImpactVFXPath, position,
-                Quaternion.Euler(90f, 0f, 0f));
+            switch (projectileType)
+            {
+                case ProjectileType.Enemy:
+                    _assetProviderService.Instantiate<SpriteAnimatorComponent>(AssetPaths.EnemyProjectileImpactVFXPath, position,
+                        Quaternion.Euler(90f, 0f, 0f));
+                    break;
+                case ProjectileType.Gunshot:
+                    _assetProviderService.Instantiate<SpriteAnimatorComponent>(AssetPaths.GunshotProjectileImpactVFXPath, position,
+                        Quaternion.Euler(90f, 0f, 0f));
+                    break;
+                case ProjectileType.BulletHell:
+                    _assetProviderService.Instantiate<SpriteAnimatorComponent>(AssetPaths.BulletHellProjectileImpactVFXPath, position,
+                        Quaternion.Euler(90f, 0f, 0f));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(projectileType), projectileType, null);
+            }
         }
     }
 }

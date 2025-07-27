@@ -27,7 +27,7 @@ namespace Services.Gameplay
                 _assetProviderService.Instantiate<Projectile>(AssetPaths.PlayerGunShotProjectilePrefab,
                     createProjectileDto.SpawnPosition + _playerProjectileOffset,
                     Quaternion.LookRotation(createProjectileDto.ForwardDirection));
-            projectile.Init(createProjectileDto, _updateService, true);
+            projectile.Init(createProjectileDto, _updateService, _vfxFactory, ProjectileType.Gunshot);
         }
 
         public void CreatePlayerBulletHellProjectile(CreateProjectileDto createProjectileDto)
@@ -36,7 +36,7 @@ namespace Services.Gameplay
                 _assetProviderService.Instantiate<Projectile>(AssetPaths.PlayerBulletHellProjectilePrefab,
                     createProjectileDto.SpawnPosition + _playerProjectileOffset,
                     Quaternion.LookRotation(createProjectileDto.ForwardDirection));
-            projectile.Init(createProjectileDto, _updateService, true);
+            projectile.Init(createProjectileDto, _updateService, _vfxFactory, ProjectileType.BulletHell);
         }
 
         public void CreateEnemyProjectile(CreateEnemyProjectileDto createProjectileDto)
@@ -45,7 +45,7 @@ namespace Services.Gameplay
                 _assetProviderService.Instantiate<Projectile>(AssetPaths.EnemyProjectilePrefab,
                     createProjectileDto.SpawnPosition + _enemyProjectileOffset,
                     Quaternion.LookRotation(createProjectileDto.ForwardDirection));
-            projectile.Init(createProjectileDto, _updateService, _vfxFactory, false);
+            projectile.Init(createProjectileDto, _updateService, _vfxFactory, ProjectileType.Enemy);
         }
 
         public void CreatePlayerBuzzSawProjectile(CreateProjectileDto createProjectileDto)

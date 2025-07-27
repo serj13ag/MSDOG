@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _colliderEventProvider: {fileID: 4177332983165476607}
+  _impactSpriteAnimator: {fileID: 0}
 --- !u!1 &5522554161654993670
 GameObject:
   m_ObjectHideFlags: 0

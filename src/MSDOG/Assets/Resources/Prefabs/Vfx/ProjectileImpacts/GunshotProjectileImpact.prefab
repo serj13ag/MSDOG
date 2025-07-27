@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 533531344881146968}
   - component: {fileID: 9026082903117992234}
   m_Layer: 0
-  m_Name: Im_Gunshot
+  m_Name: GunshotProjectileImpact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,8 +28,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 652d3db40e5eafa4b88067e0ead547d9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5ec3df3aa07fcd147be34c1d74ab72dd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -108,6 +108,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0dc05f3c58d84284e8dd335674b29ef7, type: 3}
   - {fileID: 21300000, guid: d19b999aab2e57f42b6a889177f8c126, type: 3}
   - {fileID: 21300000, guid: 2b0a64b2d1bde0c4e8ac82ca9f868950, type: 3}
-  _timePerFrame: 0.08
-  _isLooped: 1
-  _destroyOnFinish: 0
+  _timePerFrame: 0.05
+  _isLooped: 0
+  _destroyOnFinish: 1

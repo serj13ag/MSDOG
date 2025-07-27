@@ -18,18 +18,19 @@ namespace Core
         private UpdateService _updateService;
         private VfxFactory _vfxFactory;
 
-        private bool _isPlayer;
+        private ProjectileType _type;
         private Guid _id;
         private Vector3 _forwardDirection;
         private int _damage;
         private float _speed;
         private int _pierce;
 
-        public void Init(CreateProjectileDto createProjectileDto, UpdateService updateService, bool isPlayer)
+        public void Init(CreateProjectileDto createProjectileDto, UpdateService updateService, VfxFactory vfxFactory, ProjectileType type)
         {
+            _vfxFactory = vfxFactory;
             _updateService = updateService;
 
-            _isPlayer = isPlayer;
+            _type = type;
             _id = Guid.NewGuid();
             _pierce = createProjectileDto.AbilityData.Pierce;
             _speed = createProjectileDto.AbilityData.Speed;
@@ -41,12 +42,12 @@ namespace Core
         }
 
         public void Init(CreateEnemyProjectileDto createProjectileDto, UpdateService updateService, VfxFactory vfxFactory,
-            bool isPlayer)
+            ProjectileType type)
         {
             _vfxFactory = vfxFactory;
             _updateService = updateService;
 
-            _isPlayer = isPlayer;
+            _type = type;
             _id = Guid.NewGuid();
             _pierce = createProjectileDto.Pierce;
             _speed = createProjectileDto.Speed;
@@ -64,18 +65,18 @@ namespace Core
 
         private void OnTriggerEntered(Collider other)
         {
-            if (_isPlayer)
-            {
-                if (other.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
-                {
-                    enemy.TakeDamage(_damage);
-                }
-            }
-            else
+            if (_type == ProjectileType.Enemy)
             {
                 if (other.gameObject.TryGetComponentInHierarchy<Player>(out var player))
                 {
                     player.RegisterProjectileDamager(_id, _damage);
+                }
+            }
+            else
+            {
+                if (other.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
+                {
+                    enemy.TakeDamage(_damage);
                 }
             }
 
@@ -92,10 +93,7 @@ namespace Core
 
         private void CreateImpactVfx()
         {
-            if (!_isPlayer)
-            {
-                _vfxFactory.CreatEnemyProjectileImpactEffect(transform.position);
-            }
+            _vfxFactory.CreatEnemyProjectileImpactEffect(transform.position, _type);
         }
 
         private void OnDestroy()

@@ -43,5 +43,7 @@ namespace Constants
         public const string CuttingBlowVFXPath = "Prefabs/Vfx/AbilityVFX/HStrike";
         public const string RoundAttackVFXPath = "Prefabs/Vfx/AbilityVFX/CStrike";
         public const string EnemyProjectileImpactVFXPath = "Prefabs/Vfx/ProjectileImpacts/EnemyProjectileImpact";
+        public const string GunshotProjectileImpactVFXPath = "Prefabs/Vfx/ProjectileImpacts/GunshotProjectileImpact";
+        public const string BulletHellProjectileImpactVFXPath = "Prefabs/Vfx/ProjectileImpacts/BulletHellProjectileImpact";
     }
 }
