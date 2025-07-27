@@ -172,7 +172,7 @@ namespace Services.Gameplay
 
         private void SpawnDeathkit(Enemy enemy)
         {
-            _gameFactory.CreateEnemyDeathkit(enemy.Type, enemy.ModelRootPosition, enemy.transform.rotation);
+            _gameFactory.CreateEnemyDeathkit(enemy.DeathkitPrefab, enemy.ModelRootPosition, enemy.transform.rotation);
         }
 
         public void Dispose()

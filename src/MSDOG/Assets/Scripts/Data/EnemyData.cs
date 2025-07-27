@@ -13,5 +13,7 @@ namespace Data
         public int Damage;
         public float ProjectileSpeed;
         public int Experience = 1;
+        public Enemy Prefab;
+        public EnemyDeathkit DeathkitPrefab;
     }
 }

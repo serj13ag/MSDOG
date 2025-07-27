@@ -4,6 +4,7 @@ using Core;
 using Core.Enemies;
 using Data;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Services.Gameplay
 {
@@ -46,30 +47,14 @@ namespace Services.Gameplay
 
         public Enemy CreateEnemy(Vector3 position, EnemyData data)
         {
-            var prefabPath = data.Type switch
-            {
-                EnemyType.Wanderer => AssetPaths.WandererEnemyPrefab,
-                EnemyType.Melee => AssetPaths.MeleeEnemyPrefab,
-                EnemyType.Range => AssetPaths.RangeEnemyPrefab,
-                _ => throw new ArgumentOutOfRangeException(),
-            };
-
-            var enemy = _assetProviderService.Instantiate<Enemy>(prefabPath, position);
+            var enemy = Object.Instantiate<Enemy>(data.Prefab, position, Quaternion.identity);
             enemy.Init(_updateService, this, _projectileFactory, _player, data, _vfxFactory);
             return enemy;
         }
 
-        public EnemyDeathkit CreateEnemyDeathkit(EnemyType enemyType, Vector3 position, Quaternion rotation)
+        public EnemyDeathkit CreateEnemyDeathkit(EnemyDeathkit deathkitPrefab, Vector3 position, Quaternion rotation)
         {
-            var prefabPath = enemyType switch
-            {
-                EnemyType.Wanderer => AssetPaths.WandererEnemyDeathkitPrefab,
-                EnemyType.Melee => AssetPaths.MeleeEnemyDeathkitPrefab,
-                EnemyType.Range => AssetPaths.RangeEnemyDeathkitPrefab,
-                _ => throw new ArgumentOutOfRangeException(),
-            };
-
-            var enemyDeathkit = _assetProviderService.Instantiate<EnemyDeathkit>(prefabPath, position, rotation);
+            var enemyDeathkit = Object.Instantiate<EnemyDeathkit>(deathkitPrefab, position, rotation);
             enemyDeathkit.Init();
             return enemyDeathkit;
         }
