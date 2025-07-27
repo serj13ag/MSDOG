@@ -1,4 +1,3 @@
-using System;
 using Constants;
 using Core;
 using Core.Enemies;
@@ -47,14 +46,14 @@ namespace Services.Gameplay
 
         public Enemy CreateEnemy(Vector3 position, EnemyData data)
         {
-            var enemy = Object.Instantiate<Enemy>(data.Prefab, position, Quaternion.identity);
+            var enemy = Object.Instantiate(data.Prefab, position, Quaternion.identity);
             enemy.Init(_updateService, this, _projectileFactory, _player, data, _vfxFactory);
             return enemy;
         }
 
         public EnemyDeathkit CreateEnemyDeathkit(EnemyDeathkit deathkitPrefab, Vector3 position, Quaternion rotation)
         {
-            var enemyDeathkit = Object.Instantiate<EnemyDeathkit>(deathkitPrefab, position, rotation);
+            var enemyDeathkit = Object.Instantiate(deathkitPrefab, position, rotation);
             enemyDeathkit.Init();
             return enemyDeathkit;
         }
