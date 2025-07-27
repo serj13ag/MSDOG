@@ -89,6 +89,8 @@ MonoBehaviour:
       Count: 15
     - Data: {fileID: 11400000, guid: 28fb93b068123e342a2ef887c9fb7960, type: 2}
       Count: 5
+    - Data: {fileID: 11400000, guid: 8886141ffb74931469fc4d1712f9e96d, type: 2}
+      Count: 1
     TimeTillNextWave: 15
   - Enemies:
     - Data: {fileID: 11400000, guid: ded3371667f69254984e6cbaa89ee98a, type: 2}
@@ -113,6 +115,8 @@ MonoBehaviour:
       Count: 20
     - Data: {fileID: 11400000, guid: 28fb93b068123e342a2ef887c9fb7960, type: 2}
       Count: 10
+    - Data: {fileID: 11400000, guid: 8886141ffb74931469fc4d1712f9e96d, type: 2}
+      Count: 1
     TimeTillNextWave: 15
   - Enemies:
     - Data: {fileID: 11400000, guid: ded3371667f69254984e6cbaa89ee98a, type: 2}
@@ -131,8 +135,8 @@ MonoBehaviour:
       Count: 10
     TimeTillNextWave: 5
   - Enemies:
-    - Data: {fileID: 11400000, guid: ded3371667f69254984e6cbaa89ee98a, type: 2}
-      Count: 10
+    - Data: {fileID: 11400000, guid: 8886141ffb74931469fc4d1712f9e96d, type: 2}
+      Count: 2
     - Data: {fileID: 11400000, guid: 7cf3af93fd9cfbe448400359be9215e5, type: 2}
       Count: 20
     - Data: {fileID: 11400000, guid: 28fb93b068123e342a2ef887c9fb7960, type: 2}
