@@ -16,12 +16,14 @@ namespace UI.HUD
 
         private DataService _dataService;
         private GameFactory _gameFactory;
+        private GameStateService _gameStateService;
 
         private DetailsZoneHud _detailsZoneHud;
 
         [Inject]
-        public void Construct(GameFactory gameFactory, DataService dataService)
+        public void Construct(GameFactory gameFactory, DataService dataService, GameStateService gameStateService)
         {
+            _gameStateService = gameStateService;
             _gameFactory = gameFactory;
             _dataService = dataService;
         }
@@ -39,7 +41,7 @@ namespace UI.HUD
 
         private void OnCraftButtonClick()
         {
-            var abilityData = _dataService.GetRandomCraftAbilityData();
+            var abilityData = _dataService.GetRandomCraftAbilityData(_gameStateService.CurrentLevelIndex);
             _detailsZoneHud.CreateDetail(abilityData);
             _gameFactory.Player.ResetExperience();
         }

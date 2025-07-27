@@ -8,6 +8,7 @@ namespace Data
     {
         public int LevelIndex;
         public string LevelName;
+        public LevelAbilityData LevelAbilityData;
         public List<WaveData> Waves;
         public DialogueData StartDialogue;
         public DialogueData EndDialogue;

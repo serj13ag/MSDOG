@@ -11,8 +11,10 @@ namespace Services
     public class DataService
     {
         private readonly Dictionary<int, LevelData> _levelsData;
+
         private readonly AbilityData[] _abilitiesData;
-        private readonly LevelAbilityData _levelAbilityData;
+
+        //private readonly LevelAbilityData _levelAbilityData;
         private readonly AbilityUpgradesData _abilityUpgradesData;
         private readonly SettingsData _settingsData;
 
@@ -25,7 +27,7 @@ namespace Services
             }
 
             _abilitiesData = Resources.LoadAll<AbilityData>(AssetPaths.AbilitiesData);
-            _levelAbilityData = Resources.Load<LevelAbilityData>(AssetPaths.LevelAbilityData);
+            //_levelAbilityData = Resources.Load<LevelAbilityData>(AssetPaths.LevelAbilityData);
             _abilityUpgradesData = Resources.Load<AbilityUpgradesData>(AssetPaths.AbilityUpgradesData);
             _settingsData = Resources.Load<SettingsData>(AssetPaths.SettingsData);
         }
@@ -40,15 +42,18 @@ namespace Services
             return _levelsData.GetValueOrDefault(levelIndex);
         }
 
-        public AbilityData GetStartAbilityData()
+        public List<AbilityData> GetStartAbilitiesData(int levelIndex)
         {
-            return _levelAbilityData.StartAbility;
+            var levelData = _levelsData.GetValueOrDefault(levelIndex);
+            return levelData?.LevelAbilityData.StartAbilities;
         }
 
-        public AbilityData GetRandomCraftAbilityData()
+        public AbilityData GetRandomCraftAbilityData(int levelIndex)
         {
-            var randomIndex = Random.Range(0, _levelAbilityData.AbilitiesAvailableToCraft.Count);
-            return _levelAbilityData.AbilitiesAvailableToCraft[randomIndex];
+            var levelData = _levelsData.GetValueOrDefault(levelIndex);
+            var abilitiesAvailableToCraft = levelData.LevelAbilityData.AbilitiesAvailableToCraft;
+            var randomIndex = Random.Range(0, abilitiesAvailableToCraft.Count);
+            return abilitiesAvailableToCraft[randomIndex];
         }
 
         public IEnumerable<AbilityData> GetAbilitiesData()

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelIndex: 2
   LevelName: Gnosis
+  LevelAbilityData: {fileID: 11400000, guid: fd31521ac71b12c47830cb38cdad9077, type: 2}
   Waves:
   - Enemies:
     - Data: {fileID: 11400000, guid: 4d82f5b7ebd0bb24286bfa242184822c, type: 2}
@@ -137,3 +138,5 @@ MonoBehaviour:
     - Data: {fileID: 11400000, guid: 28fb93b068123e342a2ef887c9fb7960, type: 2}
       Count: 10
     TimeTillNextWave: 5
+  StartDialogue: {fileID: 0}
+  EndDialogue: {fileID: 0}

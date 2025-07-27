@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelIndex: 1
   LevelName: 43% burnt
+  LevelAbilityData: {fileID: 11400000, guid: fd31521ac71b12c47830cb38cdad9077, type: 2}
   Waves:
   - Enemies:
     - Data: {fileID: 11400000, guid: 4d82f5b7ebd0bb24286bfa242184822c, type: 2}
@@ -139,3 +140,5 @@ MonoBehaviour:
     - Data: {fileID: 11400000, guid: ded3371667f69254984e6cbaa89ee98a, type: 2}
       Count: 8
     TimeTillNextWave: 12
+  StartDialogue: {fileID: 0}
+  EndDialogue: {fileID: 0}
