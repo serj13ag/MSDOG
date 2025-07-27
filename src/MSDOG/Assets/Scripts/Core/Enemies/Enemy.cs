@@ -46,7 +46,6 @@ namespace Core.Enemies
         public int Damage => _damage;
         public float Cooldown => _cooldown;
 
-        public EnemyType Type { get; private set; }
         public EnemyDeathkit DeathkitPrefab { get; private set; }
 
         public event Action<Enemy> OnDied;
@@ -65,7 +64,6 @@ namespace Core.Enemies
             _cooldown = data.Cooldown;
             _projectileSpeed = data.ProjectileSpeed;
             _experience = data.Experience;
-            Type = data.Type;
             DeathkitPrefab = data.DeathkitPrefab;
 
             _healthBlock = new HealthBlock(data.MaxHealth);
