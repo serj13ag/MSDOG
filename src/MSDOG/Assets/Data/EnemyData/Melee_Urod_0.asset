@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Melee_Urod_0
   m_EditorClassIdentifier: 
   Type: 1
-  Speed: 3
-  MaxHealth: 3
+  Speed: 1.5
+  MaxHealth: 40
   Cooldown: 0
-  Damage: 1
+  Damage: 15
   ProjectileSpeed: 0
-  Experience: 6
+  Experience: 30
   Prefab: {fileID: 1731465627681447288, guid: 9acd66bf1255ea545b12a6f98640127a, type: 3}
-  DeathkitPrefab: {fileID: 1811390066692990319, guid: f930a8873ff8c5445951c41de940934d, type: 3}
+  DeathkitPrefab: {fileID: 1811390066692990319, guid: 2b37542cc1157fa49a2032c8b5d30f58, type: 3}
