@@ -8,10 +8,12 @@ namespace Infrastructure
     public class GameplayServicesScope : BaseServicesScope
     {
         [SerializeField] private CameraService _cameraService;
+        [SerializeField] private LevelViewService _levelViewService;
 
         protected override void ConfigureContainer(IContainerBuilder builder)
         {
             builder.RegisterComponent(_cameraService);
+            builder.RegisterComponent(_levelViewService);
 
             builder.Register<InputService>(Lifetime.Scoped);
             builder.Register<ArenaService>(Lifetime.Scoped);

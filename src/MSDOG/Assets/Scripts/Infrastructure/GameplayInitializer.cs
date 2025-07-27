@@ -14,10 +14,13 @@ namespace Infrastructure
         private readonly CameraService _cameraService;
         private readonly GameStateService _gameStateService;
         private readonly DialogueService _dialogueService;
+        private LevelViewService _levelViewService;
 
         public GameplayInitializer(DebugService debugService, EnemyService enemyService, GameFactory gameFactory,
-            CameraService cameraService, GameStateService gameStateService, DialogueService dialogueService)
+            CameraService cameraService, GameStateService gameStateService, DialogueService dialogueService,
+            LevelViewService levelViewService)
         {
+            _levelViewService = levelViewService;
             _dialogueService = dialogueService;
             _debugService = debugService;
             _enemyService = enemyService;
@@ -32,6 +35,7 @@ namespace Infrastructure
 
             _gameStateService.RegisterPlayer(player, levelIndex);
             _cameraService.SetFollowTarget(player.transform);
+            _levelViewService.InitializeLevel(levelIndex);
             _enemyService.SetupLevel(levelIndex, player.transform);
 
             var hudController = Object.FindFirstObjectByType<HudController>();

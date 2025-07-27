@@ -74,3 +74,4 @@ MonoBehaviour:
     TimeTillNextWave: 5
   StartDialogue: {fileID: 11400000, guid: 7c7c13b6a885fb042876a61881a8b833, type: 2}
   EndDialogue: {fileID: 11400000, guid: b7fc2fc0bd1af5f4d98f4701a7d851d7, type: 2}
+  FloorMaterial: {fileID: 2100000, guid: e9b847424c7a5f245a1f83d3d2cd8a7a, type: 2}

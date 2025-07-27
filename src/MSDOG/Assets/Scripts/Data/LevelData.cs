@@ -12,5 +12,6 @@ namespace Data
         public List<WaveData> Waves;
         public DialogueData StartDialogue;
         public DialogueData EndDialogue;
+        public Material FloorMaterial;
     }
 }
