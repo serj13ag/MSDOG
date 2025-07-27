@@ -3,12 +3,14 @@ using Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace UI.HUD.DetailsZone
 {
     public class DetailPartHud : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [SerializeField] private TMP_Text _text;
+        [SerializeField] private Image _icon;
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private RectTransform _rectTransform;
 
@@ -27,7 +29,9 @@ namespace UI.HUD.DetailsZone
             Id = Guid.NewGuid();
             _abilityData = abilityData;
             _parentCanvas = parentCanvas;
-            _text.text = $"{_abilityData.AbilityType}_{_abilityData.Level}";
+            _icon.sprite = _abilityData.Icon;
+            //_text.text = $"{_abilityData.AbilityType}_{_abilityData.Level}";
+            _text.text = string.Empty;
         }
 
         public void SetCurrentZone(IDetailsZone newZone)

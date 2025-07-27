@@ -17,5 +17,6 @@ namespace Data
         public int DamageReductionPercent;
         public float Lifetime;
         public float TickTimeout;
+        public Sprite Icon;
     }
 }
