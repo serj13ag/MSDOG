@@ -9,6 +9,7 @@ namespace Core
     public class ExperiencePiece : MonoBehaviour, IUpdatable
     {
         [SerializeField] private ColliderEventProvider _colliderEventProvider;
+        [SerializeField] private GameObject[] _views;
 
         private UpdateService _updateService;
         private Player _player;
@@ -18,6 +19,12 @@ namespace Core
         {
             _updateService = updateService;
             _experience = experience;
+
+            var randomIndex = Random.Range(0, _views.Length);
+            for (var i = 0; i < _views.Length; i++)
+            {
+                _views[i].SetActive(i == randomIndex);
+            }
 
             updateService.Register(this);
             _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
