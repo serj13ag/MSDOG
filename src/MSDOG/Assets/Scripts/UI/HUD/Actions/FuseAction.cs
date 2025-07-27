@@ -14,6 +14,7 @@ namespace UI.HUD.Actions
         [SerializeField] private float _distanceToSwitch = 250f;
         [SerializeField] private float _counterToDisconnect = 20f;
         [SerializeField] private float _reduceMultiplier = 2f;
+        [SerializeField] private float _nitroMultiplier = 2f;
 
         private Player _player;
 
@@ -68,7 +69,8 @@ namespace UI.HUD.Actions
             _previousPlayerPosition = _player.transform.position;
             if (passedDistance > 0f)
             {
-                _counter += Time.deltaTime;
+                var timeToAdd = Time.deltaTime * (_player.HasNitro ? _nitroMultiplier : 1f);
+                _counter += timeToAdd;
             }
             else
             {

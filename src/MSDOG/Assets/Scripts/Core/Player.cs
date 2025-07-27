@@ -30,6 +30,7 @@ namespace Core
 
         private readonly Dictionary<Guid, IAbility> _abilities = new Dictionary<Guid, IAbility>();
         private float _additionalMoveSpeed;
+        private float _nitroMultiplier = 1f;
         private int _damageReductionPercent;
         private bool _movementIsActive;
 
@@ -37,7 +38,8 @@ namespace Core
         public AnimationBlock AnimationBlock => _animationBlock;
 
         public float RotationSpeed => _rotationSpeed;
-        public float CurrentMoveSpeed => _movementIsActive ? _moveSpeed + _additionalMoveSpeed : 0f;
+        public float CurrentMoveSpeed => (_movementIsActive ? _moveSpeed + _additionalMoveSpeed : 0f) * _nitroMultiplier;
+        public bool HasNitro => _nitroMultiplier > 1f;
         public int CurrentDamageReductionPercent => _damageReductionPercent;
 
         public int CurrentHealth => _healthBlock.CurrentHealth;
@@ -147,6 +149,16 @@ namespace Core
             _healthBlock.Heal(value);
         }
 
+        public void SetNitro(float moveSpeedMultiplier)
+        {
+            _nitroMultiplier = moveSpeedMultiplier;
+        }
+
+        public void ResetNitro()
+        {
+            _nitroMultiplier = 1f;
+        }
+        
         private void HandleAbilities(float deltaTime)
         {
             foreach (var ability in _abilities.Values.ToArray())
