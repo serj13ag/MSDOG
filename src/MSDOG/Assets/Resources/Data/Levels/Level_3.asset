@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelIndex: 3
   LevelName: Disconnect
-  LevelAbilityData: {fileID: 11400000, guid: fd31521ac71b12c47830cb38cdad9077, type: 2}
+  LevelAbilityData: {fileID: 11400000, guid: 92e808514bcc0d343aca879b6fa68fd2, type: 2}
   Waves:
   - Enemies:
     - Data: {fileID: 11400000, guid: 4d82f5b7ebd0bb24286bfa242184822c, type: 2}
