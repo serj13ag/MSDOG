@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartAbilities:
   - {fileID: 11400000, guid: e030c441daee39a4c90ba32f57f37375, type: 2}
-  - {fileID: 11400000, guid: e030c441daee39a4c90ba32f57f37375, type: 2}
   AbilitiesAvailableToCraft:
   - {fileID: 11400000, guid: e030c441daee39a4c90ba32f57f37375, type: 2}
   - {fileID: 11400000, guid: 9c4d87b4beb3a8f408466af394d185be, type: 2}

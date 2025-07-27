@@ -19,7 +19,7 @@ MonoBehaviour:
   FirstCooldownReduction: 1
   Speed: 0
   Pierce: 0
-  Size: 3
+  Size: 5
   DamageReductionPercent: 0
-  Lifetime: 2
+  Lifetime: 3
   TickTimeout: 0.4
