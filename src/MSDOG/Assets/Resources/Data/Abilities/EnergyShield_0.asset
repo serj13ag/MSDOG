@@ -13,9 +13,14 @@ MonoBehaviour:
   m_Name: EnergyShield_0
   m_EditorClassIdentifier: 
   AbilityType: 21
+  Level: 0
   Damage: 0
   Cooldown: 0
+  FirstCooldownReduction: 0
   Speed: 0
   Pierce: 0
   Size: 0
   DamageReductionPercent: 10
+  Lifetime: 0
+  TickTimeout: 0
+  Icon: {fileID: 21300000, guid: 45a33f4c12d84314a8f2ab37cb8956a1, type: 3}

@@ -16,9 +16,11 @@ MonoBehaviour:
   Level: 3
   Damage: 0
   Cooldown: 0
+  FirstCooldownReduction: 0
   Speed: 0
   Pierce: 0
   Size: 0
   DamageReductionPercent: 40
   Lifetime: 0
   TickTimeout: 0
+  Icon: {fileID: 21300000, guid: 375837681751d5646a9c3859cd00b586, type: 3}

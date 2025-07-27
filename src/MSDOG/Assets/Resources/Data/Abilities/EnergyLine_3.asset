@@ -23,3 +23,4 @@ MonoBehaviour:
   DamageReductionPercent: 0
   Lifetime: 4
   TickTimeout: 0.2
+  Icon: {fileID: 21300000, guid: 2958ad07eabf5f84a82f6f840d24b9ac, type: 3}
