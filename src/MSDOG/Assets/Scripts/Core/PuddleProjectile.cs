@@ -11,6 +11,8 @@ namespace Core
 {
     public class PuddleProjectile : MonoBehaviour, IUpdatable
     {
+        private const float TimeToScale = 0.5f;
+
         private UpdateService _updateService;
 
         private readonly Collider[] _hitBuffer = new Collider[32];
@@ -22,6 +24,7 @@ namespace Core
         private float _timeTillDamage;
         private float _tickTimeout;
         private float _timeTillDestroy;
+        private float _scaleTime;
 
         public void Init(CreateProjectileDto createProjectileDto, UpdateService updateService)
         {
@@ -33,13 +36,25 @@ namespace Core
             _timeTillDamage = _tickTimeout;
             _timeTillDestroy = createProjectileDto.AbilityData.Lifetime;
 
-            transform.localScale = new Vector3(_size, 0.5f, _size);
+            SetLocalScale(0f);
 
             updateService.Register(this);
         }
 
         public void OnUpdate(float deltaTime)
         {
+            _scaleTime += deltaTime;
+            if (_scaleTime < TimeToScale)
+            {
+                var t = _scaleTime / TimeToScale;
+                var size = Mathf.Lerp(0f, _size, t);
+                SetLocalScale(size);
+            }
+            else
+            {
+                SetLocalScale(_size);
+            }
+
             _timeTillDestroy -= deltaTime;
             if (_timeTillDestroy < 0f)
             {
@@ -81,6 +96,11 @@ namespace Core
             }
 
             return hitEnemies;
+        }
+
+        private void SetLocalScale(float scale)
+        {
+            transform.localScale = new Vector3(scale, 0.5f, scale);
         }
 
         private void OnDestroy()
