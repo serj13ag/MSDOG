@@ -1,5 +1,6 @@
 using Constants;
 using UnityEngine;
+using UtilityComponents;
 
 namespace Services.Gameplay
 {
@@ -40,6 +41,12 @@ namespace Services.Gameplay
             var effect = _assetProviderService.Instantiate<Component>(AssetPaths.RoundAttackVFXPath,
                 position + _playerAbilityVfxOffset, Quaternion.Euler(90f, 0f, 0f));
             effect.transform.localScale = new Vector3(scale, scale, scale);
+        }
+
+        public void CreatEnemyProjectileImpactEffect(Vector3 position)
+        {
+            _assetProviderService.Instantiate<SpriteAnimatorComponent>(AssetPaths.EnemyProjectileImpactVFXPath, position,
+                Quaternion.Euler(90f, 0f, 0f));
         }
     }
 }

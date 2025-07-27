@@ -12,11 +12,13 @@ namespace Services.Gameplay
 
         private readonly AssetProviderService _assetProviderService;
         private readonly UpdateService _updateService;
+        private readonly VfxFactory _vfxFactory;
 
-        public ProjectileFactory(AssetProviderService assetProviderService, UpdateService updateService)
+        public ProjectileFactory(AssetProviderService assetProviderService, UpdateService updateService, VfxFactory vfxFactory)
         {
             _assetProviderService = assetProviderService;
             _updateService = updateService;
+            _vfxFactory = vfxFactory;
         }
 
         public void CreatePlayerGunShotProjectile(CreateProjectileDto createProjectileDto)
@@ -43,7 +45,7 @@ namespace Services.Gameplay
                 _assetProviderService.Instantiate<Projectile>(AssetPaths.EnemyProjectilePrefab,
                     createProjectileDto.SpawnPosition + _enemyProjectileOffset,
                     Quaternion.LookRotation(createProjectileDto.ForwardDirection));
-            projectile.Init(createProjectileDto, _updateService, false);
+            projectile.Init(createProjectileDto, _updateService, _vfxFactory, false);
         }
 
         public void CreatePlayerBuzzSawProjectile(CreateProjectileDto createProjectileDto)

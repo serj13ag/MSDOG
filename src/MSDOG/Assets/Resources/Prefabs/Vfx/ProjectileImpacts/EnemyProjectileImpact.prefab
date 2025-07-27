@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 533531344881146968}
   - component: {fileID: 9026082903117992234}
   m_Layer: 0
-  m_Name: Im_Enemy
+  m_Name: EnemyProjectileImpact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,8 +28,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.35, y: 0.35, z: 0.35}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 652d3db40e5eafa4b88067e0ead547d9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6e79ee71f71751c45a67d683e3ad3398, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,12 +103,11 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 533531344881146968}
   _sprites:
   - {fileID: 21300000, guid: 6f5b12f44c5845e41b26e8a00e30bbdd, type: 3}
-  - {fileID: 21300000, guid: 6f5b12f44c5845e41b26e8a00e30bbdd, type: 3}
   - {fileID: 21300000, guid: e8c60f83056247a4a859b93492e1d264, type: 3}
   - {fileID: 21300000, guid: 6e79ee71f71751c45a67d683e3ad3398, type: 3}
   - {fileID: 21300000, guid: a579971246e603243b45c696a4a2c7ac, type: 3}
   - {fileID: 21300000, guid: 7ba63f08a427e46498bfc0a2302273d1, type: 3}
   - {fileID: 21300000, guid: 28cef835b015af44cbdfa10aebccee05, type: 3}
-  _timePerFrame: 0.08
-  _isLooped: 1
-  _destroyOnFinish: 0
+  _timePerFrame: 0.05
+  _isLooped: 0
+  _destroyOnFinish: 1

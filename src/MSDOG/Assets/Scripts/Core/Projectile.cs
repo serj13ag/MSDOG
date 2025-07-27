@@ -4,6 +4,7 @@ using DTO;
 using Helpers;
 using Interfaces;
 using Services;
+using Services.Gameplay;
 using UnityEngine;
 using UtilityComponents;
 
@@ -12,8 +13,10 @@ namespace Core
     public class Projectile : MonoBehaviour, IUpdatable
     {
         [SerializeField] private ColliderEventProvider _colliderEventProvider;
+        [SerializeField] private SpriteAnimatorComponent _impactSpriteAnimator;
 
         private UpdateService _updateService;
+        private VfxFactory _vfxFactory;
 
         private bool _isPlayer;
         private Guid _id;
@@ -37,8 +40,10 @@ namespace Core
             _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
 
-        public void Init(CreateEnemyProjectileDto createProjectileDto, UpdateService updateService, bool isPlayer)
+        public void Init(CreateEnemyProjectileDto createProjectileDto, UpdateService updateService, VfxFactory vfxFactory,
+            bool isPlayer)
         {
+            _vfxFactory = vfxFactory;
             _updateService = updateService;
 
             _isPlayer = isPlayer;
@@ -80,7 +85,16 @@ namespace Core
             }
             else
             {
+                CreateImpactVfx();
                 Destroy(gameObject);
+            }
+        }
+
+        private void CreateImpactVfx()
+        {
+            if (!_isPlayer)
+            {
+                _vfxFactory.CreatEnemyProjectileImpactEffect(transform.position);
             }
         }
 
