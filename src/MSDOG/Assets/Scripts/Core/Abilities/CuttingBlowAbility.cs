@@ -12,7 +12,7 @@ namespace Core.Abilities
     public class CuttingBlowAbility : BaseCooldownAbility
     {
         private const float BoxHeight = 2f;
-        private const float BoxWidth = 1f;
+        private const float BoxWidth = 1.7f;
 
         private readonly VfxFactory _vfxFactory;
         private readonly DataService _dataService;

@@ -27,7 +27,9 @@ namespace Services.Gameplay
 
             var effect = _assetProviderService.Instantiate<Component>(AssetPaths.CuttingBlowVFXPath,
                 position + _playerAbilityVfxOffset, Quaternion.Euler(90f, 0f, 0f));
-            effect.transform.localScale = new Vector3(scale, scale, scale);
+
+            const float width = 1.4f;
+            effect.transform.localScale = new Vector3(scale, width, 1f);
         }
 
         public void CreateRoundAttackEffect(Vector3 position, float radius)
