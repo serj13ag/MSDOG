@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Data;
 using Services.Gameplay;
 using UI.Windows;
 using UnityEngine;
@@ -67,6 +68,12 @@ namespace Services
         {
             var loseWindow = _gameplayWindowFactory.CreateLoseWindow(_canvas.transform);
             ShowWindow(loseWindow);
+        }
+
+        public void ShowDialogueWindow(DialogueData dialogueData, Action onDialogueCompleted)
+        {
+            var dialogueWindow = _globalWindowFactory.CreateDialogueWindow(dialogueData, onDialogueCompleted, _canvas.transform);
+            ShowWindow(dialogueWindow);
         }
 
         public void CloseAllWindows()

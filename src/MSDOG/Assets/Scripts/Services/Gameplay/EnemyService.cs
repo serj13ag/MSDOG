@@ -42,10 +42,14 @@ namespace Services.Gameplay
             updateService.Register(this);
         }
 
-        public void ActivateLevel(int levelIndex, Transform playerTransform)
+        public void SetupLevel(int levelIndex, Transform playerTransform)
         {
             _playerTransform = playerTransform;
             _waves = _dataService.GetLevelData(levelIndex).Waves;
+        }
+
+        public void ActivateLevel()
+        {
             _isActive = true;
         }
 

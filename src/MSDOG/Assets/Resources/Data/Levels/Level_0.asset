@@ -71,3 +71,5 @@ MonoBehaviour:
     - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
       Count: 6
     TimeTillNextWave: 5
+  StartDialogue: {fileID: 11400000, guid: 7c7c13b6a885fb042876a61881a8b833, type: 2}
+  EndDialogue: {fileID: 11400000, guid: b7fc2fc0bd1af5f4d98f4701a7d851d7, type: 2}

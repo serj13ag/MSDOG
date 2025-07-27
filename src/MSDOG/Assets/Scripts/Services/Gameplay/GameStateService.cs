@@ -1,21 +1,25 @@
+using System;
 using Core;
 
 namespace Services.Gameplay
 {
-    public class GameStateService
+    public class GameStateService : IDisposable
     {
         private readonly EnemyService _enemyService;
         private readonly WindowService _windowService;
         private readonly ProgressService _progressService;
+        private readonly DialogueService _dialogueService;
 
         private int _levelIndex;
         private Player _player;
 
         public int CurrentLevelIndex => _levelIndex;
 
-        public GameStateService(EnemyService enemyService, WindowService windowService, ProgressService progressService)
+        public GameStateService(EnemyService enemyService, WindowService windowService, ProgressService progressService,
+            DialogueService dialogueService)
         {
             _progressService = progressService;
+            _dialogueService = dialogueService;
             _enemyService = enemyService;
             _windowService = windowService;
 
@@ -41,10 +45,19 @@ namespace Services.Gameplay
         private void OnAllEnemiesDied()
         {
             _progressService.SetLastPassedLevel(_levelIndex);
-            _windowService.ShowWinWindow();
+
+            if (!_dialogueService.TryShowEndLevelDialogue(_levelIndex, ShowWinWindow))
+            {
+                ShowWinWindow();
+            }
         }
 
-        public void Cleanup()
+        private void ShowWinWindow()
+        {
+            _windowService.ShowWinWindow();
+        }
+        
+        public void Dispose()
         {
             _player.OnHealthChanged -= OnPlayerHealthChanged;
             _enemyService.OnAllEnemiesDied -= OnAllEnemiesDied;

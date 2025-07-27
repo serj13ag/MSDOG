@@ -1,3 +1,4 @@
+using Services;
 using Services.Gameplay;
 using UI.HUD;
 using UI.HUD.Actions;
@@ -12,10 +13,12 @@ namespace Infrastructure
         private readonly GameFactory _gameFactory;
         private readonly CameraService _cameraService;
         private readonly GameStateService _gameStateService;
+        private readonly DialogueService _dialogueService;
 
         public GameplayInitializer(DebugService debugService, EnemyService enemyService, GameFactory gameFactory,
-            CameraService cameraService, GameStateService gameStateService)
+            CameraService cameraService, GameStateService gameStateService, DialogueService dialogueService)
         {
+            _dialogueService = dialogueService;
             _debugService = debugService;
             _enemyService = enemyService;
             _gameFactory = gameFactory;
@@ -29,7 +32,7 @@ namespace Infrastructure
 
             _gameStateService.RegisterPlayer(player, levelIndex);
             _cameraService.SetFollowTarget(player.transform);
-            _enemyService.ActivateLevel(levelIndex, player.transform);
+            _enemyService.SetupLevel(levelIndex, player.transform);
 
             var hudController = Object.FindFirstObjectByType<HudController>();
             hudController.Init();
@@ -39,6 +42,16 @@ namespace Infrastructure
             hudActions.Init(player);
 
             _debugService.Setup(hudController);
+
+            if (!_dialogueService.TryShowStartLevelDialogue(levelIndex, ActivateLevel))
+            {
+                ActivateLevel();
+            }
+        }
+
+        private void ActivateLevel()
+        {
+            _enemyService.ActivateLevel();
         }
     }
 }
