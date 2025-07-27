@@ -1,15 +1,19 @@
 using Core;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI.HUD.Actions
 {
     public class FuseAction : MonoBehaviour
     {
         [SerializeField] private Camera _hudCamera;
+        [SerializeField] private GameObject _handleObject;
+        [SerializeField] private Image _fillImage;
         [SerializeField] private float _minAngle = 270;
         [SerializeField] private float _maxAngle = 200;
         [SerializeField] private float _distanceToSwitch = 250f;
-        [SerializeField] private float _counterToDisconnect = 3f;
+        [SerializeField] private float _counterToDisconnect = 20f;
+        [SerializeField] private float _reduceMultiplier = 2f;
 
         private Player _player;
 
@@ -68,7 +72,7 @@ namespace UI.HUD.Actions
             }
             else
             {
-                _counter -= Time.deltaTime;
+                _counter -= Time.deltaTime * _reduceMultiplier;
                 _counter = Mathf.Max(_counter, 0f);
             }
 
@@ -76,6 +80,8 @@ namespace UI.HUD.Actions
             {
                 Disconnect();
             }
+
+            UpdateFillImageView();
         }
 
         private void HandleInput()
@@ -86,7 +92,7 @@ namespace UI.HUD.Actions
 
                 if (Physics.Raycast(ray, out var hit))
                 {
-                    if (hit.collider.gameObject == gameObject)
+                    if (hit.collider.gameObject == _handleObject.gameObject)
                     {
                         _dragging = true;
                         _startDragMousePosition = Input.mousePosition;
@@ -113,7 +119,7 @@ namespace UI.HUD.Actions
             _connected = true;
             _previousPlayerPosition = null;
             SetLocalRotation(_maxAngle);
-            
+
             _player.MovementSetActive(true);
         }
 
@@ -128,7 +134,20 @@ namespace UI.HUD.Actions
 
         private void SetLocalRotation(float angle)
         {
-            transform.localRotation = Quaternion.Euler(angle, 0f, 0f);
+            _handleObject.transform.localRotation = Quaternion.Euler(angle, 0f, 0f);
+        }
+
+        private void UpdateFillImageView()
+        {
+            var t = _counter / _counterToDisconnect;
+            var color = t switch
+            {
+                < 0.4f => Color.green,
+                < 0.8f => Color.yellow,
+                _ => Color.red,
+            };
+            _fillImage.fillAmount = t;
+            _fillImage.color = color;
         }
     }
 }
