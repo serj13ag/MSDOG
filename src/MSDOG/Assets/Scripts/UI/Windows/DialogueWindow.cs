@@ -1,16 +1,21 @@
 using System;
 using Data;
+using Services.Gameplay;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using VContainer;
 
 namespace UI.Windows
 {
-    public class DialogueWindow : MonoBehaviour, IWindow
+    public class DialogueWindow : MonoBehaviour, IWindow, IPointerClickHandler
     {
         [SerializeField] private Image _avatar;
         [SerializeField] private TMP_Text _speech;
         [SerializeField] private TMP_Text _name;
+
+        private InputService _inputService;
 
         private Action _onDialogueCompleted;
         private DialogueStage[] _dialogueStages;
@@ -20,6 +25,12 @@ namespace UI.Windows
 
         public event EventHandler<EventArgs> OnCloseRequested;
 
+        [Inject]
+        public void Construct(InputService inputService)
+        {
+            _inputService = inputService;
+        }
+
         public void Init(DialogueData dialogueData, Action onDialogueCompleted)
         {
             _dialogueStages = dialogueData.DialogueStages;
@@ -28,19 +39,35 @@ namespace UI.Windows
             UpdateWindow();
         }
 
+        private void OnEnable()
+        {
+            _inputService.LockInput();
+        }
+
         private void Update()
         {
+            // TODO: add image?
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (_currentDialogueStageIndex >= _dialogueStages.Length - 1)
-                {
-                    OnCloseRequested?.Invoke(this, EventArgs.Empty);
-                }
-                else
-                {
-                    _currentDialogueStageIndex++;
-                    UpdateWindow();
-                }
+                ProgressDialogue();
+            }
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            ProgressDialogue();
+        }
+
+        private void ProgressDialogue()
+        {
+            if (_currentDialogueStageIndex >= _dialogueStages.Length - 1)
+            {
+                OnCloseRequested?.Invoke(this, EventArgs.Empty);
+            }
+            else
+            {
+                _currentDialogueStageIndex++;
+                UpdateWindow();
             }
         }
 
@@ -77,6 +104,11 @@ namespace UI.Windows
         private void UpdateSpeech(string speech)
         {
             _speech.text = speech;
+        }
+
+        private void OnDisable()
+        {
+            _inputService.UnlockInput();
         }
 
         private void OnDestroy()

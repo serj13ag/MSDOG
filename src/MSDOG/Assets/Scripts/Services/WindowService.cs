@@ -72,7 +72,7 @@ namespace Services
 
         public void ShowDialogueWindow(DialogueData dialogueData, Action onDialogueCompleted)
         {
-            var dialogueWindow = _globalWindowFactory.CreateDialogueWindow(dialogueData, onDialogueCompleted, _canvas.transform);
+            var dialogueWindow = _gameplayWindowFactory.CreateDialogueWindow(dialogueData, onDialogueCompleted, _canvas.transform);
             ShowWindow(dialogueWindow);
         }
 

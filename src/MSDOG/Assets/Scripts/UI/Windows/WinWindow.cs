@@ -51,11 +51,14 @@ namespace UI.Windows
             {
                 _gameStateMachine.Enter<MainMenuState>();
             }
+
+            OnCloseRequested?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnToMainMenuButtonClicked()
         {
             _gameStateMachine.Enter<MainMenuState>();
+            OnCloseRequested?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnDisable()
