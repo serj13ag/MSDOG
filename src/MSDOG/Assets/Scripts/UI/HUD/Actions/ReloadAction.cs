@@ -1,10 +1,12 @@
 using Core;
+using Interfaces;
+using Services;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace UI.HUD.Actions
 {
-    public class ReloadAction : MonoBehaviour
+    public class ReloadAction : MonoBehaviour, IUpdatable
     {
         [SerializeField] private Camera _hudCamera;
         [SerializeField] private GameObject _handleObject;
@@ -13,21 +15,26 @@ namespace UI.HUD.Actions
         [SerializeField] private float _startingAngleLerp = 0.8f;
         [SerializeField] private float _maxAngle = 1080f;
 
+        private Player _player;
+        private UpdateService _updateService;
+
         private float _currentAngle;
 
         private bool _dragging;
         private float _currentDragAngle;
-        private Player _player;
 
-        public void Init(Player player)
+        public void Init(Player player, UpdateService updateService)
         {
+            _updateService = updateService;
             _player = player;
 
             _currentAngle = Mathf.Lerp(0f, _maxAngle, _startingAngleLerp);
             UpdateFillImageView();
+
+            updateService.Register(this);
         }
 
-        private void Update()
+        public void OnUpdate(float deltaTime)
         {
             HandleInput();
 
@@ -37,7 +44,7 @@ namespace UI.HUD.Actions
             }
             else if (_currentAngle > 0f)
             {
-                Unwind();
+                Unwind(deltaTime);
             }
         }
 
@@ -62,9 +69,9 @@ namespace UI.HUD.Actions
             }
         }
 
-        private void Unwind()
+        private void Unwind(float deltaTime)
         {
-            TryRotate(-Time.deltaTime * _unwindSpeed);
+            TryRotate(-deltaTime * _unwindSpeed);
         }
 
         private void UpdateDragRotation()
@@ -116,6 +123,11 @@ namespace UI.HUD.Actions
             var objectScreenPos = _hudCamera.WorldToScreenPoint(_handleObject.transform.position);
             var dir = Input.mousePosition - objectScreenPos;
             return Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        }
+
+        private void OnDestroy()
+        {
+            _updateService.Remove(this);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using Data;
+using Services;
 using Services.Gameplay;
 using TMPro;
 using UnityEngine;
@@ -16,6 +17,7 @@ namespace UI.Windows
         [SerializeField] private TMP_Text _name;
 
         private InputService _inputService;
+        private UpdateService _updateService;
 
         private Action _onDialogueCompleted;
         private DialogueStage[] _dialogueStages;
@@ -26,8 +28,9 @@ namespace UI.Windows
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(InputService inputService)
+        public void Construct(InputService inputService, UpdateService updateService)
         {
+            _updateService = updateService;
             _inputService = inputService;
         }
 
@@ -42,6 +45,7 @@ namespace UI.Windows
         private void OnEnable()
         {
             _inputService.LockInput();
+            _updateService.Pause();
         }
 
         private void Update()
@@ -109,6 +113,7 @@ namespace UI.Windows
         private void OnDisable()
         {
             _inputService.UnlockInput();
+            _updateService.Unpause();
         }
 
         private void OnDestroy()
