@@ -10,7 +10,7 @@ namespace UI.HUD.Actions
         [SerializeField] private GameObject _handleObject;
         [SerializeField] private Image _fillImage;
         [SerializeField] private float _unwindSpeed = 40f;
-        [SerializeField] private float _startingAngleLerp = 0.5f;
+        [SerializeField] private float _startingAngleLerp = 0.8f;
         [SerializeField] private float _maxAngle = 1080f;
 
         private float _currentAngle;
@@ -93,6 +93,7 @@ namespace UI.HUD.Actions
             }
 
             _currentAngle = newAngle;
+            _player.AbilitiesSetActive(!Mathf.Approximately(_currentAngle, 0f));
             _handleObject.transform.Rotate(Vector3.back, oldAngle - _currentAngle);
             UpdateFillImageView();
         }
@@ -102,9 +103,9 @@ namespace UI.HUD.Actions
             var t = _currentAngle / _maxAngle;
             var color = t switch
             {
-                < 0.6f => Color.gray,
-                < 0.8f => Color.green,
-                _ => Color.red,
+                < 0.2f => Color.red,
+                < 0.4f => Color.yellow,
+                _ => Color.green,
             };
             _fillImage.fillAmount = t;
             _fillImage.color = color;

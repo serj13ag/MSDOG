@@ -33,6 +33,7 @@ namespace Core
         private float _nitroMultiplier = 1f;
         private int _damageReductionPercent;
         private bool _movementIsActive;
+        private bool _abilitiesIsActive;
 
         public CharacterController CharacterController => _characterController;
         public AnimationBlock AnimationBlock => _animationBlock;
@@ -128,6 +129,26 @@ namespace Core
         {
             _abilities[id].Deactivate();
             _abilities.Remove(id);
+        }
+
+        public void AbilitiesSetActive(bool isActive)
+        {
+            if (isActive != _abilitiesIsActive)
+            {
+                foreach (var ability in _abilities)
+                {
+                    if (isActive)
+                    {
+                        ability.Value.Activate();
+                    }
+                    else
+                    {
+                        ability.Value.Deactivate();
+                    }
+                }
+                
+                _abilitiesIsActive = isActive;
+            }
         }
 
         public void ChangeAdditionalSpeed(float speed)

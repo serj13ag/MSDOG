@@ -343,7 +343,7 @@ MonoBehaviour:
   _handleObject: {fileID: 8030305978385429637}
   _fillImage: {fileID: 6867865247588161090}
   _unwindSpeed: 40
-  _startingAngleLerp: 0.5
+  _startingAngleLerp: 0.8
   _maxAngle: 1080
 --- !u!1 &1621820824976248204
 GameObject:

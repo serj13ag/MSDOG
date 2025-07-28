@@ -10,6 +10,7 @@ namespace Core.Abilities
         private readonly Player _player;
         private readonly int _damageReductionPercent;
 
+        private bool _isActive;
         private FollowingAbilityEffect _followingAbilityEffect;
 
         public EnergyShieldAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory)
@@ -21,6 +22,13 @@ namespace Core.Abilities
 
         public void Activate()
         {
+            if (_isActive)
+            {
+                return;
+            }
+
+            _isActive = true;
+
             _player.ChangeDamageReductionPercent(_damageReductionPercent);
 
             _followingAbilityEffect = _vfxFactory.CreateEnergyShieldEffect(_player);
@@ -32,6 +40,13 @@ namespace Core.Abilities
 
         public void Deactivate()
         {
+            if (!_isActive)
+            {
+                return;
+            }
+
+            _isActive = false;
+
             _player.ChangeDamageReductionPercent(-_damageReductionPercent);
 
             _followingAbilityEffect.Clear();

@@ -1,6 +1,5 @@
 using Data;
 using Services.Gameplay;
-using UnityEngine;
 using VFX;
 
 namespace Core.Abilities
@@ -11,6 +10,7 @@ namespace Core.Abilities
         private readonly Player _player;
         private readonly float _speed;
 
+        private bool _isActive;
         private FollowingAbilityEffect _followingAbilityEffect;
 
         public AntiGravityAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory)
@@ -22,6 +22,13 @@ namespace Core.Abilities
 
         public void Activate()
         {
+            if (_isActive)
+            {
+                return;
+            }
+
+            _isActive = true;
+
             _player.ChangeAdditionalSpeed(_speed);
 
             _followingAbilityEffect = _vfxFactory.CreateAntiGravityEffect(_player);
@@ -33,6 +40,13 @@ namespace Core.Abilities
 
         public void Deactivate()
         {
+            if (!_isActive)
+            {
+                return;
+            }
+
+            _isActive = false;
+
             _player.ChangeAdditionalSpeed(-_speed);
 
             _followingAbilityEffect.Clear();
