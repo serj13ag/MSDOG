@@ -1,0 +1,255 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 721dc5d060184ac9a24d9884c562867a, type: 3}
+  m_Name: Level_6
+  m_EditorClassIdentifier: 
+  LevelIndex: 6
+  LevelName: Show no mercy
+  LevelAbilityData: {fileID: 11400000, guid: 0c55d14700ae2e14684a4a7d5a47047f, type: 2}
+  Waves:
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 4d82f5b7ebd0bb24286bfa242184822c, type: 2}
+      Count: 30
+    - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
+      Count: 6
+    TimeTillNextWave: 8
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 4d82f5b7ebd0bb24286bfa242184822c, type: 2}
+      Count: 10
+    - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
+      Count: 6
+    - Data: {fileID: 11400000, guid: ded3371667f69254984e6cbaa89ee98a, type: 2}
+      Count: 4
+    TimeTillNextWave: 8
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 4d82f5b7ebd0bb24286bfa242184822c, type: 2}
+      Count: 5
+    - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
+      Count: 6
+    - Data: {fileID: 11400000, guid: ded3371667f69254984e6cbaa89ee98a, type: 2}
+      Count: 8
+    TimeTillNextWave: 8
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 4d82f5b7ebd0bb24286bfa242184822c, type: 2}
+      Count: 5
+    - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
+      Count: 6
+    - Data: {fileID: 11400000, guid: ded3371667f69254984e6cbaa89ee98a, type: 2}
+      Count: 8
+    TimeTillNextWave: 10
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 8886141ffb74931469fc4d1712f9e96d, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
+      Count: 8
+    - Data: {fileID: 11400000, guid: ded3371667f69254984e6cbaa89ee98a, type: 2}
+      Count: 10
+    TimeTillNextWave: 12
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 8886141ffb74931469fc4d1712f9e96d, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
+      Count: 8
+    - Data: {fileID: 11400000, guid: 28fb93b068123e342a2ef887c9fb7960, type: 2}
+      Count: 10
+    TimeTillNextWave: 12
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 8886141ffb74931469fc4d1712f9e96d, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: 94931c10692a6fb4784f9e72bf149d2e, type: 2}
+      Count: 8
+    - Data: {fileID: 11400000, guid: 28fb93b068123e342a2ef887c9fb7960, type: 2}
+      Count: 10
+    TimeTillNextWave: 12
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 8886141ffb74931469fc4d1712f9e96d, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: 7cf3af93fd9cfbe448400359be9215e5, type: 2}
+      Count: 8
+    - Data: {fileID: 11400000, guid: 28fb93b068123e342a2ef887c9fb7960, type: 2}
+      Count: 10
+    TimeTillNextWave: 12
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 8886141ffb74931469fc4d1712f9e96d, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: 7cf3af93fd9cfbe448400359be9215e5, type: 2}
+      Count: 8
+    - Data: {fileID: 11400000, guid: 28fb93b068123e342a2ef887c9fb7960, type: 2}
+      Count: 10
+    TimeTillNextWave: 12
+  - Enemies:
+    - Data: {fileID: 11400000, guid: ca36a6a93dae11d41bbc6083d3e923cd, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: 7cf3af93fd9cfbe448400359be9215e5, type: 2}
+      Count: 8
+    - Data: {fileID: 11400000, guid: 28fb93b068123e342a2ef887c9fb7960, type: 2}
+      Count: 10
+    TimeTillNextWave: 12
+  - Enemies:
+    - Data: {fileID: 11400000, guid: ca36a6a93dae11d41bbc6083d3e923cd, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: 7cf3af93fd9cfbe448400359be9215e5, type: 2}
+      Count: 8
+    - Data: {fileID: 11400000, guid: 28fb93b068123e342a2ef887c9fb7960, type: 2}
+      Count: 8
+    TimeTillNextWave: 12
+  - Enemies:
+    - Data: {fileID: 11400000, guid: ca36a6a93dae11d41bbc6083d3e923cd, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: e147467f9b0bace4c9be9abbc3a460fd, type: 2}
+      Count: 8
+    - Data: {fileID: 11400000, guid: 28fb93b068123e342a2ef887c9fb7960, type: 2}
+      Count: 8
+    TimeTillNextWave: 25
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 8886141ffb74931469fc4d1712f9e96d, type: 2}
+      Count: 2
+    - Data: {fileID: 11400000, guid: ca36a6a93dae11d41bbc6083d3e923cd, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: 3a44e74c836ee0c439a56a1e4a31305c, type: 2}
+      Count: 1
+    TimeTillNextWave: 25
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 8886141ffb74931469fc4d1712f9e96d, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: e147467f9b0bace4c9be9abbc3a460fd, type: 2}
+      Count: 12
+    - Data: {fileID: 11400000, guid: 6e4dba108738a164eb9ebe35421fa21e, type: 2}
+      Count: 12
+    TimeTillNextWave: 14
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 8886141ffb74931469fc4d1712f9e96d, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: e147467f9b0bace4c9be9abbc3a460fd, type: 2}
+      Count: 12
+    - Data: {fileID: 11400000, guid: 6e4dba108738a164eb9ebe35421fa21e, type: 2}
+      Count: 12
+    TimeTillNextWave: 14
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 8886141ffb74931469fc4d1712f9e96d, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: e147467f9b0bace4c9be9abbc3a460fd, type: 2}
+      Count: 12
+    - Data: {fileID: 11400000, guid: 6e4dba108738a164eb9ebe35421fa21e, type: 2}
+      Count: 12
+    TimeTillNextWave: 14
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 8886141ffb74931469fc4d1712f9e96d, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: e147467f9b0bace4c9be9abbc3a460fd, type: 2}
+      Count: 12
+    - Data: {fileID: 11400000, guid: 4308813194b17ec4380d05a6067244a5, type: 2}
+      Count: 12
+    TimeTillNextWave: 14
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 8886141ffb74931469fc4d1712f9e96d, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: e147467f9b0bace4c9be9abbc3a460fd, type: 2}
+      Count: 12
+    - Data: {fileID: 11400000, guid: 4308813194b17ec4380d05a6067244a5, type: 2}
+      Count: 12
+    TimeTillNextWave: 14
+  - Enemies:
+    - Data: {fileID: 11400000, guid: ca36a6a93dae11d41bbc6083d3e923cd, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: e147467f9b0bace4c9be9abbc3a460fd, type: 2}
+      Count: 12
+    - Data: {fileID: 11400000, guid: 4308813194b17ec4380d05a6067244a5, type: 2}
+      Count: 12
+    TimeTillNextWave: 14
+  - Enemies:
+    - Data: {fileID: 11400000, guid: ca36a6a93dae11d41bbc6083d3e923cd, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: e147467f9b0bace4c9be9abbc3a460fd, type: 2}
+      Count: 12
+    - Data: {fileID: 11400000, guid: 4308813194b17ec4380d05a6067244a5, type: 2}
+      Count: 12
+    TimeTillNextWave: 14
+  - Enemies:
+    - Data: {fileID: 11400000, guid: ca36a6a93dae11d41bbc6083d3e923cd, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: e147467f9b0bace4c9be9abbc3a460fd, type: 2}
+      Count: 12
+    - Data: {fileID: 11400000, guid: 4308813194b17ec4380d05a6067244a5, type: 2}
+      Count: 12
+    TimeTillNextWave: 14
+  - Enemies:
+    - Data: {fileID: 11400000, guid: ca36a6a93dae11d41bbc6083d3e923cd, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: abdd2fc5865436341ae0f14a50e25b24, type: 2}
+      Count: 12
+    - Data: {fileID: 11400000, guid: 4308813194b17ec4380d05a6067244a5, type: 2}
+      Count: 12
+    TimeTillNextWave: 14
+  - Enemies:
+    - Data: {fileID: 11400000, guid: ca36a6a93dae11d41bbc6083d3e923cd, type: 2}
+      Count: 1
+    - Data: {fileID: 11400000, guid: abdd2fc5865436341ae0f14a50e25b24, type: 2}
+      Count: 12
+    - Data: {fileID: 11400000, guid: 4308813194b17ec4380d05a6067244a5, type: 2}
+      Count: 12
+    TimeTillNextWave: 14
+  - Enemies:
+    - Data: {fileID: 11400000, guid: ca36a6a93dae11d41bbc6083d3e923cd, type: 2}
+      Count: 2
+    - Data: {fileID: 11400000, guid: abdd2fc5865436341ae0f14a50e25b24, type: 2}
+      Count: 14
+    - Data: {fileID: 11400000, guid: 4308813194b17ec4380d05a6067244a5, type: 2}
+      Count: 14
+    TimeTillNextWave: 14
+  - Enemies:
+    - Data: {fileID: 11400000, guid: 3d0f81a6bf0cf8042a2a2c6755d81bf3, type: 2}
+      Count: 100
+    TimeTillNextWave: 20
+  - Enemies:
+    - Data: {fileID: 11400000, guid: ca36a6a93dae11d41bbc6083d3e923cd, type: 2}
+      Count: 2
+    - Data: {fileID: 11400000, guid: 3a44e74c836ee0c439a56a1e4a31305c, type: 2}
+      Count: 2
+    - Data: {fileID: 11400000, guid: fc71b8868ca3436439963dffcfb0f82a, type: 2}
+      Count: 12
+    - Data: {fileID: 11400000, guid: 3e78bab7dcbb97b49a028d0ac41f1540, type: 2}
+      Count: 10
+    TimeTillNextWave: 20
+  - Enemies:
+    - Data: {fileID: 11400000, guid: ca36a6a93dae11d41bbc6083d3e923cd, type: 2}
+      Count: 2
+    - Data: {fileID: 11400000, guid: 3a44e74c836ee0c439a56a1e4a31305c, type: 2}
+      Count: 2
+    - Data: {fileID: 11400000, guid: fc71b8868ca3436439963dffcfb0f82a, type: 2}
+      Count: 12
+    - Data: {fileID: 11400000, guid: 3e78bab7dcbb97b49a028d0ac41f1540, type: 2}
+      Count: 10
+    TimeTillNextWave: 20
+  - Enemies:
+    - Data: {fileID: 11400000, guid: ca36a6a93dae11d41bbc6083d3e923cd, type: 2}
+      Count: 2
+    - Data: {fileID: 11400000, guid: 3a44e74c836ee0c439a56a1e4a31305c, type: 2}
+      Count: 2
+    - Data: {fileID: 11400000, guid: fc71b8868ca3436439963dffcfb0f82a, type: 2}
+      Count: 12
+    - Data: {fileID: 11400000, guid: 3e78bab7dcbb97b49a028d0ac41f1540, type: 2}
+      Count: 10
+    TimeTillNextWave: 20
+  - Enemies:
+    - Data: {fileID: 11400000, guid: ca36a6a93dae11d41bbc6083d3e923cd, type: 2}
+      Count: 5
+    - Data: {fileID: 11400000, guid: 3a44e74c836ee0c439a56a1e4a31305c, type: 2}
+      Count: 3
+    - Data: {fileID: 11400000, guid: fc71b8868ca3436439963dffcfb0f82a, type: 2}
+      Count: 16
+    - Data: {fileID: 11400000, guid: 3e78bab7dcbb97b49a028d0ac41f1540, type: 2}
+      Count: 16
+    TimeTillNextWave: 20
+  StartDialogue: {fileID: 0}
+  EndDialogue: {fileID: 0}
+  FloorMaterial: {fileID: 2100000, guid: 8b221451c2950af45b73c0e427ae9450, type: 2}

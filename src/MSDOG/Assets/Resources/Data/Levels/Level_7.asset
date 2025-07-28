@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 721dc5d060184ac9a24d9884c562867a, type: 3}
-  m_Name: Level_n
+  m_Name: Level_7
   m_EditorClassIdentifier: 
-  LevelIndex: 8
-  LevelName: PH
+  LevelIndex: 7
+  LevelName: Broken hands
   LevelAbilityData: {fileID: 11400000, guid: fd31521ac71b12c47830cb38cdad9077, type: 2}
   Waves:
   - Enemies:
@@ -24,4 +24,4 @@ MonoBehaviour:
     TimeTillNextWave: 14
   StartDialogue: {fileID: 0}
   EndDialogue: {fileID: 0}
-  FloorMaterial: {fileID: 2100000, guid: e9b847424c7a5f245a1f83d3d2cd8a7a, type: 2}
+  FloorMaterial: {fileID: 2100000, guid: 8b221451c2950af45b73c0e427ae9450, type: 2}
