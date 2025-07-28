@@ -30,8 +30,8 @@ namespace Services.Gameplay
                 AbilityType.PuncturedTank => new PuncturedTankAbility(abilityData, player, _projectileFactory),
                 AbilityType.EnergyLine => new EnergyLineAbility(abilityData, player, _projectileFactory),
 
-                AbilityType.AntiGravity => new AntiGravityAbility(abilityData, player),
-                AbilityType.EnergyShield => new EnergyShieldAbility(abilityData, player),
+                AbilityType.AntiGravity => new AntiGravityAbility(abilityData, player, _vfxFactory),
+                AbilityType.EnergyShield => new EnergyShieldAbility(abilityData, player, _vfxFactory),
                 _ => throw new ArgumentOutOfRangeException(),
             };
         }

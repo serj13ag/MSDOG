@@ -1,14 +1,21 @@
 using Data;
+using Services.Gameplay;
+using UnityEngine;
+using VFX;
 
 namespace Core.Abilities
 {
     public class AntiGravityAbility : IAbility
     {
+        private readonly VfxFactory _vfxFactory;
         private readonly Player _player;
         private readonly float _speed;
 
-        public AntiGravityAbility(AbilityData abilityData, Player player)
+        private FollowingAbilityEffect _followingAbilityEffect;
+
+        public AntiGravityAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory)
         {
+            _vfxFactory = vfxFactory;
             _player = player;
             _speed = abilityData.Speed;
         }
@@ -16,6 +23,8 @@ namespace Core.Abilities
         public void Activate()
         {
             _player.ChangeAdditionalSpeed(_speed);
+
+            _followingAbilityEffect = _vfxFactory.CreateAntiGravityEffect(_player);
         }
 
         public void OnUpdate(float deltaTime)
@@ -25,6 +34,9 @@ namespace Core.Abilities
         public void Deactivate()
         {
             _player.ChangeAdditionalSpeed(-_speed);
+
+            _followingAbilityEffect.Clear();
+            _followingAbilityEffect = null;
         }
     }
 }

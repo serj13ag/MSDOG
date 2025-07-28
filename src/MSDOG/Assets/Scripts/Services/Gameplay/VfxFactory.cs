@@ -3,6 +3,7 @@ using Constants;
 using Core;
 using UnityEngine;
 using UtilityComponents;
+using VFX;
 
 namespace Services.Gameplay
 {
@@ -54,16 +55,30 @@ namespace Services.Gameplay
                         Quaternion.Euler(90f, 0f, 0f));
                     break;
                 case ProjectileType.Gunshot:
-                    _assetProviderService.Instantiate<SpriteAnimatorComponent>(AssetPaths.GunshotProjectileImpactVFXPath, position,
-                        Quaternion.Euler(90f, 0f, 0f));
+                    _assetProviderService.Instantiate<SpriteAnimatorComponent>(AssetPaths.GunshotProjectileImpactVFXPath,
+                        position, Quaternion.Euler(90f, 0f, 0f));
                     break;
                 case ProjectileType.BulletHell:
-                    _assetProviderService.Instantiate<SpriteAnimatorComponent>(AssetPaths.BulletHellProjectileImpactVFXPath, position,
-                        Quaternion.Euler(90f, 0f, 0f));
+                    _assetProviderService.Instantiate<SpriteAnimatorComponent>(AssetPaths.BulletHellProjectileImpactVFXPath,
+                        position, Quaternion.Euler(90f, 0f, 0f));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(projectileType), projectileType, null);
             }
+        }
+
+        public FollowingAbilityEffect CreateAntiGravityEffect(Player player)
+        {
+            var effect = _assetProviderService.Instantiate<FollowingAbilityEffect>(AssetPaths.AntiGravityFollowingVFXPath);
+            effect.Init(player);
+            return effect;
+        }
+
+        public FollowingAbilityEffect CreateEnergyShieldEffect(Player player)
+        {
+            var effect = _assetProviderService.Instantiate<FollowingAbilityEffect>(AssetPaths.EnergyShieldFollowingVFXPath);
+            effect.Init(player);
+            return effect;
         }
     }
 }
