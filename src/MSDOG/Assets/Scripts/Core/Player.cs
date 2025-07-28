@@ -121,7 +121,12 @@ namespace Core
         public void AddAbility(Guid id, AbilityData abilityData)
         {
             var ability = _abilityFactory.CreateAbility(abilityData, this);
-            ability.Activate();
+
+            if (_abilitiesIsActive)
+            {
+                ability.Activate();
+            }
+
             _abilities.Add(id, ability);
         }
 
@@ -146,7 +151,7 @@ namespace Core
                         ability.Value.Deactivate();
                     }
                 }
-                
+
                 _abilitiesIsActive = isActive;
             }
         }
@@ -179,7 +184,7 @@ namespace Core
         {
             _nitroMultiplier = 1f;
         }
-        
+
         private void HandleAbilities(float deltaTime)
         {
             foreach (var ability in _abilities.Values.ToArray())
