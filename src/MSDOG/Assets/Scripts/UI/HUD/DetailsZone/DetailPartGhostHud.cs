@@ -1,0 +1,16 @@
+using Data;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace UI.HUD.DetailsZone
+{
+    public class DetailPartGhostHud : MonoBehaviour
+    {
+        [SerializeField] private Image _icon;
+
+        public void Init(AbilityData abilityData)
+        {
+            _icon.sprite = abilityData.Icon;
+        }
+    }
+}

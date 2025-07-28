@@ -9,6 +9,7 @@ namespace UI.HUD.DetailsZone
 {
     public class DetailPartHud : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
+        [SerializeField] private DetailPartGhostHud _ghostDetailPrefab;
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Image _icon;
         [SerializeField] private CanvasGroup _canvasGroup;
@@ -16,10 +17,9 @@ namespace UI.HUD.DetailsZone
 
         private Canvas _parentCanvas;
 
-        private Transform _originalParent;
-        private int _originalSiblingIndex;
         private AbilityData _abilityData;
         private IDetailsZone _currentDetailsZone;
+        private DetailPartGhostHud _dragGhost;
 
         public Guid Id { get; private set; }
         public AbilityData AbilityData => _abilityData;
@@ -45,37 +45,49 @@ namespace UI.HUD.DetailsZone
             newZone.Enter(this);
         }
 
+        public void Destruct()
+        {
+            Destroy(gameObject);
+        }
+
         public void OnBeginDrag(PointerEventData eventData)
         {
-            _originalParent = transform.parent;
-            _originalSiblingIndex = transform.GetSiblingIndex();
-
-            _canvasGroup.blocksRaycasts = false;
             _canvasGroup.alpha = 0.6f;
 
-            transform.SetParent(_parentCanvas.transform);
+            _dragGhost = Instantiate(_ghostDetailPrefab, _parentCanvas.transform);
+            _dragGhost.Init(_abilityData);
+            _dragGhost.transform.SetAsLastSibling();
         }
 
         public void OnDrag(PointerEventData eventData)
         {
+            if (!_dragGhost)
+            {
+                return;
+            }
+
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 _parentCanvas.transform as RectTransform,
                 eventData.position,
                 eventData.pressEventCamera,
                 out var localPoint);
 
-            _rectTransform.localPosition = localPoint;
+            ((RectTransform)_dragGhost.transform).localPosition = localPoint;
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            _canvasGroup.blocksRaycasts = true;
-            _canvasGroup.alpha = 1f;
+            Destroy(_dragGhost.gameObject);
+            _dragGhost = null;
 
-            if (transform.parent == _parentCanvas.transform)
+            _canvasGroup.alpha = 1f;
+        }
+
+        private void OnDestroy()
+        {
+            if (_dragGhost)
             {
-                transform.SetParent(_originalParent);
-                transform.SetSiblingIndex(_originalSiblingIndex);
+                Destroy(_dragGhost.gameObject);
             }
         }
     }

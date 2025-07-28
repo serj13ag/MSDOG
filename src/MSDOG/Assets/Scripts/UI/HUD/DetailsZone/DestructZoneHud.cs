@@ -47,7 +47,7 @@ namespace UI.HUD.DetailsZone
                 player.Heal(settingsData.HealPerDestructedDetail);
             }
 
-            Destroy(detailPart.gameObject);
+            detailPart.Destruct();
         }
 
         public void Exit(DetailPartHud detailPart)
