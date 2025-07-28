@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b12453bf32442949b71929488b04fa7, type: 3}
-  m_Name: Range_1
+  m_Name: Melee_Urod_1
   m_EditorClassIdentifier: 
-  Type: 2
-  Speed: 2
-  MaxHealth: 8
-  Cooldown: 0.5
-  Damage: 2
-  ProjectileSpeed: 9
-  Experience: 3
-  Prefab: {fileID: 1731465627681447288, guid: 4455126e638dfdf43aa78451db7b522f, type: 3}
-  DeathkitPrefab: {fileID: 3226597354761109488, guid: 4065ca980e7434444a90e8e4fce651b0, type: 3}
+  Type: 1
+  Speed: 1.5
+  MaxHealth: 80
+  Cooldown: 0
+  Damage: 30
+  ProjectileSpeed: 0
+  Experience: 40
+  Prefab: {fileID: 1731465627681447288, guid: 9acd66bf1255ea545b12a6f98640127a, type: 3}
+  DeathkitPrefab: {fileID: 1811390066692990319, guid: 2b37542cc1157fa49a2032c8b5d30f58, type: 3}

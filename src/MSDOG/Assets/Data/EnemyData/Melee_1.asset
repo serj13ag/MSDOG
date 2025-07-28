@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 1
   Speed: 3
-  MaxHealth: 5
+  MaxHealth: 10
   Cooldown: 0
   Damage: 3
   ProjectileSpeed: 0
