@@ -4,13 +4,12 @@ using VFX;
 
 namespace Core.Abilities
 {
-    public class AntiGravityAbility : IAbility
+    public class AntiGravityAbility : BasePersistentAbility
     {
         private readonly VfxFactory _vfxFactory;
         private readonly Player _player;
         private readonly float _speed;
 
-        private bool _isActive;
         private FollowingAbilityEffect _followingAbilityEffect;
 
         public AntiGravityAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory)
@@ -20,33 +19,15 @@ namespace Core.Abilities
             _speed = abilityData.Speed;
         }
 
-        public void Activate()
+        protected override void OnActivated()
         {
-            if (_isActive)
-            {
-                return;
-            }
-
-            _isActive = true;
-
             _player.ChangeAdditionalSpeed(_speed);
 
             _followingAbilityEffect = _vfxFactory.CreateAntiGravityEffect(_player);
         }
 
-        public void OnUpdate(float deltaTime)
+        protected override void OnDeactivated()
         {
-        }
-
-        public void Deactivate()
-        {
-            if (!_isActive)
-            {
-                return;
-            }
-
-            _isActive = false;
-
             _player.ChangeAdditionalSpeed(-_speed);
 
             _followingAbilityEffect.Clear();

@@ -4,13 +4,12 @@ using VFX;
 
 namespace Core.Abilities
 {
-    public class EnergyShieldAbility : IAbility
+    public class EnergyShieldAbility : BasePersistentAbility
     {
         private readonly VfxFactory _vfxFactory;
         private readonly Player _player;
         private readonly int _damageReductionPercent;
 
-        private bool _isActive;
         private FollowingAbilityEffect _followingAbilityEffect;
 
         public EnergyShieldAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory)
@@ -20,33 +19,15 @@ namespace Core.Abilities
             _damageReductionPercent = abilityData.DamageReductionPercent;
         }
 
-        public void Activate()
+        protected override void OnActivated()
         {
-            if (_isActive)
-            {
-                return;
-            }
-
-            _isActive = true;
-
             _player.ChangeDamageReductionPercent(_damageReductionPercent);
 
             _followingAbilityEffect = _vfxFactory.CreateEnergyShieldEffect(_player);
         }
 
-        public void OnUpdate(float deltaTime)
+        protected override void OnDeactivated()
         {
-        }
-
-        public void Deactivate()
-        {
-            if (!_isActive)
-            {
-                return;
-            }
-
-            _isActive = false;
-
             _player.ChangeDamageReductionPercent(-_damageReductionPercent);
 
             _followingAbilityEffect.Clear();
