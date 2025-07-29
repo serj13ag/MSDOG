@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_2
   m_EditorClassIdentifier: 
   LevelIndex: 2
-  LevelName: Gnosis
+  LevelName: 4 Words
   LevelAbilityData: {fileID: 11400000, guid: 694b9e9b0c449324f807b1ca4ce19c49, type: 2}
   Waves:
   - Enemies:

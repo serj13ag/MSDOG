@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_5
   m_EditorClassIdentifier: 
   LevelIndex: 5
-  LevelName: Ascendancy
+  LevelName: Ember to Inferno
   LevelAbilityData: {fileID: 11400000, guid: aa135caf2a70e0244a42eb5e15721620, type: 2}
   Waves:
   - Enemies:
