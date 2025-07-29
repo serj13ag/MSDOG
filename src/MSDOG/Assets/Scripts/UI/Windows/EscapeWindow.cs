@@ -18,13 +18,16 @@ namespace UI.Windows
         private GameStateMachine _gameStateMachine;
         private GameStateService _gameStateService;
         private WindowService _windowService;
+        private UpdateService _updateService;
 
         public GameObject GameObject => gameObject;
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(GameStateMachine gameStateMachine, GameStateService gameStateService, WindowService windowService)
+        public void Construct(GameStateMachine gameStateMachine, GameStateService gameStateService, WindowService windowService,
+            UpdateService updateService)
         {
+            _updateService = updateService;
             _windowService = windowService;
             _gameStateService = gameStateService;
             _gameStateMachine = gameStateMachine;
@@ -32,6 +35,8 @@ namespace UI.Windows
 
         private void OnEnable()
         {
+            _updateService.Pause(true);
+
             _restartButton.onClick.AddListener(Restart);
             _optionsButton.onClick.AddListener(OnOptionsButtonClicked);
             _menuButton.onClick.AddListener(GoToMenu);
@@ -40,6 +45,8 @@ namespace UI.Windows
 
         private void OnDisable()
         {
+            _updateService.Unpause(true);
+
             _restartButton.onClick.RemoveListener(Restart);
             _optionsButton.onClick.RemoveListener(OnOptionsButtonClicked);
             _menuButton.onClick.RemoveListener(GoToMenu);

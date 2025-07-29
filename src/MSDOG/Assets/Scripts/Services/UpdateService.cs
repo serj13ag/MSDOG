@@ -30,16 +30,24 @@ namespace Services
             _updatables.Remove(updatable);
         }
 
-        public void Pause()
+        public void Pause(bool withTimeScale = false)
         {
             _gameTime = 0f;
-            //Time.timeScale = 0f;
+
+            if (withTimeScale)
+            {
+                Time.timeScale = 0f;
+            }
         }
 
-        public void Unpause()
+        public void Unpause(bool withTimeScale = false)
         {
             _gameTime = 1f;
-            //Time.timeScale = 1f;
+
+            if (withTimeScale)
+            {
+                Time.timeScale = 1f;
+            }
         }
     }
 }
