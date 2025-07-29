@@ -14,8 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogueStages:
   - Avatar: {fileID: 0}
-    Name: Kojima
-    Speech: Sayonara
+    Name: 'Hue S. Muth [Operator]'
+    Speech: OK, we're about to get this nano-machines
   - Avatar: {fileID: 0}
-    Name: Snake
-    Speech: Good job!
+    Name: '[System Log]'
+    Speech: FELIMANCER-class unit approaching...
+  - Avatar: {fileID: 0}
+    Name: 'Hue S. Muth [Operator]'
+    Speech: "Great. A magic cat. That\u2019s all we needed"
+  - Avatar: {fileID: 0}
+    Name: HEXNEKO
+    Speech: Kept you whirring, huh?

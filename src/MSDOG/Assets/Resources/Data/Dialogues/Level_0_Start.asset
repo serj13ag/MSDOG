@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DialogueStages:
   - Avatar: {fileID: 0}
-    Name: Kojima
-    Speech: Arigato
+    Name: 'Hue S. Muth [Operator]'
+    Speech: Alright, we made it past the Cortex. Central Core's just up ahead.
   - Avatar: {fileID: 0}
-    Name: Snake
-    Speech: Kept you waiting, huh?
+    Name: 'Hue S. Muth [Operator]'
+    Speech: "Gotta say, this RAIDHOUND\u2019s holding up surprisingly well. Didn\u2019t
+      expect a secondhand Dogzilla to handle itself like this."
+  - Avatar: {fileID: 0}
+    Name: 'Hue S. Muth [Operator]'
+    Speech: "Now let\u2019s clear the guards and craft some gear."
