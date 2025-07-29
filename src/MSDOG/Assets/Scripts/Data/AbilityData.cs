@@ -1,4 +1,5 @@
 using Core.Abilities;
+using Sounds;
 using UnityEngine;
 
 namespace Data
@@ -18,5 +19,6 @@ namespace Data
         public float Lifetime;
         public float TickTimeout;
         public Sprite Icon;
+        public SoundClip ActivationSound;
     }
 }

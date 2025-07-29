@@ -1,5 +1,6 @@
 using Data;
 using DTO;
+using Services;
 using Services.Gameplay;
 using UnityEngine;
 
@@ -11,8 +12,9 @@ namespace Core.Abilities
         private readonly Player _player;
         private readonly ProjectileFactory _projectileFactory;
 
-        public BulletHellAbility(AbilityData abilityData, Player player, ProjectileFactory projectileFactory)
-            : base(abilityData.Cooldown, abilityData.FirstCooldownReduction)
+        public BulletHellAbility(AbilityData abilityData, Player player, ProjectileFactory projectileFactory,
+            SoundService soundService)
+            : base(abilityData, soundService)
         {
             _abilityData = abilityData;
             _player = player;

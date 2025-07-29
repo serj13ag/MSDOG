@@ -4,7 +4,6 @@ using Constants;
 using Data;
 using Services;
 using Services.Gameplay;
-using Sounds;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;
@@ -19,7 +18,6 @@ namespace UI.HUD.DetailsZone
 
         private GameFactory _gameFactory;
         private AssetProviderService _assetProviderService;
-        private SoundService _soundService;
 
         private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
 
@@ -27,7 +25,6 @@ namespace UI.HUD.DetailsZone
         public void Construct(GameFactory gameFactory, AssetProviderService assetProviderService, SoundService soundService)
         {
             _gameFactory = gameFactory;
-            _soundService = soundService;
             _assetProviderService = assetProviderService;
         }
 
@@ -74,7 +71,6 @@ namespace UI.HUD.DetailsZone
             _detailParts.Add(detailPart.Id, detailPart);
             detailPart.transform.SetParent(_grid.transform);
             _gameFactory.Player.AddAbility(detailPart.Id, detailPart.AbilityData);
-            _soundService.PlaySfx(SfxType.Activate);
         }
 
         public void Exit(DetailPartHud detailPart)

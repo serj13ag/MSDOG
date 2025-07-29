@@ -23,8 +23,8 @@ namespace Core.Abilities
         private readonly Collider[] _hitBuffer = new Collider[32];
 
         public CuttingBlowAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory,
-            DataService dataService)
-            : base(abilityData.Cooldown, abilityData.FirstCooldownReduction)
+            DataService dataService, SoundService soundService)
+            : base(abilityData, soundService)
         {
             _vfxFactory = vfxFactory;
             _dataService = dataService;

@@ -24,3 +24,6 @@ MonoBehaviour:
   Lifetime: 0
   TickTimeout: 0
   Icon: {fileID: 21300000, guid: 29860c95f3f19f748aa39eac0597b9de, type: 3}
+  ActivationSound:
+    Clip: {fileID: 8300000, guid: 713346b3e1f0a6441a1d59f57db6d5e9, type: 3}
+    Volume: 0.5

@@ -1,17 +1,25 @@
+using Data;
+using Services;
+
 namespace Core.Abilities
 {
     public abstract class BaseCooldownAbility : IAbility
     {
+        private readonly AbilityData _abilityData;
+        private readonly SoundService _soundService;
+
         private readonly float _cooldown;
 
         private bool _isActive;
         private float _timeTillAction;
 
-        protected BaseCooldownAbility(float cooldown, float firstCooldownReduction)
+        protected BaseCooldownAbility(AbilityData abilityData, SoundService soundService)
         {
-            _cooldown = cooldown;
+            _cooldown = abilityData.Cooldown;
+            _abilityData = abilityData;
+            _soundService = soundService;
 
-            _timeTillAction = cooldown - firstCooldownReduction;
+            _timeTillAction = abilityData.Cooldown - abilityData.FirstCooldownReduction;
         }
 
         public void Activate()
@@ -39,6 +47,8 @@ namespace Core.Abilities
 
             InvokeAction();
             ResetTimeTillAction();
+
+            _soundService.PlayAbilityActivationSfx(_abilityData.ActivationSound);
         }
 
         public void Deactivate()

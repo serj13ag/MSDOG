@@ -1,8 +1,20 @@
+using Data;
+using Services;
+
 namespace Core.Abilities
 {
     public abstract class BasePersistentAbility : IAbility
     {
+        private readonly AbilityData _abilityData;
+        private readonly SoundService _soundService;
+
         private bool _isActive;
+
+        protected BasePersistentAbility(AbilityData abilityData, SoundService soundService)
+        {
+            _abilityData = abilityData;
+            _soundService = soundService;
+        }
 
         public void Activate()
         {
@@ -12,6 +24,8 @@ namespace Core.Abilities
             }
 
             _isActive = true;
+
+            _soundService.PlayAbilityActivationSfx(_abilityData.ActivationSound);
 
             OnActivated();
         }

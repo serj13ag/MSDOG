@@ -1,4 +1,5 @@
 using Data;
+using Services;
 using Services.Gameplay;
 using VFX;
 
@@ -12,7 +13,8 @@ namespace Core.Abilities
 
         private FollowingAbilityEffect _followingAbilityEffect;
 
-        public EnergyShieldAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory)
+        public EnergyShieldAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory, SoundService soundService)
+            : base(abilityData, soundService)
         {
             _vfxFactory = vfxFactory;
             _player = player;

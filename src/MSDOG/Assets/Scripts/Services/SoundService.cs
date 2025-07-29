@@ -62,6 +62,16 @@ namespace Services
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
             };
 
+            PlaySfx(soundClip);
+        }
+
+        public void PlayAbilityActivationSfx(SoundClip abilityActivationSoundClip)
+        {
+            PlaySfx(abilityActivationSoundClip);
+        }
+
+        private void PlaySfx(SoundClip soundClip)
+        {
             _sfxAudioSource.PlayOneShot(soundClip.Clip,
                 soundClip.Volume * _playerOptionsService.MasterVolume * _playerOptionsService.SfxVolume);
         }
