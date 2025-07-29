@@ -10,11 +10,6 @@ namespace Services
         [SerializeField] private AudioSource _musicAudioSource;
         [SerializeField] private AudioSource _sfxAudioSource;
 
-        [SerializeField] private SoundClip _musicSoundClip;
-
-        [SerializeField] private SoundClip _actionSoundClip;
-        [SerializeField] private SoundClip _activateSoundClip;
-
         private PlayerOptionsService _playerOptionsService;
         private DataService _dataService;
 
