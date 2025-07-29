@@ -25,7 +25,8 @@ namespace Core
         private float _speed;
         private int _pierce;
 
-        public void Init(CreateProjectileDto createProjectileDto, UpdateService updateService, VfxFactory vfxFactory, ProjectileType type)
+        public void Init(CreateProjectileDto createProjectileDto, UpdateService updateService, VfxFactory vfxFactory,
+            ProjectileType type)
         {
             _vfxFactory = vfxFactory;
             _updateService = updateService;
@@ -61,6 +62,11 @@ namespace Core
         public void OnUpdate(float deltaTime)
         {
             transform.position += _forwardDirection.normalized * (_speed * deltaTime);
+
+            if (Math.Abs(transform.position.x) > 50f || Math.Abs(transform.position.z) > 50f) // TODO: refactor
+            {
+                Destroy(gameObject);
+            }
         }
 
         private void OnTriggerEntered(Collider other)
