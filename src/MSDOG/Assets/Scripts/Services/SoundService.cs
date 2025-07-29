@@ -16,10 +16,12 @@ namespace Services
         [SerializeField] private SoundClip _activateSoundClip;
 
         private PlayerOptionsService _playerOptionsService;
+        private DataService _dataService;
 
         [Inject]
-        public void Construct(PlayerOptionsService playerOptionsService)
+        public void Construct(PlayerOptionsService playerOptionsService, DataService dataService)
         {
+            _dataService = dataService;
             _playerOptionsService = playerOptionsService;
 
             playerOptionsService.OnSoundOptionsUpdated += OnSoundOptionsUpdated;
@@ -55,14 +57,8 @@ namespace Services
                 return;
             }
 
-            var soundClip = type switch
-            {
-                SfxType.Action => _actionSoundClip,
-                SfxType.Activate => _activateSoundClip,
-                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
-            };
-
-            PlaySfx(soundClip);
+            var clip = _dataService.GetEffectSoundClip(type);
+            PlaySfx(clip);
         }
 
         public void PlayAbilityActivationSfx(SoundClip abilityActivationSoundClip)

@@ -1,5 +1,6 @@
 using Data;
 using Services;
+using Sounds;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -14,12 +15,14 @@ namespace UI.HUD.DetailsZone
         [SerializeField] private Button _upgradeButton;
 
         private DataService _dataService;
+        private SoundService _soundService;
 
         private AbilityData _upgradedAbilityData;
 
         [Inject]
-        public void Construct(DataService dataService)
+        public void Construct(DataService dataService, SoundService soundService)
         {
+            _soundService = soundService;
             _dataService = dataService;
         }
 
@@ -74,6 +77,8 @@ namespace UI.HUD.DetailsZone
             _detailsZoneHud.CreateDetail(_upgradedAbilityData);
             _fusionSlotHud1.DestroyDetail();
             _fusionSlotHud2.DestroyDetail();
+
+            _soundService.PlaySfx(SfxType.Fusion);
         }
     }
 }

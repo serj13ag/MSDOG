@@ -12,18 +12,20 @@ namespace UI.HUD.Actions
         [SerializeField] private ReloadAction _reloadAction;
 
         private UpdateService _updateService;
+        private SoundService _soundService;
 
         [Inject]
-        public void Construct(UpdateService updateService)
+        public void Construct(UpdateService updateService, SoundService soundService)
         {
+            _soundService = soundService;
             _updateService = updateService;
         }
 
         public void Init(Player player)
         {
-            _fuseAction.Init(player);
-            _nitroAction.Init(player);
-            _reloadAction.Init(player, _updateService);
+            _fuseAction.Init(player, _soundService);
+            _nitroAction.Init(player, _soundService);
+            _reloadAction.Init(player, _updateService, _soundService);
         }
     }
 }

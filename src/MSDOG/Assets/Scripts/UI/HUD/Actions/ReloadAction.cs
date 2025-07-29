@@ -1,6 +1,7 @@
 using Core;
 using Interfaces;
 using Services;
+using Sounds;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,14 +18,16 @@ namespace UI.HUD.Actions
 
         private Player _player;
         private UpdateService _updateService;
+        private SoundService _soundService;
 
         private float _currentAngle;
 
         private bool _dragging;
         private float _currentDragAngle;
 
-        public void Init(Player player, UpdateService updateService)
+        public void Init(Player player, UpdateService updateService, SoundService soundService)
         {
+            _soundService = soundService;
             _updateService = updateService;
             _player = player;
 
@@ -100,7 +103,14 @@ namespace UI.HUD.Actions
             }
 
             _currentAngle = newAngle;
-            _player.AbilitiesSetActive(!Mathf.Approximately(_currentAngle, 0f));
+            var angleIsZero = Mathf.Approximately(_currentAngle, 0f);
+            _player.AbilitiesSetActive(!angleIsZero);
+
+            if (angleIsZero)
+            {
+                _soundService.PlaySfx(SfxType.NeedReload);
+            }
+
             _handleObject.transform.Rotate(Vector3.back, oldAngle - _currentAngle);
             UpdateFillImageView();
         }

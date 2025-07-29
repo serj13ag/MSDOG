@@ -1,5 +1,6 @@
 using Services;
 using Services.Gameplay;
+using Sounds;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;
@@ -10,10 +11,12 @@ namespace UI.HUD.DetailsZone
     {
         private GameFactory _gameFactory;
         private DataService _dataService;
+        private SoundService _soundService;
 
         [Inject]
-        public void Construct(GameFactory gameFactory, DataService dataService)
+        public void Construct(GameFactory gameFactory, DataService dataService, SoundService soundService)
         {
+            _soundService = soundService;
             _dataService = dataService;
             _gameFactory = gameFactory;
         }
@@ -48,6 +51,8 @@ namespace UI.HUD.DetailsZone
             }
 
             detailPart.Destruct();
+
+            _soundService.PlaySfx(SfxType.Destructor);
         }
 
         public void Exit(DetailPartHud detailPart)

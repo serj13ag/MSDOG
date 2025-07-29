@@ -3,6 +3,7 @@ using System.Linq;
 using Constants;
 using Core.Abilities;
 using Data;
+using Sounds;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -95,6 +96,11 @@ namespace Services
         public SettingsData GetSettingsData()
         {
             return _settingsData;
+        }
+
+        public SoundClip GetEffectSoundClip(SfxType sfxType)
+        {
+            return _soundSettingsData.Effects.SingleOrDefault(x => x.Type == sfxType)?.AudioClip;
         }
 
         public SoundSettingsData GetSoundSettingsData()

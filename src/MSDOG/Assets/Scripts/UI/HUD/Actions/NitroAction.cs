@@ -1,4 +1,6 @@
 using Core;
+using Services;
+using Sounds;
 using UnityEngine;
 
 namespace UI.HUD.Actions
@@ -12,9 +14,11 @@ namespace UI.HUD.Actions
         [SerializeField] private float _onPositionZ = 1f;
 
         private Player _player;
+        private SoundService _soundService;
 
-        public void Init(Player player)
+        public void Init(Player player, SoundService soundService)
         {
+            _soundService = soundService;
             _player = player;
 
             _buttonObject.transform.localPosition = new Vector3(_buttonObject.transform.localPosition.x,
@@ -50,6 +54,8 @@ namespace UI.HUD.Actions
         private void Press()
         {
             _player.SetNitro(_moveSpeedMultiplier);
+            _soundService.PlaySfx(SfxType.Nitro);
+
             _buttonObject.transform.localPosition = new Vector3(_buttonObject.transform.localPosition.x,
                 _buttonObject.transform.localPosition.y, _onPositionZ);
         }

@@ -1,4 +1,6 @@
 using Core;
+using Services;
+using Sounds;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +19,7 @@ namespace UI.HUD.Actions
         [SerializeField] private float _nitroMultiplier = 2f;
 
         private Player _player;
+        private SoundService _soundService;
 
         private bool _connected;
         private bool _dragging;
@@ -26,8 +29,9 @@ namespace UI.HUD.Actions
         private Vector3? _previousPlayerPosition;
         private float _counter;
 
-        public void Init(Player player)
+        public void Init(Player player, SoundService soundService)
         {
+            _soundService = soundService;
             _player = player;
 
             Connect();
@@ -123,6 +127,7 @@ namespace UI.HUD.Actions
             SetLocalRotation(_maxAngle);
 
             _player.MovementSetActive(true);
+            _soundService.PlaySfx(SfxType.LeverUp);
         }
 
         private void Disconnect()
@@ -132,6 +137,7 @@ namespace UI.HUD.Actions
             SetLocalRotation(_minAngle);
 
             _player.MovementSetActive(false);
+            _soundService.PlaySfx(SfxType.LeverDown);
         }
 
         private void SetLocalRotation(float angle)

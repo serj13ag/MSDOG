@@ -1,5 +1,6 @@
 using Services;
 using Services.Gameplay;
+using Sounds;
 using TMPro;
 using UI.HUD.DetailsZone;
 using UnityEngine;
@@ -20,6 +21,7 @@ namespace UI.HUD
         private DataService _dataService;
         private GameFactory _gameFactory;
         private GameStateService _gameStateService;
+        private SoundService _soundService;
 
         private DetailsZoneHud _detailsZoneHud;
 
@@ -27,8 +29,10 @@ namespace UI.HUD
         private float _oscTimer;
 
         [Inject]
-        public void Construct(GameFactory gameFactory, DataService dataService, GameStateService gameStateService)
+        public void Construct(GameFactory gameFactory, DataService dataService, GameStateService gameStateService,
+            SoundService soundService)
         {
+            _soundService = soundService;
             _gameStateService = gameStateService;
             _gameFactory = gameFactory;
             _dataService = dataService;
@@ -68,10 +72,14 @@ namespace UI.HUD
             _detailsZoneHud.CreateDetail(abilityData);
             _gameFactory.Player.ResetExperience();
             UpdateView();
+
+            _soundService.PlaySfx(SfxType.Craft);
         }
 
         private void OnPlayerExperienceChanged()
         {
+            _soundService.PlaySfx(SfxType.DetailUp);
+
             UpdateView();
         }
 
@@ -84,6 +92,11 @@ namespace UI.HUD
 
             _canCraft = player.CurrentExperience >= player.MaxExperience;
             _craftButton.interactable = _canCraft;
+
+            if (_canCraft)
+            {
+                _soundService.PlaySfx(SfxType.CanCraft);
+            }
         }
 
         private void OnDestroy()
