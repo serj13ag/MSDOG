@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_1
   m_EditorClassIdentifier: 
   LevelIndex: 1
-  LevelName: 43% burnt
+  LevelName: Dissentience
   LevelAbilityData: {fileID: 11400000, guid: b9e2c354f6e1f804894fbbeee0d84455, type: 2}
   Waves:
   - Enemies:
