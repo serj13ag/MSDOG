@@ -16,23 +16,23 @@ MonoBehaviour:
   - Type: 1
     AudioClip:
       Clip: {fileID: 8300000, guid: dd7d39670e2c2e046907b485c0f65149, type: 3}
-      Volume: 0.4
+      Volume: 0.407
   - Type: 2
     AudioClip:
       Clip: {fileID: 8300000, guid: 33e7d7deaa0ab6b4caded13a91a9e4d6, type: 3}
-      Volume: 0.4
+      Volume: 0.255
   - Type: 3
     AudioClip:
       Clip: {fileID: 8300000, guid: 6f125a6e8dc5a214281f6a831d0a1615, type: 3}
-      Volume: 0.4
+      Volume: 0.447
   - Type: 4
     AudioClip:
       Clip: {fileID: 8300000, guid: 60fec786ff04c214da8efd3894d23228, type: 3}
-      Volume: 0.4
+      Volume: 0.296
   - Type: 5
     AudioClip:
       Clip: {fileID: 8300000, guid: 7ef6ab2608f65d9438a6303abad8aa5e, type: 3}
-      Volume: 0.4
+      Volume: 0.29
   - Type: 6
     AudioClip:
       Clip: {fileID: 8300000, guid: 80a3b1d323beda54ab2ffe5a356a5d46, type: 3}
@@ -40,17 +40,17 @@ MonoBehaviour:
   - Type: 7
     AudioClip:
       Clip: {fileID: 8300000, guid: 46defda67effd084f850d7c9912ddc1d, type: 3}
-      Volume: 0.4
+      Volume: 0.538
   - Type: 8
     AudioClip:
       Clip: {fileID: 8300000, guid: d823e1ce2a15a204abaab77491c9c4fe, type: 3}
-      Volume: 0.4
+      Volume: 0.296
   - Type: 9
     AudioClip:
       Clip: {fileID: 8300000, guid: d823e1ce2a15a204abaab77491c9c4fe, type: 3}
-      Volume: 0.4
+      Volume: 0.424
   - Type: 10
     AudioClip:
       Clip: {fileID: 8300000, guid: b3d296ff2821fe8428fc3760a349ebb5, type: 3}
-      Volume: 0.4
+      Volume: 0.323
   MenuMusic: {fileID: 8300000, guid: b2e770be37bae924887f31bfd5f07566, type: 3}

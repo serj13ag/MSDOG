@@ -26,4 +26,4 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 29003240e3c485043bf9a225c7d79015, type: 3}
   ActivationSound:
     Clip: {fileID: 8300000, guid: 713346b3e1f0a6441a1d59f57db6d5e9, type: 3}
-    Volume: 0.305
+    Volume: 0.265
