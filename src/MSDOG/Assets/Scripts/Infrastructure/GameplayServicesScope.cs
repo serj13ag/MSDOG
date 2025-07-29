@@ -28,7 +28,17 @@ namespace Infrastructure
             var debugService = new GameObject("DebugService").AddComponent<DebugService>();
             builder.RegisterComponent(debugService);
 
+            RegisterContainers(builder);
+
             builder.Register<GameplayInitializer>(Lifetime.Scoped);
+        }
+
+        private static void RegisterContainers(IContainerBuilder builder)
+        {
+            var projectileContainer = new GameObject("ProjectileContainer");
+            var enemyContainer = new GameObject("EnemyContainer");
+            builder.Register(_ => new RuntimeContainers(projectileContainer.transform, enemyContainer.transform),
+                Lifetime.Scoped);
         }
     }
 }

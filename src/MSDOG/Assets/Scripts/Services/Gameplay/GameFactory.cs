@@ -16,6 +16,7 @@ namespace Services.Gameplay
         private readonly ProjectileFactory _projectileFactory;
         private readonly VfxFactory _vfxFactory;
         private readonly DataService _dataService;
+        private readonly RuntimeContainers _runtimeContainers;
         private readonly UpdateService _updateService;
 
         private Player _player; // TODO: remove?
@@ -24,7 +25,7 @@ namespace Services.Gameplay
 
         public GameFactory(AssetProviderService assetProviderService, UpdateService updateService, InputService inputService,
             ArenaService arenaService, AbilityFactory abilityFactory, ProjectileFactory projectileFactory,
-            VfxFactory vfxFactory, DataService dataService)
+            VfxFactory vfxFactory, DataService dataService, RuntimeContainers runtimeContainers)
         {
             _assetProviderService = assetProviderService;
             _inputService = inputService;
@@ -33,6 +34,7 @@ namespace Services.Gameplay
             _projectileFactory = projectileFactory;
             _vfxFactory = vfxFactory;
             _dataService = dataService;
+            _runtimeContainers = runtimeContainers;
             _updateService = updateService;
         }
 
@@ -46,14 +48,14 @@ namespace Services.Gameplay
 
         public Enemy CreateEnemy(Vector3 position, EnemyData data)
         {
-            var enemy = Object.Instantiate(data.Prefab, position, Quaternion.identity);
+            var enemy = Object.Instantiate(data.Prefab, position, Quaternion.identity, _runtimeContainers.EnemyContainer);
             enemy.Init(_updateService, this, _projectileFactory, _player, data, _vfxFactory);
             return enemy;
         }
 
         public EnemyDeathkit CreateEnemyDeathkit(EnemyDeathkit deathkitPrefab, Vector3 position, Quaternion rotation)
         {
-            var enemyDeathkit = Object.Instantiate(deathkitPrefab, position, rotation);
+            var enemyDeathkit = Object.Instantiate(deathkitPrefab, position, rotation, _runtimeContainers.EnemyContainer);
             enemyDeathkit.Init();
             return enemyDeathkit;
         }

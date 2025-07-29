@@ -13,12 +13,15 @@ namespace Services.Gameplay
         private readonly AssetProviderService _assetProviderService;
         private readonly UpdateService _updateService;
         private readonly VfxFactory _vfxFactory;
+        private readonly RuntimeContainers _runtimeContainers;
 
-        public ProjectileFactory(AssetProviderService assetProviderService, UpdateService updateService, VfxFactory vfxFactory)
+        public ProjectileFactory(AssetProviderService assetProviderService, UpdateService updateService, VfxFactory vfxFactory,
+            RuntimeContainers runtimeContainers)
         {
             _assetProviderService = assetProviderService;
             _updateService = updateService;
             _vfxFactory = vfxFactory;
+            _runtimeContainers = runtimeContainers;
         }
 
         public void CreatePlayerGunShotProjectile(CreateProjectileDto createProjectileDto)
@@ -26,7 +29,7 @@ namespace Services.Gameplay
             var projectile =
                 _assetProviderService.Instantiate<Projectile>(AssetPaths.PlayerGunShotProjectilePrefab,
                     createProjectileDto.SpawnPosition + _playerProjectileOffset,
-                    Quaternion.LookRotation(createProjectileDto.ForwardDirection));
+                    Quaternion.LookRotation(createProjectileDto.ForwardDirection), _runtimeContainers.ProjectileContainer);
             projectile.Init(createProjectileDto, _updateService, _vfxFactory, ProjectileType.Gunshot);
         }
 
@@ -35,7 +38,7 @@ namespace Services.Gameplay
             var projectile =
                 _assetProviderService.Instantiate<Projectile>(AssetPaths.PlayerBulletHellProjectilePrefab,
                     createProjectileDto.SpawnPosition + _playerProjectileOffset,
-                    Quaternion.LookRotation(createProjectileDto.ForwardDirection));
+                    Quaternion.LookRotation(createProjectileDto.ForwardDirection), _runtimeContainers.ProjectileContainer);
             projectile.Init(createProjectileDto, _updateService, _vfxFactory, ProjectileType.BulletHell);
         }
 
@@ -44,7 +47,7 @@ namespace Services.Gameplay
             var projectile =
                 _assetProviderService.Instantiate<Projectile>(AssetPaths.EnemyProjectilePrefab,
                     createProjectileDto.SpawnPosition + _enemyProjectileOffset,
-                    Quaternion.LookRotation(createProjectileDto.ForwardDirection));
+                    Quaternion.LookRotation(createProjectileDto.ForwardDirection), _runtimeContainers.ProjectileContainer);
             projectile.Init(createProjectileDto, _updateService, _vfxFactory, ProjectileType.Enemy);
         }
 
@@ -52,7 +55,8 @@ namespace Services.Gameplay
         {
             var projectile =
                 _assetProviderService.Instantiate<BuzzSawProjectile>(AssetPaths.PlayerBuzzSawProjectilePrefab,
-                    createProjectileDto.SpawnPosition + _playerProjectileOffset);
+                    createProjectileDto.SpawnPosition + _playerProjectileOffset, Quaternion.identity,
+                    _runtimeContainers.ProjectileContainer);
             projectile.Init(createProjectileDto, _updateService, true);
         }
 
@@ -60,7 +64,7 @@ namespace Services.Gameplay
         {
             var projectile =
                 _assetProviderService.Instantiate<PuddleProjectile>(AssetPaths.PlayerPuddleProjectilePrefab,
-                    createProjectileDto.SpawnPosition);
+                    createProjectileDto.SpawnPosition, Quaternion.identity, _runtimeContainers.ProjectileContainer);
             projectile.Init(createProjectileDto, _updateService);
         }
 
@@ -68,7 +72,8 @@ namespace Services.Gameplay
         {
             var projectile =
                 _assetProviderService.Instantiate<EnergyLineProjectile>(AssetPaths.PlayerEnergyLineProjectilePrefab,
-                    createProjectileDto.SpawnPosition + _playerProjectileOffset);
+                    createProjectileDto.SpawnPosition + _playerProjectileOffset, Quaternion.identity,
+                    _runtimeContainers.ProjectileContainer);
             projectile.Init(createProjectileDto, _updateService);
         }
     }
