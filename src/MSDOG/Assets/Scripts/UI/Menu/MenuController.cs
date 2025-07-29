@@ -27,7 +27,7 @@ namespace UI.Menu
 
         private void OnEnable()
         {
-            _soundService.PlayMusic(_dataService.GetSettingsData().MenuMusic);
+            _soundService.PlayMusic(_dataService.GetSoundSettingsData().MenuMusic);
 
             _startGameButton.onClick.AddListener(StartGame);
             _optionsButton.onClick.AddListener(ShowOptions);

@@ -9,6 +9,5 @@ namespace Data
         public int ExperiencePerDestructedDetail;
         public bool ShowDebugHitboxes;
         public int[] ExperienceProgression;
-        public AudioClip MenuMusic;
     }
 }

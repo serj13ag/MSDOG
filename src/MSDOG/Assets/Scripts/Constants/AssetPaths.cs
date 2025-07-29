@@ -28,6 +28,7 @@ namespace Constants
         public const string LevelAbilityData = "Data/LevelAbilityData";
         public const string AbilityUpgradesData = "Data/AbilityUpgradesData";
         public const string SettingsData = "Data/SettingsData";
+        public const string SoundSettingsData = "Data/SoundSettingsData";
 
         // Ui Prefabs
         public const string UiRootCanvasPath = "Prefabs/Ui/UiRootCanvas";
