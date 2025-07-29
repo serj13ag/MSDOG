@@ -1200,7 +1200,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1895896972531427510}
   - {fileID: 3664918614123226693}
@@ -1227,6 +1227,9 @@ MonoBehaviour:
   _text: {fileID: 1548698948633932697}
   _fillImage: {fileID: 2138176710638887906}
   _craftButton: {fileID: 2901204499561020344}
+  _buttonOscSpeed: 10
+  _minScale: 0.8
+  _maxScale: 1.1
 --- !u!1 &2401149788653105797
 GameObject:
   m_ObjectHideFlags: 0
@@ -2743,7 +2746,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6791888177873274523}
   m_Father: {fileID: 896287998903767268}

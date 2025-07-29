@@ -13,12 +13,18 @@ namespace UI.HUD
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Image _fillImage;
         [SerializeField] private Button _craftButton;
+        [SerializeField] private float _buttonOscSpeed = 10f;
+        [SerializeField] private float _minScale = 0.8f;
+        [SerializeField] private float _maxScale = 1.1f;
 
         private DataService _dataService;
         private GameFactory _gameFactory;
         private GameStateService _gameStateService;
 
         private DetailsZoneHud _detailsZoneHud;
+
+        private bool _canCraft;
+        private float _oscTimer;
 
         [Inject]
         public void Construct(GameFactory gameFactory, DataService dataService, GameStateService gameStateService)
@@ -37,6 +43,23 @@ namespace UI.HUD
 
             _craftButton.onClick.AddListener(OnCraftButtonClick);
             _gameFactory.Player.OnExperienceChanged += OnPlayerExperienceChanged;
+        }
+
+        private void Update()
+        {
+            if (_canCraft)
+            {
+                _oscTimer += Time.deltaTime * _buttonOscSpeed;
+
+                var t = (Mathf.Sin(_oscTimer) + 1f) / 2f;
+                var scale = Mathf.Lerp(_minScale, _maxScale, t);
+
+                _craftButton.transform.localScale = Vector3.one * scale;
+            }
+            else
+            {
+                _craftButton.transform.localScale = Vector3.one;
+            }
         }
 
         private void OnCraftButtonClick()
@@ -59,7 +82,8 @@ namespace UI.HUD
             _text.text = $"{player.CurrentExperience}/{player.MaxExperience}";
             _fillImage.fillAmount = (float)player.CurrentExperience / player.MaxExperience;
 
-            _craftButton.interactable = player.CurrentExperience >= player.MaxExperience;
+            _canCraft = player.CurrentExperience >= player.MaxExperience;
+            _craftButton.interactable = _canCraft;
         }
 
         private void OnDestroy()
