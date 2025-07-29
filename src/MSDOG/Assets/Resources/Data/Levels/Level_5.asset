@@ -273,3 +273,4 @@ MonoBehaviour:
   StartDialogue: {fileID: 0}
   EndDialogue: {fileID: 0}
   FloorMaterial: {fileID: 2100000, guid: d225f931ce15b424ba70a096d816a268, type: 2}
+  Music: {fileID: 8300000, guid: 3a3b0c25baed76642ba6e01e3970872a, type: 3}

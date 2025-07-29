@@ -27,9 +27,9 @@ namespace Services
             UpdateMusicVolume();
         }
 
-        public void PlayMusic()
+        public void PlayMusic(AudioClip musicClip)
         {
-            _musicAudioSource.clip = _musicSoundClip.Clip;
+            _musicAudioSource.clip = musicClip;
             _musicAudioSource.Play();
         }
 

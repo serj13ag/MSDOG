@@ -14,15 +14,21 @@ namespace UI.Menu
         [SerializeField] private MenuLevelsWindow _menuLevelsWindow;
 
         private WindowService _windowService;
+        private SoundService _soundService;
+        private DataService _dataService;
 
         [Inject]
-        public void Construct(WindowService windowService)
+        public void Construct(WindowService windowService, SoundService soundService, DataService dataService)
         {
+            _dataService = dataService;
+            _soundService = soundService;
             _windowService = windowService;
         }
 
         private void OnEnable()
         {
+            _soundService.PlayMusic(_dataService.GetSettingsData().MenuMusic);
+
             _startGameButton.onClick.AddListener(StartGame);
             _optionsButton.onClick.AddListener(ShowOptions);
             _quitGameButton.onClick.AddListener(Quit);

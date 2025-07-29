@@ -13,5 +13,6 @@ namespace Data
         public DialogueData StartDialogue;
         public DialogueData EndDialogue;
         public Material FloorMaterial;
+        public AudioClip Music;
     }
 }

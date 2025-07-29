@@ -14,13 +14,17 @@ namespace Infrastructure
         private readonly CameraService _cameraService;
         private readonly GameStateService _gameStateService;
         private readonly DialogueService _dialogueService;
-        private LevelViewService _levelViewService;
+        private readonly LevelViewService _levelViewService;
+        private readonly SoundService _soundService;
+        private readonly DataService _dataService;
 
         public GameplayInitializer(DebugService debugService, EnemyService enemyService, GameFactory gameFactory,
             CameraService cameraService, GameStateService gameStateService, DialogueService dialogueService,
-            LevelViewService levelViewService)
+            LevelViewService levelViewService, SoundService soundService, DataService dataService)
         {
             _levelViewService = levelViewService;
+            _soundService = soundService;
+            _dataService = dataService;
             _dialogueService = dialogueService;
             _debugService = debugService;
             _enemyService = enemyService;
@@ -44,6 +48,9 @@ namespace Infrastructure
 
             var hudActions = Object.FindFirstObjectByType<HudActions>();
             hudActions.Init(player);
+
+            var levelMusic = _dataService.GetLevelData(levelIndex).Music;
+            _soundService.PlayMusic(levelMusic);
 
             _debugService.Setup(hudController);
 
