@@ -10,6 +10,7 @@ namespace Services.Gameplay
     public class VfxFactory
     {
         private readonly Vector3 _playerAbilityVfxOffset = Vector3.up * 1f;
+        private readonly Vector3 _playerSlashEffectVfxOffset = Vector3.up * 1.55f;
 
         private readonly AssetProviderService _assetProviderService;
 
@@ -30,7 +31,7 @@ namespace Services.Gameplay
             var scale = Mathf.LerpUnclamped(0.7f, 1f, t);
 
             var effect = _assetProviderService.Instantiate<Component>(AssetPaths.CuttingBlowVFXPath,
-                position + _playerAbilityVfxOffset, Quaternion.Euler(90f, 0f, 0f));
+                position + _playerSlashEffectVfxOffset, Quaternion.Euler(90f, 0f, 0f));
 
             const float width = 1.4f;
             effect.transform.localScale = new Vector3(scale, width, 1f);
