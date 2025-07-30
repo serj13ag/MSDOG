@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Data
@@ -9,5 +10,6 @@ namespace Data
         public int ExperiencePerDestructedDetail;
         public bool ShowDebugHitboxes;
         public int[] ExperienceProgression;
+        public List<TutorialEventData> TutorialEvents;
     }
 }

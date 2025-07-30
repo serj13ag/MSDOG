@@ -82,6 +82,12 @@ namespace Services
             ShowWindow(dialogueWindow);
         }
 
+        public void ShowTutorialWindow(TutorialEventData tutorialEventData)
+        {
+            var dialogueWindow = _gameplayWindowFactory.CreateTutorialWindow(tutorialEventData, _canvas.transform);
+            ShowWindow(dialogueWindow);
+        }
+
         public void CloseAllWindows()
         {
             while (_activeWindows.Count > 0)

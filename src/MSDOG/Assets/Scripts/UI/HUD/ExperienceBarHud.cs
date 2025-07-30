@@ -22,6 +22,7 @@ namespace UI.HUD
         private GameFactory _gameFactory;
         private GameStateService _gameStateService;
         private SoundService _soundService;
+        private TutorialService _tutorialService;
 
         private DetailsZoneHud _detailsZoneHud;
 
@@ -30,8 +31,9 @@ namespace UI.HUD
 
         [Inject]
         public void Construct(GameFactory gameFactory, DataService dataService, GameStateService gameStateService,
-            SoundService soundService)
+            SoundService soundService, TutorialService tutorialService)
         {
+            _tutorialService = tutorialService;
             _soundService = soundService;
             _gameStateService = gameStateService;
             _gameFactory = gameFactory;
@@ -96,6 +98,7 @@ namespace UI.HUD
             if (_canCraft)
             {
                 _soundService.PlaySfx(SfxType.CanCraft);
+                _tutorialService.OnCanCraft();
             }
         }
 
