@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Level_1_End
   m_EditorClassIdentifier: 
   DialogueStages:
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 10fafbd9c53048141bc9cf16dc7f3b6d, type: 3}
     Name: 'Otto Cone [Informator]'
     Speech: Yo Hue, I tracked down those codes you were after.
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 922b3a47d66eda147bdf85a14be735bb, type: 3}
     Name: 'Hue S. Muth [Operator]'
     Speech: Where we headed?
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 10fafbd9c53048141bc9cf16dc7f3b6d, type: 3}
     Name: 'Otto Cone [Informator]'
     Speech: Code Foundry. Real shady place.

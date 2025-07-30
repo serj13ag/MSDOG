@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Level_6_Start
   m_EditorClassIdentifier: 
   DialogueStages:
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 922b3a47d66eda147bdf85a14be735bb, type: 3}
     Name: 'Hue S. Muth [Operator]'
     Speech: "Haha, we\u2019re inside the Cortex."
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 922b3a47d66eda147bdf85a14be735bb, type: 3}
     Name: 'Hue S. Muth [Operator]'
     Speech: Time to hit it with a Format C:?
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 922b3a47d66eda147bdf85a14be735bb, type: 3}
     Name: 'Hue S. Muth [Operator]'
     Speech: "Or maybe I\u2019ll just sprint through like you\u2019re Sir Bow\u2019s
       drawbridge."

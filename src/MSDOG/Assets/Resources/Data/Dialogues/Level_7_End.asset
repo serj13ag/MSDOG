@@ -13,46 +13,46 @@ MonoBehaviour:
   m_Name: Level_7_End
   m_EditorClassIdentifier: 
   DialogueStages:
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 15a3ebf06c2caa84482ede2e86350715, type: 3}
     Name: '[System Log]'
     Speech: "FELIMANCER-class unit approaching\u2026"
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 922b3a47d66eda147bdf85a14be735bb, type: 3}
     Name: 'Hue S. Muth [Operator]'
     Speech: "Great. A magic cat. That\u2019s all we needed."
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 3c105e4cd5903e84c8cd88ca9987548c, type: 3}
     Name: 'HEXNEKO [Felimancer]'
     Speech: Kept you whirring, huh? Glitchy robot?
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 922b3a47d66eda147bdf85a14be735bb, type: 3}
     Name: 'Hue S. Muth [Operator]'
     Speech: ...
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 3c105e4cd5903e84c8cd88ca9987548c, type: 3}
     Name: 'HEXNEKO [Felimancer]'
     Speech: Curious. How did you bypass robotics law with this Raidhound?
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 922b3a47d66eda147bdf85a14be735bb, type: 3}
     Name: 'Hue S. Muth [Operator]'
     Speech: ...
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 63cb838841e279b468174181f286d898, type: 3}
     Name: 'HEXNEKO [Felimancer]'
     Speech: "I see\u2026 You damaged its recognition circuits. Now it thinks it\u2019s
       fighting anything but humans."
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 922b3a47d66eda147bdf85a14be735bb, type: 3}
     Name: 'Hue S. Muth [Operator]'
     Speech: ...
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 0ec289470a8d3254ba7dcc286f298e5d, type: 3}
     Name: 'the Architect [Architect]'
     Speech: You reached the Central Core and...
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 0ec289470a8d3254ba7dcc286f298e5d, type: 3}
     Name: 'the Architect [Architect]'
     Speech: "beat the game. Because we didn\u2019t finish the boss fight."
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 0ec289470a8d3254ba7dcc286f298e5d, type: 3}
     Name: 'the Architect [Architect]'
     Speech: 'Still figuring out the ending, so '
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 0ec289470a8d3254ba7dcc286f298e5d, type: 3}
     Name: 'the Architect [Architect]'
     Speech: "It's dangerous to go alone, take [F12] and\u2026"
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 0ec289470a8d3254ba7dcc286f298e5d, type: 3}
     Name: 'the Architect [Architect]'
     Speech: "To be continued\u2026"
-  - Avatar: {fileID: 0}
+  - Avatar: {fileID: 21300000, guid: 0ec289470a8d3254ba7dcc286f298e5d, type: 3}
     Name: 'the Architect [Architect]'
     Speech: "(We\u2019ll mb patch in the boss fight. Maybe even some new content.)"
