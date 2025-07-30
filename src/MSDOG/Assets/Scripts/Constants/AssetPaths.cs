@@ -14,18 +14,9 @@ namespace Constants
 
         public const string ExperiencePiecePrefab = "Prefabs/ExperiencePiece";
 
-        public const string WandererEnemyPrefab = "Prefabs/Actors/EnemyWanderer";
-        public const string MeleeEnemyPrefab = "Prefabs/Actors/EnemyMelee";
-        public const string RangeEnemyPrefab = "Prefabs/Actors/EnemyRange";
-
-        public const string WandererEnemyDeathkitPrefab = "Prefabs/Actors/EnemyWandererDeathkit";
-        public const string MeleeEnemyDeathkitPrefab = "Prefabs/Actors/EnemyMeleeDeathkit";
-        public const string RangeEnemyDeathkitPrefab = "Prefabs/Actors/EnemyRangeDeathkit";
-
         // Data
         public const string LevelsData = "Data/Levels";
         public const string AbilitiesData = "Data/Abilities";
-        public const string LevelAbilityData = "Data/LevelAbilityData";
         public const string AbilityUpgradesData = "Data/AbilityUpgradesData";
         public const string SettingsData = "Data/SettingsData";
         public const string SoundSettingsData = "Data/SoundSettingsData";
@@ -49,5 +40,7 @@ namespace Constants
 
         public const string AntiGravityFollowingVFXPath = "Prefabs/Vfx/AbilityVFX/AntiGravity";
         public const string EnergyShieldFollowingVFXPath = "Prefabs/Vfx/AbilityVFX/EnergyShield";
+
+        public const string DamageTextViewPrefabPath = "Prefabs/DamageTextView";
     }
 }

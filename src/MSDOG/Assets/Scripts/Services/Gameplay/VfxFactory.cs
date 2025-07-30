@@ -1,6 +1,7 @@
 using System;
 using Constants;
 using Core;
+using UI;
 using UnityEngine;
 using UtilityComponents;
 using VFX;
@@ -11,6 +12,7 @@ namespace Services.Gameplay
     {
         private readonly Vector3 _playerAbilityVfxOffset = Vector3.up * 1f;
         private readonly Vector3 _playerSlashEffectVfxOffset = Vector3.up * 1.55f;
+        private readonly Vector3 _damageTextOffset = Vector3.up * 3f;
 
         private readonly AssetProviderService _assetProviderService;
 
@@ -80,6 +82,13 @@ namespace Services.Gameplay
             var effect = _assetProviderService.Instantiate<FollowingAbilityEffect>(AssetPaths.EnergyShieldFollowingVFXPath);
             effect.Init(player);
             return effect;
+        }
+
+        public void CreateDamageTextEffect(int damageDealt, Vector3 position)
+        {
+            var damageTextView = _assetProviderService.Instantiate<DamageTextView>(AssetPaths.DamageTextViewPrefabPath,
+                position + _damageTextOffset, Quaternion.Euler(90f, 0f, 0f));
+            damageTextView.Init(damageDealt);
         }
     }
 }

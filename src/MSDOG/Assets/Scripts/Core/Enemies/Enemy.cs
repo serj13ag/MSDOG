@@ -117,7 +117,12 @@ namespace Core.Enemies
 
         public void TakeDamage(int damage)
         {
+            var healthBefore = _healthBlock.CurrentHealth;
             _healthBlock.ReduceHealth(damage);
+            var healthAfter = _healthBlock.CurrentHealth;
+            var damageDealt = healthBefore - healthAfter;
+            _vfxFactory.CreateDamageTextEffect(damageDealt, transform.position);
+
             if (_healthBlock.HasZeroHealth)
             {
                 _gameFactory.CreateExperiencePiece(transform.position, _experience);
