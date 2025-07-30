@@ -68,7 +68,16 @@ namespace Services.Gameplay
             GUILayout.BeginVertical(style);
 
             GUILayout.Label("GENERAL");
+            DrawGeneral(style);
 
+            GUILayout.Label("ABILITIES");
+            DrawAbilities(style);
+
+            GUILayout.EndVertical();
+        }
+
+        private void DrawGeneral(GUIStyle style)
+        {
             if (GUILayout.Button("Pause/Unpause", style))
             {
                 if (_updateService.IsPaused)
@@ -104,9 +113,10 @@ namespace Services.Gameplay
             {
                 OnKillAllEnemiesRequested?.Invoke(this, EventArgs.Empty);
             }
+        }
 
-            GUILayout.Label("ABILITIES");
-
+        private void DrawAbilities(GUIStyle style)
+        {
             var abilities = _dataService.GetAbilitiesData();
             foreach (var abilityData in abilities)
             {
@@ -115,8 +125,6 @@ namespace Services.Gameplay
                     _hudController.AddAbility(abilityData);
                 }
             }
-
-            GUILayout.EndVertical();
         }
 
         private static Texture2D CreateTexture(int width, int height, Color color)
