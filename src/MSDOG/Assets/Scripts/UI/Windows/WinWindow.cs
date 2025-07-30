@@ -30,6 +30,8 @@ namespace UI.Windows
             _inputService = inputService;
             _dataService = dataService;
             _gameStateService = gameStateService;
+
+            _toNextLevelButton.gameObject.SetActive(!gameStateService.IsLastLevel);
         }
 
         private void OnEnable()
@@ -49,6 +51,7 @@ namespace UI.Windows
             }
             else
             {
+                Debug.LogWarning("This is last level! Going to main menu.");
                 _gameStateMachine.Enter<MainMenuState>();
             }
 

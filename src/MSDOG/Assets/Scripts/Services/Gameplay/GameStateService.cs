@@ -17,6 +17,7 @@ namespace Services.Gameplay
         private Player _player;
 
         public int CurrentLevelIndex => _levelIndex;
+        public bool IsLastLevel => _isLastLevel;
 
         public GameStateService(EnemyService enemyService, WindowService windowService, ProgressService progressService,
             DialogueService dialogueService, SoundService soundService)
