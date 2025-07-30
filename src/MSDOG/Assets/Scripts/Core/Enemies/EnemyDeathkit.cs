@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 namespace Core.Enemies
@@ -8,6 +9,7 @@ namespace Core.Enemies
         [SerializeField] private Transform _forceCenter;
         [SerializeField] private float _force;
         [SerializeField] private float _forceRadius;
+        [SerializeField] private float _hideCooldown = 5f;
 
         public void Init()
         {
@@ -29,9 +31,18 @@ namespace Core.Enemies
                 //
                 // Vector3 direction = (part.position - impactPoint).normalized;
                 // rb.AddForce(direction * explosionForce * 0.5f);
-
-                Destroy(gameObject, 5f);
             }
+
+            DOTween.Sequence()
+                .InsertCallback(_hideCooldown, () =>
+                {
+                    foreach (var part in _parts)
+                    {
+                        part.GetComponent<Rigidbody>().isKinematic = true;
+                    }
+                })
+                .Insert(_hideCooldown, transform.DOMoveY(-2f, 5f))
+                .OnComplete(() => Destroy(gameObject));
         }
     }
 }
