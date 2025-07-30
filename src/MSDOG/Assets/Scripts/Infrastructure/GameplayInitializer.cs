@@ -37,7 +37,8 @@ namespace Infrastructure
         {
             var player = _gameFactory.CreatePlayer();
 
-            _gameStateService.RegisterPlayer(player, levelIndex);
+            var isLastLevel = _dataService.GetNumberOfLevels() == levelIndex + 1;
+            _gameStateService.RegisterPlayer(player, levelIndex, isLastLevel);
             _cameraService.SetFollowTarget(player.transform);
             _levelViewService.InitializeLevel(levelIndex);
             _enemyService.SetupLevel(levelIndex, player.transform);

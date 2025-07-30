@@ -13,6 +13,7 @@ namespace Services.Gameplay
         private readonly SoundService _soundService;
 
         private int _levelIndex;
+        private bool _isLastLevel;
         private Player _player;
 
         public int CurrentLevelIndex => _levelIndex;
@@ -29,9 +30,10 @@ namespace Services.Gameplay
             _enemyService.OnAllEnemiesDied += OnAllEnemiesDied;
         }
 
-        public void RegisterPlayer(Player player, int levelIndex)
+        public void RegisterPlayer(Player player, int levelIndex, bool isLastLevel)
         {
             _levelIndex = levelIndex;
+            _isLastLevel = isLastLevel;
             _player = player;
 
             player.OnHealthChanged += OnPlayerHealthChanged;
@@ -51,10 +53,17 @@ namespace Services.Gameplay
         {
             _progressService.SetLastPassedLevel(_levelIndex);
 
-            if (!_dialogueService.TryShowEndLevelDialogue(_levelIndex, ShowWinWindow))
+            Action dialogueEndedAction = _isLastLevel ? ShowCreditsAndWinWindow : ShowWinWindow;
+            if (!_dialogueService.TryShowEndLevelDialogue(_levelIndex, dialogueEndedAction))
             {
-                ShowWinWindow();
+                dialogueEndedAction.Invoke();
             }
+        }
+
+        private void ShowCreditsAndWinWindow()
+        {
+            _windowService.ShowWinWindow();
+            _windowService.ShowCreditsWindow();
         }
 
         private void ShowWinWindow()
