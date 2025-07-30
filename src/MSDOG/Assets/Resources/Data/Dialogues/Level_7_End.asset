@@ -47,7 +47,7 @@ MonoBehaviour:
   - Avatar: {fileID: 21300000, guid: 0ec289470a8d3254ba7dcc286f298e5d, type: 3}
     Name: 'the Architect [Architect]'
     Speech: 'Still figuring out the ending, so '
-  - Avatar: {fileID: 21300000, guid: 0ec289470a8d3254ba7dcc286f298e5d, type: 3}
+  - Avatar: {fileID: 21300000, guid: 85405423d332a0646826e434cf625f0d, type: 3}
     Name: 'the Architect [Architect]'
     Speech: "It's dangerous to go alone, take [F12] and\u2026"
   - Avatar: {fileID: 21300000, guid: 0ec289470a8d3254ba7dcc286f298e5d, type: 3}

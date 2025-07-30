@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AbilityType: 5
   Level: 2
-  Damage: 5
+  Damage: 9
   Cooldown: 7
   FirstCooldownReduction: 6
   Speed: 6

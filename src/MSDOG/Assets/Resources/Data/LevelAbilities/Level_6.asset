@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_6
   m_EditorClassIdentifier: 
   StartAbilities:
-  - {fileID: 11400000, guid: 9fa7f6729c519f74abcdc6172df88ea5, type: 2}
+  - {fileID: 11400000, guid: 37427e44be6666746a2e0e4570fbe6e3, type: 2}
   - {fileID: 11400000, guid: 70104f215e0ca9e4db588c10745b9f6d, type: 2}
   AbilitiesAvailableToCraft:
   - {fileID: 11400000, guid: 37427e44be6666746a2e0e4570fbe6e3, type: 2}

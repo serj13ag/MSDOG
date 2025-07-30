@@ -16,7 +16,7 @@ MonoBehaviour:
   Speed: 1.5
   MaxHealth: 80
   Cooldown: 0
-  Damage: 30
+  Damage: 25
   ProjectileSpeed: 0
   Experience: 40
   Prefab: {fileID: 1731465627681447288, guid: 9acd66bf1255ea545b12a6f98640127a, type: 3}
