@@ -1,3 +1,4 @@
+using System;
 using UI.HUD;
 using UnityEngine;
 using VContainer;
@@ -8,16 +9,21 @@ namespace Services.Gameplay
     {
         private UpdateService _updateService;
         private DataService _dataService;
-        private EnemyService _enemyService;
 
         private HudController _hudController;
 
         private bool _isActive;
 
+        public bool DebugHpIsVisible { get; private set; }
+
+        public event EventHandler<EventArgs> OnShowDebugHealthBar;
+        public event EventHandler<EventArgs> OnHideDebugHealthBar;
+        public event EventHandler<EventArgs> OnForceSpawnEnemiesRequested;
+        public event EventHandler<EventArgs> OnKillAllEnemiesRequested;
+
         [Inject]
-        public void Construct(UpdateService updateService, DataService dataService, EnemyService enemyService)
+        public void Construct(UpdateService updateService, DataService dataService)
         {
-            _enemyService = enemyService;
             _dataService = dataService;
             _updateService = updateService;
         }
@@ -75,14 +81,28 @@ namespace Services.Gameplay
                 }
             }
 
+            if (GUILayout.Button("Show Debug HP", style))
+            {
+                if (DebugHpIsVisible)
+                {
+                    DebugHpIsVisible = false;
+                    OnHideDebugHealthBar?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    DebugHpIsVisible = true;
+                    OnShowDebugHealthBar?.Invoke(this, EventArgs.Empty);
+                }
+            }
+
             if (GUILayout.Button("Force spawn", style))
             {
-                _enemyService.ForceSpawn();
+                OnForceSpawnEnemiesRequested?.Invoke(this, EventArgs.Empty);
             }
-            
+
             if (GUILayout.Button("Kill enemies", style))
             {
-                _enemyService.KillEnemies();
+                OnKillAllEnemiesRequested?.Invoke(this, EventArgs.Empty);
             }
 
             GUILayout.Label("ABILITIES");

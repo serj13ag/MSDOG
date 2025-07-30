@@ -1,4 +1,6 @@
+using System;
 using Core;
+using Services.Gameplay;
 using TMPro;
 using UnityEngine;
 
@@ -8,8 +10,9 @@ namespace UI
     {
         [SerializeField] private TMP_Text _text;
 
-        private HealthBlock _healthBlock;
+        private DebugService _debugService;
 
+        private HealthBlock _healthBlock;
         private Camera _mainCamera;
 
         private void Awake()
@@ -17,18 +20,38 @@ namespace UI
             _mainCamera = Camera.main;
         }
 
-        public void Init(HealthBlock healthBlock)
+        public void Init(HealthBlock healthBlock, DebugService debugService)
         {
+            _debugService = debugService;
             _healthBlock = healthBlock;
+
+            if (!debugService.DebugHpIsVisible)
+            {
+                gameObject.SetActive(false);
+            }
 
             UpdateText();
 
             healthBlock.OnHealthChanged += UpdateText;
+            debugService.OnShowDebugHealthBar += OnShowDebugHealthBar;
+            debugService.OnHideDebugHealthBar += OnHideDebugHealthBar;
         }
 
         private void Update()
         {
             transform.rotation = _mainCamera.transform.rotation;
+        }
+
+        private void OnHideDebugHealthBar(object sender, EventArgs e)
+        {
+            gameObject.SetActive(false);
+        }
+
+        private void OnShowDebugHealthBar(object sender, EventArgs e)
+        {
+            UpdateText();
+
+            gameObject.SetActive(true);
         }
 
         private void UpdateText()
@@ -39,6 +62,8 @@ namespace UI
         private void OnDestroy()
         {
             _healthBlock.OnHealthChanged -= UpdateText;
+            _debugService.OnShowDebugHealthBar -= OnShowDebugHealthBar;
+            _debugService.OnHideDebugHealthBar -= OnHideDebugHealthBar;
         }
     }
 }

@@ -20,6 +20,7 @@ namespace Services.Gameplay
         private readonly ArenaService _arenaService;
         private readonly UpdateService _updateService;
         private readonly DataService _dataService;
+        private readonly DebugService _debugService;
 
         private bool _isActive;
         private Transform _playerTransform;
@@ -32,14 +33,18 @@ namespace Services.Gameplay
         public event Action OnAllEnemiesDied;
 
         public EnemyService(UpdateService updateService, DataService dataService, GameFactory gameFactory,
-            ArenaService arenaService)
+            ArenaService arenaService, DebugService debugService)
         {
+            _debugService = debugService;
             _gameFactory = gameFactory;
             _arenaService = arenaService;
             _updateService = updateService;
             _dataService = dataService;
 
             updateService.Register(this);
+
+            debugService.OnForceSpawnEnemiesRequested += OnForceSpawnEnemiesRequested;
+            debugService.OnKillAllEnemiesRequested += OnKillAllEnemiesRequested;
         }
 
         public void SetupLevel(int levelIndex, Transform playerTransform)
@@ -77,12 +82,12 @@ namespace Services.Gameplay
             }
         }
 
-        public void ForceSpawn()
+        private void OnForceSpawnEnemiesRequested(object sender, EventArgs e)
         {
             _timeTillSpawnNextWave = 0f;
         }
 
-        public void KillEnemies()
+        private void OnKillAllEnemiesRequested(object sender, EventArgs e)
         {
             foreach (var enemy in _enemies.ToArray())
             {
@@ -178,6 +183,9 @@ namespace Services.Gameplay
         public void Dispose()
         {
             _updateService.Remove(this);
+
+            _debugService.OnForceSpawnEnemiesRequested += OnForceSpawnEnemiesRequested;
+            _debugService.OnKillAllEnemiesRequested += OnKillAllEnemiesRequested;
         }
     }
 }

@@ -15,6 +15,10 @@ namespace Infrastructure
             builder.RegisterComponent(_cameraService);
             builder.RegisterComponent(_levelViewService);
 
+            builder.RegisterComponentOnNewGameObject<DebugService>(Lifetime.Scoped, "DebugService");
+
+            RegisterContainers(builder);
+
             builder.Register<InputService>(Lifetime.Scoped);
             builder.Register<ArenaService>(Lifetime.Scoped);
             builder.Register<ProjectileFactory>(Lifetime.Scoped);
@@ -25,10 +29,6 @@ namespace Infrastructure
             builder.Register<GameplayWindowFactory>(Lifetime.Scoped);
             builder.Register<VfxFactory>(Lifetime.Scoped);
 
-            var debugService = new GameObject("DebugService").AddComponent<DebugService>();
-            builder.RegisterComponent(debugService);
-
-            RegisterContainers(builder);
 
             builder.Register<GameplayInitializer>(Lifetime.Scoped);
         }
