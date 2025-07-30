@@ -10,6 +10,7 @@ namespace Core.Enemies
         [SerializeField] private float _force;
         [SerializeField] private float _forceRadius;
         [SerializeField] private float _hideCooldown = 5f;
+        [SerializeField] private float _torqueMultiplier = 10f;
 
         public void Init()
         {
@@ -22,15 +23,12 @@ namespace Core.Enemies
 
                 rb.AddExplosionForce(_force, _forceCenter.transform.position, _forceRadius);
 
-                // var randomTorque = new Vector3(
-                //     Random.Range(-torqueMultiplier, torqueMultiplier),
-                //     Random.Range(-torqueMultiplier, torqueMultiplier),
-                //     Random.Range(-torqueMultiplier, torqueMultiplier)
-                // );
-                // rb.AddTorque(randomTorque);
-                //
-                // Vector3 direction = (part.position - impactPoint).normalized;
-                // rb.AddForce(direction * explosionForce * 0.5f);
+                var randomTorque = new Vector3(
+                    Random.Range(-_torqueMultiplier, _torqueMultiplier),
+                    Random.Range(-_torqueMultiplier, _torqueMultiplier),
+                    Random.Range(-_torqueMultiplier, _torqueMultiplier)
+                );
+                rb.AddTorque(randomTorque);
             }
 
             DOTween.Sequence()
