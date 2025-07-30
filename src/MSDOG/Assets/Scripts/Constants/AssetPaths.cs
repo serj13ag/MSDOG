@@ -29,6 +29,7 @@ namespace Constants
         public const string OptionsWindowPath = "Prefabs/Ui/OptionsWindow";
         public const string CreditsWindowPath = "Prefabs/Ui/CreditsWindow";
         public const string DialogueWindowPath = "Prefabs/Ui/DialogueWindow";
+        public const string TutorialWindowPath = "Prefabs/Ui/TutorialWindow";
         public const string EscapeWindowPath = "Prefabs/Ui/EscapeWindow";
 
         // VFX

@@ -40,5 +40,13 @@ namespace Services.Gameplay
             dialogueWindow.Init(dialogueData, onDialogueCompleted);
             return dialogueWindow;
         }
+
+        public IWindow CreateTutorialWindow(TutorialEventData tutorialEventData, Transform canvasTransform)
+        {
+            var dialogueWindow =
+                _assetProviderService.Instantiate<TutorialWindow>(AssetPaths.TutorialWindowPath, canvasTransform, _container);
+            dialogueWindow.Init(tutorialEventData);
+            return dialogueWindow;
+        }
     }
 }
