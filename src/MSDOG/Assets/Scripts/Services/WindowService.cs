@@ -52,6 +52,12 @@ namespace Services
             ShowWindow(optionsWindow);
         }
 
+        public void ShowCreditsWindow()
+        {
+            var creditsWindow = _globalWindowFactory.CreateCreditsWindow(_canvas.transform);
+            ShowWindow(creditsWindow);
+        }
+
         public void ShowEscapeWindow()
         {
             var escapeWindow = _gameplayWindowFactory.CreateEscapeWindow(_canvas.transform);

@@ -29,7 +29,6 @@ namespace Infrastructure
             builder.Register<GameplayWindowFactory>(Lifetime.Scoped);
             builder.Register<VfxFactory>(Lifetime.Scoped);
 
-
             builder.Register<GameplayInitializer>(Lifetime.Scoped);
         }
 

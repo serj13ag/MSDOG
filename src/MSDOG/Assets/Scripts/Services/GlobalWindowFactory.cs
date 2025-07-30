@@ -22,5 +22,10 @@ namespace Services
         {
             return _assetProviderService.Instantiate<OptionsWindow>(AssetPaths.OptionsWindowPath, canvasTransform, _container);
         }
+
+        public CreditsWindow CreateCreditsWindow(Transform canvasTransform)
+        {
+            return _assetProviderService.Instantiate<CreditsWindow>(AssetPaths.CreditsWindowPath, canvasTransform, _container);
+        }
     }
 }

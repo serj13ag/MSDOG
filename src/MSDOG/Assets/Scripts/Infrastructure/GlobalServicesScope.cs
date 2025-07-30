@@ -21,11 +21,8 @@ namespace Infrastructure
 
         protected override void ConfigureContainer(IContainerBuilder builder)
         {
-            var coroutineService = new GameObject("CoroutineService").AddComponent<CoroutineService>();
-            builder.RegisterComponent(coroutineService);
-
-            var updateService = new GameObject("UpdateService").AddComponent<UpdateService>();
-            builder.RegisterComponent(updateService);
+            builder.RegisterComponentOnNewGameObject<CoroutineService>(Lifetime.Singleton, "CoroutineService");
+            builder.RegisterComponentOnNewGameObject<UpdateService>(Lifetime.Singleton, "UpdateService");
 
             builder.Register<BootstrapState>(Lifetime.Singleton);
             builder.Register<MainMenuState>(Lifetime.Singleton);
