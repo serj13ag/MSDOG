@@ -142,7 +142,7 @@ MonoBehaviour:
     - Data: {fileID: 11400000, guid: 8886141ffb74931469fc4d1712f9e96d, type: 2}
       Count: 2
     TimeTillNextWave: 12
-  StartDialogue: {fileID: 0}
-  EndDialogue: {fileID: 0}
+  StartDialogue: {fileID: 11400000, guid: b46dc4365c9ad4e468ba2b217cc13832, type: 2}
+  EndDialogue: {fileID: 11400000, guid: 7356caaef0c61be4ea4d53e839fafc5c, type: 2}
   FloorMaterial: {fileID: 2100000, guid: e34cc2161fb90f5418c7ac367c2757a7, type: 2}
   Music: {fileID: 8300000, guid: 0b19b795b7c89f44ab7d52b92fa39275, type: 3}

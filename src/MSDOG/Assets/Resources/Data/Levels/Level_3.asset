@@ -174,7 +174,7 @@ MonoBehaviour:
     - Data: {fileID: 11400000, guid: 4308813194b17ec4380d05a6067244a5, type: 2}
       Count: 4
     TimeTillNextWave: 10
-  StartDialogue: {fileID: 0}
-  EndDialogue: {fileID: 0}
+  StartDialogue: {fileID: 11400000, guid: c0a2d3f47de39ca4f9c035f6bf6df16b, type: 2}
+  EndDialogue: {fileID: 11400000, guid: a6549c128eecb6248b6bab7f3656a19e, type: 2}
   FloorMaterial: {fileID: 2100000, guid: 0bf3d083ea761294b8954e611299d5c1, type: 2}
   Music: {fileID: 8300000, guid: a7416c86698130044af09ef84b52acb7, type: 3}

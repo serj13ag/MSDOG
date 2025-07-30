@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e55747479a264a81a969b2e7e5597b33, type: 3}
-  m_Name: Level_0_Start
+  m_Name: Level_1_Start
   m_EditorClassIdentifier: 
   DialogueStages:
   - Avatar: {fileID: 0}
     Name: 'Hue S. Muth [Operator]'
-    Speech: "Let\u2019s see if this thing even boots up. What? Click to continue?
-      Continue what?"
+    Speech: "Guess I\u2019ll do some drills while my informant sniffs out the intel."
   - Avatar: {fileID: 0}
     Name: 'Hue S. Muth [Operator]'
-    Speech: "Oh, I get it. Let\u2019s see what this Raidhound can really do. That
-      Dogzilla model was a steal."
+    Speech: And maybe craft a few more gear mods for the Raidhound.

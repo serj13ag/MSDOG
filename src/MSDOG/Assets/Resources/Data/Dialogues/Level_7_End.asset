@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e55747479a264a81a969b2e7e5597b33, type: 3}
+  m_Name: Level_7_End
+  m_EditorClassIdentifier: 
+  DialogueStages:
+  - Avatar: {fileID: 0}
+    Name: '[System Log]'
+    Speech: "FELIMANCER-class unit approaching\u2026"
+  - Avatar: {fileID: 0}
+    Name: 'Hue S. Muth [Operator]'
+    Speech: "Great. A magic cat. That\u2019s all we needed."
+  - Avatar: {fileID: 0}
+    Name: 'HEXNEKO [Felimancer]'
+    Speech: Kept you whirring, huh? Glitchy robot?
+  - Avatar: {fileID: 0}
+    Name: 'Hue S. Muth [Operator]'
+    Speech: ...
+  - Avatar: {fileID: 0}
+    Name: 'HEXNEKO [Felimancer]'
+    Speech: Curious. How did you bypass robotics law with this Raidhound?
+  - Avatar: {fileID: 0}
+    Name: 'Hue S. Muth [Operator]'
+    Speech: ...
+  - Avatar: {fileID: 0}
+    Name: 'HEXNEKO [Felimancer]'
+    Speech: "I see\u2026 You damaged its recognition circuits. Now it thinks it\u2019s
+      fighting anything but humans."
+  - Avatar: {fileID: 0}
+    Name: 'Hue S. Muth [Operator]'
+    Speech: ...
+  - Avatar: {fileID: 0}
+    Name: 'the Architect [Architect]'
+    Speech: You reached the Central Core and...
+  - Avatar: {fileID: 0}
+    Name: 'the Architect [Architect]'
+    Speech: "beat the game. Because we didn\u2019t finish the boss fight."
+  - Avatar: {fileID: 0}
+    Name: 'the Architect [Architect]'
+    Speech: 'Still figuring out the ending, so '
+  - Avatar: {fileID: 0}
+    Name: 'the Architect [Architect]'
+    Speech: "It's dangerous to go alone, take [F12] and\u2026"
+  - Avatar: {fileID: 0}
+    Name: 'the Architect [Architect]'
+    Speech: "To be continued\u2026"
+  - Avatar: {fileID: 0}
+    Name: 'the Architect [Architect]'
+    Speech: "(We\u2019ll mb patch in the boss fight. Maybe even some new content.)"

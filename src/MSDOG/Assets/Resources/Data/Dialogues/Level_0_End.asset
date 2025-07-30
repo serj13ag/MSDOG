@@ -15,13 +15,8 @@ MonoBehaviour:
   DialogueStages:
   - Avatar: {fileID: 0}
     Name: 'Hue S. Muth [Operator]'
-    Speech: OK, we're about to get this nano-machines
-  - Avatar: {fileID: 0}
-    Name: '[System Log]'
-    Speech: FELIMANCER-class unit approaching...
+    Speech: Of course, half the systems barely work. This fuse keeps tripping like
+      it's 1999.
   - Avatar: {fileID: 0}
     Name: 'Hue S. Muth [Operator]'
-    Speech: "Great. A magic cat. That\u2019s all we needed"
-  - Avatar: {fileID: 0}
-    Name: HEXNEKO
-    Speech: Kept you whirring, huh?
+    Speech: Whatever. I can work with this.
