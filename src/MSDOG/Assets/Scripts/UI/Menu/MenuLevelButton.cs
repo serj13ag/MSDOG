@@ -22,11 +22,17 @@ namespace UI.Menu
             _gameStateMachine = gameStateMachine;
         }
 
-        public void Init(LevelData levelData)
+        public void Init(LevelData levelData, bool isAvailable)
         {
             _levelIndex = levelData.LevelIndex;
 
             _text.text = levelData.LevelName;
+
+            var textColor = _text.color;
+            textColor.a = isAvailable ? 1f : 0.1f;
+            _text.color = textColor;
+
+            _button.interactable = isAvailable;
         }
 
         private void OnEnable()

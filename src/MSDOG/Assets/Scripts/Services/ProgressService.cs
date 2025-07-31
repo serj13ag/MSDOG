@@ -8,7 +8,7 @@ namespace Services
 
         private int _lastPassedLevel;
 
-        public int LastPassedLevel => Application.isEditor ? 50 : _lastPassedLevel;
+        public int LastPassedLevel => _lastPassedLevel;
 
         public ProgressService()
         {
