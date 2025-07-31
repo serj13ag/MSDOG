@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_7
   m_EditorClassIdentifier: 
   LevelIndex: 7
-  LevelName: Broken hands
+  LevelName: Broken Hands
   LevelAbilityData: {fileID: 11400000, guid: 71e83f8ccac936e4e81db62e165ff435, type: 2}
   Waves:
   - Enemies:

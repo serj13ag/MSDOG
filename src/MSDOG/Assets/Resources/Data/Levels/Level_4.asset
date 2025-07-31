@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_4
   m_EditorClassIdentifier: 
   LevelIndex: 4
-  LevelName: The darkest nights
+  LevelName: The Darkest Nights
   LevelAbilityData: {fileID: 11400000, guid: 336c91ba0fa80ab49aa13b559e572f0e, type: 2}
   Waves:
   - Enemies:

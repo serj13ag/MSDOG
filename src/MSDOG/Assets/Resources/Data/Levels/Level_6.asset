@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_6
   m_EditorClassIdentifier: 
   LevelIndex: 6
-  LevelName: Show no mercy
+  LevelName: Show No Mercy
   LevelAbilityData: {fileID: 11400000, guid: 0c55d14700ae2e14684a4a7d5a47047f, type: 2}
   Waves:
   - Enemies:
