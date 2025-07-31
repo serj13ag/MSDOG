@@ -35,6 +35,15 @@ namespace UI.Menu
             _button.interactable = isAvailable;
         }
 
+        public void UpdateIsAvailable(bool isAvailable)
+        {
+            var textColor = _text.color;
+            textColor.a = isAvailable ? 1f : 0.1f;
+            _text.color = textColor;
+
+            _button.interactable = isAvailable;
+        }
+
         private void OnEnable()
         {
             _button.onClick.AddListener(EnterLevel);

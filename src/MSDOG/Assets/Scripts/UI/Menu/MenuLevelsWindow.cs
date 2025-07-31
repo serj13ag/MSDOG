@@ -12,6 +12,7 @@ namespace UI.Menu
         [SerializeField] private MenuLevelButton _levelButtonPrefab;
         [SerializeField] private Transform _buttonsContainer;
         [SerializeField] private Button _backButton;
+        [SerializeField] private Button _unlockLevelsButton;
 
         private readonly List<MenuLevelButton> _buttons = new List<MenuLevelButton>();
 
@@ -30,11 +31,13 @@ namespace UI.Menu
         private void OnEnable()
         {
             _backButton.onClick.AddListener(Hide);
+            _unlockLevelsButton.onClick.AddListener(UnlockLevels);
         }
 
         private void OnDisable()
         {
             _backButton.onClick.RemoveListener(Hide);
+            _unlockLevelsButton.onClick.RemoveListener(UnlockLevels);
         }
 
         public void Show()
@@ -54,6 +57,19 @@ namespace UI.Menu
             gameObject.SetActive(true);
         }
 
+        private void UnlockLevels()
+        {
+            _progressService.UnlockAllLevels();
+
+            var lastPassedLevel = _progressService.LastPassedLevel;
+            for (var i = 0; i < _buttons.Count; i++)
+            {
+                var button = _buttons[i];
+                var isAvailable = i <= lastPassedLevel + 1;
+                button.UpdateIsAvailable(isAvailable);
+            }
+        }
+        
         private void Hide()
         {
             gameObject.SetActive(false);

@@ -21,5 +21,10 @@ namespace Services
             PlayerPrefs.SetInt(LastPassedLevelKey, level);
             PlayerPrefs.Save();
         }
+
+        public void UnlockAllLevels()
+        {
+            SetLastPassedLevel(50);
+        }
     }
 }
