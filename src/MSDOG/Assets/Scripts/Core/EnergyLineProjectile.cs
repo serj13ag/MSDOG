@@ -12,7 +12,7 @@ namespace Core
     public class EnergyLineProjectile : MonoBehaviour, IUpdatable
     {
         private readonly Vector3 _playerProjectileOffset = Vector3.up * 1f; // TODO: to player?
-        private const float LaserRange = 10f;
+        private const float LaserRange = 15f;
 
         [SerializeField] private GameObject _boxObject;
         [SerializeField] private GameObject _spriteObject;
