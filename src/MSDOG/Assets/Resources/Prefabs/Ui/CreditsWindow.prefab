@@ -140,25 +140,26 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Animation
+  m_text: 'Dmitrii Snatenkov
 
-    Dmitry Snatenkov
-
-
-    Programming
-
-    Serj Agafonov
+    [Gamedesighn, Animation, VFX, Narrative]
 
 
-    3D
-    Models
+    Serj
+    Agafonov
 
-    AIN
+    [Programming, Tools]
 
 
-    ART
+    Arkadiy Nabirenkov
 
-    teddydhc'
+    [3D Modelling,
+    mobs desighn]
+
+
+    Dmitry Demidov
+
+    [2D Art]'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 35eb5cdf75c167f4191a290eca2b92a3, type: 2}
   m_sharedMaterial: {fileID: 7385184557452139992, guid: 35eb5cdf75c167f4191a290eca2b92a3, type: 2}
