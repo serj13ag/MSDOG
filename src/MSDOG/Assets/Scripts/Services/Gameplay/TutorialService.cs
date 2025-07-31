@@ -49,7 +49,13 @@ namespace Services.Gameplay
 
         public void OnFuseActionDisconnected()
         {
+            TryShowTutorialWindow(TutorialEventType.Nitro);
             TryShowTutorialWindow(TutorialEventType.MovementSwitch);
+        }
+
+        public void OnLevelActivated()
+        {
+            TryShowTutorialWindow(TutorialEventType.MovementWASD);
         }
 
         private void OnPlayerHealthChanged()

@@ -68,6 +68,7 @@ namespace Infrastructure
         private void ActivateLevel()
         {
             _enemyService.ActivateLevel();
+            _tutorialService.OnLevelActivated();
         }
     }
 }
