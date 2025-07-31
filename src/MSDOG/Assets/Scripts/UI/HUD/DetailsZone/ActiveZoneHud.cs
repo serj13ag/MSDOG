@@ -22,7 +22,7 @@ namespace UI.HUD.DetailsZone
         private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
 
         [Inject]
-        public void Construct(GameFactory gameFactory, AssetProviderService assetProviderService, SoundService soundService)
+        public void Construct(GameFactory gameFactory, AssetProviderService assetProviderService)
         {
             _gameFactory = gameFactory;
             _assetProviderService = assetProviderService;
@@ -77,6 +77,14 @@ namespace UI.HUD.DetailsZone
         {
             _detailParts.Remove(detailPart.Id);
             _gameFactory.Player.RemoveAbility(detailPart.Id);
+        }
+
+        public IEnumerable<DetailPartHud> GetDetailParts()
+        {
+            foreach (var detailPart in _detailParts)
+            {
+                yield return detailPart.Value;
+            }
         }
     }
 }

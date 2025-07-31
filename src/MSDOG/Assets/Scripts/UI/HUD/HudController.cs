@@ -39,6 +39,7 @@ namespace UI.HUD
             // TODO: refactor
             _healthBarHud.Init();
             _experienceBarHud.Init(_detailsZoneHud);
+            _detailsZoneHud.Init(_activeZoneHud);
         }
 
         public void AddStartAbility()

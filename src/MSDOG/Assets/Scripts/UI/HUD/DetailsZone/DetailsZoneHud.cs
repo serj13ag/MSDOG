@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Constants;
 using Data;
 using Services;
+using Services.Gameplay;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,13 +19,21 @@ namespace UI.HUD.DetailsZone
         [SerializeField] private int _maxNumberOfParts;
 
         private AssetProviderService _assetProviderService;
+        private TutorialService _tutorialService;
+        private ActiveZoneHud _activeZoneHud;
 
         private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
 
         [Inject]
-        public void Construct(AssetProviderService assetProviderService)
+        public void Construct(AssetProviderService assetProviderService, TutorialService tutorialService)
         {
+            _tutorialService = tutorialService;
             _assetProviderService = assetProviderService;
+        }
+
+        public void Init(ActiveZoneHud activeZoneHud)
+        {
+            _activeZoneHud = activeZoneHud; // TODO: fix
         }
 
         public void CreateDetail(AbilityData abilityData)
@@ -68,11 +78,26 @@ namespace UI.HUD.DetailsZone
         {
             detailPart.transform.SetParent(_detailsGrid.transform);
             _detailParts.Add(detailPart.Id, detailPart);
+
+            if (HasSameDetails())
+            {
+                _tutorialService.OnHasTwoSameDetails();
+            }
         }
 
         public void Exit(DetailPartHud detailPart)
         {
             _detailParts.Remove(detailPart.Id);
+        }
+
+        private bool HasSameDetails()
+        {
+            // TODO: refactor
+            var allDetails = new List<DetailPartHud>(_detailParts.Values);
+            allDetails.AddRange(_activeZoneHud.GetDetailParts());
+            return allDetails
+                .GroupBy(a => new { a.AbilityData.AbilityType, a.AbilityData.Level })
+                .Any(g => g.Count() > 1);
         }
     }
 }
