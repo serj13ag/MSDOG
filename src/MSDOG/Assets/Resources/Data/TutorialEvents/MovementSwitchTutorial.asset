@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: MovementSwitchTutorial
   m_EditorClassIdentifier: 
   Type: 5
-  Title: Movement Switch
-  HintText: ---
-  Image: {fileID: 21300000, guid: a904c54a953d9ab47b70d69f609e1d81, type: 3}
+  Title: 
+  HintText: 
+  Image: {fileID: 21300000, guid: 9b438a323bcbd20479f1557c95b4f6bf, type: 3}

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: FusionTutorial
   m_EditorClassIdentifier: 
   Type: 2
-  Title: Fusion
-  HintText: ---
-  Image: {fileID: 21300000, guid: a904c54a953d9ab47b70d69f609e1d81, type: 3}
+  Title: 
+  HintText: 
+  Image: {fileID: 21300000, guid: 36628c91c4d5da141ab301cb5d8f5b3f, type: 3}

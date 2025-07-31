@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: ReloadTutorial
   m_EditorClassIdentifier: 
   Type: 4
-  Title: Reload
-  HintText: ---
-  Image: {fileID: 21300000, guid: a904c54a953d9ab47b70d69f609e1d81, type: 3}
+  Title: 
+  HintText: 
+  Image: {fileID: 21300000, guid: e9fa0a666751f22408cb5e819fd773ba, type: 3}

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: DestructionTutorial
   m_EditorClassIdentifier: 
   Type: 3
-  Title: Destruction
-  HintText: ---
-  Image: {fileID: 21300000, guid: a904c54a953d9ab47b70d69f609e1d81, type: 3}
+  Title: 
+  HintText: 
+  Image: {fileID: 21300000, guid: 0a498582e82993d4581848993a4e4be7, type: 3}
