@@ -13,6 +13,7 @@ namespace UI.HUD.Actions
         [SerializeField] private Camera _hudCamera;
         [SerializeField] private GameObject _handleObject;
         [SerializeField] private Image _fillImage;
+        [SerializeField] private AlarmIcon _alarmIcon;
         [SerializeField] private float _unwindSpeed = 40f;
         [SerializeField] private float _startingAngleLerp = 0.8f;
         [SerializeField] private float _maxAngle = 1080f;
@@ -111,8 +112,13 @@ namespace UI.HUD.Actions
 
             if (angleIsZero)
             {
+                _alarmIcon.ActivateAlarm();
                 _soundService.PlaySfx(SfxType.NeedReload);
                 _tutorialService.OnReloadNeeded();
+            }
+            else
+            {
+                _alarmIcon.DeactivateAlarm();
             }
 
             _handleObject.transform.Rotate(Vector3.back, oldAngle - _currentAngle);

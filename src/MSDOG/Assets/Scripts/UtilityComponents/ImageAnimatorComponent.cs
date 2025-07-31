@@ -1,11 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UtilityComponents
 {
-    public class SpriteAnimatorComponent : MonoBehaviour
+    public class ImageAnimatorComponent : MonoBehaviour
     {
-        // TODO: base class
-        [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private Image _image;
         [SerializeField] private Sprite[] _sprites;
         [SerializeField] private float _timePerFrame;
         [SerializeField] private bool _isLooped;
@@ -95,7 +95,7 @@ namespace UtilityComponents
 
         private void ChangeSprite(Sprite sprite)
         {
-            _spriteRenderer.sprite = sprite;
+            _image.sprite = sprite;
         }
 
         private void ResetAndUpdateSprite()

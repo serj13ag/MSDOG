@@ -12,6 +12,7 @@ namespace UI.HUD.Actions
         [SerializeField] private Camera _hudCamera;
         [SerializeField] private GameObject _handleObject;
         [SerializeField] private Image _fillImage;
+        [SerializeField] private AlarmIcon _alarmIcon;
         [SerializeField] private float _minAngle = 270;
         [SerializeField] private float _maxAngle = 200;
         [SerializeField] private float _distanceToSwitch = 250f;
@@ -128,6 +129,7 @@ namespace UI.HUD.Actions
             _connected = true;
             _previousPlayerPosition = null;
             SetLocalRotation(_maxAngle);
+            _alarmIcon.DeactivateAlarm();
 
             _player.MovementSetActive(true);
             _soundService.PlaySfx(SfxType.LeverUp);
@@ -138,6 +140,7 @@ namespace UI.HUD.Actions
             _connected = false;
             _counter = 0f;
             SetLocalRotation(_minAngle);
+            _alarmIcon.ActivateAlarm();
 
             _player.MovementSetActive(false);
             _soundService.PlaySfx(SfxType.LeverDown);
