@@ -42,6 +42,16 @@ namespace Services.Gameplay
             TryShowTutorialWindow(TutorialEventType.Fusion);
         }
 
+        public void OnReloadNeeded()
+        {
+            TryShowTutorialWindow(TutorialEventType.ReloadTwister);
+        }
+
+        public void OnFuseActionDisconnected()
+        {
+            TryShowTutorialWindow(TutorialEventType.MovementSwitch);
+        }
+
         private void OnPlayerHealthChanged()
         {
             if (_player.CurrentHealth < _player.MaxHealth)

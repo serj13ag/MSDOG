@@ -1,5 +1,6 @@
 using Core;
 using Services;
+using Services.Gameplay;
 using Sounds;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,7 @@ namespace UI.HUD.Actions
 
         private Player _player;
         private SoundService _soundService;
+        private TutorialService _tutorialService;
 
         private bool _connected;
         private bool _dragging;
@@ -29,8 +31,9 @@ namespace UI.HUD.Actions
         private Vector3? _previousPlayerPosition;
         private float _counter;
 
-        public void Init(Player player, SoundService soundService)
+        public void Init(Player player, SoundService soundService, TutorialService tutorialService)
         {
+            _tutorialService = tutorialService;
             _soundService = soundService;
             _player = player;
 
@@ -138,6 +141,7 @@ namespace UI.HUD.Actions
 
             _player.MovementSetActive(false);
             _soundService.PlaySfx(SfxType.LeverDown);
+            _tutorialService.OnFuseActionDisconnected();
         }
 
         private void SetLocalRotation(float angle)
