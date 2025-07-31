@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Level_0
   m_EditorClassIdentifier: 
   LevelIndex: 0
-  LevelName: It's on!
+  LevelName: It's On!
   LevelAbilityData: {fileID: 11400000, guid: fd31521ac71b12c47830cb38cdad9077, type: 2}
   Waves:
   - Enemies:
