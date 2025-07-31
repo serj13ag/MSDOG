@@ -19,3 +19,4 @@ MonoBehaviour:
   TutorialEvents:
   - {fileID: 11400000, guid: 9861fea7edb98f947b81aabc777b6e06, type: 2}
   - {fileID: 11400000, guid: 52d2d0743eec73142a092b69b3016e20, type: 2}
+  - {fileID: 11400000, guid: 53f2258c5d04b774895bcd4fb0113967, type: 2}

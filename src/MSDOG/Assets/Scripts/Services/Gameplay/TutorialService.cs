@@ -1,12 +1,14 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core;
 using Data;
 using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Services.Gameplay
 {
-    public class TutorialService
+    public class TutorialService : IDisposable
     {
         private const string PlayerPrefsKey = "TutorialSaveData";
 
@@ -14,6 +16,7 @@ namespace Services.Gameplay
         private readonly DataService _dataService;
 
         private readonly List<TutorialEventType> _shownTutorialEvents;
+        private Player _player;
 
         public TutorialService(WindowService windowService, DataService dataService)
         {
@@ -21,6 +24,12 @@ namespace Services.Gameplay
             _dataService = dataService;
 
             _shownTutorialEvents = LoadShownTutorialEvents();
+        }
+
+        public void SetPlayer(Player player)
+        {
+            _player = player;
+            player.OnHealthChanged += OnPlayerHealthChanged;
         }
 
         public void OnCanCraft()
@@ -31,6 +40,14 @@ namespace Services.Gameplay
         public void OnHasTwoSameDetails()
         {
             TryShowTutorialWindow(TutorialEventType.Fusion);
+        }
+
+        private void OnPlayerHealthChanged()
+        {
+            if (_player.CurrentHealth < _player.MaxHealth)
+            {
+                TryShowTutorialWindow(TutorialEventType.Destruction);
+            }
         }
 
         private void TryShowTutorialWindow(TutorialEventType tutorialEventType)
@@ -71,6 +88,11 @@ namespace Services.Gameplay
             var json = JsonConvert.SerializeObject(_shownTutorialEvents);
             PlayerPrefs.SetString(PlayerPrefsKey, json);
             PlayerPrefs.Save();
+        }
+
+        public void Dispose()
+        {
+            _player.OnHealthChanged -= OnPlayerHealthChanged;
         }
     }
 }

@@ -17,14 +17,17 @@ namespace Infrastructure
         private readonly LevelViewService _levelViewService;
         private readonly SoundService _soundService;
         private readonly DataService _dataService;
+        private readonly TutorialService _tutorialService;
 
         public GameplayInitializer(DebugService debugService, EnemyService enemyService, GameFactory gameFactory,
             CameraService cameraService, GameStateService gameStateService, DialogueService dialogueService,
-            LevelViewService levelViewService, SoundService soundService, DataService dataService)
+            LevelViewService levelViewService, SoundService soundService, DataService dataService,
+            TutorialService tutorialService)
         {
             _levelViewService = levelViewService;
             _soundService = soundService;
             _dataService = dataService;
+            _tutorialService = tutorialService;
             _dialogueService = dialogueService;
             _debugService = debugService;
             _enemyService = enemyService;
@@ -54,6 +57,7 @@ namespace Infrastructure
             _soundService.PlayMusic(levelMusic);
 
             _debugService.Setup(hudController);
+            _tutorialService.SetPlayer(player);
 
             if (!_dialogueService.TryShowStartLevelDialogue(levelIndex, ActivateLevel))
             {
