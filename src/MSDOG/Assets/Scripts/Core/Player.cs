@@ -63,7 +63,7 @@ namespace Core
         }
 
         public void Init(InputService inputService, UpdateService updateService, ArenaService arenaService,
-            AbilityFactory abilityFactory, DataService dataService)
+            AbilityFactory abilityFactory, DataService dataService, ProgressService progressService)
         {
             _abilityFactory = abilityFactory;
             _updateService = updateService;
@@ -71,7 +71,7 @@ namespace Core
             _movementIsActive = true;
 
             _animationBlock = new AnimationBlock(_animator);
-            _healthBlock = new HealthBlock(100);
+            _healthBlock = new HealthBlock(100, progressService.EasyModeEnabled);
             _experienceBlock = new ExperienceBlock(dataService);
             _playerDamageBlock = new PlayerDamageBlock(this, _healthBlock);
             _moveBlock = new InputMoveBlock(this, inputService, arenaService);

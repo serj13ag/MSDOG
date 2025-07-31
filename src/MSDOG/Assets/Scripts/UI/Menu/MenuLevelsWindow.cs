@@ -13,6 +13,7 @@ namespace UI.Menu
         [SerializeField] private Transform _buttonsContainer;
         [SerializeField] private Button _backButton;
         [SerializeField] private Button _unlockLevelsButton;
+        [SerializeField] private Toggle _easyModeToggle;
 
         private readonly List<MenuLevelButton> _buttons = new List<MenuLevelButton>();
 
@@ -32,16 +33,20 @@ namespace UI.Menu
         {
             _backButton.onClick.AddListener(Hide);
             _unlockLevelsButton.onClick.AddListener(UnlockLevels);
+            _easyModeToggle.onValueChanged.AddListener(EasyModeChanged);
         }
 
         private void OnDisable()
         {
             _backButton.onClick.RemoveListener(Hide);
             _unlockLevelsButton.onClick.RemoveListener(UnlockLevels);
+            _easyModeToggle.onValueChanged.AddListener(EasyModeChanged);
         }
 
         public void Show()
         {
+            _easyModeToggle.isOn = _progressService.EasyModeEnabled;
+
             var lastPassedLevel = _progressService.LastPassedLevel;
 
             for (var i = 0; i < _dataService.GetNumberOfLevels(); i++)
@@ -69,7 +74,12 @@ namespace UI.Menu
                 button.UpdateIsAvailable(isAvailable);
             }
         }
-        
+
+        private void EasyModeChanged(bool easyModeEnabled)
+        {
+            _progressService.SetEasyMode(easyModeEnabled);
+        }
+
         private void Hide()
         {
             gameObject.SetActive(false);
