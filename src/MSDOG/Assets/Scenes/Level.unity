@@ -451,9 +451,73 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2093198866392313021, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+      propertyPath: m_Color.a
+      value: 0.47058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093198866392313021, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093198866392313021, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2093198866392313021, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335256215933118269, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+      propertyPath: m_Color.a
+      value: 0.47058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335256215933118269, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335256215933118269, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335256215933118269, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5790281440544338271, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+      propertyPath: m_Color.a
+      value: 0.47058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 5790281440544338271, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5790281440544338271, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5790281440544338271, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5801496262982422642, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
       propertyPath: m_Name
       value: ---TV HUD---
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395163531206439416, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+      propertyPath: m_Color.a
+      value: 0.47058824
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395163531206439416, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395163531206439416, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395163531206439416, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+      propertyPath: m_Color.r
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

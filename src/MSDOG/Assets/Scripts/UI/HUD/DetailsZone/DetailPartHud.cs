@@ -52,7 +52,7 @@ namespace UI.HUD.DetailsZone
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            _canvasGroup.alpha = 0.6f;
+            _canvasGroup.alpha = 0.4f;
 
             _dragGhost = Instantiate(_ghostDetailPrefab, _parentCanvas.transform);
             _dragGhost.Init(_abilityData);

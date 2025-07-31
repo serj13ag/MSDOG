@@ -20,7 +20,7 @@ namespace Services
         public PlayerOptionsService()
         {
             IsMuted = PlayerPrefs.GetInt(IsMutedKey, 0) == 1;
-            MasterVolume = PlayerPrefs.GetFloat(MasterVolumeKey, 1f);
+            MasterVolume = PlayerPrefs.GetFloat(MasterVolumeKey, 0.5f);
             MusicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 0.7f);
             SfxVolume = PlayerPrefs.GetFloat(SfxVolumeKey, 1f);
         }

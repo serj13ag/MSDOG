@@ -6,6 +6,7 @@ namespace Core
     public class HealthBlock
     {
         private readonly int _maxHealth;
+        private readonly bool _ignoreDamage;
 
         private int _currentHealth;
 
@@ -15,14 +16,20 @@ namespace Core
 
         public event Action OnHealthChanged;
 
-        public HealthBlock(int maxHealth)
+        public HealthBlock(int maxHealth, bool ignoreDamage = false)
         {
             _maxHealth = maxHealth;
+            _ignoreDamage = ignoreDamage;
             _currentHealth = maxHealth;
         }
 
         public void ReduceHealth(int damage)
         {
+            if (_ignoreDamage)
+            {
+                return;
+            }
+
             if (damage <= 0)
             {
                 return;
