@@ -7,9 +7,6 @@ namespace Services.Gameplay
 {
     public class ProjectileFactory
     {
-        private readonly Vector3 _playerProjectileOffset = Vector3.up * 1f;
-        private readonly Vector3 _enemyProjectileOffset = Vector3.up * 0.8f;
-
         private readonly IObjectResolver _container;
         private readonly AssetProviderService _assetProviderService;
         private readonly RuntimeContainers _runtimeContainers;
@@ -25,24 +22,21 @@ namespace Services.Gameplay
         public void CreatePlayerGunShotProjectile(ProjectileSpawnData projectileSpawnData)
         {
             CreateProjectileViewInner(AssetPaths.PlayerGunShotProjectilePrefab,
-                projectileSpawnData.SpawnPosition + _playerProjectileOffset,
-                Quaternion.LookRotation(projectileSpawnData.ForwardDirection),
+                projectileSpawnData.SpawnPosition, Quaternion.LookRotation(projectileSpawnData.ForwardDirection),
                 projectileSpawnData, ProjectileType.Gunshot);
         }
 
         public void CreatePlayerBulletHellProjectile(ProjectileSpawnData projectileSpawnData)
         {
             CreateProjectileViewInner(AssetPaths.PlayerBulletHellProjectilePrefab,
-                projectileSpawnData.SpawnPosition + _playerProjectileOffset,
-                Quaternion.LookRotation(projectileSpawnData.ForwardDirection),
+                projectileSpawnData.SpawnPosition, Quaternion.LookRotation(projectileSpawnData.ForwardDirection),
                 projectileSpawnData, ProjectileType.BulletHell);
         }
 
         public void CreateEnemyProjectile(ProjectileSpawnData projectileSpawnData)
         {
             CreateProjectileViewInner(AssetPaths.EnemyProjectilePrefab,
-                projectileSpawnData.SpawnPosition + _enemyProjectileOffset,
-                Quaternion.LookRotation(projectileSpawnData.ForwardDirection),
+                projectileSpawnData.SpawnPosition, Quaternion.LookRotation(projectileSpawnData.ForwardDirection),
                 projectileSpawnData, ProjectileType.Enemy);
         }
 
@@ -50,7 +44,7 @@ namespace Services.Gameplay
         {
             var projectileCore = CreateProjectile(projectileSpawnData, ProjectileType.BuzzSaw);
             var projectileView = CreateProjectileViewInner<BuzzSawProjectileView>(AssetPaths.PlayerBuzzSawProjectilePrefab,
-                projectileSpawnData.SpawnPosition + _playerProjectileOffset, Quaternion.identity);
+                projectileSpawnData.SpawnPosition, Quaternion.identity);
             projectileView.Init(projectileCore, projectileSpawnData.Player);
             return projectileView;
         }
@@ -68,7 +62,7 @@ namespace Services.Gameplay
         {
             var projectile = CreateProjectile(projectileSpawnData, ProjectileType.EnergyLine);
             var projectileView = CreateProjectileViewInner<EnergyLineProjectileView>(AssetPaths.PlayerEnergyLineProjectilePrefab,
-                projectileSpawnData.SpawnPosition + _playerProjectileOffset, Quaternion.identity);
+                projectileSpawnData.SpawnPosition, Quaternion.identity);
             projectileView.Init(projectile, projectileSpawnData.Player);
             return projectileView;
         }

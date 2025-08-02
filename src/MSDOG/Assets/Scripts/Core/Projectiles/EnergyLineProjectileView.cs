@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Constants;
+using Core.Abilities;
 using Core.Enemies;
 using Helpers;
 using Interfaces;
@@ -12,7 +13,6 @@ namespace Core.Projectiles
 {
     public class EnergyLineProjectileView : MonoBehaviour, IUpdatable
     {
-        private readonly Vector3 _playerProjectileOffset = Vector3.up * 1f; // TODO: to player?
         private const float LaserRange = 15f;
 
         [SerializeField] private GameObject _boxObject;
@@ -46,8 +46,7 @@ namespace Core.Projectiles
         {
             _projectile.OnUpdate(deltaTime);
 
-            transform.position = _player.transform.position + _playerProjectileOffset +
-                                 _projectile.ForwardDirection * (LaserRange / 2f);
+            transform.position = _player.GetAbilitySpawnPosition(AbilityType.EnergyLine) + _projectile.ForwardDirection * (LaserRange / 2f);
         }
 
         private void OnProjectileTickTimeoutRaised(object sender, EventArgs e)
@@ -63,7 +62,7 @@ namespace Core.Projectiles
         private void UpdateView(Vector3 forwardDirection, float size)
         {
             transform.rotation = Quaternion.LookRotation(forwardDirection);
-            transform.position = _player.transform.position + _playerProjectileOffset + forwardDirection * (LaserRange / 2f);
+            transform.position = _player.GetAbilitySpawnPosition(AbilityType.EnergyLine) + forwardDirection * (LaserRange / 2f);
             _boxObject.transform.localScale = new Vector3(size, 0.5f, LaserRange);
 
             var t = Mathf.InverseLerp(0.3f, 1.6f, size);

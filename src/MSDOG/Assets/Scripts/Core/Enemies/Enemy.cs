@@ -14,6 +14,9 @@ namespace Core.Enemies
 {
     public class Enemy : MonoBehaviour, IUpdatable
     {
+        private readonly Vector3 _enemyProjectileOffset = Vector3.up * 0.8f;
+        private readonly Vector3 _damageTextOffset = Vector3.up * 3f;
+
         [SerializeField] private Transform _modelRootTransform;
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private Animator _animator;
@@ -121,12 +124,12 @@ namespace Core.Enemies
             _healthBlock.ReduceHealth(damage);
             var healthAfter = _healthBlock.CurrentHealth;
             var damageDealt = healthBefore - healthAfter;
-            _vfxFactory.CreateDamageTextEffect(damageDealt, transform.position);
+            _vfxFactory.CreateDamageTextEffect(damageDealt, transform.position + _damageTextOffset);
 
             if (_healthBlock.HasZeroHealth)
             {
                 _gameFactory.CreateExperiencePiece(transform.position, _experience);
-                _vfxFactory.CreateBloodEffect(transform.position);
+                _vfxFactory.CreateBloodEffect(transform.position + _enemyProjectileOffset);
 
                 OnDied?.Invoke(this);
             }
@@ -136,7 +139,9 @@ namespace Core.Enemies
         {
             var directionToPlayer = (_player.transform.position - transform.position).normalized;
             directionToPlayer.y = 0f;
-            var projectileSpawnData = new ProjectileSpawnData(transform.position, directionToPlayer, _player, Damage,
+
+            var spawnPosition = transform.position + _enemyProjectileOffset;
+            var projectileSpawnData = new ProjectileSpawnData(spawnPosition, directionToPlayer, _player, Damage,
                 _projectileSpeed, 0, 0f, 0f, 0f);
             _projectileFactory.CreateEnemyProjectile(projectileSpawnData);
         }

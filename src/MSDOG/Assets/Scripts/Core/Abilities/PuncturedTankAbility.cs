@@ -23,7 +23,7 @@ namespace Core.Abilities
 
         protected override void InvokeAction()
         {
-            var projectileSpawnData = new ProjectileSpawnData(_player.transform.position, Vector3.zero, _player, _abilityData);
+            var projectileSpawnData = new ProjectileSpawnData(_player.GetAbilitySpawnPosition(_abilityData.AbilityType), Vector3.zero, _player, _abilityData);
             _projectileFactory.CreatePlayerPuddleProjectile(projectileSpawnData);
         }
     }

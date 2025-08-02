@@ -13,6 +13,8 @@ namespace Core.Abilities
         private bool _isActive;
         private float _timeTillAction;
 
+        protected AbilityType AbilityType => _abilityData.AbilityType;
+
         protected BaseCooldownAbility(AbilityData abilityData, SoundService soundService)
         {
             _cooldown = abilityData.Cooldown;

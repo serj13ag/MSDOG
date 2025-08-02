@@ -38,7 +38,7 @@ namespace Core.Abilities
         {
             Slash();
 
-            _vfxFactory.CreateSlashEffect(_player.transform.position, _length);
+            _vfxFactory.CreateSlashEffect(_player.GetAbilitySpawnPosition(AbilityType), _length);
 
             if (_dataService.GetSettingsData().ShowDebugHitboxes)
             {

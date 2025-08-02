@@ -185,6 +185,33 @@ namespace Core
             _nitroMultiplier = 1f;
         }
 
+        public Vector3 GetAbilitySpawnPosition(AbilityType abilityType)
+        {
+            Vector3 offset;
+            switch (abilityType)
+            {
+                case AbilityType.CuttingBlow:
+                case AbilityType.RoundAttack:
+                    offset = Vector3.up * 1.55f;
+                    break;
+                case AbilityType.GunShot:
+                case AbilityType.BulletHell:
+                case AbilityType.BuzzSaw:
+                case AbilityType.EnergyLine:
+                    offset = Vector3.up * 1f;
+                    break;
+                case AbilityType.PuncturedTank:
+                case AbilityType.AntiGravity:
+                case AbilityType.EnergyShield:
+                    offset = Vector3.zero;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(abilityType), abilityType, null);
+            }
+
+            return transform.position + offset;
+        }
+
         private void HandleAbilities(float deltaTime)
         {
             foreach (var ability in _abilities.Values.ToArray())

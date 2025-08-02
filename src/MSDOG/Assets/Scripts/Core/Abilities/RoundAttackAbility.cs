@@ -35,7 +35,7 @@ namespace Core.Abilities
         {
             Slash();
 
-            _vfxFactory.CreateRoundAttackEffect(_player.transform.position, _radius);
+            _vfxFactory.CreateRoundAttackEffect(_player.GetAbilitySpawnPosition(AbilityType), _radius);
 
             if (_dataService.GetSettingsData().ShowDebugHitboxes)
             {

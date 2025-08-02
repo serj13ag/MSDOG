@@ -31,7 +31,7 @@ namespace Core.Abilities
 
             randomDirection.Normalize();
 
-            var projectileSpawnData = new ProjectileSpawnData(_player.transform.position, randomDirection, _player, _abilityData);
+            var projectileSpawnData = new ProjectileSpawnData(_player.GetAbilitySpawnPosition(_abilityData.AbilityType), randomDirection, _player, _abilityData);
             _projectileFactory.CreatePlayerBulletHellProjectile(projectileSpawnData);
         }
     }
