@@ -6,6 +6,7 @@ using Helpers;
 using Interfaces;
 using Services;
 using UnityEngine;
+using VContainer;
 
 namespace Core
 {
@@ -31,10 +32,15 @@ namespace Core
         private Vector3 _direction;
         private Player _player;
 
-        public void Init(CreateProjectileDto createProjectileDto, UpdateService updateService)
+        [Inject]
+        public void Construct(UpdateService updateService)
         {
             _updateService = updateService;
+            updateService.Register(this);
+        }
 
+        public void Init(CreateProjectileDto createProjectileDto)
+        {
             _player = createProjectileDto.Player;
             _damage = createProjectileDto.AbilityData.Damage;
             _size = createProjectileDto.AbilityData.Size;
@@ -50,11 +56,6 @@ namespace Core
             var t = Mathf.InverseLerp(0.3f, 1.6f, _size);
             var scale = Mathf.LerpUnclamped(0.2f, 1.2f, t);
             _spriteObject.transform.localScale = new Vector3(scale, 1f, 1f);
-
-            // 0.3 - 0.2
-            // 1.6 - 1.2
-
-            updateService.Register(this);
         }
 
         public void OnUpdate(float deltaTime)

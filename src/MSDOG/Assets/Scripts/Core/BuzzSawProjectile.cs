@@ -6,6 +6,7 @@ using Interfaces;
 using Services;
 using UnityEngine;
 using UtilityComponents;
+using VContainer;
 
 namespace Core
 {
@@ -27,10 +28,15 @@ namespace Core
         private int _pierce;
         private Vector3 _velocity;
 
-        public void Init(CreateProjectileDto createProjectileDto, UpdateService updateService, bool isPlayer)
+        [Inject]
+        public void Construct(UpdateService updateService)
         {
             _updateService = updateService;
+            updateService.Register(this);
+        }
 
+        public void Init(CreateProjectileDto createProjectileDto, bool isPlayer)
+        {
             _isPlayer = isPlayer;
             _id = Guid.NewGuid();
             _player = createProjectileDto.Player;
@@ -41,7 +47,6 @@ namespace Core
             _velocity = createProjectileDto.ForwardDirection * _speed;
             _velocity.y = 0f;
 
-            updateService.Register(this);
             _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
 

@@ -31,15 +31,19 @@ namespace Services
             return InstantiateInner<T>(path, position, rotation, null);
         }
 
-        public T Instantiate<T>(string path, Vector3 position, Quaternion rotation, Transform parentTransform) where T : Component
+        public T Instantiate<T>(string path, Vector3 position, Quaternion rotation, Transform parentTransform,
+            IObjectResolver container = null) where T : Component
         {
-            return InstantiateInner<T>(path, position, rotation, parentTransform);
+            return InstantiateInner<T>(path, position, rotation, parentTransform, container);
         }
 
-        private T InstantiateInner<T>(string path, Vector3 position, Quaternion rotation, Transform parent) where T : Component
+        private T InstantiateInner<T>(string path, Vector3 position, Quaternion rotation, Transform parent,
+            IObjectResolver container = null) where T : Component
         {
             var prefab = LoadAsset<T>(path);
-            var instance = Object.Instantiate(prefab, position, rotation, parent);
+            var instance = container != null
+                ? container.Instantiate(prefab, position, rotation, parent)
+                : Object.Instantiate(prefab, position, rotation, parent);
             instance.name = prefab.name;
 
             return instance;

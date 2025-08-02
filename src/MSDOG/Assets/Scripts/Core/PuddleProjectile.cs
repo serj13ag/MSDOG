@@ -6,6 +6,7 @@ using Helpers;
 using Interfaces;
 using Services;
 using UnityEngine;
+using VContainer;
 
 namespace Core
 {
@@ -26,10 +27,15 @@ namespace Core
         private float _timeTillDestroy;
         private float _scaleTime;
 
-        public void Init(CreateProjectileDto createProjectileDto, UpdateService updateService)
+        [Inject]
+        public void Construct(UpdateService updateService)
         {
             _updateService = updateService;
+            updateService.Register(this);
+        }
 
+        public void Init(CreateProjectileDto createProjectileDto)
+        {
             _damage = createProjectileDto.AbilityData.Damage;
             _size = createProjectileDto.AbilityData.Size;
             _tickTimeout = createProjectileDto.AbilityData.TickTimeout;
@@ -37,8 +43,6 @@ namespace Core
             _timeTillDestroy = createProjectileDto.AbilityData.Lifetime;
 
             SetLocalScale(0f);
-
-            updateService.Register(this);
         }
 
         public void OnUpdate(float deltaTime)

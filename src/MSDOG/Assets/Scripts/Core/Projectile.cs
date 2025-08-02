@@ -7,13 +7,13 @@ using Services;
 using Services.Gameplay;
 using UnityEngine;
 using UtilityComponents;
+using VContainer;
 
 namespace Core
 {
     public class Projectile : MonoBehaviour, IUpdatable
     {
         [SerializeField] private ColliderEventProvider _colliderEventProvider;
-        [SerializeField] private SpriteAnimatorComponent _impactSpriteAnimator;
 
         private UpdateService _updateService;
         private VfxFactory _vfxFactory;
@@ -25,38 +25,34 @@ namespace Core
         private float _speed;
         private int _pierce;
 
-        public void Init(CreateProjectileDto createProjectileDto, UpdateService updateService, VfxFactory vfxFactory,
-            ProjectileType type)
+        [Inject]
+        public void Construct(UpdateService updateService, VfxFactory vfxFactory)
         {
-            _vfxFactory = vfxFactory;
             _updateService = updateService;
+            _vfxFactory = vfxFactory;
 
+            updateService.Register(this);
+            _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
+        }
+
+        public void Init(CreateProjectileDto createProjectileDto, ProjectileType type)
+        {
             _type = type;
             _id = Guid.NewGuid();
             _pierce = createProjectileDto.AbilityData.Pierce;
             _speed = createProjectileDto.AbilityData.Speed;
             _damage = createProjectileDto.AbilityData.Damage;
             _forwardDirection = createProjectileDto.ForwardDirection;
-
-            updateService.Register(this);
-            _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
 
-        public void Init(CreateEnemyProjectileDto createProjectileDto, UpdateService updateService, VfxFactory vfxFactory,
-            ProjectileType type)
+        public void Init(CreateEnemyProjectileDto createProjectileDto, ProjectileType type)
         {
-            _vfxFactory = vfxFactory;
-            _updateService = updateService;
-
             _type = type;
             _id = Guid.NewGuid();
             _pierce = createProjectileDto.Pierce;
             _speed = createProjectileDto.Speed;
             _damage = createProjectileDto.Damage;
             _forwardDirection = createProjectileDto.ForwardDirection;
-
-            updateService.Register(this);
-            _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
 
         public void OnUpdate(float deltaTime)
