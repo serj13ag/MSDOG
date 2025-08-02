@@ -9,23 +9,78 @@ namespace Core.Projectiles
     {
         private readonly Guid _id;
         private readonly int _damage;
-        private int _pierce;
+        private int? _piercesLeft;
+        private Vector3 _forwardDirection;
+        private float? _lifetimeRemaining;
+
+        private readonly float? _tickTimeout;
+        private float _tickRemaining;
 
         public ProjectileType Type { get; }
-        public Vector3 ForwardDirection { get; }
         public float Speed { get; }
+        public float Size { get; }
 
-        public event EventHandler<EventArgs> OnDestroyed;
+        public Vector3 ForwardDirection
+        {
+            get => _forwardDirection;
+            private set
+            {
+                var newForwardDirection = value.normalized;
+                newForwardDirection.y = 0;
+                _forwardDirection = newForwardDirection;
+            }
+        }
+
+        public event EventHandler<EventArgs> OnPiercesRunOut;
+        public event EventHandler<EventArgs> OnLifetimeEnded;
+        public event EventHandler<EventArgs> OnTickTimeoutRaised;
 
         public ProjectileCore(CreateProjectileDto createProjectileDto, ProjectileType projectileType)
         {
             _id = Guid.NewGuid();
             _damage = createProjectileDto.Damage;
-            _pierce = createProjectileDto.Pierce;
+
+            var pierce = createProjectileDto.Pierce;
+            _piercesLeft = pierce == 0f ? null : pierce;
+
+            var lifetime = createProjectileDto.Lifetime;
+            _lifetimeRemaining = lifetime == 0f ? null : lifetime;
+
+            var tickTimeout = createProjectileDto.TickTimeout;
+            _tickTimeout = tickTimeout == 0f ? null : tickTimeout;
+            _tickRemaining = tickTimeout;
 
             Type = projectileType;
-            ForwardDirection = createProjectileDto.ForwardDirection.normalized;
             Speed = createProjectileDto.Speed;
+            Size = createProjectileDto.Size;
+            ForwardDirection = createProjectileDto.ForwardDirection.normalized;
+        }
+
+        public void ChangeForwardDirection(Vector3 newForwardDirection)
+        {
+            ForwardDirection = newForwardDirection;
+        }
+
+        public void OnUpdate(float deltaTime)
+        {
+            if (_lifetimeRemaining.HasValue)
+            {
+                _lifetimeRemaining -= deltaTime;
+                if (_lifetimeRemaining < 0f)
+                {
+                    OnLifetimeEnded?.Invoke(this, EventArgs.Empty);
+                }
+            }
+
+            if (_tickTimeout.HasValue)
+            {
+                _tickRemaining -= deltaTime;
+                if (_tickRemaining < 0f)
+                {
+                    _tickRemaining = _tickTimeout.Value;
+                    OnTickTimeoutRaised?.Invoke(this, EventArgs.Empty);
+                }
+            }
         }
 
         public void OnHit(Player player)
@@ -42,13 +97,18 @@ namespace Core.Projectiles
 
         private void CheckPierce()
         {
-            if (_pierce > 0)
+            if (!_piercesLeft.HasValue)
             {
-                _pierce -= 1;
+                return;
+            }
+
+            if (_piercesLeft > 0)
+            {
+                _piercesLeft -= 1;
             }
             else
             {
-                OnDestroyed?.Invoke(this, EventArgs.Empty);
+                OnPiercesRunOut?.Invoke(this, EventArgs.Empty);
             }
         }
     }

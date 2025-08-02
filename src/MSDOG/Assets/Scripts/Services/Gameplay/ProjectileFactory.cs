@@ -52,14 +52,16 @@ namespace Services.Gameplay
             var projectile = _assetProviderService.Instantiate<BuzzSawProjectile>(AssetPaths.PlayerBuzzSawProjectilePrefab,
                 createProjectileDto.SpawnPosition + _playerProjectileOffset, Quaternion.identity,
                 _runtimeContainers.ProjectileContainer, _container);
-            projectile.Init(createProjectileDto, true);
+            var projectileCore = new ProjectileCore(createProjectileDto, ProjectileType.BuzzSaw);
+            projectile.Init(projectileCore, createProjectileDto.Player);
         }
 
         public void CreatePlayerPuddleProjectile(CreateProjectileDto createProjectileDto)
         {
             var projectile = _assetProviderService.Instantiate<PuddleProjectile>(AssetPaths.PlayerPuddleProjectilePrefab,
                 createProjectileDto.SpawnPosition, Quaternion.identity, _runtimeContainers.ProjectileContainer, _container);
-            projectile.Init(createProjectileDto);
+            var projectileCore = new ProjectileCore(createProjectileDto, ProjectileType.Puddle);
+            projectile.Init(projectileCore);
         }
 
         public void CreatePlayerEnergyLineProjectile(CreateProjectileDto createProjectileDto)
@@ -67,7 +69,8 @@ namespace Services.Gameplay
             var projectile = _assetProviderService.Instantiate<EnergyLineProjectile>(AssetPaths.PlayerEnergyLineProjectilePrefab,
                 createProjectileDto.SpawnPosition + _playerProjectileOffset, Quaternion.identity,
                 _runtimeContainers.ProjectileContainer, _container);
-            projectile.Init(createProjectileDto);
+            var projectileCore = new ProjectileCore(createProjectileDto, ProjectileType.EnergyLine);
+            projectile.Init(createProjectileDto, projectileCore);
         }
 
         private void CreateProjectileInner(string prefabPath, Vector3 position, Quaternion rotation,

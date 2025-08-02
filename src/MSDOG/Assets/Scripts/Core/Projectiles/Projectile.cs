@@ -33,7 +33,7 @@ namespace Core.Projectiles
         {
             _projectileCore = projectileCore;
 
-            projectileCore.OnDestroyed += OnProjectileDestroyed;
+            projectileCore.OnPiercesRunOut += OnProjectilePiercesRunOut;
         }
 
         public void OnUpdate(float deltaTime)
@@ -64,9 +64,10 @@ namespace Core.Projectiles
             }
         }
 
-        private void OnProjectileDestroyed(object sender, EventArgs e)
+        private void OnProjectilePiercesRunOut(object sender, EventArgs e)
         {
             CreateImpactVfx();
+            Destroy(gameObject);
         }
 
         private bool IsOutOfArena()
@@ -81,7 +82,7 @@ namespace Core.Projectiles
 
         private void OnDestroy()
         {
-            _projectileCore.OnDestroyed += OnProjectileDestroyed;
+            _projectileCore.OnPiercesRunOut += OnProjectilePiercesRunOut;
 
             _updateService.Remove(this);
             _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;

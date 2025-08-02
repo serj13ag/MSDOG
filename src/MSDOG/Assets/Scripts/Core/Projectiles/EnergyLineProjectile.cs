@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Constants;
 using Core.Enemies;
@@ -21,15 +22,7 @@ namespace Core.Projectiles
         private UpdateService _updateService;
 
         private readonly Collider[] _hitBuffer = new Collider[32];
-
-        private Vector3 _forwardDirection;
-        private int _damage;
-        private float _size;
-
-        private float _timeTillDamage;
-        private float _tickTimeout;
-        private float _timeTillDestroy;
-        private Vector3 _direction;
+        private ProjectileCore _projectileCore;
         private Player _player;
 
         [Inject]
@@ -39,52 +32,56 @@ namespace Core.Projectiles
             updateService.Register(this);
         }
 
-        public void Init(CreateProjectileDto createProjectileDto)
+        public void Init(CreateProjectileDto createProjectileDto, ProjectileCore projectileCore)
         {
+            _projectileCore = projectileCore;
+
+            projectileCore.OnLifetimeEnded += OnProjectileLifetimeEnded;
+            projectileCore.OnTickTimeoutRaised += OnProjectileTickTimeoutRaised;
+
             _player = createProjectileDto.Player;
-            _damage = createProjectileDto.Damage;
-            _size = createProjectileDto.Size;
-            _direction = createProjectileDto.ForwardDirection;
-            _tickTimeout = createProjectileDto.TickTimeout;
-            _timeTillDamage = _tickTimeout;
-            _timeTillDestroy = createProjectileDto.Lifetime;
 
-            transform.rotation = Quaternion.LookRotation(_direction);
-            transform.position = _player.transform.position + _playerProjectileOffset + _direction * (LaserRange / 2f);
-            _boxObject.transform.localScale = new Vector3(_size, 0.5f, LaserRange);
+            var forwardDirection = projectileCore.ForwardDirection;
+            var size = projectileCore.Size;
 
-            var t = Mathf.InverseLerp(0.3f, 1.6f, _size);
-            var scale = Mathf.LerpUnclamped(0.2f, 1.2f, t);
-            _spriteObject.transform.localScale = new Vector3(scale, 1f, 1f);
+            UpdateView(forwardDirection, size);
         }
 
         public void OnUpdate(float deltaTime)
         {
-            transform.position = _player.transform.position + _playerProjectileOffset + _direction * (LaserRange / 2f);
+            _projectileCore.OnUpdate(deltaTime);
 
-            _timeTillDestroy -= deltaTime;
-            if (_timeTillDestroy < 0f)
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            if (_timeTillDamage > 0f)
-            {
-                _timeTillDamage -= deltaTime;
-                return;
-            }
-
-            Damage();
-            _timeTillDamage = _tickTimeout;
+            transform.position = _player.transform.position + _playerProjectileOffset +
+                                 _projectileCore.ForwardDirection * (LaserRange / 2f);
         }
 
-        private void Damage()
+        private void OnProjectileTickTimeoutRaised(object sender, EventArgs e)
+        {
+            DealDamage();
+        }
+
+        private void OnProjectileLifetimeEnded(object sender, EventArgs e)
+        {
+            Destroy(gameObject);
+        }
+
+        private void UpdateView(Vector3 forwardDirection, float size)
+        {
+            transform.rotation = Quaternion.LookRotation(forwardDirection);
+            transform.position = _player.transform.position + _playerProjectileOffset + forwardDirection * (LaserRange / 2f);
+            _boxObject.transform.localScale = new Vector3(size, 0.5f, LaserRange);
+
+            var t = Mathf.InverseLerp(0.3f, 1.6f, size);
+            var scale = Mathf.LerpUnclamped(0.2f, 1.2f, t);
+            _spriteObject.transform.localScale = new Vector3(scale, 1f, 1f);
+        }
+
+        private void DealDamage()
         {
             var hitEnemies = DetectEnemiesInLaserBox();
             foreach (var enemy in hitEnemies)
             {
-                enemy.TakeDamage(_damage);
+                _projectileCore.OnHit(enemy);
             }
         }
 
@@ -93,9 +90,9 @@ namespace Core.Projectiles
             var hitEnemies = new List<Enemy>();
 
             var currentStartPos = _player.transform.position;
-            var boxCenter = currentStartPos + _direction * (LaserRange / 2f);
-            var boxSize = new Vector3(_size, _size, LaserRange);
-            var boxRotation = Quaternion.LookRotation(_direction);
+            var boxCenter = currentStartPos + _projectileCore.ForwardDirection * (LaserRange / 2f);
+            var boxSize = new Vector3(_projectileCore.Size, _projectileCore.Size, LaserRange);
+            var boxRotation = Quaternion.LookRotation(_projectileCore.ForwardDirection);
 
             var hits = Physics.OverlapBoxNonAlloc(boxCenter, boxSize / 2f, _hitBuffer, boxRotation,
                 Settings.LayerMasks.EnemyLayer);
@@ -114,6 +111,9 @@ namespace Core.Projectiles
         private void OnDestroy()
         {
             _updateService.Remove(this);
+
+            _projectileCore.OnLifetimeEnded += OnProjectileLifetimeEnded;
+            _projectileCore.OnTickTimeoutRaised += OnProjectileTickTimeoutRaised;
         }
     }
 }

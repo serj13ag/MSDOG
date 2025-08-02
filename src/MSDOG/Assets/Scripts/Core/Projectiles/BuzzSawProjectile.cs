@@ -1,6 +1,4 @@
-using System;
 using Core.Enemies;
-using DTO;
 using Helpers;
 using Interfaces;
 using Services;
@@ -19,41 +17,36 @@ namespace Core.Projectiles
 
         private UpdateService _updateService;
 
+        private ProjectileCore _projectileCore;
         private Player _player;
-        private bool _isPlayer;
-        private Guid _id;
-        private Vector3 _forwardDirection;
-        private int _damage;
-        private float _speed;
-        private int _pierce;
-        private Vector3 _velocity;
 
         [Inject]
         public void Construct(UpdateService updateService)
         {
             _updateService = updateService;
+
             updateService.Register(this);
+            _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
 
-        public void Init(CreateProjectileDto createProjectileDto, bool isPlayer)
+        public void Init(ProjectileCore projectileCore, Player player)
         {
-            _isPlayer = isPlayer;
-            _id = Guid.NewGuid();
-            _player = createProjectileDto.Player;
-            _pierce = createProjectileDto.Pierce;
-            _speed = createProjectileDto.Speed;
-            _damage = createProjectileDto.Damage;
-
-            _velocity = createProjectileDto.ForwardDirection * _speed;
-            _velocity.y = 0f;
-
-            _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
+            _projectileCore = projectileCore;
+            _player = player;
         }
 
         public void OnUpdate(float deltaTime)
         {
-            transform.position += _velocity * deltaTime;
+            transform.position += _projectileCore.ForwardDirection * (_projectileCore.Speed * deltaTime);
             CheckBounds();
+        }
+
+        private void OnTriggerEntered(Collider other)
+        {
+            if (other.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
+            {
+                _projectileCore.OnHit(enemy);
+            }
         }
 
         private void CheckBounds()
@@ -67,55 +60,39 @@ namespace Core.Projectiles
             var frontBound = playerPos.z + BoxHeight / 2f;
 
             // Check X bounds
-            if (currentPos.x <= leftBound && _velocity.x < 0)
+            var forwardDirection = _projectileCore.ForwardDirection;
+            if (currentPos.x <= leftBound && forwardDirection.x < 0)
             {
-                _velocity.x = -_velocity.x;
+                InvertDirectionX(forwardDirection);
                 transform.position = new Vector3(leftBound, currentPos.y, currentPos.z);
             }
-            else if (currentPos.x >= rightBound && _velocity.x > 0)
+            else if (currentPos.x >= rightBound && forwardDirection.x > 0)
             {
-                _velocity.x = -_velocity.x;
+                InvertDirectionX(forwardDirection);
                 transform.position = new Vector3(rightBound, currentPos.y, currentPos.z);
             }
 
             // Check Z bounds
-            if (currentPos.z <= backBound && _velocity.z < 0)
+            if (currentPos.z <= backBound && forwardDirection.z < 0)
             {
-                _velocity.z = -_velocity.z;
+                InvertDirectionZ(forwardDirection);
                 transform.position = new Vector3(currentPos.x, currentPos.y, backBound);
             }
-            else if (currentPos.z >= frontBound && _velocity.z > 0)
+            else if (currentPos.z >= frontBound && forwardDirection.z > 0)
             {
-                _velocity.z = -_velocity.z;
+                InvertDirectionZ(forwardDirection);
                 transform.position = new Vector3(currentPos.x, currentPos.y, frontBound);
             }
         }
 
-        private void OnTriggerEntered(Collider other)
+        private void InvertDirectionX(Vector3 direction)
         {
-            if (_isPlayer)
-            {
-                if (other.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
-                {
-                    enemy.TakeDamage(_damage);
-                }
-            }
-            else
-            {
-                if (other.gameObject.TryGetComponentInHierarchy<Player>(out var player))
-                {
-                    player.RegisterProjectileDamager(_id, _damage);
-                }
-            }
+            _projectileCore.ChangeForwardDirection(new Vector3(-direction.x, direction.y, direction.z));
+        }
 
-            if (_pierce > 0)
-            {
-                _pierce -= 1;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+        private void InvertDirectionZ(Vector3 direction)
+        {
+            _projectileCore.ChangeForwardDirection(new Vector3(direction.x, direction.y, -direction.z));
         }
 
         private void OnDestroy()

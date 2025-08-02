@@ -1,7 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Constants;
 using Core.Enemies;
-using DTO;
 using Helpers;
 using Interfaces;
 using Services;
@@ -17,14 +17,7 @@ namespace Core.Projectiles
         private UpdateService _updateService;
 
         private readonly Collider[] _hitBuffer = new Collider[32];
-
-        private Vector3 _forwardDirection;
-        private int _damage;
-        private float _size;
-
-        private float _timeTillDamage;
-        private float _tickTimeout;
-        private float _timeTillDestroy;
+        private ProjectileCore _projectileCore;
         private float _scaleTime;
 
         [Inject]
@@ -34,46 +27,41 @@ namespace Core.Projectiles
             updateService.Register(this);
         }
 
-        public void Init(CreateProjectileDto createProjectileDto)
+        public void Init(ProjectileCore projectileCore)
         {
-            _damage = createProjectileDto.Damage;
-            _size = createProjectileDto.Size;
-            _tickTimeout = createProjectileDto.TickTimeout;
-            _timeTillDamage = _tickTimeout;
-            _timeTillDestroy = createProjectileDto.Lifetime;
+            _projectileCore = projectileCore;
+
+            projectileCore.OnTickTimeoutRaised += OnProjectileTickTimeoutRaised;
+            projectileCore.OnLifetimeEnded += OnProjectileLifetimeEnded;
 
             SetLocalScale(0f);
         }
 
         public void OnUpdate(float deltaTime)
         {
+            _projectileCore.OnUpdate(deltaTime);
+
             _scaleTime += deltaTime;
             if (_scaleTime < TimeToScale)
             {
                 var t = _scaleTime / TimeToScale;
-                var size = Mathf.Lerp(0f, _size, t);
+                var size = Mathf.Lerp(0f, _projectileCore.Size, t);
                 SetLocalScale(size);
             }
             else
             {
-                SetLocalScale(_size);
+                SetLocalScale(_projectileCore.Size);
             }
+        }
 
-            _timeTillDestroy -= deltaTime;
-            if (_timeTillDestroy < 0f)
-            {
-                Destroy(gameObject);
-                return;
-            }
+        private void OnProjectileLifetimeEnded(object sender, EventArgs e)
+        {
+            Destroy(gameObject);
+        }
 
-            if (_timeTillDamage > 0f)
-            {
-                _timeTillDamage -= deltaTime;
-                return;
-            }
-
+        private void OnProjectileTickTimeoutRaised(object sender, EventArgs e)
+        {
             Damage();
-            _timeTillDamage = _tickTimeout;
         }
 
         private void Damage()
@@ -81,7 +69,7 @@ namespace Core.Projectiles
             var hitEnemies = DetectEnemiesInSphere();
             foreach (var enemy in hitEnemies)
             {
-                enemy.TakeDamage(_damage);
+                _projectileCore.OnHit(enemy);
             }
         }
 
@@ -89,7 +77,8 @@ namespace Core.Projectiles
         {
             var hitEnemies = new List<Enemy>();
 
-            var hits = Physics.OverlapSphereNonAlloc(transform.position, _size / 2f, _hitBuffer, Settings.LayerMasks.EnemyLayer);
+            var hits = Physics.OverlapSphereNonAlloc(transform.position, _projectileCore.Size / 2f, _hitBuffer,
+                Settings.LayerMasks.EnemyLayer);
             for (var i = 0; i < hits; i++)
             {
                 var hitCollider = _hitBuffer[i];
@@ -110,6 +99,9 @@ namespace Core.Projectiles
         private void OnDestroy()
         {
             _updateService.Remove(this);
+
+            _projectileCore.OnTickTimeoutRaised += OnProjectileTickTimeoutRaised;
+            _projectileCore.OnLifetimeEnded += OnProjectileLifetimeEnded;
         }
     }
 }

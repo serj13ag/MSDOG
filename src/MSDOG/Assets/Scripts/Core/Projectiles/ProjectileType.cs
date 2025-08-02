@@ -5,5 +5,8 @@ namespace Core.Projectiles
         Enemy,
         Gunshot,
         BulletHell,
+        BuzzSaw,
+        EnergyLine,
+        Puddle,
     }
 }
