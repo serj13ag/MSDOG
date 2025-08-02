@@ -1,5 +1,5 @@
 using Constants;
-using Core;
+using Core.Projectiles;
 using DTO;
 using UnityEngine;
 using VContainer;

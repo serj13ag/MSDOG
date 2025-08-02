@@ -9,7 +9,7 @@ using UnityEngine;
 using UtilityComponents;
 using VContainer;
 
-namespace Core
+namespace Core.Projectiles
 {
     public class Projectile : MonoBehaviour, IUpdatable
     {

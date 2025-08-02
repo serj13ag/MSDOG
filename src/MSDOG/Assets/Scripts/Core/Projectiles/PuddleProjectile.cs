@@ -8,15 +8,11 @@ using Services;
 using UnityEngine;
 using VContainer;
 
-namespace Core
+namespace Core.Projectiles
 {
-    public class EnergyLineProjectile : MonoBehaviour, IUpdatable
+    public class PuddleProjectile : MonoBehaviour, IUpdatable
     {
-        private readonly Vector3 _playerProjectileOffset = Vector3.up * 1f; // TODO: to player?
-        private const float LaserRange = 15f;
-
-        [SerializeField] private GameObject _boxObject;
-        [SerializeField] private GameObject _spriteObject;
+        private const float TimeToScale = 0.5f;
 
         private UpdateService _updateService;
 
@@ -29,8 +25,7 @@ namespace Core
         private float _timeTillDamage;
         private float _tickTimeout;
         private float _timeTillDestroy;
-        private Vector3 _direction;
-        private Player _player;
+        private float _scaleTime;
 
         [Inject]
         public void Construct(UpdateService updateService)
@@ -41,26 +36,28 @@ namespace Core
 
         public void Init(CreateProjectileDto createProjectileDto)
         {
-            _player = createProjectileDto.Player;
             _damage = createProjectileDto.Damage;
             _size = createProjectileDto.Size;
-            _direction = createProjectileDto.ForwardDirection;
             _tickTimeout = createProjectileDto.TickTimeout;
             _timeTillDamage = _tickTimeout;
             _timeTillDestroy = createProjectileDto.Lifetime;
 
-            transform.rotation = Quaternion.LookRotation(_direction);
-            transform.position = _player.transform.position + _playerProjectileOffset + _direction * (LaserRange / 2f);
-            _boxObject.transform.localScale = new Vector3(_size, 0.5f, LaserRange);
-
-            var t = Mathf.InverseLerp(0.3f, 1.6f, _size);
-            var scale = Mathf.LerpUnclamped(0.2f, 1.2f, t);
-            _spriteObject.transform.localScale = new Vector3(scale, 1f, 1f);
+            SetLocalScale(0f);
         }
 
         public void OnUpdate(float deltaTime)
         {
-            transform.position = _player.transform.position + _playerProjectileOffset + _direction * (LaserRange / 2f);
+            _scaleTime += deltaTime;
+            if (_scaleTime < TimeToScale)
+            {
+                var t = _scaleTime / TimeToScale;
+                var size = Mathf.Lerp(0f, _size, t);
+                SetLocalScale(size);
+            }
+            else
+            {
+                SetLocalScale(_size);
+            }
 
             _timeTillDestroy -= deltaTime;
             if (_timeTillDestroy < 0f)
@@ -81,24 +78,18 @@ namespace Core
 
         private void Damage()
         {
-            var hitEnemies = DetectEnemiesInLaserBox();
+            var hitEnemies = DetectEnemiesInSphere();
             foreach (var enemy in hitEnemies)
             {
                 enemy.TakeDamage(_damage);
             }
         }
 
-        private List<Enemy> DetectEnemiesInLaserBox()
+        private List<Enemy> DetectEnemiesInSphere()
         {
             var hitEnemies = new List<Enemy>();
 
-            var currentStartPos = _player.transform.position;
-            var boxCenter = currentStartPos + _direction * (LaserRange / 2f);
-            var boxSize = new Vector3(_size, _size, LaserRange);
-            var boxRotation = Quaternion.LookRotation(_direction);
-
-            var hits = Physics.OverlapBoxNonAlloc(boxCenter, boxSize / 2f, _hitBuffer, boxRotation,
-                Settings.LayerMasks.EnemyLayer);
+            var hits = Physics.OverlapSphereNonAlloc(transform.position, _size / 2f, _hitBuffer, Settings.LayerMasks.EnemyLayer);
             for (var i = 0; i < hits; i++)
             {
                 var hitCollider = _hitBuffer[i];
@@ -109,6 +100,11 @@ namespace Core
             }
 
             return hitEnemies;
+        }
+
+        private void SetLocalScale(float scale)
+        {
+            transform.localScale = new Vector3(scale, 0.5f, scale);
         }
 
         private void OnDestroy()

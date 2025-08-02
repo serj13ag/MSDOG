@@ -1,4 +1,4 @@
-namespace Core
+namespace Core.Projectiles
 {
     public enum ProjectileType
     {
