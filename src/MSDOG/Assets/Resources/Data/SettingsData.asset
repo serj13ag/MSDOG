@@ -24,3 +24,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 760cd068447c126409d3985c08933625, type: 2}
   - {fileID: 11400000, guid: af4088a1c17b81442a699dc14b79a142, type: 2}
   - {fileID: 11400000, guid: c83096e5cffc7c049b98fa40a0bd63db, type: 2}
+  EnemyProjectileData: {fileID: 11400000, guid: c18049c34638e9642b0966dff49766e7, type: 2}

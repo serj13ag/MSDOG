@@ -142,7 +142,7 @@ namespace Core.Enemies
 
             var spawnPosition = transform.position + _enemyProjectileOffset;
             var projectileSpawnData = new ProjectileSpawnData(spawnPosition, directionToPlayer, _player, Damage,
-                _projectileSpeed, 0, 0f, 0f, 0f);
+                _projectileSpeed, 0, 0f, 0f, 0f, null);
             _projectileFactory.CreateEnemyProjectile(projectileSpawnData);
         }
 

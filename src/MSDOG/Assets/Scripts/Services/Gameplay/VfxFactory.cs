@@ -1,11 +1,9 @@
-using System;
 using Constants;
 using Core;
-using Core.Projectiles;
 using UI;
 using UnityEngine;
-using UtilityComponents;
 using VFX;
+using Object = UnityEngine.Object;
 
 namespace Services.Gameplay
 {
@@ -45,25 +43,9 @@ namespace Services.Gameplay
             effect.transform.localScale = new Vector3(scale, scale, scale);
         }
 
-        public void CreatEnemyProjectileImpactEffect(Vector3 position, ProjectileType projectileType)
+        public void CreatProjectileImpactEffect(Vector3 position, GameObject impactVFXPrefab)
         {
-            switch (projectileType)
-            {
-                case ProjectileType.Enemy:
-                    _assetProviderService.Instantiate<SpriteAnimatorComponent>(AssetPaths.EnemyProjectileImpactVFXPath, position,
-                        Quaternion.Euler(90f, 0f, 0f));
-                    break;
-                case ProjectileType.Gunshot:
-                    _assetProviderService.Instantiate<SpriteAnimatorComponent>(AssetPaths.GunshotProjectileImpactVFXPath,
-                        position, Quaternion.Euler(90f, 0f, 0f));
-                    break;
-                case ProjectileType.BulletHell:
-                    _assetProviderService.Instantiate<SpriteAnimatorComponent>(AssetPaths.BulletHellProjectileImpactVFXPath,
-                        position, Quaternion.Euler(90f, 0f, 0f));
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(projectileType), projectileType, null);
-            }
+            Object.Instantiate(impactVFXPrefab, position, Quaternion.Euler(90f, 0f, 0f));
         }
 
         public FollowingAbilityEffect CreateAntiGravityEffect(Player player)
@@ -82,7 +64,8 @@ namespace Services.Gameplay
 
         public void CreateDamageTextEffect(int damageDealt, Vector3 position)
         {
-            var damageTextView = _assetProviderService.Instantiate<DamageTextView>(AssetPaths.DamageTextViewPrefabPath, position, Quaternion.Euler(90f, 0f, 0f));
+            var damageTextView = _assetProviderService.Instantiate<DamageTextView>(AssetPaths.DamageTextViewPrefabPath, position,
+                Quaternion.Euler(90f, 0f, 0f));
             damageTextView.Init(damageDealt);
         }
     }

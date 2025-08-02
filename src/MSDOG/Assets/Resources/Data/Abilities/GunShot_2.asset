@@ -27,3 +27,4 @@ MonoBehaviour:
   ActivationSound:
     Clip: {fileID: 8300000, guid: ee107cd0add133f46ac0726372d263b9, type: 3}
     Volume: 0.265
+  ProjectileData: {fileID: 11400000, guid: 159e5a82277decd4fbe4ccd544706cca, type: 2}

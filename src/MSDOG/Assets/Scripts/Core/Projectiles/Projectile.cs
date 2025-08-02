@@ -15,7 +15,7 @@ namespace Core.Projectiles
         private readonly float? _tickTimeout;
         private float _tickRemaining;
 
-        public ProjectileType Type { get; }
+        public bool IsPlayer { get; }
         public float Speed { get; }
         public float Size { get; }
 
@@ -34,7 +34,7 @@ namespace Core.Projectiles
         public event EventHandler<EventArgs> OnLifetimeEnded;
         public event EventHandler<EventArgs> OnTickTimeoutRaised;
 
-        public Projectile(ProjectileSpawnData projectileSpawnData, ProjectileType projectileType)
+        public Projectile(ProjectileSpawnData projectileSpawnData, bool isPlayer)
         {
             _id = Guid.NewGuid();
             _damage = projectileSpawnData.Damage;
@@ -49,7 +49,7 @@ namespace Core.Projectiles
             _tickTimeout = tickTimeout == 0f ? null : tickTimeout;
             _tickRemaining = tickTimeout;
 
-            Type = projectileType;
+            IsPlayer = isPlayer;
             Speed = projectileSpawnData.Speed;
             Size = projectileSpawnData.Size;
             ForwardDirection = projectileSpawnData.ForwardDirection.normalized;

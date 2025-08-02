@@ -11,5 +11,6 @@ namespace Data
         public bool ShowDebugHitboxes;
         public int[] ExperienceProgression;
         public List<TutorialEventData> TutorialEvents;
+        public ProjectileData EnemyProjectileData;
     }
 }

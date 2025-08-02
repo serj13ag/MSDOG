@@ -1,5 +1,6 @@
 using System;
 using Core.Enemies;
+using Data;
 using Helpers;
 using Services;
 using Services.Gameplay;
@@ -15,6 +16,8 @@ namespace Core.Projectiles.Views
 
         private VfxFactory _vfxFactory;
 
+        private GameObject _impactVFXPrefab;
+
         [Inject]
         public void Construct(UpdateService updateService, VfxFactory vfxFactory)
         {
@@ -25,9 +28,11 @@ namespace Core.Projectiles.Views
             _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
 
-        public void Init(Projectile projectile)
+        public void Init(Projectile projectile, ProjectileData projectileData)
         {
             InitBase(projectile);
+
+            _impactVFXPrefab = projectileData.ImpactVFXPrefab;
         }
 
         protected override void OnUpdated(float deltaTime)
@@ -42,18 +47,18 @@ namespace Core.Projectiles.Views
 
         private void OnTriggerEntered(Collider other)
         {
-            if (Projectile.Type == ProjectileType.Enemy)
-            {
-                if (other.gameObject.TryGetComponentInHierarchy<Player>(out var player))
-                {
-                    Projectile.OnHit(player);
-                }
-            }
-            else
+            if (Projectile.IsPlayer)
             {
                 if (other.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
                 {
                     Projectile.OnHit(enemy);
+                }
+            }
+            else
+            {
+                if (other.gameObject.TryGetComponentInHierarchy<Player>(out var player))
+                {
+                    Projectile.OnHit(player);
                 }
             }
         }
@@ -72,7 +77,7 @@ namespace Core.Projectiles.Views
 
         private void CreateImpactVfx()
         {
-            _vfxFactory.CreatEnemyProjectileImpactEffect(transform.position, Projectile.Type);
+            _vfxFactory.CreatProjectileImpactEffect(transform.position, _impactVFXPrefab);
         }
 
         protected override void OnDestroyed()

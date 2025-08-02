@@ -1,8 +1,10 @@
+using System;
 using Constants;
 using Core.Projectiles;
 using Core.Projectiles.Views;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace Services.Gameplay
 {
@@ -11,81 +13,72 @@ namespace Services.Gameplay
         private readonly IObjectResolver _container;
         private readonly AssetProviderService _assetProviderService;
         private readonly RuntimeContainers _runtimeContainers;
+        private readonly DataService _dataService;
 
         public ProjectileFactory(IObjectResolver container, AssetProviderService assetProviderService,
-            RuntimeContainers runtimeContainers)
+            RuntimeContainers runtimeContainers, DataService dataService)
         {
             _container = container;
             _assetProviderService = assetProviderService;
             _runtimeContainers = runtimeContainers;
+            _dataService = dataService;
         }
 
-        public void CreatePlayerGunShotProjectile(ProjectileSpawnData projectileSpawnData)
+        public void CreateAbilityProjectile(ProjectileSpawnData projectileSpawnData)
         {
-            CreateProjectileViewInner(AssetPaths.PlayerGunShotProjectilePrefab,
-                projectileSpawnData.SpawnPosition, Quaternion.LookRotation(projectileSpawnData.ForwardDirection),
-                projectileSpawnData, ProjectileType.Gunshot);
-        }
+            var projectile = new Projectile(projectileSpawnData, true);
 
-        public void CreatePlayerBulletHellProjectile(ProjectileSpawnData projectileSpawnData)
-        {
-            CreateProjectileViewInner(AssetPaths.PlayerBulletHellProjectilePrefab,
-                projectileSpawnData.SpawnPosition, Quaternion.LookRotation(projectileSpawnData.ForwardDirection),
-                projectileSpawnData, ProjectileType.BulletHell);
+            var projectileData = projectileSpawnData.ProjectileData;
+            switch (projectileData.Type)
+            {
+                case ProjectileType.BulletHell:
+                case ProjectileType.Gunshot:
+                {
+                    var prefab = (DefaultProjectileView)projectileData.ViewPrefab;
+                    var view = _container.Instantiate(prefab, projectileSpawnData.SpawnPosition,
+                        Quaternion.LookRotation(projectileSpawnData.ForwardDirection));
+                    view.Init(projectile, projectileSpawnData.ProjectileData);
+                    break;
+                }
+                case ProjectileType.BuzzSaw:
+                {
+                    var viewPrefab = (BuzzSawProjectileView)projectileData.ViewPrefab;
+                    var view = _container.Instantiate(viewPrefab, projectileSpawnData.SpawnPosition,
+                        Quaternion.LookRotation(projectileSpawnData.ForwardDirection));
+                    view.Init(projectile, projectileSpawnData.Player);
+                    break;
+                }
+                case ProjectileType.EnergyLine:
+                {
+                    var viewPrefab = (EnergyLineProjectileView)projectileData.ViewPrefab;
+                    var view = _container.Instantiate(viewPrefab, projectileSpawnData.SpawnPosition,
+                        Quaternion.LookRotation(projectileSpawnData.ForwardDirection));
+                    view.Init(projectile, projectileSpawnData.Player);
+                    break;
+                }
+                case ProjectileType.Puddle:
+                {
+                    var viewPrefab = (PuddleProjectileView)projectileData.ViewPrefab;
+                    var view = _container.Instantiate(viewPrefab, projectileSpawnData.SpawnPosition,
+                        Quaternion.LookRotation(projectileSpawnData.ForwardDirection));
+                    view.Init(projectile);
+                    break;
+                }
+                case ProjectileType.Enemy:
+                case ProjectileType.Undefined:
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         public void CreateEnemyProjectile(ProjectileSpawnData projectileSpawnData)
         {
-            CreateProjectileViewInner(AssetPaths.EnemyProjectilePrefab,
+            var projectile = new Projectile(projectileSpawnData, false);
+            var projectileView = _assetProviderService.Instantiate<DefaultProjectileView>(AssetPaths.EnemyProjectilePrefab,
                 projectileSpawnData.SpawnPosition, Quaternion.LookRotation(projectileSpawnData.ForwardDirection),
-                projectileSpawnData, ProjectileType.Enemy);
-        }
-
-        public BuzzSawProjectileView CreatePlayerBuzzSawProjectile(ProjectileSpawnData projectileSpawnData)
-        {
-            var projectileCore = CreateProjectile(projectileSpawnData, ProjectileType.BuzzSaw);
-            var projectileView = CreateProjectileViewInner<BuzzSawProjectileView>(AssetPaths.PlayerBuzzSawProjectilePrefab,
-                projectileSpawnData.SpawnPosition, Quaternion.identity);
-            projectileView.Init(projectileCore, projectileSpawnData.Player);
-            return projectileView;
-        }
-
-        public PuddleProjectileView CreatePlayerPuddleProjectile(ProjectileSpawnData projectileSpawnData)
-        {
-            var projectile = CreateProjectile(projectileSpawnData, ProjectileType.Puddle);
-            var projectileView = CreateProjectileViewInner<PuddleProjectileView>(AssetPaths.PlayerPuddleProjectilePrefab,
-                projectileSpawnData.SpawnPosition, Quaternion.identity);
-            projectileView.Init(projectile);
-            return projectileView;
-        }
-
-        public EnergyLineProjectileView CreatePlayerEnergyLineProjectile(ProjectileSpawnData projectileSpawnData)
-        {
-            var projectile = CreateProjectile(projectileSpawnData, ProjectileType.EnergyLine);
-            var projectileView = CreateProjectileViewInner<EnergyLineProjectileView>(AssetPaths.PlayerEnergyLineProjectilePrefab,
-                projectileSpawnData.SpawnPosition, Quaternion.identity);
-            projectileView.Init(projectile, projectileSpawnData.Player);
-            return projectileView;
-        }
-
-        private static Projectile CreateProjectile(ProjectileSpawnData projectileSpawnData, ProjectileType projectileType)
-        {
-            return new Projectile(projectileSpawnData, projectileType);
-        }
-
-        private DefaultProjectileView CreateProjectileViewInner(string prefabPath, Vector3 position, Quaternion rotation,
-            ProjectileSpawnData projectileSpawnData, ProjectileType projectileType)
-        {
-            var projectile = CreateProjectile(projectileSpawnData, projectileType);
-            var projectileView = CreateProjectileViewInner<DefaultProjectileView>(prefabPath, position, rotation);
-            projectileView.Init(projectile);
-            return projectileView;
-        }
-
-        private T CreateProjectileViewInner<T>(string prefabPath, Vector3 position, Quaternion rotation) where T : Component
-        {
-            return _assetProviderService.Instantiate<T>(prefabPath, position, rotation, _runtimeContainers.ProjectileContainer,
+                _runtimeContainers.ProjectileContainer,
                 _container);
+            projectileView.Init(projectile, _dataService.GetEnemyProjectileData());
         }
     }
 }

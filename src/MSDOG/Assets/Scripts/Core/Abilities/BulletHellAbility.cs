@@ -32,7 +32,7 @@ namespace Core.Abilities
             randomDirection.Normalize();
 
             var projectileSpawnData = new ProjectileSpawnData(_player.GetAbilitySpawnPosition(_abilityData.AbilityType), randomDirection, _player, _abilityData);
-            _projectileFactory.CreatePlayerBulletHellProjectile(projectileSpawnData);
+            _projectileFactory.CreateAbilityProjectile(projectileSpawnData);
         }
     }
 }

@@ -107,5 +107,10 @@ namespace Services
         {
             return _soundSettingsData;
         }
+
+        public ProjectileData GetEnemyProjectileData()
+        {
+            return _settingsData.EnemyProjectileData;
+        }
     }
 }
