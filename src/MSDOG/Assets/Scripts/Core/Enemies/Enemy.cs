@@ -136,8 +136,8 @@ namespace Core.Enemies
         {
             var directionToPlayer = (_player.transform.position - transform.position).normalized;
             directionToPlayer.y = 0f;
-            var createProjectileDto =
-                new CreateEnemyProjectileDto(transform.position, directionToPlayer, _player, Damage, _projectileSpeed, 0);
+            var createProjectileDto = new CreateProjectileDto(transform.position, directionToPlayer, _player, Damage,
+                _projectileSpeed, 0, 0f, 0f, 0f);
             _projectileFactory.CreateEnemyProjectile(createProjectileDto);
         }
 

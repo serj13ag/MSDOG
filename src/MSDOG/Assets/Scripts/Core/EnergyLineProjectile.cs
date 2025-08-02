@@ -42,12 +42,12 @@ namespace Core
         public void Init(CreateProjectileDto createProjectileDto)
         {
             _player = createProjectileDto.Player;
-            _damage = createProjectileDto.AbilityData.Damage;
-            _size = createProjectileDto.AbilityData.Size;
+            _damage = createProjectileDto.Damage;
+            _size = createProjectileDto.Size;
             _direction = createProjectileDto.ForwardDirection;
-            _tickTimeout = createProjectileDto.AbilityData.TickTimeout;
+            _tickTimeout = createProjectileDto.TickTimeout;
             _timeTillDamage = _tickTimeout;
-            _timeTillDestroy = createProjectileDto.AbilityData.Lifetime;
+            _timeTillDestroy = createProjectileDto.Lifetime;
 
             transform.rotation = Quaternion.LookRotation(_direction);
             transform.position = _player.transform.position + _playerProjectileOffset + _direction * (LaserRange / 2f);

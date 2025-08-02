@@ -39,16 +39,6 @@ namespace Core
         {
             _type = type;
             _id = Guid.NewGuid();
-            _pierce = createProjectileDto.AbilityData.Pierce;
-            _speed = createProjectileDto.AbilityData.Speed;
-            _damage = createProjectileDto.AbilityData.Damage;
-            _forwardDirection = createProjectileDto.ForwardDirection;
-        }
-
-        public void Init(CreateEnemyProjectileDto createProjectileDto, ProjectileType type)
-        {
-            _type = type;
-            _id = Guid.NewGuid();
             _pierce = createProjectileDto.Pierce;
             _speed = createProjectileDto.Speed;
             _damage = createProjectileDto.Damage;

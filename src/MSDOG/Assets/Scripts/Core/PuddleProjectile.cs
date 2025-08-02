@@ -36,11 +36,11 @@ namespace Core
 
         public void Init(CreateProjectileDto createProjectileDto)
         {
-            _damage = createProjectileDto.AbilityData.Damage;
-            _size = createProjectileDto.AbilityData.Size;
-            _tickTimeout = createProjectileDto.AbilityData.TickTimeout;
+            _damage = createProjectileDto.Damage;
+            _size = createProjectileDto.Size;
+            _tickTimeout = createProjectileDto.TickTimeout;
             _timeTillDamage = _tickTimeout;
-            _timeTillDestroy = createProjectileDto.AbilityData.Lifetime;
+            _timeTillDestroy = createProjectileDto.Lifetime;
 
             SetLocalScale(0f);
         }

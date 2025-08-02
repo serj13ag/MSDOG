@@ -25,29 +25,26 @@ namespace Services.Gameplay
 
         public void CreatePlayerGunShotProjectile(CreateProjectileDto createProjectileDto)
         {
-            var projectile = _assetProviderService.Instantiate<Projectile>(AssetPaths.PlayerGunShotProjectilePrefab,
+            CreateProjectileInner(AssetPaths.PlayerGunShotProjectilePrefab,
                 createProjectileDto.SpawnPosition + _playerProjectileOffset,
-                Quaternion.LookRotation(createProjectileDto.ForwardDirection), _runtimeContainers.ProjectileContainer,
-                _container);
-            projectile.Init(createProjectileDto, ProjectileType.Gunshot);
+                Quaternion.LookRotation(createProjectileDto.ForwardDirection),
+                createProjectileDto, ProjectileType.Gunshot);
         }
 
         public void CreatePlayerBulletHellProjectile(CreateProjectileDto createProjectileDto)
         {
-            var projectile = _assetProviderService.Instantiate<Projectile>(AssetPaths.PlayerBulletHellProjectilePrefab,
+            CreateProjectileInner(AssetPaths.PlayerBulletHellProjectilePrefab,
                 createProjectileDto.SpawnPosition + _playerProjectileOffset,
-                Quaternion.LookRotation(createProjectileDto.ForwardDirection), _runtimeContainers.ProjectileContainer,
-                _container);
-            projectile.Init(createProjectileDto, ProjectileType.BulletHell);
+                Quaternion.LookRotation(createProjectileDto.ForwardDirection),
+                createProjectileDto, ProjectileType.BulletHell);
         }
 
-        public void CreateEnemyProjectile(CreateEnemyProjectileDto createProjectileDto)
+        public void CreateEnemyProjectile(CreateProjectileDto createProjectileDto)
         {
-            var projectile = _assetProviderService.Instantiate<Projectile>(AssetPaths.EnemyProjectilePrefab,
+            CreateProjectileInner(AssetPaths.EnemyProjectilePrefab,
                 createProjectileDto.SpawnPosition + _enemyProjectileOffset,
-                Quaternion.LookRotation(createProjectileDto.ForwardDirection), _runtimeContainers.ProjectileContainer,
-                _container);
-            projectile.Init(createProjectileDto, ProjectileType.Enemy);
+                Quaternion.LookRotation(createProjectileDto.ForwardDirection),
+                createProjectileDto, ProjectileType.Enemy);
         }
 
         public void CreatePlayerBuzzSawProjectile(CreateProjectileDto createProjectileDto)
@@ -71,6 +68,14 @@ namespace Services.Gameplay
                 createProjectileDto.SpawnPosition + _playerProjectileOffset, Quaternion.identity,
                 _runtimeContainers.ProjectileContainer, _container);
             projectile.Init(createProjectileDto);
+        }
+
+        private void CreateProjectileInner(string prefabPath, Vector3 position, Quaternion rotation,
+            CreateProjectileDto createProjectileDto, ProjectileType projectileType)
+        {
+            var projectile = _assetProviderService.Instantiate<Projectile>(prefabPath, position, rotation,
+                _runtimeContainers.ProjectileContainer, _container);
+            projectile.Init(createProjectileDto, projectileType);
         }
     }
 }
