@@ -73,9 +73,10 @@ namespace Services.Gameplay
         private void CreateProjectileInner(string prefabPath, Vector3 position, Quaternion rotation,
             CreateProjectileDto createProjectileDto, ProjectileType projectileType)
         {
-            var projectile = _assetProviderService.Instantiate<Projectile>(prefabPath, position, rotation,
+            var projectile = new ProjectileCore(createProjectileDto, projectileType);
+            var projectileView = _assetProviderService.Instantiate<Projectile>(prefabPath, position, rotation,
                 _runtimeContainers.ProjectileContainer, _container);
-            projectile.Init(createProjectileDto, projectileType);
+            projectileView.Init(projectile);
         }
     }
 }

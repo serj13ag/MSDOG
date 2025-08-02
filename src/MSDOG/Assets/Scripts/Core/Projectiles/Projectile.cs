@@ -1,6 +1,5 @@
 using System;
 using Core.Enemies;
-using DTO;
 using Helpers;
 using Interfaces;
 using Services;
@@ -18,12 +17,7 @@ namespace Core.Projectiles
         private UpdateService _updateService;
         private VfxFactory _vfxFactory;
 
-        private ProjectileType _type;
-        private Guid _id;
-        private Vector3 _forwardDirection;
-        private int _damage;
-        private float _speed;
-        private int _pierce;
+        private ProjectileCore _projectileCore;
 
         [Inject]
         public void Construct(UpdateService updateService, VfxFactory vfxFactory)
@@ -35,21 +29,18 @@ namespace Core.Projectiles
             _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
 
-        public void Init(CreateProjectileDto createProjectileDto, ProjectileType type)
+        public void Init(ProjectileCore projectileCore)
         {
-            _type = type;
-            _id = Guid.NewGuid();
-            _pierce = createProjectileDto.Pierce;
-            _speed = createProjectileDto.Speed;
-            _damage = createProjectileDto.Damage;
-            _forwardDirection = createProjectileDto.ForwardDirection;
+            _projectileCore = projectileCore;
+
+            projectileCore.OnDestroyed += OnProjectileDestroyed;
         }
 
         public void OnUpdate(float deltaTime)
         {
-            transform.position += _forwardDirection.normalized * (_speed * deltaTime);
+            transform.position += _projectileCore.ForwardDirection * (_projectileCore.Speed * deltaTime);
 
-            if (Math.Abs(transform.position.x) > 50f || Math.Abs(transform.position.z) > 50f) // TODO: refactor
+            if (IsOutOfArena())
             {
                 Destroy(gameObject);
             }
@@ -57,39 +48,41 @@ namespace Core.Projectiles
 
         private void OnTriggerEntered(Collider other)
         {
-            if (_type == ProjectileType.Enemy)
+            if (_projectileCore.Type == ProjectileType.Enemy)
             {
                 if (other.gameObject.TryGetComponentInHierarchy<Player>(out var player))
                 {
-                    player.RegisterProjectileDamager(_id, _damage);
+                    _projectileCore.OnHit(player);
                 }
             }
             else
             {
                 if (other.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
                 {
-                    enemy.TakeDamage(_damage);
+                    _projectileCore.OnHit(enemy);
                 }
             }
+        }
 
-            if (_pierce > 0)
-            {
-                _pierce -= 1;
-            }
-            else
-            {
-                CreateImpactVfx();
-                Destroy(gameObject);
-            }
+        private void OnProjectileDestroyed(object sender, EventArgs e)
+        {
+            CreateImpactVfx();
+        }
+
+        private bool IsOutOfArena()
+        {
+            return Math.Abs(transform.position.x) > 50f || Math.Abs(transform.position.z) > 50f;
         }
 
         private void CreateImpactVfx()
         {
-            _vfxFactory.CreatEnemyProjectileImpactEffect(transform.position, _type);
+            _vfxFactory.CreatEnemyProjectileImpactEffect(transform.position, _projectileCore.Type);
         }
 
         private void OnDestroy()
         {
+            _projectileCore.OnDestroyed += OnProjectileDestroyed;
+
             _updateService.Remove(this);
             _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;
         }
