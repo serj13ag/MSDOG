@@ -5,13 +5,6 @@ namespace Constants
         // Gameplay Prefabs
         public const string PlayerPrefab = "Prefabs/Actors/Player";
 
-        public const string PlayerGunShotProjectilePrefab = "Prefabs/Projectiles/PlayerGunShot";
-        public const string PlayerBulletHellProjectilePrefab = "Prefabs/Projectiles/PlayerBulletHell";
-        public const string PlayerBuzzSawProjectilePrefab = "Prefabs/Projectiles/PlayerBuzzSawProjectile";
-        public const string PlayerPuddleProjectilePrefab = "Prefabs/PlayerPuddleProjectile";
-        public const string PlayerEnergyLineProjectilePrefab = "Prefabs/Projectiles/PlayerEnergyLineProjectile";
-        public const string EnemyProjectilePrefab = "Prefabs/Projectiles/EnemyProjectile";
-
         public const string ExperiencePiecePrefab = "Prefabs/ExperiencePiece";
 
         // Data
@@ -22,7 +15,7 @@ namespace Constants
         public const string SoundSettingsData = "Data/SoundSettingsData";
 
         // Ui Prefabs
-        public const string UiRootCanvasPath = "Prefabs/Ui/UiRootCanvas";
+        public const string UiRootCanvasPath = "Prefabs/Ui/UiRootCanvas"; // TODO: remove?
         public const string DetailPartPrefabPath = "Prefabs/Hud/DetailPartHud";
         public const string LoseWindowPath = "Prefabs/Ui/LoseWindow";
         public const string WinWindowPath = "Prefabs/Ui/WinWindow";
@@ -36,9 +29,6 @@ namespace Constants
         public const string BloodParticlesVFXPath = "Prefabs/Vfx/BloodParticles";
         public const string CuttingBlowVFXPath = "Prefabs/Vfx/AbilityVFX/HStrike";
         public const string RoundAttackVFXPath = "Prefabs/Vfx/AbilityVFX/CStrike";
-        public const string EnemyProjectileImpactVFXPath = "Prefabs/Vfx/ProjectileImpacts/EnemyProjectileImpact";
-        public const string GunshotProjectileImpactVFXPath = "Prefabs/Vfx/ProjectileImpacts/GunshotProjectileImpact";
-        public const string BulletHellProjectileImpactVFXPath = "Prefabs/Vfx/ProjectileImpacts/BulletHellProjectileImpact";
 
         public const string AntiGravityFollowingVFXPath = "Prefabs/Vfx/AbilityVFX/AntiGravity";
         public const string EnergyShieldFollowingVFXPath = "Prefabs/Vfx/AbilityVFX/EnergyShield";
