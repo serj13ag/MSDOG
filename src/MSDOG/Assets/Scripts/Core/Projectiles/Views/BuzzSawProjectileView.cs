@@ -1,6 +1,5 @@
 using Core.Enemies;
 using Helpers;
-using Interfaces;
 using Services;
 using UnityEngine;
 using UtilityComponents;
@@ -8,36 +7,35 @@ using VContainer;
 
 namespace Core.Projectiles.Views
 {
-    public class BuzzSawProjectileView : MonoBehaviour, IUpdatable
+    public class BuzzSawProjectileView : BaseProjectileView
     {
         private const float BoxHeight = 16f;
         private const float BoxWidth = 16f;
 
         [SerializeField] private ColliderEventProvider _colliderEventProvider;
 
-        private UpdateService _updateService;
-
-        private Projectile _projectile;
         private Player _player;
 
         [Inject]
         public void Construct(UpdateService updateService)
         {
-            _updateService = updateService;
+            ConstructBase(updateService);
 
-            updateService.Register(this);
             _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
 
         public void Init(Projectile projectile, Player player)
         {
-            _projectile = projectile;
+            InitBase(projectile);
+
             _player = player;
         }
 
-        public void OnUpdate(float deltaTime)
+        protected override void OnUpdated(float deltaTime)
         {
-            transform.position += _projectile.ForwardDirection * (_projectile.Speed * deltaTime);
+            base.OnUpdated(deltaTime);
+
+            transform.position += Projectile.ForwardDirection * (Projectile.Speed * deltaTime);
             CheckBounds();
         }
 
@@ -45,7 +43,7 @@ namespace Core.Projectiles.Views
         {
             if (other.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
             {
-                _projectile.OnHit(enemy);
+                Projectile.OnHit(enemy);
             }
         }
 
@@ -60,7 +58,7 @@ namespace Core.Projectiles.Views
             var frontBound = playerPos.z + BoxHeight / 2f;
 
             // Check X bounds
-            var forwardDirection = _projectile.ForwardDirection;
+            var forwardDirection = Projectile.ForwardDirection;
             if (currentPos.x <= leftBound && forwardDirection.x < 0)
             {
                 InvertDirectionX(forwardDirection);
@@ -87,17 +85,18 @@ namespace Core.Projectiles.Views
 
         private void InvertDirectionX(Vector3 direction)
         {
-            _projectile.ChangeForwardDirection(new Vector3(-direction.x, direction.y, direction.z));
+            Projectile.ChangeForwardDirection(new Vector3(-direction.x, direction.y, direction.z));
         }
 
         private void InvertDirectionZ(Vector3 direction)
         {
-            _projectile.ChangeForwardDirection(new Vector3(direction.x, direction.y, -direction.z));
+            Projectile.ChangeForwardDirection(new Vector3(direction.x, direction.y, -direction.z));
         }
 
-        private void OnDestroy()
+        protected override void OnDestroyed()
         {
-            _updateService.Remove(this);
+            base.OnDestroyed();
+
             _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;
         }
     }

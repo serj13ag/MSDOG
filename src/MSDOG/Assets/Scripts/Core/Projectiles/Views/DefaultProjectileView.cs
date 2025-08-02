@@ -1,7 +1,6 @@
 using System;
 using Core.Enemies;
 using Helpers;
-using Interfaces;
 using Services;
 using Services.Gameplay;
 using UnityEngine;
@@ -10,35 +9,30 @@ using VContainer;
 
 namespace Core.Projectiles.Views
 {
-    public class DefaultProjectileView : MonoBehaviour, IUpdatable
+    public class DefaultProjectileView : BaseProjectileView
     {
         [SerializeField] private ColliderEventProvider _colliderEventProvider;
 
-        private UpdateService _updateService;
         private VfxFactory _vfxFactory;
-
-        private Projectile _projectile;
 
         [Inject]
         public void Construct(UpdateService updateService, VfxFactory vfxFactory)
         {
-            _updateService = updateService;
+            ConstructBase(updateService);
+
             _vfxFactory = vfxFactory;
 
-            updateService.Register(this);
             _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
 
         public void Init(Projectile projectile)
         {
-            _projectile = projectile;
-
-            projectile.OnPiercesRunOut += OnProjectilePiercesRunOut;
+            InitBase(projectile);
         }
 
-        public void OnUpdate(float deltaTime)
+        protected override void OnUpdated(float deltaTime)
         {
-            transform.position += _projectile.ForwardDirection * (_projectile.Speed * deltaTime);
+            transform.position += Projectile.ForwardDirection * (Projectile.Speed * deltaTime);
 
             if (IsOutOfArena())
             {
@@ -48,26 +42,27 @@ namespace Core.Projectiles.Views
 
         private void OnTriggerEntered(Collider other)
         {
-            if (_projectile.Type == ProjectileType.Enemy)
+            if (Projectile.Type == ProjectileType.Enemy)
             {
                 if (other.gameObject.TryGetComponentInHierarchy<Player>(out var player))
                 {
-                    _projectile.OnHit(player);
+                    Projectile.OnHit(player);
                 }
             }
             else
             {
                 if (other.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
                 {
-                    _projectile.OnHit(enemy);
+                    Projectile.OnHit(enemy);
                 }
             }
         }
 
-        private void OnProjectilePiercesRunOut(object sender, EventArgs e)
+        protected override void OnPiercesRunOut(object sender, EventArgs e)
         {
+            base.OnPiercesRunOut(sender, e);
+
             CreateImpactVfx();
-            Destroy(gameObject);
         }
 
         private bool IsOutOfArena()
@@ -77,14 +72,13 @@ namespace Core.Projectiles.Views
 
         private void CreateImpactVfx()
         {
-            _vfxFactory.CreatEnemyProjectileImpactEffect(transform.position, _projectile.Type);
+            _vfxFactory.CreatEnemyProjectileImpactEffect(transform.position, Projectile.Type);
         }
 
-        private void OnDestroy()
+        protected override void OnDestroyed()
         {
-            _projectile.OnPiercesRunOut += OnProjectilePiercesRunOut;
+            base.OnDestroyed();
 
-            _updateService.Remove(this);
             _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;
         }
     }

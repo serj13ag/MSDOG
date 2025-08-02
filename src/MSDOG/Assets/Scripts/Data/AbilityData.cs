@@ -13,7 +13,7 @@ namespace Data
         public float Cooldown;
         public float FirstCooldownReduction;
         public float Speed;
-        public int Pierce;
+        public int Pierce = -1;
         public float Size;
         public int DamageReductionPercent;
         public float Lifetime;

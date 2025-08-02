@@ -3,64 +3,51 @@ using System.Collections.Generic;
 using Constants;
 using Core.Enemies;
 using Helpers;
-using Interfaces;
 using Services;
 using UnityEngine;
 using VContainer;
 
 namespace Core.Projectiles.Views
 {
-    public class PuddleProjectileView : MonoBehaviour, IUpdatable
+    public class PuddleProjectileView : BaseProjectileView
     {
         private const float TimeToScale = 0.5f;
 
-        private UpdateService _updateService;
-
         private readonly Collider[] _hitBuffer = new Collider[32];
-        private Projectile _projectile;
         private float _scaleTime;
 
         [Inject]
         public void Construct(UpdateService updateService)
         {
-            _updateService = updateService;
-            updateService.Register(this);
+            ConstructBase(updateService);
         }
 
         public void Init(Projectile projectile)
         {
-            _projectile = projectile;
-
-            projectile.OnTickTimeoutRaised += OnProjectileTickTimeoutRaised;
-            projectile.OnLifetimeEnded += OnProjectileLifetimeEnded;
+            InitBase(projectile);
 
             SetLocalScale(0f);
         }
 
-        public void OnUpdate(float deltaTime)
+        protected override void OnUpdated(float deltaTime)
         {
-            _projectile.OnUpdate(deltaTime);
-
             _scaleTime += deltaTime;
             if (_scaleTime < TimeToScale)
             {
                 var t = _scaleTime / TimeToScale;
-                var size = Mathf.Lerp(0f, _projectile.Size, t);
+                var size = Mathf.Lerp(0f, Projectile.Size, t);
                 SetLocalScale(size);
             }
             else
             {
-                SetLocalScale(_projectile.Size);
+                SetLocalScale(Projectile.Size);
             }
         }
 
-        private void OnProjectileLifetimeEnded(object sender, EventArgs e)
+        protected override void OnTickTimeoutRaised(object sender, EventArgs e)
         {
-            Destroy(gameObject);
-        }
+            base.OnTickTimeoutRaised(sender, e);
 
-        private void OnProjectileTickTimeoutRaised(object sender, EventArgs e)
-        {
             Damage();
         }
 
@@ -69,7 +56,7 @@ namespace Core.Projectiles.Views
             var hitEnemies = DetectEnemiesInSphere();
             foreach (var enemy in hitEnemies)
             {
-                _projectile.OnHit(enemy);
+                Projectile.OnHit(enemy);
             }
         }
 
@@ -77,7 +64,7 @@ namespace Core.Projectiles.Views
         {
             var hitEnemies = new List<Enemy>();
 
-            var hits = Physics.OverlapSphereNonAlloc(transform.position, _projectile.Size / 2f, _hitBuffer,
+            var hits = Physics.OverlapSphereNonAlloc(transform.position, Projectile.Size / 2f, _hitBuffer,
                 Settings.LayerMasks.EnemyLayer);
             for (var i = 0; i < hits; i++)
             {
@@ -94,14 +81,6 @@ namespace Core.Projectiles.Views
         private void SetLocalScale(float scale)
         {
             transform.localScale = new Vector3(scale, 0.5f, scale);
-        }
-
-        private void OnDestroy()
-        {
-            _updateService.Remove(this);
-
-            _projectile.OnTickTimeoutRaised += OnProjectileTickTimeoutRaised;
-            _projectile.OnLifetimeEnded += OnProjectileLifetimeEnded;
         }
     }
 }

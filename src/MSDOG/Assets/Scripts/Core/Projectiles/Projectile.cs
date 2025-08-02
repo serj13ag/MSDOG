@@ -40,7 +40,7 @@ namespace Core.Projectiles
             _damage = projectileSpawnData.Damage;
 
             var pierce = projectileSpawnData.Pierce;
-            _piercesLeft = pierce == 0f ? null : pierce;
+            _piercesLeft = pierce == -1 ? null : pierce;
 
             var lifetime = projectileSpawnData.Lifetime;
             _lifetimeRemaining = lifetime == 0f ? null : lifetime;

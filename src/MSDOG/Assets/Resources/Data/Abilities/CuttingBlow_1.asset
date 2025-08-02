@@ -18,7 +18,7 @@ MonoBehaviour:
   Cooldown: 1.6
   FirstCooldownReduction: 1
   Speed: 0
-  Pierce: 0
+  Pierce: -1
   Size: 8
   DamageReductionPercent: 0
   Lifetime: 0

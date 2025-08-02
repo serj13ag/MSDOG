@@ -4,59 +4,48 @@ using Constants;
 using Core.Abilities;
 using Core.Enemies;
 using Helpers;
-using Interfaces;
 using Services;
 using UnityEngine;
 using VContainer;
 
 namespace Core.Projectiles.Views
 {
-    public class EnergyLineProjectileView : MonoBehaviour, IUpdatable
+    public class EnergyLineProjectileView : BaseProjectileView
     {
         private const float LaserRange = 15f;
 
         [SerializeField] private GameObject _boxObject;
         [SerializeField] private GameObject _spriteObject;
 
-        private UpdateService _updateService;
-
         private readonly Collider[] _hitBuffer = new Collider[32];
-        private Projectile _projectile;
         private Player _player;
 
         [Inject]
         public void Construct(UpdateService updateService)
         {
-            _updateService = updateService;
-            updateService.Register(this);
+            ConstructBase(updateService);
         }
 
         public void Init(Projectile projectile, Player player)
         {
-            _projectile = projectile;
+            InitBase(projectile);
+
             _player = player;
 
             UpdateView(projectile.ForwardDirection, projectile.Size);
-
-            projectile.OnLifetimeEnded += OnProjectileLifetimeEnded;
-            projectile.OnTickTimeoutRaised += OnProjectileTickTimeoutRaised;
         }
 
-        public void OnUpdate(float deltaTime)
+        protected override void OnUpdated(float deltaTime)
         {
-            _projectile.OnUpdate(deltaTime);
-
-            transform.position = _player.GetAbilitySpawnPosition(AbilityType.EnergyLine) + _projectile.ForwardDirection * (LaserRange / 2f);
+            transform.position = _player.GetAbilitySpawnPosition(AbilityType.EnergyLine) +
+                                 Projectile.ForwardDirection * (LaserRange / 2f);
         }
 
-        private void OnProjectileTickTimeoutRaised(object sender, EventArgs e)
+        protected override void OnTickTimeoutRaised(object sender, EventArgs e)
         {
+            base.OnTickTimeoutRaised(sender, e);
+
             DealDamage();
-        }
-
-        private void OnProjectileLifetimeEnded(object sender, EventArgs e)
-        {
-            Destroy(gameObject);
         }
 
         private void UpdateView(Vector3 forwardDirection, float size)
@@ -75,7 +64,7 @@ namespace Core.Projectiles.Views
             var hitEnemies = DetectEnemiesInLaserBox();
             foreach (var enemy in hitEnemies)
             {
-                _projectile.OnHit(enemy);
+                Projectile.OnHit(enemy);
             }
         }
 
@@ -84,9 +73,9 @@ namespace Core.Projectiles.Views
             var hitEnemies = new List<Enemy>();
 
             var currentStartPos = _player.transform.position;
-            var boxCenter = currentStartPos + _projectile.ForwardDirection * (LaserRange / 2f);
-            var boxSize = new Vector3(_projectile.Size, _projectile.Size, LaserRange);
-            var boxRotation = Quaternion.LookRotation(_projectile.ForwardDirection);
+            var boxCenter = currentStartPos + Projectile.ForwardDirection * (LaserRange / 2f);
+            var boxSize = new Vector3(Projectile.Size, Projectile.Size, LaserRange);
+            var boxRotation = Quaternion.LookRotation(Projectile.ForwardDirection);
 
             var hits = Physics.OverlapBoxNonAlloc(boxCenter, boxSize / 2f, _hitBuffer, boxRotation,
                 Settings.LayerMasks.EnemyLayer);
@@ -100,14 +89,6 @@ namespace Core.Projectiles.Views
             }
 
             return hitEnemies;
-        }
-
-        private void OnDestroy()
-        {
-            _updateService.Remove(this);
-
-            _projectile.OnLifetimeEnded += OnProjectileLifetimeEnded;
-            _projectile.OnTickTimeoutRaised += OnProjectileTickTimeoutRaised;
         }
     }
 }
