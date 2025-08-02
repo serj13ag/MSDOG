@@ -1,5 +1,5 @@
+using Core.Projectiles;
 using Data;
-using DTO;
 using Services;
 using Services.Gameplay;
 using UnityEngine;
@@ -31,8 +31,8 @@ namespace Core.Abilities
 
             randomDirection.Normalize();
 
-            var createProjectileDto = new CreateProjectileDto(_player.transform.position, randomDirection, _player, _abilityData);
-            _projectileFactory.CreatePlayerBuzzSawProjectile(createProjectileDto);
+            var projectileSpawnData = new ProjectileSpawnData(_player.transform.position, randomDirection, _player, _abilityData);
+            _projectileFactory.CreatePlayerBuzzSawProjectile(projectileSpawnData);
         }
     }
 }

@@ -1,91 +1,114 @@
 using System;
 using Core.Enemies;
-using Helpers;
-using Interfaces;
-using Services;
-using Services.Gameplay;
 using UnityEngine;
-using UtilityComponents;
-using VContainer;
 
 namespace Core.Projectiles
 {
-    public class Projectile : MonoBehaviour, IUpdatable
+    public class Projectile
     {
-        [SerializeField] private ColliderEventProvider _colliderEventProvider;
+        private readonly Guid _id;
+        private readonly int _damage;
+        private int? _piercesLeft;
+        private Vector3 _forwardDirection;
+        private float? _lifetimeRemaining;
 
-        private UpdateService _updateService;
-        private VfxFactory _vfxFactory;
+        private readonly float? _tickTimeout;
+        private float _tickRemaining;
 
-        private ProjectileCore _projectileCore;
+        public ProjectileType Type { get; }
+        public float Speed { get; }
+        public float Size { get; }
 
-        [Inject]
-        public void Construct(UpdateService updateService, VfxFactory vfxFactory)
+        public Vector3 ForwardDirection
         {
-            _updateService = updateService;
-            _vfxFactory = vfxFactory;
-
-            updateService.Register(this);
-            _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
+            get => _forwardDirection;
+            private set
+            {
+                var newForwardDirection = value.normalized;
+                newForwardDirection.y = 0;
+                _forwardDirection = newForwardDirection;
+            }
         }
 
-        public void Init(ProjectileCore projectileCore)
-        {
-            _projectileCore = projectileCore;
+        public event EventHandler<EventArgs> OnPiercesRunOut;
+        public event EventHandler<EventArgs> OnLifetimeEnded;
+        public event EventHandler<EventArgs> OnTickTimeoutRaised;
 
-            projectileCore.OnPiercesRunOut += OnProjectilePiercesRunOut;
+        public Projectile(ProjectileSpawnData projectileSpawnData, ProjectileType projectileType)
+        {
+            _id = Guid.NewGuid();
+            _damage = projectileSpawnData.Damage;
+
+            var pierce = projectileSpawnData.Pierce;
+            _piercesLeft = pierce == 0f ? null : pierce;
+
+            var lifetime = projectileSpawnData.Lifetime;
+            _lifetimeRemaining = lifetime == 0f ? null : lifetime;
+
+            var tickTimeout = projectileSpawnData.TickTimeout;
+            _tickTimeout = tickTimeout == 0f ? null : tickTimeout;
+            _tickRemaining = tickTimeout;
+
+            Type = projectileType;
+            Speed = projectileSpawnData.Speed;
+            Size = projectileSpawnData.Size;
+            ForwardDirection = projectileSpawnData.ForwardDirection.normalized;
+        }
+
+        public void ChangeForwardDirection(Vector3 newForwardDirection)
+        {
+            ForwardDirection = newForwardDirection;
         }
 
         public void OnUpdate(float deltaTime)
         {
-            transform.position += _projectileCore.ForwardDirection * (_projectileCore.Speed * deltaTime);
-
-            if (IsOutOfArena())
+            if (_lifetimeRemaining.HasValue)
             {
-                Destroy(gameObject);
+                _lifetimeRemaining -= deltaTime;
+                if (_lifetimeRemaining < 0f)
+                {
+                    OnLifetimeEnded?.Invoke(this, EventArgs.Empty);
+                }
+            }
+
+            if (_tickTimeout.HasValue)
+            {
+                _tickRemaining -= deltaTime;
+                if (_tickRemaining < 0f)
+                {
+                    _tickRemaining = _tickTimeout.Value;
+                    OnTickTimeoutRaised?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
-        private void OnTriggerEntered(Collider other)
+        public void OnHit(Player player)
         {
-            if (_projectileCore.Type == ProjectileType.Enemy)
+            player.RegisterProjectileDamager(_id, _damage);
+            CheckPierce();
+        }
+
+        public void OnHit(Enemy enemy)
+        {
+            enemy.TakeDamage(_damage);
+            CheckPierce();
+        }
+
+        private void CheckPierce()
+        {
+            if (!_piercesLeft.HasValue)
             {
-                if (other.gameObject.TryGetComponentInHierarchy<Player>(out var player))
-                {
-                    _projectileCore.OnHit(player);
-                }
+                return;
+            }
+
+            if (_piercesLeft > 0)
+            {
+                _piercesLeft -= 1;
             }
             else
             {
-                if (other.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
-                {
-                    _projectileCore.OnHit(enemy);
-                }
+                OnPiercesRunOut?.Invoke(this, EventArgs.Empty);
             }
-        }
-
-        private void OnProjectilePiercesRunOut(object sender, EventArgs e)
-        {
-            CreateImpactVfx();
-            Destroy(gameObject);
-        }
-
-        private bool IsOutOfArena()
-        {
-            return Math.Abs(transform.position.x) > 50f || Math.Abs(transform.position.z) > 50f;
-        }
-
-        private void CreateImpactVfx()
-        {
-            _vfxFactory.CreatEnemyProjectileImpactEffect(transform.position, _projectileCore.Type);
-        }
-
-        private void OnDestroy()
-        {
-            _projectileCore.OnPiercesRunOut += OnProjectilePiercesRunOut;
-
-            _updateService.Remove(this);
-            _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;
         }
     }
 }

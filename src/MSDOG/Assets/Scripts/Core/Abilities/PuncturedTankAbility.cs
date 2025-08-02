@@ -1,5 +1,5 @@
+using Core.Projectiles;
 using Data;
-using DTO;
 using Services;
 using Services.Gameplay;
 using UnityEngine;
@@ -23,8 +23,8 @@ namespace Core.Abilities
 
         protected override void InvokeAction()
         {
-            var createProjectileDto = new CreateProjectileDto(_player.transform.position, Vector3.zero, _player, _abilityData);
-            _projectileFactory.CreatePlayerPuddleProjectile(createProjectileDto);
+            var projectileSpawnData = new ProjectileSpawnData(_player.transform.position, Vector3.zero, _player, _abilityData);
+            _projectileFactory.CreatePlayerPuddleProjectile(projectileSpawnData);
         }
     }
 }

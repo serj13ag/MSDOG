@@ -8,7 +8,7 @@ using VContainer;
 
 namespace Core.Projectiles
 {
-    public class BuzzSawProjectile : MonoBehaviour, IUpdatable
+    public class BuzzSawProjectileView : MonoBehaviour, IUpdatable
     {
         private const float BoxHeight = 16f;
         private const float BoxWidth = 16f;
@@ -17,7 +17,7 @@ namespace Core.Projectiles
 
         private UpdateService _updateService;
 
-        private ProjectileCore _projectileCore;
+        private Projectile _projectile;
         private Player _player;
 
         [Inject]
@@ -29,15 +29,15 @@ namespace Core.Projectiles
             _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
 
-        public void Init(ProjectileCore projectileCore, Player player)
+        public void Init(Projectile projectile, Player player)
         {
-            _projectileCore = projectileCore;
+            _projectile = projectile;
             _player = player;
         }
 
         public void OnUpdate(float deltaTime)
         {
-            transform.position += _projectileCore.ForwardDirection * (_projectileCore.Speed * deltaTime);
+            transform.position += _projectile.ForwardDirection * (_projectile.Speed * deltaTime);
             CheckBounds();
         }
 
@@ -45,7 +45,7 @@ namespace Core.Projectiles
         {
             if (other.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
             {
-                _projectileCore.OnHit(enemy);
+                _projectile.OnHit(enemy);
             }
         }
 
@@ -60,7 +60,7 @@ namespace Core.Projectiles
             var frontBound = playerPos.z + BoxHeight / 2f;
 
             // Check X bounds
-            var forwardDirection = _projectileCore.ForwardDirection;
+            var forwardDirection = _projectile.ForwardDirection;
             if (currentPos.x <= leftBound && forwardDirection.x < 0)
             {
                 InvertDirectionX(forwardDirection);
@@ -87,12 +87,12 @@ namespace Core.Projectiles
 
         private void InvertDirectionX(Vector3 direction)
         {
-            _projectileCore.ChangeForwardDirection(new Vector3(-direction.x, direction.y, direction.z));
+            _projectile.ChangeForwardDirection(new Vector3(-direction.x, direction.y, direction.z));
         }
 
         private void InvertDirectionZ(Vector3 direction)
         {
-            _projectileCore.ChangeForwardDirection(new Vector3(direction.x, direction.y, -direction.z));
+            _projectile.ChangeForwardDirection(new Vector3(direction.x, direction.y, -direction.z));
         }
 
         private void OnDestroy()

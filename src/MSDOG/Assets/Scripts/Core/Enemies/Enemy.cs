@@ -1,7 +1,7 @@
 using System;
 using Core.Enemies.EnemyBehaviour;
+using Core.Projectiles;
 using Data;
-using DTO;
 using Interfaces;
 using Services;
 using Services.Gameplay;
@@ -136,9 +136,9 @@ namespace Core.Enemies
         {
             var directionToPlayer = (_player.transform.position - transform.position).normalized;
             directionToPlayer.y = 0f;
-            var createProjectileDto = new CreateProjectileDto(transform.position, directionToPlayer, _player, Damage,
+            var projectileSpawnData = new ProjectileSpawnData(transform.position, directionToPlayer, _player, Damage,
                 _projectileSpeed, 0, 0f, 0f, 0f);
-            _projectileFactory.CreateEnemyProjectile(createProjectileDto);
+            _projectileFactory.CreateEnemyProjectile(projectileSpawnData);
         }
 
         private void OnDestroy()

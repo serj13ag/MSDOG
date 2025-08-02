@@ -1,6 +1,5 @@
 using Constants;
 using Core.Projectiles;
-using DTO;
 using UnityEngine;
 using VContainer;
 
@@ -23,63 +22,75 @@ namespace Services.Gameplay
             _runtimeContainers = runtimeContainers;
         }
 
-        public void CreatePlayerGunShotProjectile(CreateProjectileDto createProjectileDto)
+        public void CreatePlayerGunShotProjectile(ProjectileSpawnData projectileSpawnData)
         {
-            CreateProjectileInner(AssetPaths.PlayerGunShotProjectilePrefab,
-                createProjectileDto.SpawnPosition + _playerProjectileOffset,
-                Quaternion.LookRotation(createProjectileDto.ForwardDirection),
-                createProjectileDto, ProjectileType.Gunshot);
+            CreateProjectileViewInner(AssetPaths.PlayerGunShotProjectilePrefab,
+                projectileSpawnData.SpawnPosition + _playerProjectileOffset,
+                Quaternion.LookRotation(projectileSpawnData.ForwardDirection),
+                projectileSpawnData, ProjectileType.Gunshot);
         }
 
-        public void CreatePlayerBulletHellProjectile(CreateProjectileDto createProjectileDto)
+        public void CreatePlayerBulletHellProjectile(ProjectileSpawnData projectileSpawnData)
         {
-            CreateProjectileInner(AssetPaths.PlayerBulletHellProjectilePrefab,
-                createProjectileDto.SpawnPosition + _playerProjectileOffset,
-                Quaternion.LookRotation(createProjectileDto.ForwardDirection),
-                createProjectileDto, ProjectileType.BulletHell);
+            CreateProjectileViewInner(AssetPaths.PlayerBulletHellProjectilePrefab,
+                projectileSpawnData.SpawnPosition + _playerProjectileOffset,
+                Quaternion.LookRotation(projectileSpawnData.ForwardDirection),
+                projectileSpawnData, ProjectileType.BulletHell);
         }
 
-        public void CreateEnemyProjectile(CreateProjectileDto createProjectileDto)
+        public void CreateEnemyProjectile(ProjectileSpawnData projectileSpawnData)
         {
-            CreateProjectileInner(AssetPaths.EnemyProjectilePrefab,
-                createProjectileDto.SpawnPosition + _enemyProjectileOffset,
-                Quaternion.LookRotation(createProjectileDto.ForwardDirection),
-                createProjectileDto, ProjectileType.Enemy);
+            CreateProjectileViewInner(AssetPaths.EnemyProjectilePrefab,
+                projectileSpawnData.SpawnPosition + _enemyProjectileOffset,
+                Quaternion.LookRotation(projectileSpawnData.ForwardDirection),
+                projectileSpawnData, ProjectileType.Enemy);
         }
 
-        public void CreatePlayerBuzzSawProjectile(CreateProjectileDto createProjectileDto)
+        public BuzzSawProjectileView CreatePlayerBuzzSawProjectile(ProjectileSpawnData projectileSpawnData)
         {
-            var projectile = _assetProviderService.Instantiate<BuzzSawProjectile>(AssetPaths.PlayerBuzzSawProjectilePrefab,
-                createProjectileDto.SpawnPosition + _playerProjectileOffset, Quaternion.identity,
-                _runtimeContainers.ProjectileContainer, _container);
-            var projectileCore = new ProjectileCore(createProjectileDto, ProjectileType.BuzzSaw);
-            projectile.Init(projectileCore, createProjectileDto.Player);
+            var projectileCore = CreateProjectile(projectileSpawnData, ProjectileType.BuzzSaw);
+            var projectileView = CreateProjectileViewInner<BuzzSawProjectileView>(AssetPaths.PlayerBuzzSawProjectilePrefab,
+                projectileSpawnData.SpawnPosition + _playerProjectileOffset, Quaternion.identity);
+            projectileView.Init(projectileCore, projectileSpawnData.Player);
+            return projectileView;
         }
 
-        public void CreatePlayerPuddleProjectile(CreateProjectileDto createProjectileDto)
+        public PuddleProjectileView CreatePlayerPuddleProjectile(ProjectileSpawnData projectileSpawnData)
         {
-            var projectile = _assetProviderService.Instantiate<PuddleProjectile>(AssetPaths.PlayerPuddleProjectilePrefab,
-                createProjectileDto.SpawnPosition, Quaternion.identity, _runtimeContainers.ProjectileContainer, _container);
-            var projectileCore = new ProjectileCore(createProjectileDto, ProjectileType.Puddle);
-            projectile.Init(projectileCore);
-        }
-
-        public void CreatePlayerEnergyLineProjectile(CreateProjectileDto createProjectileDto)
-        {
-            var projectile = _assetProviderService.Instantiate<EnergyLineProjectile>(AssetPaths.PlayerEnergyLineProjectilePrefab,
-                createProjectileDto.SpawnPosition + _playerProjectileOffset, Quaternion.identity,
-                _runtimeContainers.ProjectileContainer, _container);
-            var projectileCore = new ProjectileCore(createProjectileDto, ProjectileType.EnergyLine);
-            projectile.Init(createProjectileDto, projectileCore);
-        }
-
-        private void CreateProjectileInner(string prefabPath, Vector3 position, Quaternion rotation,
-            CreateProjectileDto createProjectileDto, ProjectileType projectileType)
-        {
-            var projectile = new ProjectileCore(createProjectileDto, projectileType);
-            var projectileView = _assetProviderService.Instantiate<Projectile>(prefabPath, position, rotation,
-                _runtimeContainers.ProjectileContainer, _container);
+            var projectile = CreateProjectile(projectileSpawnData, ProjectileType.Puddle);
+            var projectileView = CreateProjectileViewInner<PuddleProjectileView>(AssetPaths.PlayerPuddleProjectilePrefab,
+                projectileSpawnData.SpawnPosition, Quaternion.identity);
             projectileView.Init(projectile);
+            return projectileView;
+        }
+
+        public EnergyLineProjectileView CreatePlayerEnergyLineProjectile(ProjectileSpawnData projectileSpawnData)
+        {
+            var projectile = CreateProjectile(projectileSpawnData, ProjectileType.EnergyLine);
+            var projectileView = CreateProjectileViewInner<EnergyLineProjectileView>(AssetPaths.PlayerEnergyLineProjectilePrefab,
+                projectileSpawnData.SpawnPosition + _playerProjectileOffset, Quaternion.identity);
+            projectileView.Init(projectile, projectileSpawnData.Player);
+            return projectileView;
+        }
+
+        private static Projectile CreateProjectile(ProjectileSpawnData projectileSpawnData, ProjectileType projectileType)
+        {
+            return new Projectile(projectileSpawnData, projectileType);
+        }
+
+        private ProjectileView CreateProjectileViewInner(string prefabPath, Vector3 position, Quaternion rotation,
+            ProjectileSpawnData projectileSpawnData, ProjectileType projectileType)
+        {
+            var projectile = CreateProjectile(projectileSpawnData, projectileType);
+            var projectileView = CreateProjectileViewInner<ProjectileView>(prefabPath, position, rotation);
+            projectileView.Init(projectile);
+            return projectileView;
+        }
+
+        private T CreateProjectileViewInner<T>(string prefabPath, Vector3 position, Quaternion rotation) where T : Component
+        {
+            return _assetProviderService.Instantiate<T>(prefabPath, position, rotation, _runtimeContainers.ProjectileContainer,
+                _container);
         }
     }
 }

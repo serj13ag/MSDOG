@@ -1,10 +1,9 @@
-using Core;
 using Data;
 using UnityEngine;
 
-namespace DTO
+namespace Core.Projectiles
 {
-    public class CreateProjectileDto
+    public class ProjectileSpawnData
     {
         public Vector3 SpawnPosition { get; }
         public Vector3 ForwardDirection { get; }
@@ -16,13 +15,13 @@ namespace DTO
         public float TickTimeout { get; }
         public float Lifetime { get; }
 
-        public CreateProjectileDto(Vector3 spawnPosition, Vector3 forwardDirection, Player player, AbilityData abilityData)
+        public ProjectileSpawnData(Vector3 spawnPosition, Vector3 forwardDirection, Player player, AbilityData abilityData)
             : this(spawnPosition, forwardDirection, player, abilityData.Damage, abilityData.Speed, abilityData.Pierce,
                 abilityData.Size, abilityData.TickTimeout, abilityData.Lifetime)
         {
         }
 
-        public CreateProjectileDto(Vector3 spawnPosition, Vector3 forwardDirection, Player player, int damage, float speed,
+        public ProjectileSpawnData(Vector3 spawnPosition, Vector3 forwardDirection, Player player, int damage, float speed,
             int pierce, float size, float tickTimeout, float lifetime)
         {
             SpawnPosition = spawnPosition;

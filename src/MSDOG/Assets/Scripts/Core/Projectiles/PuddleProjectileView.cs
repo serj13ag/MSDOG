@@ -10,14 +10,14 @@ using VContainer;
 
 namespace Core.Projectiles
 {
-    public class PuddleProjectile : MonoBehaviour, IUpdatable
+    public class PuddleProjectileView : MonoBehaviour, IUpdatable
     {
         private const float TimeToScale = 0.5f;
 
         private UpdateService _updateService;
 
         private readonly Collider[] _hitBuffer = new Collider[32];
-        private ProjectileCore _projectileCore;
+        private Projectile _projectile;
         private float _scaleTime;
 
         [Inject]
@@ -27,30 +27,30 @@ namespace Core.Projectiles
             updateService.Register(this);
         }
 
-        public void Init(ProjectileCore projectileCore)
+        public void Init(Projectile projectile)
         {
-            _projectileCore = projectileCore;
+            _projectile = projectile;
 
-            projectileCore.OnTickTimeoutRaised += OnProjectileTickTimeoutRaised;
-            projectileCore.OnLifetimeEnded += OnProjectileLifetimeEnded;
+            projectile.OnTickTimeoutRaised += OnProjectileTickTimeoutRaised;
+            projectile.OnLifetimeEnded += OnProjectileLifetimeEnded;
 
             SetLocalScale(0f);
         }
 
         public void OnUpdate(float deltaTime)
         {
-            _projectileCore.OnUpdate(deltaTime);
+            _projectile.OnUpdate(deltaTime);
 
             _scaleTime += deltaTime;
             if (_scaleTime < TimeToScale)
             {
                 var t = _scaleTime / TimeToScale;
-                var size = Mathf.Lerp(0f, _projectileCore.Size, t);
+                var size = Mathf.Lerp(0f, _projectile.Size, t);
                 SetLocalScale(size);
             }
             else
             {
-                SetLocalScale(_projectileCore.Size);
+                SetLocalScale(_projectile.Size);
             }
         }
 
@@ -69,7 +69,7 @@ namespace Core.Projectiles
             var hitEnemies = DetectEnemiesInSphere();
             foreach (var enemy in hitEnemies)
             {
-                _projectileCore.OnHit(enemy);
+                _projectile.OnHit(enemy);
             }
         }
 
@@ -77,7 +77,7 @@ namespace Core.Projectiles
         {
             var hitEnemies = new List<Enemy>();
 
-            var hits = Physics.OverlapSphereNonAlloc(transform.position, _projectileCore.Size / 2f, _hitBuffer,
+            var hits = Physics.OverlapSphereNonAlloc(transform.position, _projectile.Size / 2f, _hitBuffer,
                 Settings.LayerMasks.EnemyLayer);
             for (var i = 0; i < hits; i++)
             {
@@ -100,8 +100,8 @@ namespace Core.Projectiles
         {
             _updateService.Remove(this);
 
-            _projectileCore.OnTickTimeoutRaised += OnProjectileTickTimeoutRaised;
-            _projectileCore.OnLifetimeEnded += OnProjectileLifetimeEnded;
+            _projectile.OnTickTimeoutRaised += OnProjectileTickTimeoutRaised;
+            _projectile.OnLifetimeEnded += OnProjectileLifetimeEnded;
         }
     }
 }
