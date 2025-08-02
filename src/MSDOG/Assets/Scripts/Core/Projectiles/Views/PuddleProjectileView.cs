@@ -8,7 +8,7 @@ using Services;
 using UnityEngine;
 using VContainer;
 
-namespace Core.Projectiles
+namespace Core.Projectiles.Views
 {
     public class PuddleProjectileView : MonoBehaviour, IUpdatable
     {

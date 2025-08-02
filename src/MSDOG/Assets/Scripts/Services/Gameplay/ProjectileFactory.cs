@@ -1,5 +1,6 @@
 using Constants;
 using Core.Projectiles;
+using Core.Projectiles.Views;
 using UnityEngine;
 using VContainer;
 
@@ -72,11 +73,11 @@ namespace Services.Gameplay
             return new Projectile(projectileSpawnData, projectileType);
         }
 
-        private ProjectileView CreateProjectileViewInner(string prefabPath, Vector3 position, Quaternion rotation,
+        private DefaultProjectileView CreateProjectileViewInner(string prefabPath, Vector3 position, Quaternion rotation,
             ProjectileSpawnData projectileSpawnData, ProjectileType projectileType)
         {
             var projectile = CreateProjectile(projectileSpawnData, projectileType);
-            var projectileView = CreateProjectileViewInner<ProjectileView>(prefabPath, position, rotation);
+            var projectileView = CreateProjectileViewInner<DefaultProjectileView>(prefabPath, position, rotation);
             projectileView.Init(projectile);
             return projectileView;
         }

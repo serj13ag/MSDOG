@@ -8,9 +8,9 @@ using UnityEngine;
 using UtilityComponents;
 using VContainer;
 
-namespace Core.Projectiles
+namespace Core.Projectiles.Views
 {
-    public class ProjectileView : MonoBehaviour, IUpdatable
+    public class DefaultProjectileView : MonoBehaviour, IUpdatable
     {
         [SerializeField] private ColliderEventProvider _colliderEventProvider;
 

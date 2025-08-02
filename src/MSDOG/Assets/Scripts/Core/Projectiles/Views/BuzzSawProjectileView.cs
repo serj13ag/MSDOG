@@ -6,7 +6,7 @@ using UnityEngine;
 using UtilityComponents;
 using VContainer;
 
-namespace Core.Projectiles
+namespace Core.Projectiles.Views
 {
     public class BuzzSawProjectileView : MonoBehaviour, IUpdatable
     {
