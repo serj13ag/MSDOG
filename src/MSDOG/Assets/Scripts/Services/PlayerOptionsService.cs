@@ -1,14 +1,13 @@
 using System;
-using UnityEngine;
+using SaveData;
 
 namespace Services
 {
     public class PlayerOptionsService
     {
-        private const string IsMutedKey = "IsMuted";
-        private const string MasterVolumeKey = "MasterVolume";
-        private const string MusicVolumeKey = "MusicVolume";
-        private const string SfxVolumeKey = "SFXVolume";
+        private const string PlayerOptionsSaveDataKey = "PlayerOptionsSaveData";
+
+        private readonly SaveLoadService _saveLoadService;
 
         public bool IsMuted { get; private set; }
         public float MasterVolume { get; private set; }
@@ -17,12 +16,15 @@ namespace Services
 
         public event EventHandler<EventArgs> OnSoundOptionsUpdated;
 
-        public PlayerOptionsService()
+        public PlayerOptionsService(SaveLoadService saveLoadService)
         {
-            IsMuted = PlayerPrefs.GetInt(IsMutedKey, 0) == 1;
-            MasterVolume = PlayerPrefs.GetFloat(MasterVolumeKey, 0.5f);
-            MusicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 0.7f);
-            SfxVolume = PlayerPrefs.GetFloat(SfxVolumeKey, 1f);
+            _saveLoadService = saveLoadService;
+
+            var playerOptionsSave = _saveLoadService.Load<PlayerOptionsSaveData>(PlayerOptionsSaveDataKey);
+            IsMuted = playerOptionsSave.IsMuted;
+            MasterVolume = playerOptionsSave.MasterVolume;
+            MusicVolume = playerOptionsSave.MusicVolume;
+            SfxVolume = playerOptionsSave.SfxVolume;
         }
 
         public void UpdateOptions(bool isMute, float masterVolume, float musicVolume, float sfxVolume)
@@ -39,11 +41,8 @@ namespace Services
 
         private void Save()
         {
-            PlayerPrefs.SetInt(IsMutedKey, IsMuted ? 1 : 0);
-            PlayerPrefs.SetFloat(MasterVolumeKey, MasterVolume);
-            PlayerPrefs.SetFloat(MusicVolumeKey, MusicVolume);
-            PlayerPrefs.SetFloat(SfxVolumeKey, SfxVolume);
-            PlayerPrefs.Save();
+            var saveData = new PlayerOptionsSaveData(IsMuted, MasterVolume, MusicVolume, SfxVolume);
+            _saveLoadService.Save(saveData, PlayerOptionsSaveDataKey);
         }
     }
 }

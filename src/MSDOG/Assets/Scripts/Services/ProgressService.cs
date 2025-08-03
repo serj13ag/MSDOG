@@ -1,29 +1,23 @@
-using UnityEngine;
+using SaveData;
 
 namespace Services
 {
     public class ProgressService
     {
-        private const string LastPassedLevelKey = "LastPassedLevel";
-        private const string EasyModeEnabledKey = "EasyModeEnabledKey";
+        private const string ProgressSaveDataKey = "ProgressSaveData";
 
-        private int _lastPassedLevel;
-        private bool _easyModeEnabled;
+        private readonly SaveLoadService _saveLoadService;
 
-        public int LastPassedLevel => _lastPassedLevel;
-        public bool EasyModeEnabled => _easyModeEnabled;
+        public int LastPassedLevel { get; private set; }
+        public bool EasyModeEnabled { get; private set; }
 
-        public ProgressService()
+        public ProgressService(SaveLoadService saveLoadService)
         {
-            _lastPassedLevel = PlayerPrefs.GetInt(LastPassedLevelKey, -1);
-            _easyModeEnabled = PlayerPrefs.GetInt(EasyModeEnabledKey, 0) == 1;
-        }
+            _saveLoadService = saveLoadService;
 
-        public void SetLastPassedLevel(int level)
-        {
-            _lastPassedLevel = level;
-            PlayerPrefs.SetInt(LastPassedLevelKey, level);
-            PlayerPrefs.Save();
+            var saveData = saveLoadService.Load<ProgressSaveData>(ProgressSaveDataKey);
+            LastPassedLevel = saveData.LastPassedLevel;
+            EasyModeEnabled = saveData.EasyModeEnabled;
         }
 
         public void UnlockAllLevels()
@@ -31,11 +25,22 @@ namespace Services
             SetLastPassedLevel(50);
         }
 
+        public void SetLastPassedLevel(int level)
+        {
+            LastPassedLevel = level;
+            Save();
+        }
+
         public void SetEasyMode(bool easyModeEnabled)
         {
-            _easyModeEnabled = easyModeEnabled;
-            PlayerPrefs.SetInt(EasyModeEnabledKey, _easyModeEnabled ? 1 : 0);
-            PlayerPrefs.Save();
+            EasyModeEnabled = easyModeEnabled;
+            Save();
+        }
+
+        private void Save()
+        {
+            var saveData = new ProgressSaveData(LastPassedLevel, EasyModeEnabled);
+            _saveLoadService.Save(saveData, ProgressSaveDataKey);
         }
     }
 }

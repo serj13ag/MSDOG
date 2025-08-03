@@ -37,6 +37,7 @@ namespace Infrastructure
             builder.Register<SceneLoadService>(Lifetime.Singleton);
             builder.Register<GlobalWindowFactory>(Lifetime.Singleton);
             builder.Register<DialogueService>(Lifetime.Singleton);
+            builder.Register<SaveLoadService>(Lifetime.Singleton);
 
             builder.RegisterComponent(_loadingCurtainService);
             builder.RegisterComponent(_soundService);

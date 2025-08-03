@@ -3,27 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using Core;
 using Data;
-using Newtonsoft.Json;
-using UnityEngine;
+using SaveData;
 
 namespace Services.Gameplay
 {
     public class TutorialService : IDisposable
     {
-        private const string PlayerPrefsKey = "TutorialSaveData";
+        private const string TutorialSaveDataKey = "TutorialSaveData";
 
         private readonly WindowService _windowService;
         private readonly DataService _dataService;
+        private readonly SaveLoadService _saveLoadService;
 
         private readonly List<TutorialEventType> _shownTutorialEvents;
         private Player _player;
 
-        public TutorialService(WindowService windowService, DataService dataService)
+        public TutorialService(WindowService windowService, DataService dataService, SaveLoadService saveLoadService)
         {
             _windowService = windowService;
             _dataService = dataService;
+            _saveLoadService = saveLoadService;
 
-            _shownTutorialEvents = LoadShownTutorialEvents();
+            var tutorialSaveData = saveLoadService.Load<TutorialSaveData>(TutorialSaveDataKey);
+            _shownTutorialEvents = tutorialSaveData.ShownTutorialEvents;
         }
 
         public void SetPlayer(Player player)
@@ -82,6 +84,7 @@ namespace Services.Gameplay
                 _windowService.ShowTutorialWindow(tutorialEventData);
 
                 _shownTutorialEvents.Add(tutorialEventType);
+
                 Save();
             }
         }
@@ -91,19 +94,10 @@ namespace Services.Gameplay
             return _shownTutorialEvents.Any(x => x == type);
         }
 
-        private List<TutorialEventType> LoadShownTutorialEvents()
-        {
-            var json = PlayerPrefs.GetString(PlayerPrefsKey);
-            return string.IsNullOrEmpty(json)
-                ? new List<TutorialEventType>()
-                : JsonConvert.DeserializeObject<List<TutorialEventType>>(json);
-        }
-
         private void Save()
         {
-            var json = JsonConvert.SerializeObject(_shownTutorialEvents);
-            PlayerPrefs.SetString(PlayerPrefsKey, json);
-            PlayerPrefs.Save();
+            var saveData = new TutorialSaveData(_shownTutorialEvents);
+            _saveLoadService.Save(saveData, TutorialSaveDataKey);
         }
 
         public void Dispose()
