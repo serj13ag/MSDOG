@@ -1,6 +1,6 @@
 using System;
+using Core.Controllers;
 using Core.Interfaces;
-using Core.Services;
 using UnityEngine;
 
 namespace Gameplay.Projectiles.Views

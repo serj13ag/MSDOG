@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
+using Core.Factories;
 using Core.Models.Data;
+using Core.Services;
 using Gameplay.Services;
 using UI.Windows;
 using UnityEngine;
 using VContainer;
 
-namespace Core.Services
+namespace Core.Controllers
 {
     public class WindowService : PersistentMonoService
     {

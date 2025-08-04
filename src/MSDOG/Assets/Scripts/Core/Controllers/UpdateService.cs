@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Core.Interfaces;
 using UnityEngine;
 
-namespace Core.Services
+namespace Core.Controllers
 {
     public class UpdateService : PersistentMonoService
     {

@@ -1,9 +1,10 @@
 using Constants;
+using Core.Services;
 using UI.Windows;
 using UnityEngine;
 using VContainer;
 
-namespace Core.Services
+namespace Core.Factories
 {
     public class GlobalWindowFactory
     {

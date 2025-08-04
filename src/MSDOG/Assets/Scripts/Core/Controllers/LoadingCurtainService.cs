@@ -4,7 +4,7 @@ using Constants;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Core.Services
+namespace Core.Controllers
 {
     public class LoadingCurtainService : PersistentMonoService
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Core.Services
+namespace Core.Controllers
 {
     public abstract class PersistentMonoService : MonoBehaviour
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace Core.Services
+namespace Core.Controllers
 {
     public class CoroutineService : PersistentMonoService
     {

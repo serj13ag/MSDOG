@@ -1,9 +1,10 @@
 using System;
+using Core.Services;
 using Core.Sounds;
 using UnityEngine;
 using VContainer;
 
-namespace Core.Services
+namespace Core.Controllers
 {
     public class SoundService : PersistentMonoService
     {
