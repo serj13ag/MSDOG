@@ -1,5 +1,5 @@
 using UnityEngine;
-using UtilityComponents;
+using Utility;
 
 namespace UI.HUD
 {

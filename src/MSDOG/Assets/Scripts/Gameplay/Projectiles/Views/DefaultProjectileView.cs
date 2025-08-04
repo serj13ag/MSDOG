@@ -2,10 +2,9 @@ using System;
 using Core.Models.Data;
 using Core.Services;
 using Gameplay.Enemies;
-using Gameplay.Helpers;
 using Gameplay.Services;
 using UnityEngine;
-using UtilityComponents;
+using Utility;
 using VContainer;
 
 namespace Gameplay.Projectiles.Views

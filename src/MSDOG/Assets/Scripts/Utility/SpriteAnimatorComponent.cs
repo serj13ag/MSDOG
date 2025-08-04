@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UtilityComponents
+namespace Utility
 {
     public class SpriteAnimatorComponent : BaseSpriteAnimatorComponent
     {

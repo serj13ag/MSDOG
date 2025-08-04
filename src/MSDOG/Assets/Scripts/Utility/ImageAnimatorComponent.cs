@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UtilityComponents
+namespace Utility
 {
     public class ImageAnimatorComponent : BaseSpriteAnimatorComponent
     {

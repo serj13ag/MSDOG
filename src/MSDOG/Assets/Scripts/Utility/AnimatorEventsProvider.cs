@@ -2,7 +2,7 @@ using System;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace UtilityComponents
+namespace Utility
 {
     public class AnimatorEventsProvider : MonoBehaviour
     {

@@ -1,5 +1,5 @@
 using Gameplay.Enemies.EnemyBehaviour.States;
-using UtilityComponents;
+using Utility;
 
 namespace Gameplay.Enemies.EnemyBehaviour
 {

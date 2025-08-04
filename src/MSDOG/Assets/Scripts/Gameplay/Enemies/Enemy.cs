@@ -8,7 +8,7 @@ using Gameplay.Services;
 using UI;
 using UnityEngine;
 using UnityEngine.AI;
-using UtilityComponents;
+using Utility;
 
 namespace Gameplay.Enemies
 {

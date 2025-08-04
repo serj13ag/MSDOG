@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using Constants;
 using Core.Services;
 using Gameplay.Enemies;
-using Gameplay.Helpers;
 using UnityEngine;
+using Utility;
 using VContainer;
 
 namespace Gameplay.Projectiles.Views

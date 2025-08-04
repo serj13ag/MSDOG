@@ -1,8 +1,7 @@
 using Core.Interfaces;
 using Core.Services;
-using Gameplay.Helpers;
 using UnityEngine;
-using UtilityComponents;
+using Utility;
 
 namespace Gameplay
 {

@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
-using UtilityComponents;
+using Utility;
 
 namespace Gameplay.Enemies.EnemyBehaviour.States
 {

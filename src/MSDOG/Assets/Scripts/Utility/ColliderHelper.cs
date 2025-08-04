@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Gameplay.Helpers
+namespace Utility
 {
     public static class ColliderHelper
     {
