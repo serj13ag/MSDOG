@@ -152,9 +152,9 @@ MonoBehaviour:
     TypeName: 
   autoRun: 0
   autoInjectGameObjects: []
-  _loadingCurtainService: {fileID: 1864871816}
-  _soundService: {fileID: 761217505}
-  _windowService: {fileID: 793497543}
+  _loadingCurtainController: {fileID: 1864871816}
+  _soundController: {fileID: 761217505}
+  _windowController: {fileID: 793497543}
 --- !u!4 &754698784
 Transform:
   m_ObjectHideFlags: 0
@@ -180,7 +180,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2227499391181175788, guid: 621785926197799478c9cbaedc914e66, type: 3}
       propertyPath: m_Name
-      value: SoundService
+      value: SoundController
       objectReference: {fileID: 0}
     - target: {fileID: 3819152221898445655, guid: 621785926197799478c9cbaedc914e66, type: 3}
       propertyPath: m_LocalPosition.x
@@ -344,7 +344,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8741539339294041058, guid: 82a5a59aaa16be94ea1ee22ba977001f, type: 3}
       propertyPath: m_Name
-      value: LoadingCurtainService
+      value: LoadingCurtainController
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -412,7 +412,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4053735346020638699, guid: 70952f8d3e7e9b64fa0b3a5f62a8aaa6, type: 3}
       propertyPath: m_Name
-      value: WindowService
+      value: WindowController
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

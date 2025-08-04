@@ -10,15 +10,15 @@ namespace Gameplay.Controllers
         [SerializeField] private Vector3 _cameraPositionOffset;
         [SerializeField] private Vector3 _cameraRotationOffset;
 
-        private UpdateService _updateService;
+        private UpdateController _updateController;
         private Camera _camera;
 
         private Transform _targetTransform;
 
         [Inject]
-        public void Construct(UpdateService updateService)
+        public void Construct(UpdateController updateController)
         {
-            _updateService = updateService;
+            _updateController = updateController;
         }
 
         public void SetFollowTarget(Transform targetTransform)
@@ -27,7 +27,7 @@ namespace Gameplay.Controllers
 
             _camera = Camera.main;
 
-            _updateService.Register(this);
+            _updateController.Register(this);
         }
 
         public void OnUpdate(float deltaTime)
@@ -43,7 +43,7 @@ namespace Gameplay.Controllers
 
         private void OnDestroy()
         {
-            _updateService.Remove(this);
+            _updateController.Remove(this);
         }
     }
 }

@@ -17,25 +17,25 @@ namespace UI.Windows
 
         private GameStateMachine _gameStateMachine;
         private GameStateService _gameStateService;
-        private WindowService _windowService;
-        private UpdateService _updateService;
+        private WindowController _windowController;
+        private UpdateController _updateController;
 
         public GameObject GameObject => gameObject;
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(GameStateMachine gameStateMachine, GameStateService gameStateService, WindowService windowService,
-            UpdateService updateService)
+        public void Construct(GameStateMachine gameStateMachine, GameStateService gameStateService, WindowController windowController,
+            UpdateController updateController)
         {
-            _updateService = updateService;
-            _windowService = windowService;
+            _updateController = updateController;
+            _windowController = windowController;
             _gameStateService = gameStateService;
             _gameStateMachine = gameStateMachine;
         }
 
         private void OnEnable()
         {
-            _updateService.Pause(true);
+            _updateController.Pause(true);
 
             _restartButton.onClick.AddListener(Restart);
             _optionsButton.onClick.AddListener(OnOptionsButtonClicked);
@@ -45,7 +45,7 @@ namespace UI.Windows
 
         private void OnDisable()
         {
-            _updateService.Unpause(true);
+            _updateController.Unpause(true);
 
             _restartButton.onClick.RemoveListener(Restart);
             _optionsButton.onClick.RemoveListener(OnOptionsButtonClicked);
@@ -65,7 +65,7 @@ namespace UI.Windows
 
         private void OnOptionsButtonClicked()
         {
-            _windowService.ShowOptions();
+            _windowController.ShowOptions();
         }
 
         private void Close()

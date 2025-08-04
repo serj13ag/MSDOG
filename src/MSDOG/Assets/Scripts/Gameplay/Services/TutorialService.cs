@@ -12,16 +12,16 @@ namespace Gameplay.Services
     {
         private const string TutorialSaveDataKey = "TutorialSaveData";
 
-        private readonly WindowService _windowService;
+        private readonly WindowController _windowController;
         private readonly DataService _dataService;
         private readonly SaveLoadService _saveLoadService;
 
         private readonly List<TutorialEventType> _shownTutorialEvents;
         private Player _player;
 
-        public TutorialService(WindowService windowService, DataService dataService, SaveLoadService saveLoadService)
+        public TutorialService(WindowController windowController, DataService dataService, SaveLoadService saveLoadService)
         {
-            _windowService = windowService;
+            _windowController = windowController;
             _dataService = dataService;
             _saveLoadService = saveLoadService;
 
@@ -82,7 +82,7 @@ namespace Gameplay.Services
 
             if (tutorialEventData != null)
             {
-                _windowService.ShowTutorialWindow(tutorialEventData);
+                _windowController.ShowTutorialWindow(tutorialEventData);
 
                 _shownTutorialEvents.Add(tutorialEventType);
 

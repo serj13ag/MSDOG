@@ -25,7 +25,7 @@ namespace Gameplay.Enemies
         [SerializeField] private ColliderEventProvider _damagePlayerColliderTriggerEnterProvider;
         [SerializeField] private AnimatorEventsProvider _animatorEventsProvider;
 
-        private UpdateService _updateService;
+        private UpdateController _updateController;
         private GameFactory _gameFactory;
         private ProjectileFactory _projectileFactory;
         private VfxFactory _vfxFactory;
@@ -54,13 +54,13 @@ namespace Gameplay.Enemies
 
         public event Action<Enemy> OnDied;
 
-        public void Init(UpdateService updateService, GameFactory gameFactory, ProjectileFactory projectileFactory, Player player,
+        public void Init(UpdateController updateController, GameFactory gameFactory, ProjectileFactory projectileFactory, Player player,
             EnemyData data, VfxFactory vfxFactory, DebugService debugService)
         {
             _vfxFactory = vfxFactory;
             _projectileFactory = projectileFactory;
             _gameFactory = gameFactory;
-            _updateService = updateService;
+            _updateController = updateController;
 
             _id = Guid.NewGuid();
             _player = player;
@@ -84,7 +84,7 @@ namespace Gameplay.Enemies
 
             _agent.speed = data.Speed;
 
-            updateService.Register(this);
+            updateController.Register(this);
 
             if (_animatorEventsProvider)
             {
@@ -151,7 +151,7 @@ namespace Gameplay.Enemies
         {
             _stateMachine.Dispose();
 
-            _updateService.Remove(this);
+            _updateController.Remove(this);
 
             if (_animatorEventsProvider)
             {

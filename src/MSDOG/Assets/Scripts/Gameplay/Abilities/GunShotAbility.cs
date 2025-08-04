@@ -12,8 +12,8 @@ namespace Gameplay.Abilities
         private readonly ProjectileFactory _projectileFactory;
 
         public GunShotAbility(AbilityData abilityData, Player player, ProjectileFactory projectileFactory,
-            SoundService soundService)
-            : base(abilityData, soundService)
+            SoundController soundController)
+            : base(abilityData, soundController)
         {
             _abilityData = abilityData;
             _player = player;

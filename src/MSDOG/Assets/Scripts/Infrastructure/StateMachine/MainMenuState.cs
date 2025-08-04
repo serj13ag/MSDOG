@@ -7,19 +7,19 @@ namespace Infrastructure.StateMachine
 {
     public class MainMenuState : IState
     {
-        private LoadingCurtainService _loadingCurtainService;
+        private LoadingCurtainController _loadingCurtainController;
         private SceneLoadService _sceneLoadService;
 
         [Inject]
-        public void Construct(LoadingCurtainService loadingCurtainService, SceneLoadService sceneLoadService)
+        public void Construct(LoadingCurtainController loadingCurtainController, SceneLoadService sceneLoadService)
         {
-            _loadingCurtainService = loadingCurtainService;
+            _loadingCurtainController = loadingCurtainController;
             _sceneLoadService = sceneLoadService;
         }
 
         public void Enter()
         {
-            _loadingCurtainService.FadeOnInstantly();
+            _loadingCurtainController.FadeOnInstantly();
             _sceneLoadService.LoadScene(Settings.SceneNames.MenuSceneName, OnSceneLoaded);
         }
 
@@ -29,7 +29,7 @@ namespace Infrastructure.StateMachine
 
         private void OnSceneLoaded()
         {
-            _loadingCurtainService.FadeOffWithDelay();
+            _loadingCurtainController.FadeOffWithDelay();
         }
     }
 }

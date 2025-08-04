@@ -17,7 +17,7 @@ namespace UI.Windows
         [SerializeField] private TMP_Text _name;
 
         private InputService _inputService;
-        private UpdateService _updateService;
+        private UpdateController _updateController;
 
         private Action _onDialogueCompleted;
         private DialogueStage[] _dialogueStages;
@@ -28,9 +28,9 @@ namespace UI.Windows
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(InputService inputService, UpdateService updateService)
+        public void Construct(InputService inputService, UpdateController updateController)
         {
-            _updateService = updateService;
+            _updateController = updateController;
             _inputService = inputService;
         }
 
@@ -45,7 +45,7 @@ namespace UI.Windows
         private void OnEnable()
         {
             _inputService.LockInput();
-            _updateService.Pause();
+            _updateController.Pause();
         }
 
         private void Update()
@@ -113,7 +113,7 @@ namespace UI.Windows
         private void OnDisable()
         {
             _inputService.UnlockInput();
-            _updateService.Unpause();
+            _updateController.Unpause();
         }
 
         private void OnDestroy()

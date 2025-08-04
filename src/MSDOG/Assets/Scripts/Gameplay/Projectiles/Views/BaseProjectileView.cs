@@ -7,16 +7,16 @@ namespace Gameplay.Projectiles.Views
 {
     public abstract class BaseProjectileView : MonoBehaviour, IUpdatable
     {
-        private UpdateService _updateService;
+        private UpdateController _updateController;
 
         private Projectile _projectile;
 
         protected Projectile Projectile => _projectile;
 
-        protected void ConstructBase(UpdateService updateService)
+        protected void ConstructBase(UpdateController updateController)
         {
-            _updateService = updateService;
-            updateService.Register(this);
+            _updateController = updateController;
+            updateController.Register(this);
         }
 
         protected void InitBase(Projectile projectile)
@@ -59,7 +59,7 @@ namespace Gameplay.Projectiles.Views
 
         private void OnDestroy()
         {
-            _updateService.Remove(this);
+            _updateController.Remove(this);
 
             _projectile.OnPiercesRunOut -= OnPiercesRunOut;
             _projectile.OnTickTimeoutRaised -= OnTickTimeoutRaised;

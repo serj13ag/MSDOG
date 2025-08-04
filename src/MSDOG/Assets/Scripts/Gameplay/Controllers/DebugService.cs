@@ -9,7 +9,7 @@ namespace Gameplay.Controllers
 {
     public class DebugService : MonoBehaviour
     {
-        private UpdateService _updateService;
+        private UpdateController _updateController;
         private DataService _dataService;
 
         private HudController _hudController;
@@ -24,10 +24,10 @@ namespace Gameplay.Controllers
         public event EventHandler<EventArgs> OnKillAllEnemiesRequested;
 
         [Inject]
-        public void Construct(UpdateService updateService, DataService dataService)
+        public void Construct(UpdateController updateController, DataService dataService)
         {
             _dataService = dataService;
-            _updateService = updateService;
+            _updateController = updateController;
         }
 
         public void Setup(HudController hudController)
@@ -82,13 +82,13 @@ namespace Gameplay.Controllers
         {
             if (GUILayout.Button("Pause/Unpause", style))
             {
-                if (_updateService.IsPaused)
+                if (_updateController.IsPaused)
                 {
-                    _updateService.Unpause();
+                    _updateController.Unpause();
                 }
                 else
                 {
-                    _updateService.Pause();
+                    _updateController.Pause();
                 }
             }
 

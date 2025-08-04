@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Core.Controllers
 {
-    public class UpdateService : PersistentMonoService
+    public class UpdateController : BasePersistentController
     {
         private readonly List<IUpdatable> _updatables = new List<IUpdatable>();
 

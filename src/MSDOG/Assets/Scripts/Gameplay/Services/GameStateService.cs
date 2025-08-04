@@ -8,10 +8,10 @@ namespace Gameplay.Services
     public class GameStateService : IDisposable
     {
         private readonly EnemyService _enemyService;
-        private readonly WindowService _windowService;
+        private readonly WindowController _windowController;
         private readonly ProgressService _progressService;
         private readonly DialogueService _dialogueService;
-        private readonly SoundService _soundService;
+        private readonly SoundController _soundController;
 
         private int _levelIndex;
         private bool _isLastLevel;
@@ -20,14 +20,14 @@ namespace Gameplay.Services
         public int CurrentLevelIndex => _levelIndex;
         public bool IsLastLevel => _isLastLevel;
 
-        public GameStateService(EnemyService enemyService, WindowService windowService, ProgressService progressService,
-            DialogueService dialogueService, SoundService soundService)
+        public GameStateService(EnemyService enemyService, WindowController windowController, ProgressService progressService,
+            DialogueService dialogueService, SoundController soundController)
         {
             _progressService = progressService;
             _dialogueService = dialogueService;
-            _soundService = soundService;
+            _soundController = soundController;
             _enemyService = enemyService;
-            _windowService = windowService;
+            _windowController = windowController;
 
             _enemyService.OnAllEnemiesDied += OnAllEnemiesDied;
         }
@@ -45,9 +45,9 @@ namespace Gameplay.Services
         {
             if (_player.CurrentHealth <= 0)
             {
-                _soundService.PlaySfx(SfxType.Death);
+                _soundController.PlaySfx(SfxType.Death);
 
-                _windowService.ShowLoseWindow();
+                _windowController.ShowLoseWindow();
             }
         }
 
@@ -64,13 +64,13 @@ namespace Gameplay.Services
 
         private void ShowCreditsAndWinWindow()
         {
-            _windowService.ShowWinWindow();
-            _windowService.ShowCreditsWindow();
+            _windowController.ShowWinWindow();
+            _windowController.ShowCreditsWindow();
         }
 
         private void ShowWinWindow()
         {
-            _windowService.ShowWinWindow();
+            _windowController.ShowWinWindow();
         }
 
         public void Dispose()

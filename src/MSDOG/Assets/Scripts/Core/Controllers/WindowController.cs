@@ -2,16 +2,14 @@ using System;
 using System.Collections.Generic;
 using Core.Factories;
 using Core.Models.Data;
-using Core.Services;
 using Gameplay.Factories;
-using Gameplay.Services;
 using UI.Windows;
 using UnityEngine;
 using VContainer;
 
 namespace Core.Controllers
 {
-    public class WindowService : PersistentMonoService
+    public class WindowController : BasePersistentController
     {
         [SerializeField] private Canvas _canvas;
 

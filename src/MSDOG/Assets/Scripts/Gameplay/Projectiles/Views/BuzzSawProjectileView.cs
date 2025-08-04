@@ -16,9 +16,9 @@ namespace Gameplay.Projectiles.Views
         private Player _player;
 
         [Inject]
-        public void Construct(UpdateService updateService)
+        public void Construct(UpdateController updateController)
         {
-            ConstructBase(updateService);
+            ConstructBase(updateController);
 
             _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }

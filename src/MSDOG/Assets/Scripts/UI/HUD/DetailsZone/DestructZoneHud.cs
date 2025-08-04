@@ -12,12 +12,12 @@ namespace UI.HUD.DetailsZone
     {
         private GameFactory _gameFactory;
         private DataService _dataService;
-        private SoundService _soundService;
+        private SoundController _soundController;
 
         [Inject]
-        public void Construct(GameFactory gameFactory, DataService dataService, SoundService soundService)
+        public void Construct(GameFactory gameFactory, DataService dataService, SoundController soundController)
         {
-            _soundService = soundService;
+            _soundController = soundController;
             _dataService = dataService;
             _gameFactory = gameFactory;
         }
@@ -53,7 +53,7 @@ namespace UI.HUD.DetailsZone
 
             detailPart.Destruct();
 
-            _soundService.PlaySfx(SfxType.Destructor);
+            _soundController.PlaySfx(SfxType.Destructor);
         }
 
         public void Exit(DetailPartHud detailPart)

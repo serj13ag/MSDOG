@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Core.Controllers
 {
-    public abstract class PersistentMonoService : MonoBehaviour
+    public abstract class BasePersistentController : MonoBehaviour
     {
         private void Awake()
         {

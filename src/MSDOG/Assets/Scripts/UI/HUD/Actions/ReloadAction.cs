@@ -19,8 +19,8 @@ namespace UI.HUD.Actions
         [SerializeField] private float _maxAngle = 1080f;
 
         private Player _player;
-        private UpdateService _updateService;
-        private SoundService _soundService;
+        private UpdateController _updateController;
+        private SoundController _soundController;
         private TutorialService _tutorialService;
 
         private float _currentAngle;
@@ -28,17 +28,17 @@ namespace UI.HUD.Actions
         private bool _dragging;
         private float _currentDragAngle;
 
-        public void Init(Player player, UpdateService updateService, SoundService soundService, TutorialService tutorialService)
+        public void Init(Player player, UpdateController updateController, SoundController soundController, TutorialService tutorialService)
         {
             _tutorialService = tutorialService;
-            _soundService = soundService;
-            _updateService = updateService;
+            _soundController = soundController;
+            _updateController = updateController;
             _player = player;
 
             _currentAngle = Mathf.Lerp(0f, _maxAngle, _startingAngleLerp);
             UpdateFillImageView();
 
-            updateService.Register(this);
+            updateController.Register(this);
         }
 
         public void OnUpdate(float deltaTime)
@@ -113,7 +113,7 @@ namespace UI.HUD.Actions
             if (angleIsZero)
             {
                 _alarmIcon.ActivateAlarm();
-                _soundService.PlaySfx(SfxType.NeedReload);
+                _soundController.PlaySfx(SfxType.NeedReload);
                 _tutorialService.OnReloadNeeded();
             }
             else
@@ -147,7 +147,7 @@ namespace UI.HUD.Actions
 
         private void OnDestroy()
         {
-            _updateService.Remove(this);
+            _updateController.Remove(this);
         }
     }
 }

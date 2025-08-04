@@ -22,13 +22,13 @@ namespace Gameplay.Factories
         private readonly ObjectContainerService _objectContainerService;
         private readonly DebugService _debugService;
         private readonly ProgressService _progressService;
-        private readonly UpdateService _updateService;
+        private readonly UpdateController _updateController;
 
         private Player _player; // TODO: remove?
 
         public Player Player => _player;
 
-        public GameFactory(AssetProviderService assetProviderService, UpdateService updateService, InputService inputService,
+        public GameFactory(AssetProviderService assetProviderService, UpdateController updateController, InputService inputService,
             ArenaService arenaService, AbilityFactory abilityFactory, ProjectileFactory projectileFactory,
             VfxFactory vfxFactory, DataService dataService, ObjectContainerService objectContainerService, DebugService debugService,
             ProgressService progressService)
@@ -43,13 +43,13 @@ namespace Gameplay.Factories
             _objectContainerService = objectContainerService;
             _debugService = debugService;
             _progressService = progressService;
-            _updateService = updateService;
+            _updateController = updateController;
         }
 
         public Player CreatePlayer()
         {
             var player = _assetProviderService.Instantiate<Player>(AssetPaths.PlayerPrefab);
-            player.Init(_inputService, _updateService, _arenaService, _abilityFactory, _dataService, _progressService);
+            player.Init(_inputService, _updateController, _arenaService, _abilityFactory, _dataService, _progressService);
             _player = player;
             return player;
         }
@@ -58,7 +58,7 @@ namespace Gameplay.Factories
         {
             // TODO: init via container
             var enemy = Object.Instantiate(data.Prefab, position, Quaternion.identity, _objectContainerService.EnemyContainer);
-            enemy.Init(_updateService, this, _projectileFactory, _player, data, _vfxFactory, _debugService);
+            enemy.Init(_updateController, this, _projectileFactory, _player, data, _vfxFactory, _debugService);
             return enemy;
         }
 
@@ -72,7 +72,7 @@ namespace Gameplay.Factories
         public ExperiencePiece CreateExperiencePiece(Vector3 position, int experience)
         {
             var experiencePiece = _assetProviderService.Instantiate<ExperiencePiece>(AssetPaths.ExperiencePiecePrefab, position);
-            experiencePiece.Init(experience, _updateService);
+            experiencePiece.Init(experience, _updateController);
             return experiencePiece;
         }
     }

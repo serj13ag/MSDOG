@@ -6,7 +6,7 @@ using VContainer;
 
 namespace Core.Controllers
 {
-    public class SoundService : PersistentMonoService
+    public class SoundController : BasePersistentController
     {
         [SerializeField] private AudioSource _musicAudioSource;
         [SerializeField] private AudioSource _sfxAudioSource;

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Core.Controllers
 {
-    public class LoadingCurtainService : PersistentMonoService
+    public class LoadingCurtainController : BasePersistentController
     {
         [SerializeField] private MaskableGraphic _curtainMaskableGraphic;
 

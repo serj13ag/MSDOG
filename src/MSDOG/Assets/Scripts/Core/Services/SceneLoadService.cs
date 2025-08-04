@@ -7,11 +7,11 @@ namespace Core.Services
 {
     public class SceneLoadService
     {
-        private readonly CoroutineService _coroutineService;
+        private readonly CoroutineController _coroutineController;
 
-        public SceneLoadService(CoroutineService coroutineService)
+        public SceneLoadService(CoroutineController coroutineController)
         {
-            _coroutineService = coroutineService;
+            _coroutineController = coroutineController;
         }
 
         public void LoadScene(string name, Action onLoaded = null, bool forceReload = false)
@@ -22,7 +22,7 @@ namespace Core.Services
                 return;
             }
 
-            _coroutineService.StartCoroutine(LoadSceneRoutine(name), onLoaded);
+            _coroutineController.StartCoroutine(LoadSceneRoutine(name), onLoaded);
         }
 
         private IEnumerator LoadSceneRoutine(string name)

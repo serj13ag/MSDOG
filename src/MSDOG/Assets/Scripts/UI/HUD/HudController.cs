@@ -19,17 +19,17 @@ namespace UI.HUD
         [SerializeField] private ActiveZoneHud _activeZoneHud;
 
         private DataService _dataService;
-        private WindowService _windowService;
+        private WindowController _windowController;
         private InputService _inputService;
         private GameStateService _gameStateService;
 
         [Inject]
-        public void Construct(DataService dataService, WindowService windowService, InputService inputService,
+        public void Construct(DataService dataService, WindowController windowController, InputService inputService,
             GameStateService gameStateService)
         {
             _gameStateService = gameStateService;
             _inputService = inputService;
-            _windowService = windowService;
+            _windowController = windowController;
             _dataService = dataService;
 
             inputService.OnMenuActionPerformed += OnMenuActionPerformed;
@@ -59,13 +59,13 @@ namespace UI.HUD
 
         private void OnMenuActionPerformed(object sender, EventArgs e)
         {
-            if (_windowService.WindowIsActive<EscapeWindow>())
+            if (_windowController.WindowIsActive<EscapeWindow>())
             {
-                _windowService.CloseActiveWindow();
+                _windowController.CloseActiveWindow();
             }
             else
             {
-                _windowService.ShowEscapeWindow();
+                _windowController.ShowEscapeWindow();
             }
         }
 

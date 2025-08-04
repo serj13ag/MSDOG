@@ -6,14 +6,14 @@ namespace Gameplay.Abilities
     public abstract class BasePersistentAbility : IAbility
     {
         private readonly AbilityData _abilityData;
-        private readonly SoundService _soundService;
+        private readonly SoundController _soundController;
 
         private bool _isActive;
 
-        protected BasePersistentAbility(AbilityData abilityData, SoundService soundService)
+        protected BasePersistentAbility(AbilityData abilityData, SoundController soundController)
         {
             _abilityData = abilityData;
-            _soundService = soundService;
+            _soundController = soundController;
         }
 
         public void Activate()
@@ -25,7 +25,7 @@ namespace Gameplay.Abilities
 
             _isActive = true;
 
-            _soundService.PlayAbilityActivationSfx(_abilityData.ActivationSound);
+            _soundController.PlayAbilityActivationSfx(_abilityData.ActivationSound);
 
             OnActivated();
         }

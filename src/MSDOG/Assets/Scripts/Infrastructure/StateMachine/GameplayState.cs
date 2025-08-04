@@ -2,7 +2,6 @@ using Constants;
 using Core.Controllers;
 using Core.Services;
 using Gameplay.Factories;
-using Gameplay.Services;
 using UnityEngine;
 using VContainer;
 
@@ -12,16 +11,16 @@ namespace Infrastructure.StateMachine
     {
         private int _levelIndex;
 
-        private LoadingCurtainService _loadingCurtainService;
+        private LoadingCurtainController _loadingCurtainController;
         private SceneLoadService _sceneLoadService;
-        private WindowService _windowService;
+        private WindowController _windowController;
 
         [Inject]
-        public void Construct(LoadingCurtainService loadingCurtainService, SceneLoadService sceneLoadService,
-            WindowService windowService)
+        public void Construct(LoadingCurtainController loadingCurtainController, SceneLoadService sceneLoadService,
+            WindowController windowController)
         {
-            _windowService = windowService;
-            _loadingCurtainService = loadingCurtainService;
+            _windowController = windowController;
+            _loadingCurtainController = loadingCurtainController;
             _sceneLoadService = sceneLoadService;
         }
 
@@ -29,14 +28,14 @@ namespace Infrastructure.StateMachine
         {
             _levelIndex = levelIndex;
 
-            _loadingCurtainService.FadeOnInstantly();
+            _loadingCurtainController.FadeOnInstantly();
             _sceneLoadService.LoadScene(Settings.SceneNames.LevelSceneName, OnSceneLoaded, true);
         }
 
         public void Exit()
         {
-            _windowService.RemoveGameplayWindowFactory();
-            _windowService.CloseAllWindows();
+            _windowController.RemoveGameplayWindowFactory();
+            _windowController.CloseAllWindows();
         }
 
         private void OnSceneLoaded()
@@ -45,12 +44,12 @@ namespace Infrastructure.StateMachine
             gameplayScope.BuildContainer();
 
             var gameplayWindowFactory = gameplayScope.Container.Resolve<GameplayWindowFactory>();
-            _windowService.RegisterGameplayWindowFactory(gameplayWindowFactory);
+            _windowController.RegisterGameplayWindowFactory(gameplayWindowFactory);
 
             var gameplayInitializer = gameplayScope.Container.Resolve<GameplayInitializer>();
             gameplayInitializer.Start(_levelIndex);
 
-            _loadingCurtainService.FadeOffWithDelay();
+            _loadingCurtainController.FadeOffWithDelay();
         }
     }
 }

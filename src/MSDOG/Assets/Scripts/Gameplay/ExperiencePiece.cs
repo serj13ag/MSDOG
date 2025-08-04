@@ -10,13 +10,13 @@ namespace Gameplay
         [SerializeField] private ColliderEventProvider _colliderEventProvider;
         [SerializeField] private GameObject[] _views;
 
-        private UpdateService _updateService;
+        private UpdateController _updateController;
         private Player _player;
         private int _experience;
 
-        public void Init(int experience, UpdateService updateService)
+        public void Init(int experience, UpdateController updateController)
         {
-            _updateService = updateService;
+            _updateController = updateController;
             _experience = experience;
 
             var randomIndex = Random.Range(0, _views.Length);
@@ -25,7 +25,7 @@ namespace Gameplay
                 _views[i].SetActive(i == randomIndex);
             }
 
-            updateService.Register(this);
+            updateController.Register(this);
             _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
 
@@ -58,7 +58,7 @@ namespace Gameplay
 
         private void OnDestroy()
         {
-            _updateService.Remove(this);
+            _updateController.Remove(this);
             _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;
         }
     }

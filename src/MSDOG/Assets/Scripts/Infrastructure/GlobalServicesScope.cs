@@ -10,9 +10,9 @@ namespace Infrastructure
 {
     public class GlobalServicesScope : BaseServicesScope
     {
-        [SerializeField] private LoadingCurtainService _loadingCurtainService;
-        [SerializeField] private SoundService _soundService;
-        [SerializeField] private WindowService _windowService;
+        [SerializeField] private LoadingCurtainController _loadingCurtainController;
+        [SerializeField] private SoundController _soundController;
+        [SerializeField] private WindowController _windowController;
 
         protected override void Awake()
         {
@@ -23,8 +23,8 @@ namespace Infrastructure
 
         protected override void ConfigureContainer(IContainerBuilder builder)
         {
-            builder.RegisterComponentOnNewGameObject<CoroutineService>(Lifetime.Singleton, "CoroutineService");
-            builder.RegisterComponentOnNewGameObject<UpdateService>(Lifetime.Singleton, "UpdateService");
+            builder.RegisterComponentOnNewGameObject<CoroutineController>(Lifetime.Singleton, "CoroutineService");
+            builder.RegisterComponentOnNewGameObject<UpdateController>(Lifetime.Singleton, "UpdateService");
 
             builder.Register<BootstrapState>(Lifetime.Singleton);
             builder.Register<MainMenuState>(Lifetime.Singleton);
@@ -41,9 +41,9 @@ namespace Infrastructure
             builder.Register<DialogueService>(Lifetime.Singleton);
             builder.Register<SaveLoadService>(Lifetime.Singleton);
 
-            builder.RegisterComponent(_loadingCurtainService);
-            builder.RegisterComponent(_soundService);
-            builder.RegisterComponent(_windowService);
+            builder.RegisterComponent(_loadingCurtainController);
+            builder.RegisterComponent(_soundController);
+            builder.RegisterComponent(_windowController);
         }
     }
 }

@@ -6,12 +6,12 @@ namespace Core.Services
     public class DialogueService
     {
         private readonly DataService _dataService;
-        private readonly WindowService _windowService;
+        private readonly WindowController _windowController;
 
-        public DialogueService(DataService dataService, WindowService windowService)
+        public DialogueService(DataService dataService, WindowController windowController)
         {
             _dataService = dataService;
-            _windowService = windowService;
+            _windowController = windowController;
         }
 
         public bool TryShowStartLevelDialogue(int levelIndex, Action onDialogueCompleted)
@@ -22,7 +22,7 @@ namespace Core.Services
                 return false;
             }
 
-            _windowService.ShowDialogueWindow(levelData.StartDialogue, onDialogueCompleted);
+            _windowController.ShowDialogueWindow(levelData.StartDialogue, onDialogueCompleted);
             return true;
         }
 
@@ -34,7 +34,7 @@ namespace Core.Services
                 return false;
             }
 
-            _windowService.ShowDialogueWindow(levelData.EndDialogue, onDialogueCompleted);
+            _windowController.ShowDialogueWindow(levelData.EndDialogue, onDialogueCompleted);
             return true;
         }
     }

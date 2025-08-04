@@ -24,8 +24,8 @@ namespace Gameplay.Abilities
         private readonly Collider[] _hitBuffer = new Collider[32];
 
         public CuttingBlowAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory,
-            DataService dataService, SoundService soundService)
-            : base(abilityData, soundService)
+            DataService dataService, SoundController soundController)
+            : base(abilityData, soundController)
         {
             _vfxFactory = vfxFactory;
             _dataService = dataService;

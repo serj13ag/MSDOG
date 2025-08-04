@@ -18,17 +18,17 @@ namespace Infrastructure
         private readonly GameStateService _gameStateService;
         private readonly DialogueService _dialogueService;
         private readonly LevelViewService _levelViewService;
-        private readonly SoundService _soundService;
+        private readonly SoundController _soundController;
         private readonly DataService _dataService;
         private readonly TutorialService _tutorialService;
 
         public GameplayInitializer(DebugService debugService, EnemyService enemyService, GameFactory gameFactory,
             CameraService cameraService, GameStateService gameStateService, DialogueService dialogueService,
-            LevelViewService levelViewService, SoundService soundService, DataService dataService,
+            LevelViewService levelViewService, SoundController soundController, DataService dataService,
             TutorialService tutorialService)
         {
             _levelViewService = levelViewService;
-            _soundService = soundService;
+            _soundController = soundController;
             _dataService = dataService;
             _tutorialService = tutorialService;
             _dialogueService = dialogueService;
@@ -57,7 +57,7 @@ namespace Infrastructure
             hudActions.Init(player);
 
             var levelMusic = _dataService.GetLevelData(levelIndex).Music;
-            _soundService.PlayMusic(levelMusic);
+            _soundController.PlayMusic(levelMusic);
 
             _debugService.Setup(hudController);
             _tutorialService.SetPlayer(player);

@@ -23,7 +23,7 @@ namespace UI.HUD
         private DataService _dataService;
         private GameFactory _gameFactory;
         private GameStateService _gameStateService;
-        private SoundService _soundService;
+        private SoundController _soundController;
         private TutorialService _tutorialService;
 
         private DetailsZoneHud _detailsZoneHud;
@@ -33,10 +33,10 @@ namespace UI.HUD
 
         [Inject]
         public void Construct(GameFactory gameFactory, DataService dataService, GameStateService gameStateService,
-            SoundService soundService, TutorialService tutorialService)
+            SoundController soundController, TutorialService tutorialService)
         {
             _tutorialService = tutorialService;
-            _soundService = soundService;
+            _soundController = soundController;
             _gameStateService = gameStateService;
             _gameFactory = gameFactory;
             _dataService = dataService;
@@ -77,12 +77,12 @@ namespace UI.HUD
             _gameFactory.Player.ResetExperience();
             UpdateView();
 
-            _soundService.PlaySfx(SfxType.Craft);
+            _soundController.PlaySfx(SfxType.Craft);
         }
 
         private void OnPlayerExperienceChanged()
         {
-            _soundService.PlaySfx(SfxType.DetailUp);
+            _soundController.PlaySfx(SfxType.DetailUp);
 
             UpdateView();
         }
@@ -99,7 +99,7 @@ namespace UI.HUD
 
             if (_canCraft)
             {
-                _soundService.PlaySfx(SfxType.CanCraft);
+                _soundController.PlaySfx(SfxType.CanCraft);
                 _tutorialService.OnCanCraft();
             }
         }

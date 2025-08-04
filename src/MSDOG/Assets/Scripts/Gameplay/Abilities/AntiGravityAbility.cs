@@ -13,8 +13,8 @@ namespace Gameplay.Abilities
 
         private FollowingAbilityEffect _followingAbilityEffect;
 
-        public AntiGravityAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory, SoundService soundService)
-            : base(abilityData, soundService)
+        public AntiGravityAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory, SoundController soundController)
+            : base(abilityData, soundController)
         {
             _vfxFactory = vfxFactory;
             _player = player;

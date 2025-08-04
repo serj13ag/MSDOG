@@ -15,21 +15,21 @@ namespace UI.Menu
         [SerializeField] private Button _quitGameButton;
         [SerializeField] private MenuLevelsWindow _menuLevelsWindow;
 
-        private WindowService _windowService;
-        private SoundService _soundService;
+        private WindowController _windowController;
+        private SoundController _soundController;
         private DataService _dataService;
 
         [Inject]
-        public void Construct(WindowService windowService, SoundService soundService, DataService dataService)
+        public void Construct(WindowController windowController, SoundController soundController, DataService dataService)
         {
             _dataService = dataService;
-            _soundService = soundService;
-            _windowService = windowService;
+            _soundController = soundController;
+            _windowController = windowController;
         }
 
         private void OnEnable()
         {
-            _soundService.PlayMusic(_dataService.GetSoundSettingsData().MenuMusic);
+            _soundController.PlayMusic(_dataService.GetSoundSettingsData().MenuMusic);
 
             _startGameButton.onClick.AddListener(StartGame);
             _optionsButton.onClick.AddListener(ShowOptions);
@@ -52,12 +52,12 @@ namespace UI.Menu
 
         private void ShowOptions()
         {
-            _windowService.ShowOptions();
+            _windowController.ShowOptions();
         }
 
         private void ShowCredits()
         {
-            _windowService.ShowCreditsWindow();
+            _windowController.ShowCreditsWindow();
         }
 
         private void Quit()

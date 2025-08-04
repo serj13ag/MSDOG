@@ -22,7 +22,7 @@ namespace Gameplay.Services
 
         private readonly GameFactory _gameFactory;
         private readonly ArenaService _arenaService;
-        private readonly UpdateService _updateService;
+        private readonly UpdateController _updateController;
         private readonly DataService _dataService;
         private readonly DebugService _debugService;
 
@@ -36,16 +36,16 @@ namespace Gameplay.Services
 
         public event Action OnAllEnemiesDied;
 
-        public EnemyService(UpdateService updateService, DataService dataService, GameFactory gameFactory,
+        public EnemyService(UpdateController updateController, DataService dataService, GameFactory gameFactory,
             ArenaService arenaService, DebugService debugService)
         {
             _debugService = debugService;
             _gameFactory = gameFactory;
             _arenaService = arenaService;
-            _updateService = updateService;
+            _updateController = updateController;
             _dataService = dataService;
 
-            updateService.Register(this);
+            updateController.Register(this);
 
             debugService.OnForceSpawnEnemiesRequested += OnForceSpawnEnemiesRequested;
             debugService.OnKillAllEnemiesRequested += OnKillAllEnemiesRequested;
@@ -186,7 +186,7 @@ namespace Gameplay.Services
 
         public void Dispose()
         {
-            _updateService.Remove(this);
+            _updateController.Remove(this);
 
             _debugService.OnForceSpawnEnemiesRequested += OnForceSpawnEnemiesRequested;
             _debugService.OnKillAllEnemiesRequested += OnKillAllEnemiesRequested;

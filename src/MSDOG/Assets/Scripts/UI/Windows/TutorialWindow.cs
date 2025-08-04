@@ -14,16 +14,16 @@ namespace UI.Windows
         [SerializeField] private Image _hintImage;
         [SerializeField] private TMP_Text _hintText;
 
-        private UpdateService _updateService;
+        private UpdateController _updateController;
 
         public GameObject GameObject => gameObject;
 
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(UpdateService updateService)
+        public void Construct(UpdateController updateController)
         {
-            _updateService = updateService;
+            _updateController = updateController;
         }
 
         public void Init(TutorialEventData tutorialEventData)
@@ -34,14 +34,14 @@ namespace UI.Windows
 
         private void OnEnable()
         {
-            _updateService.Pause(true);
+            _updateController.Pause(true);
 
             _closeButton.onClick.AddListener(Close);
         }
 
         private void OnDisable()
         {
-            _updateService.Unpause(true);
+            _updateController.Unpause(true);
 
             _closeButton.onClick.RemoveListener(Close);
         }

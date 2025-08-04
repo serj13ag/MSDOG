@@ -21,7 +21,7 @@ namespace Gameplay
         [SerializeField] private float _moveSpeed = 6f;
         [SerializeField] private float _rotationSpeed = 720f;
 
-        private UpdateService _updateService;
+        private UpdateController _updateController;
         private AbilityFactory _abilityFactory;
 
         private HealthBlock _healthBlock;
@@ -64,11 +64,11 @@ namespace Gameplay
             remove => _experienceBlock.OnExperienceChanged -= value;
         }
 
-        public void Init(InputService inputService, UpdateService updateService, ArenaService arenaService,
+        public void Init(InputService inputService, UpdateController updateController, ArenaService arenaService,
             AbilityFactory abilityFactory, DataService dataService, ProgressService progressService)
         {
             _abilityFactory = abilityFactory;
-            _updateService = updateService;
+            _updateController = updateController;
 
             _movementIsActive = true;
 
@@ -78,7 +78,7 @@ namespace Gameplay
             _playerDamageBlock = new PlayerDamageBlock(this, _healthBlock);
             _moveBlock = new InputMoveBlock(this, inputService, arenaService);
 
-            updateService.Register(this);
+            updateController.Register(this);
         }
 
         public void OnUpdate(float deltaTime)
@@ -224,7 +224,7 @@ namespace Gameplay
 
         private void OnDestroy()
         {
-            _updateService.Remove(this);
+            _updateController.Remove(this);
         }
     }
 }

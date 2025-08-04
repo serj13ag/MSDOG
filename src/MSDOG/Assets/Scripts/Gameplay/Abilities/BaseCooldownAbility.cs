@@ -6,7 +6,7 @@ namespace Gameplay.Abilities
     public abstract class BaseCooldownAbility : IAbility
     {
         private readonly AbilityData _abilityData;
-        private readonly SoundService _soundService;
+        private readonly SoundController _soundController;
 
         private readonly float _cooldown;
 
@@ -15,11 +15,11 @@ namespace Gameplay.Abilities
 
         protected AbilityType AbilityType => _abilityData.AbilityType;
 
-        protected BaseCooldownAbility(AbilityData abilityData, SoundService soundService)
+        protected BaseCooldownAbility(AbilityData abilityData, SoundController soundController)
         {
             _cooldown = abilityData.Cooldown;
             _abilityData = abilityData;
-            _soundService = soundService;
+            _soundController = soundController;
 
             _timeTillAction = abilityData.Cooldown - abilityData.FirstCooldownReduction;
         }
@@ -50,7 +50,7 @@ namespace Gameplay.Abilities
             InvokeAction();
             ResetTimeTillAction();
 
-            _soundService.PlayAbilityActivationSfx(_abilityData.ActivationSound);
+            _soundController.PlayAbilityActivationSfx(_abilityData.ActivationSound);
         }
 
         public void Deactivate()

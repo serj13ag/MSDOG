@@ -16,14 +16,14 @@ namespace UI.HUD.DetailsZone
         [SerializeField] private Button _upgradeButton;
 
         private DataService _dataService;
-        private SoundService _soundService;
+        private SoundController _soundController;
 
         private AbilityData _upgradedAbilityData;
 
         [Inject]
-        public void Construct(DataService dataService, SoundService soundService)
+        public void Construct(DataService dataService, SoundController soundController)
         {
-            _soundService = soundService;
+            _soundController = soundController;
             _dataService = dataService;
         }
 
@@ -79,7 +79,7 @@ namespace UI.HUD.DetailsZone
             _fusionSlotHud1.DestroyDetail();
             _fusionSlotHud2.DestroyDetail();
 
-            _soundService.PlaySfx(SfxType.Fusion);
+            _soundController.PlaySfx(SfxType.Fusion);
         }
     }
 }

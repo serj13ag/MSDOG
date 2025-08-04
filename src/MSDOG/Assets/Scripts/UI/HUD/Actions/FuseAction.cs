@@ -21,7 +21,7 @@ namespace UI.HUD.Actions
         [SerializeField] private float _nitroMultiplier = 2f;
 
         private Player _player;
-        private SoundService _soundService;
+        private SoundController _soundController;
         private TutorialService _tutorialService;
 
         private bool _connected;
@@ -32,10 +32,10 @@ namespace UI.HUD.Actions
         private Vector3? _previousPlayerPosition;
         private float _counter;
 
-        public void Init(Player player, SoundService soundService, TutorialService tutorialService)
+        public void Init(Player player, SoundController soundController, TutorialService tutorialService)
         {
             _tutorialService = tutorialService;
-            _soundService = soundService;
+            _soundController = soundController;
             _player = player;
 
             Connect();
@@ -132,7 +132,7 @@ namespace UI.HUD.Actions
             _alarmIcon.DeactivateAlarm();
 
             _player.MovementSetActive(true);
-            _soundService.PlaySfx(SfxType.LeverUp);
+            _soundController.PlaySfx(SfxType.LeverUp);
         }
 
         private void Disconnect()
@@ -143,7 +143,7 @@ namespace UI.HUD.Actions
             _alarmIcon.ActivateAlarm();
 
             _player.MovementSetActive(false);
-            _soundService.PlaySfx(SfxType.LeverDown);
+            _soundController.PlaySfx(SfxType.LeverDown);
             _tutorialService.OnFuseActionDisconnected();
         }
 
