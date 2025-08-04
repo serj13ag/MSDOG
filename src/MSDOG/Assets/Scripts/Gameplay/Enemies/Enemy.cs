@@ -55,7 +55,7 @@ namespace Gameplay.Enemies
         public event Action<Enemy> OnDied;
 
         public void Init(UpdateController updateController, GameFactory gameFactory, ProjectileFactory projectileFactory, Player player,
-            EnemyData data, VfxFactory vfxFactory, DebugService debugService)
+            EnemyData data, VfxFactory vfxFactory, DebugController debugController)
         {
             _vfxFactory = vfxFactory;
             _projectileFactory = projectileFactory;
@@ -72,7 +72,7 @@ namespace Gameplay.Enemies
 
             _healthBlock = new HealthBlock(data.MaxHealth);
             _animationBlock = new AnimationBlock(_animator);
-            _healthBarDebugView.Init(_healthBlock, debugService);
+            _healthBarDebugView.Init(_healthBlock, debugController);
 
             _stateMachine = data.Type switch
             {

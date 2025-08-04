@@ -20,7 +20,7 @@ namespace Gameplay.Factories
         private readonly VfxFactory _vfxFactory;
         private readonly DataService _dataService;
         private readonly ObjectContainerService _objectContainerService;
-        private readonly DebugService _debugService;
+        private readonly DebugController _debugController;
         private readonly ProgressService _progressService;
         private readonly UpdateController _updateController;
 
@@ -30,7 +30,7 @@ namespace Gameplay.Factories
 
         public GameFactory(AssetProviderService assetProviderService, UpdateController updateController, InputService inputService,
             ArenaService arenaService, AbilityFactory abilityFactory, ProjectileFactory projectileFactory,
-            VfxFactory vfxFactory, DataService dataService, ObjectContainerService objectContainerService, DebugService debugService,
+            VfxFactory vfxFactory, DataService dataService, ObjectContainerService objectContainerService, DebugController debugController,
             ProgressService progressService)
         {
             _assetProviderService = assetProviderService;
@@ -41,7 +41,7 @@ namespace Gameplay.Factories
             _vfxFactory = vfxFactory;
             _dataService = dataService;
             _objectContainerService = objectContainerService;
-            _debugService = debugService;
+            _debugController = debugController;
             _progressService = progressService;
             _updateController = updateController;
         }
@@ -58,7 +58,7 @@ namespace Gameplay.Factories
         {
             // TODO: init via container
             var enemy = Object.Instantiate(data.Prefab, position, Quaternion.identity, _objectContainerService.EnemyContainer);
-            enemy.Init(_updateController, this, _projectileFactory, _player, data, _vfxFactory, _debugService);
+            enemy.Init(_updateController, this, _projectileFactory, _player, data, _vfxFactory, _debugController);
             return enemy;
         }
 

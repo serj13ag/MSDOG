@@ -4,7 +4,7 @@ using VContainer;
 
 namespace Gameplay.Controllers
 {
-    public class LevelViewService : MonoBehaviour
+    public class LevelViewController : MonoBehaviour
     {
         [SerializeField] private MeshRenderer _floorMeshRenderer;
 

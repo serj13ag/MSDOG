@@ -10,7 +10,7 @@ namespace UI
     {
         [SerializeField] private TMP_Text _text;
 
-        private DebugService _debugService;
+        private DebugController _debugController;
 
         private HealthBlock _healthBlock;
         private Camera _mainCamera;
@@ -20,12 +20,12 @@ namespace UI
             _mainCamera = Camera.main;
         }
 
-        public void Init(HealthBlock healthBlock, DebugService debugService)
+        public void Init(HealthBlock healthBlock, DebugController debugController)
         {
-            _debugService = debugService;
+            _debugController = debugController;
             _healthBlock = healthBlock;
 
-            if (!debugService.DebugHpIsVisible)
+            if (!debugController.DebugHpIsVisible)
             {
                 gameObject.SetActive(false);
             }
@@ -33,8 +33,8 @@ namespace UI
             UpdateText();
 
             healthBlock.OnHealthChanged += UpdateText;
-            debugService.OnShowDebugHealthBar += OnShowDebugHealthBar;
-            debugService.OnHideDebugHealthBar += OnHideDebugHealthBar;
+            debugController.OnShowDebugHealthBar += OnShowDebugHealthBar;
+            debugController.OnHideDebugHealthBar += OnHideDebugHealthBar;
         }
 
         private void Update()
@@ -62,8 +62,8 @@ namespace UI
         private void OnDestroy()
         {
             _healthBlock.OnHealthChanged -= UpdateText;
-            _debugService.OnShowDebugHealthBar -= OnShowDebugHealthBar;
-            _debugService.OnHideDebugHealthBar -= OnHideDebugHealthBar;
+            _debugController.OnShowDebugHealthBar -= OnShowDebugHealthBar;
+            _debugController.OnHideDebugHealthBar -= OnHideDebugHealthBar;
         }
     }
 }

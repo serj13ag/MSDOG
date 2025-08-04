@@ -5,7 +5,7 @@ using VContainer;
 
 namespace Gameplay.Controllers
 {
-    public class CameraService : MonoBehaviour, IUpdatable
+    public class CameraController : MonoBehaviour, IUpdatable
     {
         [SerializeField] private Vector3 _cameraPositionOffset;
         [SerializeField] private Vector3 _cameraRotationOffset;

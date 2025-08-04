@@ -24,7 +24,7 @@ namespace Gameplay.Services
         private readonly ArenaService _arenaService;
         private readonly UpdateController _updateController;
         private readonly DataService _dataService;
-        private readonly DebugService _debugService;
+        private readonly DebugController _debugController;
 
         private bool _isActive;
         private Transform _playerTransform;
@@ -37,9 +37,9 @@ namespace Gameplay.Services
         public event Action OnAllEnemiesDied;
 
         public EnemyService(UpdateController updateController, DataService dataService, GameFactory gameFactory,
-            ArenaService arenaService, DebugService debugService)
+            ArenaService arenaService, DebugController debugController)
         {
-            _debugService = debugService;
+            _debugController = debugController;
             _gameFactory = gameFactory;
             _arenaService = arenaService;
             _updateController = updateController;
@@ -47,8 +47,8 @@ namespace Gameplay.Services
 
             updateController.Register(this);
 
-            debugService.OnForceSpawnEnemiesRequested += OnForceSpawnEnemiesRequested;
-            debugService.OnKillAllEnemiesRequested += OnKillAllEnemiesRequested;
+            debugController.OnForceSpawnEnemiesRequested += OnForceSpawnEnemiesRequested;
+            debugController.OnKillAllEnemiesRequested += OnKillAllEnemiesRequested;
         }
 
         public void SetupLevel(int levelIndex, Transform playerTransform)
@@ -188,8 +188,8 @@ namespace Gameplay.Services
         {
             _updateController.Remove(this);
 
-            _debugService.OnForceSpawnEnemiesRequested += OnForceSpawnEnemiesRequested;
-            _debugService.OnKillAllEnemiesRequested += OnKillAllEnemiesRequested;
+            _debugController.OnForceSpawnEnemiesRequested += OnForceSpawnEnemiesRequested;
+            _debugController.OnKillAllEnemiesRequested += OnKillAllEnemiesRequested;
         }
     }
 }

@@ -153,8 +153,8 @@ MonoBehaviour:
   autoRun: 0
   autoInjectGameObjects:
   - {fileID: 6294132970679443289}
-  _cameraService: {fileID: 1772068689}
-  _levelViewService: {fileID: 8987291394998015210}
+  _cameraController: {fileID: 1772068689}
+  _levelViewController: {fileID: 8987291394998015210}
 --- !u!4 &636791271
 Transform:
   m_ObjectHideFlags: 0
@@ -385,7 +385,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6181930948744016403, guid: 46cb2be59ca85ef49a69d142fea8ba5c, type: 3}
       propertyPath: m_Name
-      value: CameraService
+      value: CameraController
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -722,7 +722,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8395688781350159590, guid: c4a8bd81b2a50ef419e44872258760e9, type: 3}
       propertyPath: m_Name
-      value: LevelViewService
+      value: LevelViewController
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

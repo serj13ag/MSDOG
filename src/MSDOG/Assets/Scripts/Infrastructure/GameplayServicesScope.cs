@@ -9,15 +9,15 @@ namespace Infrastructure
 {
     public class GameplayServicesScope : BaseServicesScope
     {
-        [SerializeField] private CameraService _cameraService;
-        [SerializeField] private LevelViewService _levelViewService;
+        [SerializeField] private CameraController _cameraController;
+        [SerializeField] private LevelViewController _levelViewController;
 
         protected override void ConfigureContainer(IContainerBuilder builder)
         {
-            builder.RegisterComponent(_cameraService);
-            builder.RegisterComponent(_levelViewService);
+            builder.RegisterComponent(_cameraController);
+            builder.RegisterComponent(_levelViewController);
 
-            builder.RegisterComponentOnNewGameObject<DebugService>(Lifetime.Scoped, "DebugService");
+            builder.RegisterComponentOnNewGameObject<DebugController>(Lifetime.Scoped, "DebugService");
 
             RegisterObjectContainerService(builder);
 

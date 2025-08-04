@@ -11,31 +11,31 @@ namespace Infrastructure
 {
     public class GameplayInitializer
     {
-        private readonly DebugService _debugService;
+        private readonly DebugController _debugController;
         private readonly EnemyService _enemyService;
         private readonly GameFactory _gameFactory;
-        private readonly CameraService _cameraService;
+        private readonly CameraController _cameraController;
         private readonly GameStateService _gameStateService;
         private readonly DialogueService _dialogueService;
-        private readonly LevelViewService _levelViewService;
+        private readonly LevelViewController _levelViewController;
         private readonly SoundController _soundController;
         private readonly DataService _dataService;
         private readonly TutorialService _tutorialService;
 
-        public GameplayInitializer(DebugService debugService, EnemyService enemyService, GameFactory gameFactory,
-            CameraService cameraService, GameStateService gameStateService, DialogueService dialogueService,
-            LevelViewService levelViewService, SoundController soundController, DataService dataService,
+        public GameplayInitializer(DebugController debugController, EnemyService enemyService, GameFactory gameFactory,
+            CameraController cameraController, GameStateService gameStateService, DialogueService dialogueService,
+            LevelViewController levelViewController, SoundController soundController, DataService dataService,
             TutorialService tutorialService)
         {
-            _levelViewService = levelViewService;
+            _levelViewController = levelViewController;
             _soundController = soundController;
             _dataService = dataService;
             _tutorialService = tutorialService;
             _dialogueService = dialogueService;
-            _debugService = debugService;
+            _debugController = debugController;
             _enemyService = enemyService;
             _gameFactory = gameFactory;
-            _cameraService = cameraService;
+            _cameraController = cameraController;
             _gameStateService = gameStateService;
         }
 
@@ -45,8 +45,8 @@ namespace Infrastructure
 
             var isLastLevel = _dataService.GetNumberOfLevels() == levelIndex + 1;
             _gameStateService.RegisterPlayer(player, levelIndex, isLastLevel);
-            _cameraService.SetFollowTarget(player.transform);
-            _levelViewService.InitializeLevel(levelIndex);
+            _cameraController.SetFollowTarget(player.transform);
+            _levelViewController.InitializeLevel(levelIndex);
             _enemyService.SetupLevel(levelIndex, player.transform);
 
             var hudController = Object.FindFirstObjectByType<HudController>();
@@ -59,7 +59,7 @@ namespace Infrastructure
             var levelMusic = _dataService.GetLevelData(levelIndex).Music;
             _soundController.PlayMusic(levelMusic);
 
-            _debugService.Setup(hudController);
+            _debugController.Setup(hudController);
             _tutorialService.SetPlayer(player);
 
             if (!_dialogueService.TryShowStartLevelDialogue(levelIndex, ActivateLevel))
