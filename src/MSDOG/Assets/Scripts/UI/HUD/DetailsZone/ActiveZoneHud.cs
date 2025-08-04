@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Constants;
 using Core.Models.Data;
 using Core.Services;
-using Gameplay.Services;
+using Gameplay.Factories;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;

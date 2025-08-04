@@ -2,11 +2,13 @@ using Constants;
 using Core.Controllers;
 using Core.Models.Data;
 using Core.Services;
+using Gameplay.Controllers;
 using Gameplay.Enemies;
+using Gameplay.Services;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Gameplay.Services
+namespace Gameplay.Factories
 {
     public class GameFactory
     {

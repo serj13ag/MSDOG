@@ -1,6 +1,7 @@
 using Core.Controllers;
 using Core.Services;
 using Core.Sounds;
+using Gameplay.Factories;
 using Gameplay.Services;
 using TMPro;
 using UI.HUD.DetailsZone;

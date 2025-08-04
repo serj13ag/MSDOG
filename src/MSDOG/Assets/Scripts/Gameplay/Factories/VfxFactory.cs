@@ -5,7 +5,7 @@ using UI;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Gameplay.Services
+namespace Gameplay.Factories
 {
     public class VfxFactory
     {

@@ -3,7 +3,7 @@ using Core.Interfaces;
 using UnityEngine;
 using VContainer;
 
-namespace Gameplay.Services
+namespace Gameplay.Controllers
 {
     public class CameraService : MonoBehaviour, IUpdatable
     {

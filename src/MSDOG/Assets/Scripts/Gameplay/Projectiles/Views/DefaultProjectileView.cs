@@ -2,7 +2,7 @@ using System;
 using Core.Controllers;
 using Core.Models.Data;
 using Gameplay.Enemies;
-using Gameplay.Services;
+using Gameplay.Factories;
 using UnityEngine;
 using Utility;
 using VContainer;

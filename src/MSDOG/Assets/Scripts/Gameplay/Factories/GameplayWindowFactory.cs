@@ -6,7 +6,7 @@ using UI.Windows;
 using UnityEngine;
 using VContainer;
 
-namespace Gameplay.Services
+namespace Gameplay.Factories
 {
     public class GameplayWindowFactory
     {

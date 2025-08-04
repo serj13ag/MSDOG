@@ -5,7 +5,7 @@ using UI.HUD;
 using UnityEngine;
 using VContainer;
 
-namespace Gameplay.Services
+namespace Gameplay.Controllers
 {
     public class DebugService : MonoBehaviour
     {

@@ -2,7 +2,7 @@ using Core.Services;
 using UnityEngine;
 using VContainer;
 
-namespace Gameplay.Services
+namespace Gameplay.Controllers
 {
     public class LevelViewService : MonoBehaviour
     {

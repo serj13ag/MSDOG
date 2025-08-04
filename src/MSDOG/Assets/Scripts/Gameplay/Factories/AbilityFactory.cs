@@ -4,7 +4,7 @@ using Core.Models.Data;
 using Core.Services;
 using Gameplay.Abilities;
 
-namespace Gameplay.Services
+namespace Gameplay.Factories
 {
     public class AbilityFactory
     {

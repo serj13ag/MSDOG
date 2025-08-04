@@ -2,11 +2,12 @@ using System;
 using Core.Services;
 using Gameplay.Projectiles;
 using Gameplay.Projectiles.Views;
+using Gameplay.Services;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
 
-namespace Gameplay.Services
+namespace Gameplay.Factories
 {
     public class ProjectileFactory
     {

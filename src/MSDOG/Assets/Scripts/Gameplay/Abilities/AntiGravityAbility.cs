@@ -1,6 +1,6 @@
 using Core.Controllers;
 using Core.Models.Data;
-using Gameplay.Services;
+using Gameplay.Factories;
 using Gameplay.VFX;
 
 namespace Gameplay.Abilities

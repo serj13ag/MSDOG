@@ -4,7 +4,7 @@ using Core.Controllers;
 using Core.Models.Data;
 using Core.Services;
 using Gameplay.Enemies;
-using Gameplay.Services;
+using Gameplay.Factories;
 using UnityEngine;
 using Utility;
 

@@ -1,7 +1,7 @@
 using Core.Controllers;
 using Core.Models.Data;
+using Gameplay.Factories;
 using Gameplay.Projectiles;
-using Gameplay.Services;
 
 namespace Gameplay.Abilities
 {
