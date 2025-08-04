@@ -1,6 +1,6 @@
 using System;
+using Gameplay.Services;
 using Infrastructure.StateMachine;
-using Services.Gameplay;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;

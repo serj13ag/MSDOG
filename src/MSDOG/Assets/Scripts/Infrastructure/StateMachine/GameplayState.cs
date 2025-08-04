@@ -1,6 +1,6 @@
 using Constants;
-using Services;
-using Services.Gameplay;
+using Core.Services;
+using Gameplay.Services;
 using UnityEngine;
 using VContainer;
 

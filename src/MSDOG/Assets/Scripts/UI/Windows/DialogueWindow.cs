@@ -1,7 +1,7 @@
 using System;
-using Data;
-using Services;
-using Services.Gameplay;
+using Core.Models.Data;
+using Core.Services;
+using Gameplay.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;

@@ -1,6 +1,6 @@
-using Data;
-using Services;
-using Sounds;
+using Core.Models.Data;
+using Core.Services;
+using Core.Sounds;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;

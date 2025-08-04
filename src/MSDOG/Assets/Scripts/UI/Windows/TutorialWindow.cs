@@ -1,6 +1,6 @@
 using System;
-using Data;
-using Services;
+using Core.Models.Data;
+using Core.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

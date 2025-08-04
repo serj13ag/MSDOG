@@ -1,6 +1,6 @@
 using System;
-using Core;
-using Services.Gameplay;
+using Gameplay;
+using Gameplay.Services;
 using TMPro;
 using UnityEngine;
 

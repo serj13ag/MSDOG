@@ -1,5 +1,5 @@
 using System;
-using Data;
+using Core.Models.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;

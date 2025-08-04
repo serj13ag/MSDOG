@@ -1,4 +1,4 @@
-using Data;
+using Core.Models.Data;
 using Infrastructure.StateMachine;
 using TMPro;
 using UnityEngine;

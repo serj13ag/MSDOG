@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Constants;
-using Data;
-using Services;
-using Services.Gameplay;
+using Core.Models.Data;
+using Core.Services;
+using Gameplay.Services;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;

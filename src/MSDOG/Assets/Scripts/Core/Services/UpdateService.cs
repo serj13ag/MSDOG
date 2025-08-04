@@ -1,0 +1,53 @@
+using System.Collections.Generic;
+using Core.Interfaces;
+using UnityEngine;
+
+namespace Core.Services
+{
+    public class UpdateService : PersistentMonoService
+    {
+        private readonly List<IUpdatable> _updatables = new List<IUpdatable>();
+
+        private float _gameTime = 1f;
+
+        public bool IsPaused => _gameTime == 0f;
+
+        private void Update()
+        {
+            foreach (var updatable in _updatables.ToArray())
+            {
+                updatable.OnUpdate(Time.deltaTime * _gameTime);
+            }
+        }
+
+        public void Register(IUpdatable updatable)
+        {
+            _updatables.Add(updatable);
+        }
+
+        public void Remove(IUpdatable updatable)
+        {
+            _updatables.Remove(updatable);
+        }
+
+        public void Pause(bool withTimeScale = false)
+        {
+            _gameTime = 0f;
+
+            if (withTimeScale)
+            {
+                Time.timeScale = 0f;
+            }
+        }
+
+        public void Unpause(bool withTimeScale = false)
+        {
+            _gameTime = 1f;
+
+            if (withTimeScale)
+            {
+                Time.timeScale = 1f;
+            }
+        }
+    }
+}

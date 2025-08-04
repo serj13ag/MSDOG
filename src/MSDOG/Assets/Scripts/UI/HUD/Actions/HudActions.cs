@@ -1,6 +1,6 @@
-using Core;
-using Services;
-using Services.Gameplay;
+using Core.Services;
+using Gameplay;
+using Gameplay.Services;
 using UnityEngine;
 using VContainer;
 

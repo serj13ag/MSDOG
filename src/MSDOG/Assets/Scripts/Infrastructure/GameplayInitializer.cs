@@ -1,5 +1,5 @@
-using Services;
-using Services.Gameplay;
+using Core.Services;
+using Gameplay.Services;
 using UI.HUD;
 using UI.HUD.Actions;
 using UnityEngine;

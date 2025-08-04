@@ -1,6 +1,6 @@
-using Services;
-using Services.Gameplay;
-using Sounds;
+using Core.Services;
+using Core.Sounds;
+using Gameplay.Services;
 using TMPro;
 using UI.HUD.DetailsZone;
 using UnityEngine;

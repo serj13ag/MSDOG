@@ -1,6 +1,6 @@
-using Core;
-using Services;
-using Sounds;
+using Core.Services;
+using Core.Sounds;
+using Gameplay;
 using UnityEngine;
 
 namespace UI.HUD.Actions

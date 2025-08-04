@@ -1,8 +1,8 @@
-using Core;
-using Interfaces;
-using Services;
-using Services.Gameplay;
-using Sounds;
+using Core.Interfaces;
+using Core.Services;
+using Core.Sounds;
+using Gameplay;
+using Gameplay.Services;
 using UnityEngine;
 using UnityEngine.UI;
 
