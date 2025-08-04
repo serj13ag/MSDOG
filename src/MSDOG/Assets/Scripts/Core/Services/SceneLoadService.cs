@@ -21,10 +21,10 @@ namespace Core.Services
                 return;
             }
 
-            _coroutineService.StartCoroutine(LoadSceneRoutine(name, onLoaded));
+            _coroutineService.StartCoroutine(LoadSceneRoutine(name), onLoaded);
         }
 
-        private IEnumerator LoadSceneRoutine(string name, Action onLoaded)
+        private IEnumerator LoadSceneRoutine(string name)
         {
             var loadSceneAsync = SceneManager.LoadSceneAsync(name);
 
@@ -32,8 +32,6 @@ namespace Core.Services
             {
                 yield return null;
             }
-
-            onLoaded?.Invoke();
         }
     }
 }
