@@ -19,7 +19,7 @@ namespace Gameplay.Factories
         private readonly ProjectileFactory _projectileFactory;
         private readonly VfxFactory _vfxFactory;
         private readonly DataService _dataService;
-        private readonly RuntimeContainers _runtimeContainers;
+        private readonly ObjectContainerService _objectContainerService;
         private readonly DebugService _debugService;
         private readonly ProgressService _progressService;
         private readonly UpdateService _updateService;
@@ -30,7 +30,7 @@ namespace Gameplay.Factories
 
         public GameFactory(AssetProviderService assetProviderService, UpdateService updateService, InputService inputService,
             ArenaService arenaService, AbilityFactory abilityFactory, ProjectileFactory projectileFactory,
-            VfxFactory vfxFactory, DataService dataService, RuntimeContainers runtimeContainers, DebugService debugService,
+            VfxFactory vfxFactory, DataService dataService, ObjectContainerService objectContainerService, DebugService debugService,
             ProgressService progressService)
         {
             _assetProviderService = assetProviderService;
@@ -40,7 +40,7 @@ namespace Gameplay.Factories
             _projectileFactory = projectileFactory;
             _vfxFactory = vfxFactory;
             _dataService = dataService;
-            _runtimeContainers = runtimeContainers;
+            _objectContainerService = objectContainerService;
             _debugService = debugService;
             _progressService = progressService;
             _updateService = updateService;
@@ -57,14 +57,14 @@ namespace Gameplay.Factories
         public Enemy CreateEnemy(Vector3 position, EnemyData data)
         {
             // TODO: init via container
-            var enemy = Object.Instantiate(data.Prefab, position, Quaternion.identity, _runtimeContainers.EnemyContainer);
+            var enemy = Object.Instantiate(data.Prefab, position, Quaternion.identity, _objectContainerService.EnemyContainer);
             enemy.Init(_updateService, this, _projectileFactory, _player, data, _vfxFactory, _debugService);
             return enemy;
         }
 
         public EnemyDeathkit CreateEnemyDeathkit(EnemyDeathkit deathkitPrefab, Vector3 position, Quaternion rotation)
         {
-            var enemyDeathkit = Object.Instantiate(deathkitPrefab, position, rotation, _runtimeContainers.EnemyContainer);
+            var enemyDeathkit = Object.Instantiate(deathkitPrefab, position, rotation, _objectContainerService.EnemyContainer);
             enemyDeathkit.Init();
             return enemyDeathkit;
         }

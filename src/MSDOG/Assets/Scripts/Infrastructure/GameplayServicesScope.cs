@@ -19,7 +19,7 @@ namespace Infrastructure
 
             builder.RegisterComponentOnNewGameObject<DebugService>(Lifetime.Scoped, "DebugService");
 
-            RegisterContainers(builder);
+            RegisterObjectContainerService(builder);
 
             builder.Register<InputService>(Lifetime.Scoped);
             builder.Register<ArenaService>(Lifetime.Scoped);
@@ -35,11 +35,11 @@ namespace Infrastructure
             builder.Register<GameplayInitializer>(Lifetime.Scoped);
         }
 
-        private static void RegisterContainers(IContainerBuilder builder)
+        private static void RegisterObjectContainerService(IContainerBuilder builder)
         {
             var projectileContainer = new GameObject("ProjectileContainer");
             var enemyContainer = new GameObject("EnemyContainer");
-            builder.Register(_ => new RuntimeContainers(projectileContainer.transform, enemyContainer.transform),
+            builder.Register(_ => new ObjectContainerService(projectileContainer.transform, enemyContainer.transform),
                 Lifetime.Scoped);
         }
     }

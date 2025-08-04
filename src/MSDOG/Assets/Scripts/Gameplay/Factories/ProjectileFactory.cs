@@ -12,13 +12,13 @@ namespace Gameplay.Factories
     public class ProjectileFactory
     {
         private readonly IObjectResolver _container;
-        private readonly RuntimeContainers _runtimeContainers;
+        private readonly ObjectContainerService _objectContainerService;
         private readonly DataService _dataService;
 
-        public ProjectileFactory(IObjectResolver container, RuntimeContainers runtimeContainers, DataService dataService)
+        public ProjectileFactory(IObjectResolver container, ObjectContainerService objectContainerService, DataService dataService)
         {
             _container = container;
-            _runtimeContainers = runtimeContainers;
+            _objectContainerService = objectContainerService;
             _dataService = dataService;
         }
 
@@ -83,7 +83,7 @@ namespace Gameplay.Factories
         private T InstantiateView<T>(T prefab, Vector3 position, Vector3 forwardDirection) where T : BaseProjectileView
         {
             return _container.Instantiate(prefab, position, Quaternion.LookRotation(forwardDirection),
-                _runtimeContainers.ProjectileContainer);
+                _objectContainerService.ProjectileContainer);
         }
     }
 }
