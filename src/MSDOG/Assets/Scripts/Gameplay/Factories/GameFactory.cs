@@ -62,13 +62,6 @@ namespace Gameplay.Factories
             return enemy;
         }
 
-        public EnemyDeathkit CreateEnemyDeathkit(EnemyDeathkit deathkitPrefab, Vector3 position, Quaternion rotation)
-        {
-            var enemyDeathkit = Object.Instantiate(deathkitPrefab, position, rotation, _objectContainerService.EnemyContainer);
-            enemyDeathkit.Init();
-            return enemyDeathkit;
-        }
-
         public ExperiencePiece CreateExperiencePiece(Vector3 position, int experience)
         {
             var experiencePiece = _assetProviderService.Instantiate<ExperiencePiece>(AssetPaths.ExperiencePiecePrefab, position);

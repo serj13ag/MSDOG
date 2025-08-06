@@ -25,6 +25,7 @@ namespace Gameplay.Services
         private readonly UpdateController _updateController;
         private readonly DataService _dataService;
         private readonly DebugController _debugController;
+        private readonly DeathKitFactory _deathKitFactory;
 
         private bool _isActive;
         private Transform _playerTransform;
@@ -37,9 +38,10 @@ namespace Gameplay.Services
         public event Action OnAllEnemiesDied;
 
         public EnemyService(UpdateController updateController, DataService dataService, GameFactory gameFactory,
-            ArenaService arenaService, DebugController debugController)
+            ArenaService arenaService, DebugController debugController, DeathKitFactory deathKitFactory)
         {
             _debugController = debugController;
+            _deathKitFactory = deathKitFactory;
             _gameFactory = gameFactory;
             _arenaService = arenaService;
             _updateController = updateController;
@@ -125,7 +127,7 @@ namespace Gameplay.Services
             _enemies.Remove(enemy);
             enemy.OnDied -= OnEnemyDied;
 
-            SpawnDeathkit(enemy);
+            SpawnDeathKit(enemy);
             Object.Destroy(enemy.gameObject); // TODO: pool?
 
             if (!_isActive && _enemies.Count == 0)
@@ -179,9 +181,9 @@ namespace Gameplay.Services
             return true;
         }
 
-        private void SpawnDeathkit(Enemy enemy)
+        private void SpawnDeathKit(Enemy enemy)
         {
-            _gameFactory.CreateEnemyDeathkit(enemy.DeathkitPrefab, enemy.ModelRootPosition, enemy.transform.rotation);
+            _deathKitFactory.CreateDeathKit(enemy.DeathkitPrefab, enemy.ModelRootPosition, enemy.transform.rotation);
         }
 
         public void Dispose()

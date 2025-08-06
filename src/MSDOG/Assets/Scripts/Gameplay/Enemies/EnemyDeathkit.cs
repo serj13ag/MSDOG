@@ -1,5 +1,7 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Gameplay.Enemies
 {
@@ -12,15 +14,45 @@ namespace Gameplay.Enemies
         [SerializeField] private float _hideCooldown = 5f;
         [SerializeField] private float _torqueMultiplier = 10f;
 
-        public void Init()
+        private Vector3[] _partInitialLocalPositions;
+        private Quaternion[] _partInitialLocalRotations;
+        private Rigidbody[] _partRigidbodies;
+
+        private void Awake()
         {
-            foreach (var part in _parts)
+            _partInitialLocalPositions = new Vector3[_parts.Length];
+            _partInitialLocalRotations = new Quaternion[_parts.Length];
+            _partRigidbodies = new Rigidbody[_parts.Length];
+
+            for (var i = 0; i < _parts.Length; i++)
             {
+                var part = _parts[i];
+
+                _partInitialLocalPositions[i] = part.transform.localPosition;
+                _partInitialLocalRotations[i] = part.transform.localRotation;
+
                 var rb = part.gameObject.AddComponent<Rigidbody>();
+                rb.isKinematic = true;
+                _partRigidbodies[i] = rb;
 
                 var meshCollider = part.gameObject.AddComponent<MeshCollider>();
                 meshCollider.convex = true;
+            }
+        }
 
+        public void Init(Vector3 position, Quaternion rotation, Action actionOnRelease)
+        {
+            transform.position = position;
+            transform.rotation = rotation;
+
+            for (var i = 0; i < _parts.Length; i++)
+            {
+                var part = _parts[i];
+                part.transform.localPosition = _partInitialLocalPositions[i];
+                part.transform.localRotation = _partInitialLocalRotations[i];
+
+                var rb = _partRigidbodies[i];
+                rb.isKinematic = false;
                 rb.AddExplosionForce(_force, _forceCenter.transform.position, _forceRadius);
 
                 var randomTorque = new Vector3(
@@ -40,7 +72,7 @@ namespace Gameplay.Enemies
                     }
                 })
                 .Insert(_hideCooldown, transform.DOMoveY(-2f, 5f))
-                .OnComplete(() => Destroy(gameObject));
+                .OnComplete(() => actionOnRelease?.Invoke());
         }
     }
 }

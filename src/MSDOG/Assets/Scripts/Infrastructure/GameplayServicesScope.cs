@@ -26,6 +26,7 @@ namespace Infrastructure
             builder.Register<ProjectileFactory>(Lifetime.Scoped);
             builder.Register<AbilityFactory>(Lifetime.Scoped);
             builder.Register<GameFactory>(Lifetime.Scoped);
+            builder.Register<DeathKitFactory>(Lifetime.Scoped);
             builder.Register<EnemyService>(Lifetime.Scoped);
             builder.Register<GameStateService>(Lifetime.Scoped);
             builder.Register<GameplayWindowFactory>(Lifetime.Scoped);
@@ -39,7 +40,9 @@ namespace Infrastructure
         {
             var projectileContainer = new GameObject("ProjectileContainer");
             var enemyContainer = new GameObject("EnemyContainer");
-            builder.Register(_ => new ObjectContainerService(projectileContainer.transform, enemyContainer.transform),
+            var deathKitContainer = new GameObject("DeathKitContainer");
+            builder.Register(_ => new ObjectContainerService(projectileContainer.transform,
+                    enemyContainer.transform, deathKitContainer.transform),
                 Lifetime.Scoped);
         }
     }
