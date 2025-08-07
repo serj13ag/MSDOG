@@ -34,8 +34,8 @@ namespace Gameplay.Factories
                     {
                         _pools.Add(deathKitPrefab, new ObjectPool<EnemyDeathkit>(
                             createFunc: () => Object.Instantiate(deathKitPrefab, _objectContainerService.DeathKitContainer),
-                            actionOnGet: obj => obj.gameObject.SetActive(true),
-                            actionOnRelease: obj => obj.gameObject.SetActive(false)));
+                            actionOnGet: obj => obj.OnGet(),
+                            actionOnRelease: obj => obj.OnRelease()));
                     }
                 }
             }
@@ -59,7 +59,8 @@ namespace Gameplay.Factories
         {
             var pool = _pools[deathKitPrefab];
             var enemyDeathKit = pool.Get();
-            enemyDeathKit.Init(position, rotation, () => pool.Release(enemyDeathKit));
+            enemyDeathKit.Init(position, rotation);
+            enemyDeathKit.SetReleaseCallback(() => pool.Release(enemyDeathKit));
             return enemyDeathKit;
         }
     }

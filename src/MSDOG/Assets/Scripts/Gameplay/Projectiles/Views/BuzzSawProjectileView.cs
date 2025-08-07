@@ -26,8 +26,20 @@ namespace Gameplay.Projectiles.Views
             InitBase(projectile);
 
             _player = player;
+        }
+
+        public override void OnGet()
+        {
+            base.OnGet();
 
             _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
+        }
+
+        public override void OnRelease()
+        {
+            base.OnRelease();
+
+            _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;
         }
 
         protected override void OnUpdated(float deltaTime)
@@ -90,13 +102,6 @@ namespace Gameplay.Projectiles.Views
         private void InvertDirectionZ(Vector3 direction)
         {
             Projectile.ChangeForwardDirection(new Vector3(direction.x, direction.y, -direction.z));
-        }
-
-        protected override void OnBeforeReturnToPool()
-        {
-            base.OnBeforeReturnToPool();
-
-            _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;
         }
     }
 }

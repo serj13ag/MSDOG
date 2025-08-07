@@ -60,8 +60,7 @@ namespace Gameplay.Factories
             var projectileData = projectileSpawnData.ProjectileData;
             var pool = _pools[projectileData.ViewPrefab];
             var projectileView = CreateProjectileView(projectileSpawnData, projectileData, projectile, pool);
-
-            projectileView.SetActionOnRelease(() => pool.Release(projectileView));
+            projectileView.SetReleaseCallback(() => pool.Release(projectileView));
             projectileView.transform.position = projectileSpawnData.SpawnPosition;
             projectileView.transform.rotation = Quaternion.LookRotation(projectileSpawnData.ForwardDirection);
         }
@@ -112,7 +111,7 @@ namespace Gameplay.Factories
             var pool = _pools[enemyProjectileData.ViewPrefab];
             var view = (DefaultProjectileView)pool.Get();
             view.Init(projectile, enemyProjectileData);
-            view.SetActionOnRelease(() => pool.Release(view));
+            view.SetReleaseCallback(() => pool.Release(view));
             view.transform.position = projectileSpawnData.SpawnPosition;
             view.transform.rotation = Quaternion.LookRotation(projectileSpawnData.ForwardDirection);
         }
@@ -142,6 +141,7 @@ namespace Gameplay.Factories
             }
 
             availablePrefabs.Add(_dataService.GetEnemyProjectileData().ViewPrefab);
+
             return availablePrefabs;
         }
 
@@ -151,8 +151,8 @@ namespace Gameplay.Factories
             {
                 _pools.Add(projectileView, new ObjectPool<BaseProjectileView>(
                     createFunc: () => _container.Instantiate(projectileView, _objectContainerService.ProjectileContainer),
-                    actionOnGet: obj => obj.gameObject.SetActive(true),
-                    actionOnRelease: obj => obj.gameObject.SetActive(false)));
+                    actionOnGet: obj => obj.OnGet(),
+                    actionOnRelease: obj => obj.OnRelease()));
             }
         }
     }

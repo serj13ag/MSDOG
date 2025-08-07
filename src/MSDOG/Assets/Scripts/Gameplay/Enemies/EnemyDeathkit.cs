@@ -1,11 +1,11 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
+using Utility;
 using Random = UnityEngine.Random;
 
 namespace Gameplay.Enemies
 {
-    public class EnemyDeathkit : MonoBehaviour
+    public class EnemyDeathkit : BasePooledObject
     {
         [SerializeField] private GameObject[] _parts;
         [SerializeField] private Transform _forceCenter;
@@ -40,17 +40,13 @@ namespace Gameplay.Enemies
             }
         }
 
-        public void Init(Vector3 position, Quaternion rotation, Action actionOnRelease)
+        public void Init(Vector3 position, Quaternion rotation)
         {
             transform.position = position;
             transform.rotation = rotation;
 
             for (var i = 0; i < _parts.Length; i++)
             {
-                var part = _parts[i];
-                part.transform.localPosition = _partInitialLocalPositions[i];
-                part.transform.localRotation = _partInitialLocalRotations[i];
-
                 var rb = _partRigidbodies[i];
                 rb.isKinematic = false;
                 rb.AddExplosionForce(_force, _forceCenter.transform.position, _forceRadius);
@@ -72,7 +68,19 @@ namespace Gameplay.Enemies
                     }
                 })
                 .Insert(_hideCooldown, transform.DOMoveY(-2f, 5f))
-                .OnComplete(() => actionOnRelease?.Invoke());
+                .OnComplete(Release);
+        }
+
+        public override void OnRelease()
+        {
+            base.OnRelease();
+
+            for (var i = 0; i < _parts.Length; i++)
+            {
+                var part = _parts[i];
+                part.transform.localPosition = _partInitialLocalPositions[i];
+                part.transform.localRotation = _partInitialLocalRotations[i];
+            }
         }
     }
 }

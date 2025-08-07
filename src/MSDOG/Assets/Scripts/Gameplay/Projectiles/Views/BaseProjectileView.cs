@@ -1,16 +1,15 @@
 using System;
 using Core.Controllers;
 using Core.Interfaces;
-using UnityEngine;
+using Utility;
 
 namespace Gameplay.Projectiles.Views
 {
-    public abstract class BaseProjectileView : MonoBehaviour, IUpdatable
+    public abstract class BaseProjectileView : BasePooledObject, IUpdatable
     {
         private UpdateController _updateController;
 
         private Projectile _projectile;
-        private Action _actionOnRelease;
 
         protected Projectile Projectile => _projectile;
 
@@ -26,13 +25,27 @@ namespace Gameplay.Projectiles.Views
             projectile.OnPiercesRunOut += OnPiercesRunOut;
             projectile.OnTickTimeoutRaised += OnTickTimeoutRaised;
             projectile.OnLifetimeEnded += OnLifetimeEnded;
+        }
+
+        public override void OnGet()
+        {
+            base.OnGet();
 
             _updateController.Register(this);
         }
 
-        public void SetActionOnRelease(Action actionOnRelease)
+        public override void OnRelease()
         {
-            _actionOnRelease = actionOnRelease;
+            base.OnRelease();
+
+            _updateController.Remove(this);
+
+            if (_projectile != null)
+            {
+                _projectile.OnPiercesRunOut -= OnPiercesRunOut;
+                _projectile.OnTickTimeoutRaised -= OnTickTimeoutRaised;
+                _projectile.OnLifetimeEnded -= OnLifetimeEnded;
+            }
         }
 
         public void OnUpdate(float deltaTime)
@@ -55,26 +68,9 @@ namespace Gameplay.Projectiles.Views
         {
         }
 
-        protected virtual void OnBeforeReturnToPool()
-        {
-        }
-
         private void OnLifetimeEnded(object sender, EventArgs e)
         {
             Release();
-        }
-
-        protected void Release()
-        {
-            _updateController.Remove(this);
-
-            _projectile.OnPiercesRunOut -= OnPiercesRunOut;
-            _projectile.OnTickTimeoutRaised -= OnTickTimeoutRaised;
-            _projectile.OnLifetimeEnded -= OnLifetimeEnded;
-
-            OnBeforeReturnToPool();
-
-            _actionOnRelease?.Invoke();
         }
     }
 }
