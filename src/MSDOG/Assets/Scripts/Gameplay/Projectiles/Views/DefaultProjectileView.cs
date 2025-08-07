@@ -23,8 +23,6 @@ namespace Gameplay.Projectiles.Views
             ConstructBase(updateController);
 
             _vfxFactory = vfxFactory;
-
-            _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
 
         public void Init(Projectile projectile, ProjectileData projectileData)
@@ -32,6 +30,8 @@ namespace Gameplay.Projectiles.Views
             InitBase(projectile);
 
             _impactVFXPrefab = projectileData.ImpactVFXPrefab;
+
+            _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
 
         protected override void OnUpdated(float deltaTime)
@@ -40,7 +40,7 @@ namespace Gameplay.Projectiles.Views
 
             if (IsOutOfArena())
             {
-                Destroy(gameObject);
+                Release();
             }
         }
 
@@ -79,9 +79,9 @@ namespace Gameplay.Projectiles.Views
             _vfxFactory.CreatProjectileImpactEffect(transform.position, _impactVFXPrefab);
         }
 
-        protected override void OnDestroyed()
+        protected override void OnBeforeReturnToPool()
         {
-            base.OnDestroyed();
+            base.OnBeforeReturnToPool();
 
             _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;
         }

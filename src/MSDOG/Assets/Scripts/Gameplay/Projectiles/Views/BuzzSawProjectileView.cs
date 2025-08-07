@@ -19,8 +19,6 @@ namespace Gameplay.Projectiles.Views
         public void Construct(UpdateController updateController)
         {
             ConstructBase(updateController);
-
-            _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
 
         public void Init(Projectile projectile, Player player)
@@ -28,6 +26,8 @@ namespace Gameplay.Projectiles.Views
             InitBase(projectile);
 
             _player = player;
+
+            _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
 
         protected override void OnUpdated(float deltaTime)
@@ -92,9 +92,9 @@ namespace Gameplay.Projectiles.Views
             Projectile.ChangeForwardDirection(new Vector3(direction.x, direction.y, -direction.z));
         }
 
-        protected override void OnDestroyed()
+        protected override void OnBeforeReturnToPool()
         {
-            base.OnDestroyed();
+            base.OnBeforeReturnToPool();
 
             _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;
         }

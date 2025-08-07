@@ -22,17 +22,19 @@ namespace Infrastructure
         private readonly DataService _dataService;
         private readonly TutorialService _tutorialService;
         private readonly DeathKitFactory _deathKitFactory;
+        private readonly ProjectileFactory _projectileFactory;
 
         public GameplayInitializer(DebugController debugController, EnemyService enemyService, GameFactory gameFactory,
             CameraController cameraController, GameStateService gameStateService, DialogueService dialogueService,
             LevelViewController levelViewController, SoundController soundController, DataService dataService,
-            TutorialService tutorialService, DeathKitFactory deathKitFactory)
+            TutorialService tutorialService, DeathKitFactory deathKitFactory, ProjectileFactory projectileFactory)
         {
             _levelViewController = levelViewController;
             _soundController = soundController;
             _dataService = dataService;
             _tutorialService = tutorialService;
             _deathKitFactory = deathKitFactory;
+            _projectileFactory = projectileFactory;
             _dialogueService = dialogueService;
             _debugController = debugController;
             _enemyService = enemyService;
@@ -43,6 +45,9 @@ namespace Infrastructure
 
         public void Start(int levelIndex)
         {
+            _deathKitFactory.Prewarm(levelIndex);
+            _projectileFactory.Prewarm(levelIndex);
+
             // TODO: refactor?
             var player = _gameFactory.CreatePlayer();
 
@@ -51,7 +56,6 @@ namespace Infrastructure
             _cameraController.SetFollowTarget(player.transform);
             _levelViewController.InitializeLevel(levelIndex);
             _enemyService.SetupLevel(levelIndex, player.transform);
-            _deathKitFactory.Prewarm(levelIndex);
 
             var hudController = Object.FindFirstObjectByType<HudController>();
             hudController.Init();

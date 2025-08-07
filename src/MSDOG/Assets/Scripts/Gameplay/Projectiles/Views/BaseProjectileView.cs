@@ -10,13 +10,13 @@ namespace Gameplay.Projectiles.Views
         private UpdateController _updateController;
 
         private Projectile _projectile;
+        private Action _actionOnRelease;
 
         protected Projectile Projectile => _projectile;
 
         protected void ConstructBase(UpdateController updateController)
         {
             _updateController = updateController;
-            updateController.Register(this);
         }
 
         protected void InitBase(Projectile projectile)
@@ -26,6 +26,13 @@ namespace Gameplay.Projectiles.Views
             projectile.OnPiercesRunOut += OnPiercesRunOut;
             projectile.OnTickTimeoutRaised += OnTickTimeoutRaised;
             projectile.OnLifetimeEnded += OnLifetimeEnded;
+
+            _updateController.Register(this);
+        }
+
+        public void SetActionOnRelease(Action actionOnRelease)
+        {
+            _actionOnRelease = actionOnRelease;
         }
 
         public void OnUpdate(float deltaTime)
@@ -41,23 +48,23 @@ namespace Gameplay.Projectiles.Views
 
         protected virtual void OnPiercesRunOut(object sender, EventArgs e)
         {
-            Destroy(gameObject);
+            Release();
         }
 
         protected virtual void OnTickTimeoutRaised(object sender, EventArgs e)
         {
         }
 
+        protected virtual void OnBeforeReturnToPool()
+        {
+        }
+
         private void OnLifetimeEnded(object sender, EventArgs e)
         {
-            Destroy(gameObject);
+            Release();
         }
 
-        protected virtual void OnDestroyed()
-        {
-        }
-
-        private void OnDestroy()
+        protected void Release()
         {
             _updateController.Remove(this);
 
@@ -65,7 +72,9 @@ namespace Gameplay.Projectiles.Views
             _projectile.OnTickTimeoutRaised -= OnTickTimeoutRaised;
             _projectile.OnLifetimeEnded -= OnLifetimeEnded;
 
-            OnDestroyed();
+            OnBeforeReturnToPool();
+
+            _actionOnRelease?.Invoke();
         }
     }
 }

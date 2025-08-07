@@ -51,6 +51,12 @@ namespace Core.Services
             return levelData?.LevelAbilityData.StartAbilities;
         }
 
+        public List<AbilityData> GetAbilitiesAvailableToCraft(int levelIndex)
+        {
+            var levelData = _levelsData.GetValueOrDefault(levelIndex);
+            return levelData?.LevelAbilityData.AbilitiesAvailableToCraft;
+        }
+
         public AbilityData GetRandomCraftAbilityData(int levelIndex)
         {
             var levelData = _levelsData.GetValueOrDefault(levelIndex);
