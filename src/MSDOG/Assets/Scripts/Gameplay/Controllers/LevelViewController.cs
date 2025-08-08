@@ -16,7 +16,7 @@ namespace Gameplay.Controllers
             _dataService = dataService;
         }
 
-        public void InitializeLevel(int levelIndex)
+        public void InitLevel(int levelIndex)
         {
             var levelData = _dataService.GetLevelData(levelIndex);
             _floorMeshRenderer.material = levelData.FloorMaterial;

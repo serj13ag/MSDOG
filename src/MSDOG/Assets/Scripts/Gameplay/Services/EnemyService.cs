@@ -53,7 +53,7 @@ namespace Gameplay.Services
             debugController.OnKillAllEnemiesRequested += OnKillAllEnemiesRequested;
         }
 
-        public void SetupLevel(int levelIndex, Transform playerTransform)
+        public void InitLevel(int levelIndex, Transform playerTransform)
         {
             _playerTransform = playerTransform;
             _waves = _dataService.GetLevelData(levelIndex).Waves;

@@ -23,16 +23,17 @@ namespace Infrastructure
 
             builder.Register<InputService>(Lifetime.Scoped);
             builder.Register<ArenaService>(Lifetime.Scoped);
+            builder.Register<EnemyService>(Lifetime.Scoped);
+            builder.Register<PlayerService>(Lifetime.Scoped);
+            builder.Register<GameStateService>(Lifetime.Scoped);
+            builder.Register<TutorialService>(Lifetime.Scoped);
+
             builder.Register<ProjectileFactory>(Lifetime.Scoped);
             builder.Register<AbilityFactory>(Lifetime.Scoped);
             builder.Register<GameFactory>(Lifetime.Scoped);
             builder.Register<DeathKitFactory>(Lifetime.Scoped);
-            builder.Register<EnemyService>(Lifetime.Scoped);
-            builder.Register<PlayerService>(Lifetime.Scoped);
-            builder.Register<GameStateService>(Lifetime.Scoped);
             builder.Register<GameplayWindowFactory>(Lifetime.Scoped);
             builder.Register<VfxFactory>(Lifetime.Scoped);
-            builder.Register<TutorialService>(Lifetime.Scoped);
 
             builder.Register<GameplayInitializer>(Lifetime.Scoped);
         }

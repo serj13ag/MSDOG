@@ -54,12 +54,12 @@ namespace Infrastructure
             // TODO: refactor?
             var player = _gameFactory.CreatePlayer();
             _playerService.RegisterPlayer(player);
-
-            var isLastLevel = _dataService.GetNumberOfLevels() == levelIndex + 1;
-            _gameStateService.RegisterPlayer(player, levelIndex, isLastLevel);
+            _tutorialService.SetPlayer(player);
             _cameraController.SetFollowTarget(player.transform);
-            _levelViewController.InitializeLevel(levelIndex);
-            _enemyService.SetupLevel(levelIndex, player.transform);
+
+            _gameStateService.InitLevel(levelIndex);
+            _levelViewController.InitLevel(levelIndex);
+            _enemyService.InitLevel(levelIndex, player.transform);
 
             var hudController = Object.FindFirstObjectByType<HudController>();
             hudController.Init();
@@ -72,7 +72,6 @@ namespace Infrastructure
             _soundController.PlayMusic(levelMusic);
 
             _debugController.Setup(hudController);
-            _tutorialService.SetPlayer(player);
 
             if (!_dialogueService.TryShowStartLevelDialogue(levelIndex, ActivateLevel))
             {

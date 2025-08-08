@@ -12,6 +12,8 @@ namespace Gameplay.Services
         private readonly ProgressService _progressService;
         private readonly DialogueService _dialogueService;
         private readonly SoundController _soundController;
+        private readonly PlayerService _playerService;
+        private readonly DataService _dataService;
 
         private int _levelIndex;
         private bool _isLastLevel;
@@ -21,34 +23,31 @@ namespace Gameplay.Services
         public bool IsLastLevel => _isLastLevel;
 
         public GameStateService(EnemyService enemyService, WindowController windowController, ProgressService progressService,
-            DialogueService dialogueService, SoundController soundController)
+            DialogueService dialogueService, SoundController soundController, PlayerService playerService,
+            DataService dataService)
         {
             _progressService = progressService;
             _dialogueService = dialogueService;
             _soundController = soundController;
+            _playerService = playerService;
+            _dataService = dataService;
             _enemyService = enemyService;
             _windowController = windowController;
 
-            _enemyService.OnAllEnemiesDied += OnAllEnemiesDied;
+            enemyService.OnAllEnemiesDied += OnAllEnemiesDied;
+            playerService.OnPlayerDied += OnPlayerDied;
         }
 
-        public void RegisterPlayer(Player player, int levelIndex, bool isLastLevel)
+        public void InitLevel(int levelIndex)
         {
             _levelIndex = levelIndex;
-            _isLastLevel = isLastLevel;
-            _player = player;
-
-            player.OnHealthChanged += OnPlayerHealthChanged;
+            _isLastLevel = _dataService.GetNumberOfLevels() == levelIndex + 1;
         }
 
-        private void OnPlayerHealthChanged()
+        private void OnPlayerDied(object sender, EventArgs e)
         {
-            if (_player.CurrentHealth <= 0)
-            {
-                _soundController.PlaySfx(SfxType.Death);
-
-                _windowController.ShowLoseWindow();
-            }
+            _soundController.PlaySfx(SfxType.Death);
+            _windowController.ShowLoseWindow();
         }
 
         private void OnAllEnemiesDied()
@@ -75,8 +74,8 @@ namespace Gameplay.Services
 
         public void Dispose()
         {
-            _player.OnHealthChanged -= OnPlayerHealthChanged;
             _enemyService.OnAllEnemiesDied -= OnAllEnemiesDied;
+            _playerService.OnPlayerDied -= OnPlayerDied;
         }
     }
 }

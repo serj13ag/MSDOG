@@ -85,5 +85,10 @@ namespace Gameplay.Projectiles.Views
         {
             return Math.Abs(transform.position.x) > 50f || Math.Abs(transform.position.z) > 50f; // TODO: remove hardcode
         }
+
+        private void OnDestroy()
+        {
+            Release();
+        }
     }
 }
