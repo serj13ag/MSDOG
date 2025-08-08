@@ -49,11 +49,6 @@ namespace Gameplay.Projectiles.Views
         protected override void OnUpdated(float deltaTime)
         {
             transform.position += Projectile.ForwardDirection * (Projectile.Speed * deltaTime);
-
-            if (IsOutOfArena())
-            {
-                Release();
-            }
         }
 
         private void OnTriggerEntered(Collider other)
@@ -79,11 +74,6 @@ namespace Gameplay.Projectiles.Views
             base.OnPiercesRunOut(sender, e);
 
             CreateImpactVfx();
-        }
-
-        private bool IsOutOfArena()
-        {
-            return Math.Abs(transform.position.x) > 50f || Math.Abs(transform.position.z) > 50f;
         }
 
         private void CreateImpactVfx()

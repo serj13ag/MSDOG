@@ -10,6 +10,7 @@ namespace Gameplay.Projectiles.Views
         private UpdateController _updateController;
 
         private Projectile _projectile;
+        private bool _shouldRelease;
 
         protected Projectile Projectile => _projectile;
 
@@ -31,6 +32,8 @@ namespace Gameplay.Projectiles.Views
         {
             base.OnGet();
 
+            _shouldRelease = false;
+
             _updateController.Register(this);
         }
 
@@ -40,19 +43,24 @@ namespace Gameplay.Projectiles.Views
 
             _updateController.Remove(this);
 
-            if (_projectile != null)
-            {
-                _projectile.OnPiercesRunOut -= OnPiercesRunOut;
-                _projectile.OnTickTimeoutRaised -= OnTickTimeoutRaised;
-                _projectile.OnLifetimeEnded -= OnLifetimeEnded;
-            }
+            _projectile?.Dispose();
+            _projectile = null;
         }
 
         public void OnUpdate(float deltaTime)
         {
             _projectile.OnUpdate(deltaTime);
-
             OnUpdated(deltaTime);
+
+            if (IsOutOfArena())
+            {
+                _shouldRelease = true;
+            }
+
+            if (_shouldRelease)
+            {
+                Release();
+            }
         }
 
         protected virtual void OnUpdated(float deltaTime)
@@ -61,7 +69,7 @@ namespace Gameplay.Projectiles.Views
 
         protected virtual void OnPiercesRunOut(object sender, EventArgs e)
         {
-            Release();
+            _shouldRelease = true;
         }
 
         protected virtual void OnTickTimeoutRaised(object sender, EventArgs e)
@@ -70,7 +78,12 @@ namespace Gameplay.Projectiles.Views
 
         private void OnLifetimeEnded(object sender, EventArgs e)
         {
-            Release();
+            _shouldRelease = true;
+        }
+
+        private bool IsOutOfArena()
+        {
+            return Math.Abs(transform.position.x) > 50f || Math.Abs(transform.position.z) > 50f; // TODO: remove hardcode
         }
     }
 }

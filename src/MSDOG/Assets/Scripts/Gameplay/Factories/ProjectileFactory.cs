@@ -84,6 +84,7 @@ namespace Gameplay.Factories
             {
                 case ProjectileType.BulletHell:
                 case ProjectileType.Gunshot:
+                case ProjectileType.Enemy:
                 {
                     var defaultProjectileView = (DefaultProjectileView)view;
                     defaultProjectileView.Init(projectile, projectileSpawnData.ProjectileData);
@@ -107,7 +108,6 @@ namespace Gameplay.Factories
                     puddleProjectileView.Init(projectile);
                     break;
                 }
-                case ProjectileType.Enemy:
                 case ProjectileType.Undefined:
                 default:
                     throw new ArgumentOutOfRangeException();

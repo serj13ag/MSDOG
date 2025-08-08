@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Gameplay.Projectiles
 {
-    public class Projectile
+    public class Projectile : IDisposable
     {
         private readonly Guid _id;
         private readonly int _damage;
@@ -109,6 +109,13 @@ namespace Gameplay.Projectiles
             {
                 OnPiercesRunOut?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        public void Dispose()
+        {
+            OnPiercesRunOut = null;
+            OnLifetimeEnded = null;
+            OnTickTimeoutRaised = null;
         }
     }
 }
