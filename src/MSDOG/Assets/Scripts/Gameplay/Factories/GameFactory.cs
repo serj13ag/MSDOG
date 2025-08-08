@@ -58,7 +58,7 @@ namespace Gameplay.Factories
         {
             // TODO: init via container
             var enemy = Object.Instantiate(data.Prefab, position, Quaternion.identity, _objectContainerService.EnemyContainer);
-            enemy.Init(_updateController, this, _projectileFactory, _player, data, _vfxFactory, _debugController);
+            enemy.Init(_updateController, this, _projectileFactory, _player, data, _vfxFactory, _debugController, _dataService);
             return enemy;
         }
 

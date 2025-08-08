@@ -2,6 +2,7 @@ using System;
 using Core.Controllers;
 using Core.Interfaces;
 using Core.Models.Data;
+using Core.Services;
 using Gameplay.Controllers;
 using Gameplay.Enemies.EnemyBehaviour;
 using Gameplay.Factories;
@@ -29,6 +30,7 @@ namespace Gameplay.Enemies
         private GameFactory _gameFactory;
         private ProjectileFactory _projectileFactory;
         private VfxFactory _vfxFactory;
+        private DataService _dataService;
 
         private Guid _id;
         private Player _player;
@@ -54,9 +56,10 @@ namespace Gameplay.Enemies
 
         public event Action<Enemy> OnDied;
 
-        public void Init(UpdateController updateController, GameFactory gameFactory, ProjectileFactory projectileFactory, Player player,
-            EnemyData data, VfxFactory vfxFactory, DebugController debugController)
+        public void Init(UpdateController updateController, GameFactory gameFactory, ProjectileFactory projectileFactory,
+            Player player, EnemyData data, VfxFactory vfxFactory, DebugController debugController, DataService dataService)
         {
+            _dataService = dataService;
             _vfxFactory = vfxFactory;
             _projectileFactory = projectileFactory;
             _gameFactory = gameFactory;
@@ -143,7 +146,7 @@ namespace Gameplay.Enemies
 
             var spawnPosition = transform.position + _enemyProjectileOffset;
             var projectileSpawnData = new ProjectileSpawnData(spawnPosition, directionToPlayer, _player, Damage,
-                _projectileSpeed, 0, 0f, 0f, 0f, null);
+                _projectileSpeed, 0, 0f, 0f, 0f, _dataService.GetEnemyProjectileData());
             _projectileFactory.CreateEnemyProjectile(projectileSpawnData);
         }
 

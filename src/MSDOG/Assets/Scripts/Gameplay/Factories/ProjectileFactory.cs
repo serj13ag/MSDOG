@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Core.Models.Data;
 using Core.Services;
 using Gameplay.Projectiles;
 using Gameplay.Projectiles.Views;
@@ -57,63 +56,62 @@ namespace Gameplay.Factories
         {
             var projectile = new Projectile(projectileSpawnData, true);
 
-            var projectileData = projectileSpawnData.ProjectileData;
-            var pool = _pools[projectileData.ViewPrefab];
-            var projectileView = CreateProjectileView(projectileSpawnData, projectileData, projectile, pool);
-            projectileView.SetReleaseCallback(() => pool.Release(projectileView));
-            projectileView.transform.position = projectileSpawnData.SpawnPosition;
-            projectileView.transform.rotation = Quaternion.LookRotation(projectileSpawnData.ForwardDirection);
-        }
-
-        private BaseProjectileView CreateProjectileView(ProjectileSpawnData projectileSpawnData, ProjectileData projectileData,
-            Projectile projectile, ObjectPool<BaseProjectileView> pool)
-        {
-            switch (projectileData.Type)
-            {
-                case ProjectileType.BulletHell:
-                case ProjectileType.Gunshot:
-                {
-                    var view = (DefaultProjectileView)pool.Get();
-                    view.Init(projectile, projectileSpawnData.ProjectileData);
-                    return view;
-                }
-                case ProjectileType.BuzzSaw:
-                {
-                    var view = (BuzzSawProjectileView)pool.Get();
-                    view.Init(projectile, projectileSpawnData.Player);
-                    return view;
-                }
-                case ProjectileType.EnergyLine:
-                {
-                    var view = (EnergyLineProjectileView)pool.Get();
-                    view.Init(projectile, projectileSpawnData.Player);
-                    return view;
-                }
-                case ProjectileType.Puddle:
-                {
-                    var view = (PuddleProjectileView)pool.Get();
-                    view.Init(projectile);
-                    return view;
-                }
-                case ProjectileType.Enemy:
-                case ProjectileType.Undefined:
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            var view = GetFromPool(projectileSpawnData);
+            InitializeView(view, projectile, projectileSpawnData);
         }
 
         public void CreateEnemyProjectile(ProjectileSpawnData projectileSpawnData)
         {
             var projectile = new Projectile(projectileSpawnData, false);
 
-            var enemyProjectileData = _dataService.GetEnemyProjectileData();
+            var view = GetFromPool(projectileSpawnData);
+            InitializeView(view, projectile, projectileSpawnData);
+        }
 
-            var pool = _pools[enemyProjectileData.ViewPrefab];
-            var view = (DefaultProjectileView)pool.Get();
-            view.Init(projectile, enemyProjectileData);
+        private BaseProjectileView GetFromPool(ProjectileSpawnData projectileSpawnData)
+        {
+            var pool = _pools[projectileSpawnData.ProjectileData.ViewPrefab];
+            var view = pool.Get();
             view.SetReleaseCallback(() => pool.Release(view));
             view.transform.position = projectileSpawnData.SpawnPosition;
             view.transform.rotation = Quaternion.LookRotation(projectileSpawnData.ForwardDirection);
+            return view;
+        }
+
+        private void InitializeView(BaseProjectileView view, Projectile projectile, ProjectileSpawnData projectileSpawnData)
+        {
+            switch (projectileSpawnData.ProjectileData.Type)
+            {
+                case ProjectileType.BulletHell:
+                case ProjectileType.Gunshot:
+                {
+                    var defaultProjectileView = (DefaultProjectileView)view;
+                    defaultProjectileView.Init(projectile, projectileSpawnData.ProjectileData);
+                    break;
+                }
+                case ProjectileType.BuzzSaw:
+                {
+                    var buzzSawProjectileView = (BuzzSawProjectileView)view;
+                    buzzSawProjectileView.Init(projectile, projectileSpawnData.Player);
+                    break;
+                }
+                case ProjectileType.EnergyLine:
+                {
+                    var energyLineProjectileView = (EnergyLineProjectileView)view;
+                    energyLineProjectileView.Init(projectile, projectileSpawnData.Player);
+                    break;
+                }
+                case ProjectileType.Puddle:
+                {
+                    var puddleProjectileView = (PuddleProjectileView)view;
+                    puddleProjectileView.Init(projectile);
+                    break;
+                }
+                case ProjectileType.Enemy:
+                case ProjectileType.Undefined:
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         private List<BaseProjectileView> GetAvailablePrefabsForLevel(int levelIndex)
