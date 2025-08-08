@@ -15,7 +15,7 @@ namespace UI.Windows
 
         private GameStateMachine _gameStateMachine;
         private DataService _dataService;
-        private GameStateService _gameStateService;
+        private LevelFlowService _levelFlowService;
         private InputService _inputService;
 
         public GameObject GameObject => gameObject;
@@ -23,15 +23,15 @@ namespace UI.Windows
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(GameStateMachine gameStateMachine, DataService dataService, GameStateService gameStateService,
+        public void Construct(GameStateMachine gameStateMachine, DataService dataService, LevelFlowService levelFlowService,
             InputService inputService)
         {
             _gameStateMachine = gameStateMachine;
             _inputService = inputService;
             _dataService = dataService;
-            _gameStateService = gameStateService;
+            _levelFlowService = levelFlowService;
 
-            _toNextLevelButton.gameObject.SetActive(!gameStateService.IsLastLevel);
+            _toNextLevelButton.gameObject.SetActive(!levelFlowService.IsLastLevel);
         }
 
         private void OnEnable()
@@ -44,7 +44,7 @@ namespace UI.Windows
 
         private void OnToNextLevelButtonClicked()
         {
-            var nextLevelIndex = _gameStateService.CurrentLevelIndex + 1;
+            var nextLevelIndex = _levelFlowService.CurrentLevelIndex + 1;
             if (nextLevelIndex < _dataService.GetNumberOfLevels())
             {
                 _gameStateMachine.Enter<GameplayState, int>(nextLevelIndex);

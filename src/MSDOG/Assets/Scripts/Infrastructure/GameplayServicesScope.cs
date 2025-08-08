@@ -25,7 +25,7 @@ namespace Infrastructure
             builder.Register<ArenaService>(Lifetime.Scoped);
             builder.Register<EnemyService>(Lifetime.Scoped);
             builder.Register<PlayerService>(Lifetime.Scoped);
-            builder.Register<GameStateService>(Lifetime.Scoped);
+            builder.Register<LevelFlowService>(Lifetime.Scoped);
             builder.Register<TutorialService>(Lifetime.Scoped);
 
             builder.Register<ProjectileFactory>(Lifetime.Scoped);

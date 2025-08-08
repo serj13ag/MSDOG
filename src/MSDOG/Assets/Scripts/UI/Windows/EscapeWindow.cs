@@ -16,7 +16,7 @@ namespace UI.Windows
         [SerializeField] private Button _closeButton;
 
         private GameStateMachine _gameStateMachine;
-        private GameStateService _gameStateService;
+        private LevelFlowService _levelFlowService;
         private WindowController _windowController;
         private UpdateController _updateController;
 
@@ -24,12 +24,12 @@ namespace UI.Windows
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(GameStateMachine gameStateMachine, GameStateService gameStateService, WindowController windowController,
+        public void Construct(GameStateMachine gameStateMachine, LevelFlowService levelFlowService, WindowController windowController,
             UpdateController updateController)
         {
             _updateController = updateController;
             _windowController = windowController;
-            _gameStateService = gameStateService;
+            _levelFlowService = levelFlowService;
             _gameStateMachine = gameStateMachine;
         }
 
@@ -55,7 +55,7 @@ namespace UI.Windows
 
         private void Restart()
         {
-            _gameStateMachine.Enter<GameplayState, int>(_gameStateService.CurrentLevelIndex);
+            _gameStateMachine.Enter<GameplayState, int>(_levelFlowService.CurrentLevelIndex);
         }
 
         private void GoToMenu()

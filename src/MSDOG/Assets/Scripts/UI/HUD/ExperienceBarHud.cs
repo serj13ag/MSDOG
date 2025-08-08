@@ -23,7 +23,7 @@ namespace UI.HUD
         private PlayerService _playerService;
         private SoundController _soundController;
         private TutorialService _tutorialService;
-        private GameStateService _gameStateService;
+        private LevelFlowService _levelFlowService;
 
         private DetailsZoneHud _detailsZoneHud;
 
@@ -31,10 +31,10 @@ namespace UI.HUD
         private float _oscTimer;
 
         [Inject]
-        public void Construct(DataService dataService, PlayerService playerService, GameStateService gameStateService,
+        public void Construct(DataService dataService, PlayerService playerService, LevelFlowService levelFlowService,
             SoundController soundController, TutorialService tutorialService)
         {
-            _gameStateService = gameStateService;
+            _levelFlowService = levelFlowService;
             _playerService = playerService;
             _tutorialService = tutorialService;
             _soundController = soundController;
@@ -71,7 +71,7 @@ namespace UI.HUD
 
         private void OnCraftButtonClick()
         {
-            var abilityData = _dataService.GetRandomCraftAbilityData(_gameStateService.CurrentLevelIndex);
+            var abilityData = _dataService.GetRandomCraftAbilityData(_levelFlowService.CurrentLevelIndex);
             _detailsZoneHud.CreateDetail(abilityData);
             _playerService.Player.ResetExperience();
             UpdateView();

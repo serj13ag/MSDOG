@@ -5,7 +5,7 @@ using Core.Sounds;
 
 namespace Gameplay.Services
 {
-    public class GameStateService : IDisposable
+    public class LevelFlowService : IDisposable
     {
         private readonly EnemyService _enemyService;
         private readonly WindowController _windowController;
@@ -22,7 +22,7 @@ namespace Gameplay.Services
         public int CurrentLevelIndex => _levelIndex;
         public bool IsLastLevel => _isLastLevel;
 
-        public GameStateService(EnemyService enemyService, WindowController windowController, ProgressService progressService,
+        public LevelFlowService(EnemyService enemyService, WindowController windowController, ProgressService progressService,
             DialogueService dialogueService, SoundController soundController, PlayerService playerService,
             DataService dataService)
         {
@@ -54,7 +54,7 @@ namespace Gameplay.Services
         {
             _progressService.SetLastPassedLevel(_levelIndex);
 
-            Action dialogueEndedAction = _isLastLevel ? ShowCreditsAndWinWindow : ShowWinWindow;
+            Action dialogueEndedAction = _isLastLevel? ShowCreditsAndWinWindow : ShowWinWindow;
             if (!_dialogueService.TryShowEndLevelDialogue(_levelIndex, dialogueEndedAction))
             {
                 dialogueEndedAction.Invoke();

@@ -21,13 +21,13 @@ namespace UI.HUD
         private DataService _dataService;
         private WindowController _windowController;
         private InputService _inputService;
-        private GameStateService _gameStateService;
+        private LevelFlowService _levelFlowService;
 
         [Inject]
         public void Construct(DataService dataService, WindowController windowController, InputService inputService,
-            GameStateService gameStateService)
+            LevelFlowService levelFlowService)
         {
-            _gameStateService = gameStateService;
+            _levelFlowService = levelFlowService;
             _inputService = inputService;
             _windowController = windowController;
             _dataService = dataService;
@@ -45,7 +45,7 @@ namespace UI.HUD
 
         public void AddStartAbility()
         {
-            var startAbilitiesData = _dataService.GetStartAbilitiesData(_gameStateService.CurrentLevelIndex);
+            var startAbilitiesData = _dataService.GetStartAbilitiesData(_levelFlowService.CurrentLevelIndex);
             foreach (var abilityData in startAbilitiesData)
             {
                 _activeZoneHud.AddDetail(abilityData);

@@ -32,6 +32,7 @@ namespace Gameplay.Services
         public void SetPlayer(Player player)
         {
             _player = player;
+
             player.OnHealthChanged += OnPlayerHealthChanged;
         }
 

@@ -15,7 +15,7 @@ namespace Infrastructure
         private readonly EnemyService _enemyService;
         private readonly GameFactory _gameFactory;
         private readonly CameraController _cameraController;
-        private readonly GameStateService _gameStateService;
+        private readonly LevelFlowService _levelFlowService;
         private readonly DialogueService _dialogueService;
         private readonly LevelViewController _levelViewController;
         private readonly SoundController _soundController;
@@ -26,7 +26,7 @@ namespace Infrastructure
         private readonly PlayerService _playerService;
 
         public GameplayInitializer(DebugController debugController, EnemyService enemyService, GameFactory gameFactory,
-            CameraController cameraController, GameStateService gameStateService, DialogueService dialogueService,
+            CameraController cameraController, LevelFlowService levelFlowService, DialogueService dialogueService,
             LevelViewController levelViewController, SoundController soundController, DataService dataService,
             TutorialService tutorialService, DeathKitFactory deathKitFactory, ProjectileFactory projectileFactory,
             PlayerService playerService)
@@ -43,7 +43,7 @@ namespace Infrastructure
             _enemyService = enemyService;
             _gameFactory = gameFactory;
             _cameraController = cameraController;
-            _gameStateService = gameStateService;
+            _levelFlowService = levelFlowService;
         }
 
         public void Start(int levelIndex)
@@ -57,7 +57,7 @@ namespace Infrastructure
             _tutorialService.SetPlayer(player);
             _cameraController.SetFollowTarget(player.transform);
 
-            _gameStateService.InitLevel(levelIndex);
+            _levelFlowService.InitLevel(levelIndex);
             _levelViewController.InitLevel(levelIndex);
             _enemyService.InitLevel(levelIndex, player.transform);
 
