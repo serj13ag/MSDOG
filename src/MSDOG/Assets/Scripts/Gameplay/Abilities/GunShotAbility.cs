@@ -22,7 +22,7 @@ namespace Gameplay.Abilities
 
         protected override void InvokeAction()
         {
-            var projectileSpawnData = new ProjectileSpawnData(_player.GetAbilitySpawnPosition(_abilityData.AbilityType), _player.transform.forward, _player, _abilityData);
+            var projectileSpawnData = new ProjectileSpawnData(_player.GetAbilitySpawnPosition(_abilityData.AbilityType), _player.transform.forward, _abilityData);
             _projectileFactory.CreateAbilityProjectile(projectileSpawnData);
         }
     }

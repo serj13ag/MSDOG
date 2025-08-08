@@ -145,7 +145,7 @@ namespace Gameplay.Enemies
             directionToPlayer.y = 0f;
 
             var spawnPosition = transform.position + _enemyProjectileOffset;
-            var projectileSpawnData = new ProjectileSpawnData(spawnPosition, directionToPlayer, _player, Damage,
+            var projectileSpawnData = new ProjectileSpawnData(spawnPosition, directionToPlayer, Damage,
                 _projectileSpeed, 0, 0f, 0f, 0f, _dataService.GetEnemyProjectileData());
             _projectileFactory.CreateEnemyProjectile(projectileSpawnData);
         }

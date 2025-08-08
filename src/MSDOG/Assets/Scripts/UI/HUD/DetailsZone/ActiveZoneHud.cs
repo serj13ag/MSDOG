@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Constants;
 using Core.Models.Data;
 using Core.Services;
-using Gameplay.Factories;
+using Gameplay.Services;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;
@@ -16,15 +16,15 @@ namespace UI.HUD.DetailsZone
         [SerializeField] private Transform _grid;
         [SerializeField] private int _maxNumberOfActiveParts;
 
-        private GameFactory _gameFactory;
         private AssetProviderService _assetProviderService;
+        private PlayerService _playerService;
 
         private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
 
         [Inject]
-        public void Construct(GameFactory gameFactory, AssetProviderService assetProviderService)
+        public void Construct(PlayerService playerService, AssetProviderService assetProviderService)
         {
-            _gameFactory = gameFactory;
+            _playerService = playerService;
             _assetProviderService = assetProviderService;
         }
 
@@ -70,13 +70,13 @@ namespace UI.HUD.DetailsZone
         {
             _detailParts.Add(detailPart.Id, detailPart);
             detailPart.transform.SetParent(_grid.transform);
-            _gameFactory.Player.AddAbility(detailPart.Id, detailPart.AbilityData);
+            _playerService.Player.AddAbility(detailPart.Id, detailPart.AbilityData);
         }
 
         public void Exit(DetailPartHud detailPart)
         {
             _detailParts.Remove(detailPart.Id);
-            _gameFactory.Player.RemoveAbility(detailPart.Id);
+            _playerService.Player.RemoveAbility(detailPart.Id);
         }
 
         public IEnumerable<DetailPartHud> GetDetailParts()

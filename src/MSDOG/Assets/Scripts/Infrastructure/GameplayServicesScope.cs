@@ -28,6 +28,7 @@ namespace Infrastructure
             builder.Register<GameFactory>(Lifetime.Scoped);
             builder.Register<DeathKitFactory>(Lifetime.Scoped);
             builder.Register<EnemyService>(Lifetime.Scoped);
+            builder.Register<PlayerService>(Lifetime.Scoped);
             builder.Register<GameStateService>(Lifetime.Scoped);
             builder.Register<GameplayWindowFactory>(Lifetime.Scoped);
             builder.Register<VfxFactory>(Lifetime.Scoped);

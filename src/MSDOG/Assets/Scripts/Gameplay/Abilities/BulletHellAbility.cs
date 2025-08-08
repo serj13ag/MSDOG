@@ -31,7 +31,7 @@ namespace Gameplay.Abilities
 
             randomDirection.Normalize();
 
-            var projectileSpawnData = new ProjectileSpawnData(_player.GetAbilitySpawnPosition(_abilityData.AbilityType), randomDirection, _player, _abilityData);
+            var projectileSpawnData = new ProjectileSpawnData(_player.GetAbilitySpawnPosition(_abilityData.AbilityType), randomDirection, _abilityData);
             _projectileFactory.CreateAbilityProjectile(projectileSpawnData);
         }
     }

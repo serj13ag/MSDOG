@@ -26,11 +26,16 @@ namespace Gameplay.Factories
 
         private Player _player; // TODO: remove?
 
-        public Player Player => _player;
-
-        public GameFactory(AssetProviderService assetProviderService, UpdateController updateController, InputService inputService,
-            ArenaService arenaService, AbilityFactory abilityFactory, ProjectileFactory projectileFactory,
-            VfxFactory vfxFactory, DataService dataService, ObjectContainerService objectContainerService, DebugController debugController,
+        public GameFactory(AssetProviderService assetProviderService,
+            UpdateController updateController,
+            InputService inputService,
+            ArenaService arenaService,
+            AbilityFactory abilityFactory,
+            ProjectileFactory projectileFactory,
+            VfxFactory vfxFactory,
+            DataService dataService,
+            ObjectContainerService objectContainerService,
+            DebugController debugController,
             ProgressService progressService)
         {
             _assetProviderService = assetProviderService;

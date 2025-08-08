@@ -1,4 +1,4 @@
-using Gameplay.Factories;
+using Gameplay.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,19 +11,19 @@ namespace UI.HUD
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Image _healthFillImage;
 
-        private GameFactory _gameFactory;
+        private PlayerService _playerService;
 
         [Inject]
-        public void Construct(GameFactory gameFactory)
+        public void Construct(PlayerService playerService)
         {
-            _gameFactory = gameFactory;
+            _playerService = playerService;
         }
 
         public void Init()
         {
             UpdateView();
 
-            _gameFactory.Player.OnHealthChanged += OnPlayerHealthChanged;
+            _playerService.Player.OnHealthChanged += OnPlayerHealthChanged;
         }
 
         private void OnPlayerHealthChanged()
@@ -33,14 +33,14 @@ namespace UI.HUD
 
         private void UpdateView()
         {
-            var player = _gameFactory.Player;
+            var player = _playerService.Player;
             _text.text = player.CurrentHealth.ToString();
             _healthFillImage.fillAmount = (float)player.CurrentHealth / player.MaxHealth;
         }
 
         private void OnDestroy()
         {
-            _gameFactory.Player.OnHealthChanged -= OnPlayerHealthChanged;
+            _playerService.Player.OnHealthChanged -= OnPlayerHealthChanged;
         }
     }
 }

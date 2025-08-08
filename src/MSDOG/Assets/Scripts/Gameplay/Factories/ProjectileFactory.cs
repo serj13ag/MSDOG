@@ -18,15 +18,17 @@ namespace Gameplay.Factories
         private readonly IObjectResolver _container;
         private readonly ObjectContainerService _objectContainerService;
         private readonly DataService _dataService;
+        private readonly PlayerService _playerService;
 
         private readonly Dictionary<BaseProjectileView, ObjectPool<BaseProjectileView>> _pools = new();
 
         public ProjectileFactory(IObjectResolver container, ObjectContainerService objectContainerService,
-            DataService dataService)
+            DataService dataService, PlayerService playerService)
         {
             _container = container;
             _objectContainerService = objectContainerService;
             _dataService = dataService;
+            _playerService = playerService;
         }
 
         public void Prewarm(int levelIndex)
@@ -93,13 +95,13 @@ namespace Gameplay.Factories
                 case ProjectileType.BuzzSaw:
                 {
                     var buzzSawProjectileView = (BuzzSawProjectileView)view;
-                    buzzSawProjectileView.Init(projectile, projectileSpawnData.Player);
+                    buzzSawProjectileView.Init(projectile, _playerService.Player);
                     break;
                 }
                 case ProjectileType.EnergyLine:
                 {
                     var energyLineProjectileView = (EnergyLineProjectileView)view;
-                    energyLineProjectileView.Init(projectile, projectileSpawnData.Player);
+                    energyLineProjectileView.Init(projectile, _playerService.Player);
                     break;
                 }
                 case ProjectileType.Puddle:

@@ -23,11 +23,13 @@ namespace Infrastructure
         private readonly TutorialService _tutorialService;
         private readonly DeathKitFactory _deathKitFactory;
         private readonly ProjectileFactory _projectileFactory;
+        private readonly PlayerService _playerService;
 
         public GameplayInitializer(DebugController debugController, EnemyService enemyService, GameFactory gameFactory,
             CameraController cameraController, GameStateService gameStateService, DialogueService dialogueService,
             LevelViewController levelViewController, SoundController soundController, DataService dataService,
-            TutorialService tutorialService, DeathKitFactory deathKitFactory, ProjectileFactory projectileFactory)
+            TutorialService tutorialService, DeathKitFactory deathKitFactory, ProjectileFactory projectileFactory,
+            PlayerService playerService)
         {
             _levelViewController = levelViewController;
             _soundController = soundController;
@@ -35,6 +37,7 @@ namespace Infrastructure
             _tutorialService = tutorialService;
             _deathKitFactory = deathKitFactory;
             _projectileFactory = projectileFactory;
+            _playerService = playerService;
             _dialogueService = dialogueService;
             _debugController = debugController;
             _enemyService = enemyService;
@@ -50,6 +53,7 @@ namespace Infrastructure
 
             // TODO: refactor?
             var player = _gameFactory.CreatePlayer();
+            _playerService.RegisterPlayer(player);
 
             var isLastLevel = _dataService.GetNumberOfLevels() == levelIndex + 1;
             _gameStateService.RegisterPlayer(player, levelIndex, isLastLevel);

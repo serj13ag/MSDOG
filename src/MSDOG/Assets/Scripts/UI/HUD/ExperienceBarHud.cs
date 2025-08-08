@@ -1,7 +1,6 @@
 using Core.Controllers;
 using Core.Services;
 using Core.Sounds;
-using Gameplay.Factories;
 using Gameplay.Services;
 using TMPro;
 using UI.HUD.DetailsZone;
@@ -21,10 +20,10 @@ namespace UI.HUD
         [SerializeField] private float _maxScale = 1.1f;
 
         private DataService _dataService;
-        private GameFactory _gameFactory;
-        private GameStateService _gameStateService;
+        private PlayerService _playerService;
         private SoundController _soundController;
         private TutorialService _tutorialService;
+        private GameStateService _gameStateService;
 
         private DetailsZoneHud _detailsZoneHud;
 
@@ -32,13 +31,13 @@ namespace UI.HUD
         private float _oscTimer;
 
         [Inject]
-        public void Construct(GameFactory gameFactory, DataService dataService, GameStateService gameStateService,
+        public void Construct(DataService dataService, PlayerService playerService, GameStateService gameStateService,
             SoundController soundController, TutorialService tutorialService)
         {
+            _gameStateService = gameStateService;
+            _playerService = playerService;
             _tutorialService = tutorialService;
             _soundController = soundController;
-            _gameStateService = gameStateService;
-            _gameFactory = gameFactory;
             _dataService = dataService;
         }
 
@@ -50,7 +49,7 @@ namespace UI.HUD
             UpdateView();
 
             _craftButton.onClick.AddListener(OnCraftButtonClick);
-            _gameFactory.Player.OnExperienceChanged += OnPlayerExperienceChanged;
+            _playerService.Player.OnExperienceChanged += OnPlayerExperienceChanged;
         }
 
         private void Update()
@@ -74,7 +73,7 @@ namespace UI.HUD
         {
             var abilityData = _dataService.GetRandomCraftAbilityData(_gameStateService.CurrentLevelIndex);
             _detailsZoneHud.CreateDetail(abilityData);
-            _gameFactory.Player.ResetExperience();
+            _playerService.Player.ResetExperience();
             UpdateView();
 
             _soundController.PlaySfx(SfxType.Craft);
@@ -89,7 +88,7 @@ namespace UI.HUD
 
         private void UpdateView()
         {
-            var player = _gameFactory.Player;
+            var player = _playerService.Player;
 
             _text.text = $"{player.CurrentExperience}/{player.MaxExperience}";
             _fillImage.fillAmount = (float)player.CurrentExperience / player.MaxExperience;
@@ -107,7 +106,7 @@ namespace UI.HUD
         private void OnDestroy()
         {
             _craftButton.onClick.RemoveListener(OnCraftButtonClick);
-            _gameFactory.Player.OnExperienceChanged -= OnPlayerExperienceChanged;
+            _playerService.Player.OnExperienceChanged -= OnPlayerExperienceChanged;
         }
     }
 }
