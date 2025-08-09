@@ -5,61 +5,88 @@ using Utility;
 
 namespace Gameplay
 {
-    public class ExperiencePiece : MonoBehaviour, IUpdatable
+    public class ExperiencePiece : BasePooledObject, IUpdatable
     {
         [SerializeField] private ColliderEventProvider _colliderEventProvider;
         [SerializeField] private GameObject[] _views;
+        [SerializeField] private float _collectionDistance = 0.1f;
+        [SerializeField] private float _flySpeed = 10f;
 
         private IUpdateController _updateController;
-        private Player _player;
+        private Player _collectorPlayer;
         private int _experience;
 
-        public void Init(int experience, IUpdateController updateController)
+        public void Init(Vector3 position, int experience, IUpdateController updateController)
         {
             _updateController = updateController;
             _experience = experience;
 
-            var randomIndex = Random.Range(0, _views.Length);
-            for (var i = 0; i < _views.Length; i++)
-            {
-                _views[i].SetActive(i == randomIndex);
-            }
+            transform.position = position;
 
             updateController.Register(this);
+        }
+
+        public override void OnGet()
+        {
+            base.OnGet();
+
+            ActivateRandomView();
+
             _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
+        }
+
+        public override void OnRelease()
+        {
+            base.OnRelease();
+
+            _experience = 0;
+            _collectorPlayer = null;
+
+            if (_updateController != null)
+            {
+                _updateController.Remove(this);
+                _updateController = null;
+            }
+
+            _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;
         }
 
         public void OnUpdate(float deltaTime)
         {
-            if (!_player)
+            if (!_collectorPlayer)
             {
                 return;
             }
 
-            var vectorToPlayer = _player.transform.position - transform.position;
-            if (vectorToPlayer.sqrMagnitude < 0.1f)
+            var vectorToPlayer = _collectorPlayer.transform.position - transform.position;
+            var isCloseToPlayer = vectorToPlayer.magnitude < _collectionDistance;
+            if (isCloseToPlayer)
             {
-                _player.CollectExperience(_experience);
-                Destroy(gameObject);
-                return;
+                _collectorPlayer.CollectExperience(_experience);
+                Release();
             }
-
-            var directionToPlayer = vectorToPlayer.normalized;
-            transform.position += directionToPlayer * (deltaTime * 10f);
+            else
+            {
+                var directionToPlayer = vectorToPlayer.normalized;
+                transform.position += directionToPlayer * (deltaTime * _flySpeed);
+            }
         }
 
         private void OnTriggerEntered(Collider obj)
         {
             if (obj.gameObject.TryGetComponentInHierarchy<Player>(out var player))
             {
-                _player = player;
+                _collectorPlayer = player;
             }
         }
 
-        private void OnDestroy()
+        private void ActivateRandomView()
         {
-            _updateController.Remove(this);
-            _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;
+            var randomIndex = Random.Range(0, _views.Length);
+            for (var i = 0; i < _views.Length; i++)
+            {
+                _views[i].SetActive(i == randomIndex);
+            }
         }
     }
 }

@@ -24,12 +24,13 @@ namespace Infrastructure
         private readonly IDeathKitFactory _deathKitFactory;
         private readonly IProjectileFactory _projectileFactory;
         private readonly IPlayerService _playerService;
+        private readonly IExperiencePieceFactory _experiencePieceFactory;
 
         public GameplayInitializer(IDebugController debugController, IEnemyService enemyService, IGameFactory gameFactory,
             ICameraController cameraController, ILevelFlowService levelFlowService, IDialogueService dialogueService,
             ILevelViewController levelViewController, ISoundController soundController, IDataService dataService,
             ITutorialService tutorialService, IDeathKitFactory deathKitFactory, IProjectileFactory projectileFactory,
-            IPlayerService playerService)
+            IPlayerService playerService, IExperiencePieceFactory experiencePieceFactory)
         {
             _levelViewController = levelViewController;
             _soundController = soundController;
@@ -38,6 +39,7 @@ namespace Infrastructure
             _deathKitFactory = deathKitFactory;
             _projectileFactory = projectileFactory;
             _playerService = playerService;
+            _experiencePieceFactory = experiencePieceFactory;
             _dialogueService = dialogueService;
             _debugController = debugController;
             _enemyService = enemyService;
@@ -50,6 +52,7 @@ namespace Infrastructure
         {
             _deathKitFactory.Prewarm(levelIndex);
             _projectileFactory.Prewarm(levelIndex);
+            _experiencePieceFactory.Prewarm();
 
             // TODO: refactor?
             var player = _gameFactory.CreatePlayer();

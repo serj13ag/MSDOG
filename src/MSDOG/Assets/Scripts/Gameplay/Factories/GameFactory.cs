@@ -23,6 +23,7 @@ namespace Gameplay.Factories
         private readonly ObjectContainerProvider _objectContainerProvider;
         private readonly IDebugController _debugController;
         private readonly IProgressService _progressService;
+        private readonly IExperiencePieceFactory _experiencePieceFactory;
         private readonly IUpdateController _updateController;
 
         private Player _player; // TODO: remove?
@@ -37,7 +38,8 @@ namespace Gameplay.Factories
             IDataService dataService,
             ObjectContainerProvider objectContainerProvider,
             IDebugController debugController,
-            IProgressService progressService)
+            IProgressService progressService,
+            IExperiencePieceFactory experiencePieceFactory)
         {
             _assetProviderService = assetProviderService;
             _inputService = inputService;
@@ -49,6 +51,7 @@ namespace Gameplay.Factories
             _objectContainerProvider = objectContainerProvider;
             _debugController = debugController;
             _progressService = progressService;
+            _experiencePieceFactory = experiencePieceFactory;
             _updateController = updateController;
         }
 
@@ -64,15 +67,9 @@ namespace Gameplay.Factories
         {
             // TODO: init via container
             var enemy = Object.Instantiate(data.Prefab, position, Quaternion.identity, _objectContainerProvider.EnemyContainer);
-            enemy.Init(_updateController, this, _projectileFactory, _player, data, _vfxFactory, _debugController, _dataService);
+            enemy.Init(_updateController, _experiencePieceFactory, _projectileFactory, _player, data, _vfxFactory,
+                _debugController, _dataService);
             return enemy;
-        }
-
-        public ExperiencePiece CreateExperiencePiece(Vector3 position, int experience)
-        {
-            var experiencePiece = _assetProviderService.Instantiate<ExperiencePiece>(AssetPaths.ExperiencePiecePrefab, position);
-            experiencePiece.Init(experience, _updateController);
-            return experiencePiece;
         }
     }
 }

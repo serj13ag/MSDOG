@@ -27,7 +27,7 @@ namespace Gameplay.Enemies
         [SerializeField] private AnimatorEventsProvider _animatorEventsProvider;
 
         private IUpdateController _updateController;
-        private IGameFactory _gameFactory;
+        private IExperiencePieceFactory _experiencePieceFactory;
         private IProjectileFactory _projectileFactory;
         private IVfxFactory _vfxFactory;
         private IDataService _dataService;
@@ -56,13 +56,13 @@ namespace Gameplay.Enemies
 
         public event Action<Enemy> OnDied;
 
-        public void Init(IUpdateController updateController, IGameFactory gameFactory, IProjectileFactory projectileFactory,
+        public void Init(IUpdateController updateController, IExperiencePieceFactory experiencePieceFactory, IProjectileFactory projectileFactory,
             Player player, EnemyData data, IVfxFactory vfxFactory, IDebugController debugController, IDataService dataService)
         {
+            _experiencePieceFactory = experiencePieceFactory;
             _dataService = dataService;
             _vfxFactory = vfxFactory;
             _projectileFactory = projectileFactory;
-            _gameFactory = gameFactory;
             _updateController = updateController;
 
             _id = Guid.NewGuid();
@@ -132,7 +132,7 @@ namespace Gameplay.Enemies
 
             if (_healthBlock.HasZeroHealth)
             {
-                _gameFactory.CreateExperiencePiece(transform.position, _experience);
+                _experiencePieceFactory.CreateExperiencePiece(transform.position, _experience);
                 _vfxFactory.CreateBloodEffect(transform.position + _enemyProjectileOffset);
 
                 OnDied?.Invoke(this);

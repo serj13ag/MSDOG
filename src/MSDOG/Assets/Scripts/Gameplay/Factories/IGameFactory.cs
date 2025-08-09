@@ -8,6 +8,5 @@ namespace Gameplay.Factories
     {
         Player CreatePlayer();
         Enemy CreateEnemy(Vector3 position, EnemyData data);
-        ExperiencePiece CreateExperiencePiece(Vector3 position, int experience);
     }
 }
