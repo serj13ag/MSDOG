@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Gameplay.Services
+namespace Gameplay.Providers
 {
     public class ObjectContainerProvider
     {

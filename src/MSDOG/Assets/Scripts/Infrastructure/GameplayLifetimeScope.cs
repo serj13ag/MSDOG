@@ -1,5 +1,6 @@
 using Gameplay.Controllers;
 using Gameplay.Factories;
+using Gameplay.Providers;
 using Gameplay.Services;
 using UnityEngine;
 using VContainer;

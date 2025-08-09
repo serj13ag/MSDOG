@@ -4,6 +4,7 @@ using Core.Models.Data;
 using Core.Services;
 using Gameplay.Controllers;
 using Gameplay.Enemies;
+using Gameplay.Providers;
 using Gameplay.Services;
 using UnityEngine;
 using Object = UnityEngine.Object;

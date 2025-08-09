@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Core.Services;
 using Gameplay.Enemies;
-using Gameplay.Services;
+using Gameplay.Providers;
 using UnityEngine;
 using UnityEngine.Pool;
 
