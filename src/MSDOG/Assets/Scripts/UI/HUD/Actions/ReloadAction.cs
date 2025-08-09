@@ -21,14 +21,14 @@ namespace UI.HUD.Actions
         private Player _player;
         private IUpdateController _updateController;
         private ISoundController _soundController;
-        private TutorialService _tutorialService;
+        private ITutorialService _tutorialService;
 
         private float _currentAngle;
 
         private bool _dragging;
         private float _currentDragAngle;
 
-        public void Init(Player player, IUpdateController updateController, ISoundController soundController, TutorialService tutorialService)
+        public void Init(Player player, IUpdateController updateController, ISoundController soundController, ITutorialService tutorialService)
         {
             _tutorialService = tutorialService;
             _soundController = soundController;

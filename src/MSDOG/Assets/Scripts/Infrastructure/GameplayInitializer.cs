@@ -12,24 +12,24 @@ namespace Infrastructure
     public class GameplayInitializer
     {
         private readonly IDebugController _debugController;
-        private readonly EnemyService _enemyService;
+        private readonly IEnemyService _enemyService;
         private readonly GameFactory _gameFactory;
         private readonly ICameraController _cameraController;
-        private readonly LevelFlowService _levelFlowService;
+        private readonly ILevelFlowService _levelFlowService;
         private readonly IDialogueService _dialogueService;
         private readonly ILevelViewController _levelViewController;
         private readonly ISoundController _soundController;
         private readonly IDataService _dataService;
-        private readonly TutorialService _tutorialService;
+        private readonly ITutorialService _tutorialService;
         private readonly DeathKitFactory _deathKitFactory;
         private readonly ProjectileFactory _projectileFactory;
-        private readonly PlayerService _playerService;
+        private readonly IPlayerService _playerService;
 
-        public GameplayInitializer(IDebugController debugController, EnemyService enemyService, GameFactory gameFactory,
-            ICameraController cameraController, LevelFlowService levelFlowService, IDialogueService dialogueService,
+        public GameplayInitializer(IDebugController debugController, IEnemyService enemyService, GameFactory gameFactory,
+            ICameraController cameraController, ILevelFlowService levelFlowService, IDialogueService dialogueService,
             ILevelViewController levelViewController, ISoundController soundController, IDataService dataService,
-            TutorialService tutorialService, DeathKitFactory deathKitFactory, ProjectileFactory projectileFactory,
-            PlayerService playerService)
+            ITutorialService tutorialService, DeathKitFactory deathKitFactory, ProjectileFactory projectileFactory,
+            IPlayerService playerService)
         {
             _levelViewController = levelViewController;
             _soundController = soundController;

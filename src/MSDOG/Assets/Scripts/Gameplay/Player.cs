@@ -64,7 +64,7 @@ namespace Gameplay
             remove => _experienceBlock.OnExperienceChanged -= value;
         }
 
-        public void Init(InputService inputService, IUpdateController updateController, ArenaService arenaService,
+        public void Init(IInputService inputService, IUpdateController updateController, IArenaService arenaService,
             AbilityFactory abilityFactory, IDataService dataService, IProgressService progressService)
         {
             _abilityFactory = abilityFactory;

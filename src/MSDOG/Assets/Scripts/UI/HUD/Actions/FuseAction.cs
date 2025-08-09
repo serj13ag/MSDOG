@@ -22,7 +22,7 @@ namespace UI.HUD.Actions
 
         private Player _player;
         private ISoundController _soundController;
-        private TutorialService _tutorialService;
+        private ITutorialService _tutorialService;
 
         private bool _connected;
         private bool _dragging;
@@ -32,7 +32,7 @@ namespace UI.HUD.Actions
         private Vector3? _previousPlayerPosition;
         private float _counter;
 
-        public void Init(Player player, ISoundController soundController, TutorialService tutorialService)
+        public void Init(Player player, ISoundController soundController, ITutorialService tutorialService)
         {
             _tutorialService = tutorialService;
             _soundController = soundController;

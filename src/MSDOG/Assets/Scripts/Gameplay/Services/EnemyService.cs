@@ -13,7 +13,7 @@ using Random = UnityEngine.Random;
 
 namespace Gameplay.Services
 {
-    public class EnemyService : IUpdatable, IDisposable
+    public class EnemyService : IEnemyService, IUpdatable, IDisposable
     {
         private const int MaxSpawnAttempts = 30;
         private const float MinDistanceFromPlayer = 4f;
@@ -21,7 +21,7 @@ namespace Gameplay.Services
         private const float MinDistanceBetweenEnemies = 1f;
 
         private readonly GameFactory _gameFactory;
-        private readonly ArenaService _arenaService;
+        private readonly IArenaService _arenaService;
         private readonly IUpdateController _updateController;
         private readonly IDataService _dataService;
         private readonly IDebugController _debugController;
@@ -38,7 +38,7 @@ namespace Gameplay.Services
         public event Action OnAllEnemiesDied;
 
         public EnemyService(IUpdateController updateController, IDataService dataService, GameFactory gameFactory,
-            ArenaService arenaService, IDebugController debugController, DeathKitFactory deathKitFactory)
+            IArenaService arenaService, IDebugController debugController, DeathKitFactory deathKitFactory)
         {
             _debugController = debugController;
             _deathKitFactory = deathKitFactory;

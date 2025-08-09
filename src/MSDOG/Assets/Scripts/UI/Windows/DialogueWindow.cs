@@ -16,7 +16,7 @@ namespace UI.Windows
         [SerializeField] private TMP_Text _speech;
         [SerializeField] private TMP_Text _name;
 
-        private InputService _inputService;
+        private IInputService _inputService;
         private IUpdateController _updateController;
 
         private Action _onDialogueCompleted;
@@ -28,7 +28,7 @@ namespace UI.Windows
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(InputService inputService, IUpdateController updateController)
+        public void Construct(IInputService inputService, IUpdateController updateController)
         {
             _updateController = updateController;
             _inputService = inputService;

@@ -5,14 +5,14 @@ using Core.Sounds;
 
 namespace Gameplay.Services
 {
-    public class LevelFlowService : IDisposable
+    public class LevelFlowService : ILevelFlowService, IDisposable
     {
-        private readonly EnemyService _enemyService;
+        private readonly IEnemyService _enemyService;
         private readonly IWindowController _windowController;
         private readonly IProgressService _progressService;
         private readonly IDialogueService _dialogueService;
         private readonly ISoundController _soundController;
-        private readonly PlayerService _playerService;
+        private readonly IPlayerService _playerService;
         private readonly IDataService _dataService;
 
         private int _levelIndex;
@@ -22,8 +22,8 @@ namespace Gameplay.Services
         public int CurrentLevelIndex => _levelIndex;
         public bool IsLastLevel => _isLastLevel;
 
-        public LevelFlowService(EnemyService enemyService, IWindowController windowController, IProgressService progressService,
-            IDialogueService dialogueService, ISoundController soundController, PlayerService playerService,
+        public LevelFlowService(IEnemyService enemyService, IWindowController windowController, IProgressService progressService,
+            IDialogueService dialogueService, ISoundController soundController, IPlayerService playerService,
             IDataService dataService)
         {
             _progressService = progressService;

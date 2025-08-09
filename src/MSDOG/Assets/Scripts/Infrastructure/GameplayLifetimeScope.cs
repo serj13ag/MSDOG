@@ -23,12 +23,12 @@ namespace Infrastructure
 
             RegisterObjectContainerProvider(builder);
 
-            builder.Register<InputService>(Lifetime.Scoped);
-            builder.Register<ArenaService>(Lifetime.Scoped);
-            builder.Register<EnemyService>(Lifetime.Scoped);
-            builder.Register<PlayerService>(Lifetime.Scoped);
-            builder.Register<LevelFlowService>(Lifetime.Scoped);
-            builder.Register<TutorialService>(Lifetime.Scoped);
+            builder.Register<IInputService, InputService>(Lifetime.Scoped);
+            builder.Register<IArenaService, ArenaService>(Lifetime.Scoped);
+            builder.Register<IEnemyService, EnemyService>(Lifetime.Scoped);
+            builder.Register<IPlayerService, PlayerService>(Lifetime.Scoped);
+            builder.Register<ILevelFlowService, LevelFlowService>(Lifetime.Scoped);
+            builder.Register<ITutorialService, TutorialService>(Lifetime.Scoped);
 
             builder.Register<ProjectileFactory>(Lifetime.Scoped);
             builder.Register<AbilityFactory>(Lifetime.Scoped);

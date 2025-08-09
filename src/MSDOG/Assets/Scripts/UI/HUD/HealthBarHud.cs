@@ -11,10 +11,10 @@ namespace UI.HUD
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Image _healthFillImage;
 
-        private PlayerService _playerService;
+        private IPlayerService _playerService;
 
         [Inject]
-        public void Construct(PlayerService playerService)
+        public void Construct(IPlayerService playerService)
         {
             _playerService = playerService;
         }

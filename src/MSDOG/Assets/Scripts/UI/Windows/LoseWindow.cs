@@ -13,15 +13,15 @@ namespace UI.Windows
         [SerializeField] private Button _restartLevelButton;
 
         private IGameStateMachine _gameStateMachine;
-        private LevelFlowService _levelFlowService;
-        private InputService _inputService;
+        private ILevelFlowService _levelFlowService;
+        private IInputService _inputService;
 
         public GameObject GameObject => gameObject;
 
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(IGameStateMachine gameStateMachine, InputService inputService, LevelFlowService levelFlowService)
+        public void Construct(IGameStateMachine gameStateMachine, IInputService inputService, ILevelFlowService levelFlowService)
         {
             _gameStateMachine = gameStateMachine;
             _inputService = inputService;

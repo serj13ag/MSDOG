@@ -14,8 +14,8 @@ namespace Gameplay.Factories
     public class GameFactory
     {
         private readonly IAssetProviderService _assetProviderService;
-        private readonly InputService _inputService;
-        private readonly ArenaService _arenaService;
+        private readonly IInputService _inputService;
+        private readonly IArenaService _arenaService;
         private readonly AbilityFactory _abilityFactory;
         private readonly ProjectileFactory _projectileFactory;
         private readonly VfxFactory _vfxFactory;
@@ -29,8 +29,8 @@ namespace Gameplay.Factories
 
         public GameFactory(IAssetProviderService assetProviderService,
             IUpdateController updateController,
-            InputService inputService,
-            ArenaService arenaService,
+            IInputService inputService,
+            IArenaService arenaService,
             AbilityFactory abilityFactory,
             ProjectileFactory projectileFactory,
             VfxFactory vfxFactory,

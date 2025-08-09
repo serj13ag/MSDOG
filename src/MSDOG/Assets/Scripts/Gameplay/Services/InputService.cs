@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Gameplay.Services
 {
-    public class InputService
+    public class InputService : IInputService
     {
         private Vector2 _moveInput;
         private bool _inputLocked;

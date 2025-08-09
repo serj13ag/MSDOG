@@ -2,7 +2,7 @@ using System;
 
 namespace Gameplay.Services
 {
-    public class PlayerService : IDisposable
+    public class PlayerService : IPlayerService, IDisposable
     {
         private Player _player;
 

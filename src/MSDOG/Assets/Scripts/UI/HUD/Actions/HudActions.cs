@@ -14,10 +14,11 @@ namespace UI.HUD.Actions
 
         private IUpdateController _updateController;
         private ISoundController _soundController;
-        private TutorialService _tutorialService;
+        private ITutorialService _tutorialService;
 
         [Inject]
-        public void Construct(IUpdateController updateController, ISoundController soundController, TutorialService tutorialService)
+        public void Construct(IUpdateController updateController, ISoundController soundController,
+            ITutorialService tutorialService)
         {
             _tutorialService = tutorialService;
             _soundController = soundController;

@@ -20,12 +20,12 @@ namespace UI.HUD
 
         private IDataService _dataService;
         private IWindowController _windowController;
-        private InputService _inputService;
-        private LevelFlowService _levelFlowService;
+        private IInputService _inputService;
+        private ILevelFlowService _levelFlowService;
 
         [Inject]
-        public void Construct(IDataService dataService, IWindowController windowController, InputService inputService,
-            LevelFlowService levelFlowService)
+        public void Construct(IDataService dataService, IWindowController windowController, IInputService inputService,
+            ILevelFlowService levelFlowService)
         {
             _levelFlowService = levelFlowService;
             _inputService = inputService;

@@ -3,7 +3,7 @@ using Constants;
 
 namespace Gameplay.Services
 {
-    public class ArenaService
+    public class ArenaService : IArenaService
     {
         private readonly Vector2 _size;
 

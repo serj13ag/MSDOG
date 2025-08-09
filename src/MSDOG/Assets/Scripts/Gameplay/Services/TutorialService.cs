@@ -8,7 +8,7 @@ using Core.Services;
 
 namespace Gameplay.Services
 {
-    public class TutorialService : IDisposable
+    public class TutorialService : ITutorialService, IDisposable
     {
         private const string TutorialSaveDataKey = "TutorialSaveData";
 

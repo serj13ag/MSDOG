@@ -7,11 +7,11 @@ namespace Gameplay
     {
         private readonly Player _player;
         private readonly CharacterController _characterController;
-        private readonly InputService _inputService;
-        private readonly ArenaService _arenaService;
+        private readonly IInputService _inputService;
+        private readonly IArenaService _arenaService;
 
-        public InputMoveBlock(Player player, InputService inputService,
-            ArenaService arenaService)
+        public InputMoveBlock(Player player, IInputService inputService,
+            IArenaService arenaService)
         {
             _player = player;
             _characterController = player.CharacterController;

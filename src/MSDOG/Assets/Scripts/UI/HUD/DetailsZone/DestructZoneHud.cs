@@ -12,10 +12,10 @@ namespace UI.HUD.DetailsZone
     {
         private IDataService _dataService;
         private ISoundController _soundController;
-        private PlayerService _playerService;
+        private IPlayerService _playerService;
 
         [Inject]
-        public void Construct(PlayerService playerService, IDataService dataService, ISoundController soundController)
+        public void Construct(IPlayerService playerService, IDataService dataService, ISoundController soundController)
         {
             _playerService = playerService;
             _soundController = soundController;

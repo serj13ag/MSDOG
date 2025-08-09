@@ -15,16 +15,16 @@ namespace UI.Windows
 
         private IGameStateMachine _gameStateMachine;
         private IDataService _dataService;
-        private LevelFlowService _levelFlowService;
-        private InputService _inputService;
+        private ILevelFlowService _levelFlowService;
+        private IInputService _inputService;
 
         public GameObject GameObject => gameObject;
 
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(IGameStateMachine gameStateMachine, IDataService dataService, LevelFlowService levelFlowService,
-            InputService inputService)
+        public void Construct(IGameStateMachine gameStateMachine, IDataService dataService, ILevelFlowService levelFlowService,
+            IInputService inputService)
         {
             _gameStateMachine = gameStateMachine;
             _inputService = inputService;
