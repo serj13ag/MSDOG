@@ -2,7 +2,7 @@ namespace Gameplay.Services
 {
     public interface ITutorialService
     {
-        void SetPlayer(Player player);
+        void StartTrackPlayer(Player player);
 
         void OnCanCraft();
         void OnHasTwoSameDetails();

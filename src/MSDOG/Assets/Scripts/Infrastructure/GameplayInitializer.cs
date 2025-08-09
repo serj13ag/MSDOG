@@ -1,5 +1,6 @@
 using Core.Controllers;
 using Core.Services;
+using Gameplay;
 using Gameplay.Controllers;
 using Gameplay.Factories;
 using Gameplay.Providers;
@@ -51,20 +52,11 @@ namespace Infrastructure
 
         public void Start(int levelIndex)
         {
-            _deathKitFactory.Prewarm(levelIndex);
-            _projectileFactory.Prewarm(levelIndex);
-            _experiencePieceFactory.Prewarm();
+            PrewarmFactories(levelIndex);
+            var player = SetupPlayer();
+            InitLevelSystems(levelIndex);
 
-            // TODO: refactor?
-            var player = _gameFactory.CreatePlayer();
-            _playerProvider.RegisterPlayer(player);
-            _tutorialService.SetPlayer(player);
-            _cameraController.SetFollowTarget(player.transform);
-
-            _levelFlowService.InitLevel(levelIndex);
-            _levelViewController.InitLevel(levelIndex);
-            _enemyService.InitLevel(levelIndex, player.transform);
-
+            // TODO: add ui to DI
             var hudController = Object.FindFirstObjectByType<HudController>();
             hudController.Init();
             hudController.AddStartAbility();
@@ -72,8 +64,7 @@ namespace Infrastructure
             var hudActions = Object.FindFirstObjectByType<HudActions>();
             hudActions.Init(player);
 
-            var levelMusic = _dataService.GetLevelData(levelIndex).Music;
-            _soundController.PlayMusic(levelMusic);
+            PlayMusic(levelIndex);
 
             _debugController.Setup(hudController);
 
@@ -81,6 +72,35 @@ namespace Infrastructure
             {
                 ActivateLevel();
             }
+        }
+
+        private void PrewarmFactories(int levelIndex)
+        {
+            _deathKitFactory.Prewarm(levelIndex);
+            _projectileFactory.Prewarm(levelIndex);
+            _experiencePieceFactory.Prewarm();
+        }
+
+        private Player SetupPlayer()
+        {
+            var player = _gameFactory.CreatePlayer();
+            _playerProvider.RegisterPlayer(player);
+            _tutorialService.StartTrackPlayer(player);
+            _cameraController.SetFollowTarget(player.transform);
+            return player;
+        }
+
+        private void InitLevelSystems(int levelIndex)
+        {
+            _levelFlowService.InitLevel(levelIndex);
+            _levelViewController.InitLevel(levelIndex);
+            _enemyService.InitLevel(levelIndex);
+        }
+
+        private void PlayMusic(int levelIndex)
+        {
+            var levelMusic = _dataService.GetLevelData(levelIndex).Music;
+            _soundController.PlayMusic(levelMusic);
         }
 
         private void ActivateLevel()

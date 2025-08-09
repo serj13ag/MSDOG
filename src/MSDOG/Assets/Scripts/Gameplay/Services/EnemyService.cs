@@ -7,6 +7,7 @@ using Core.Services;
 using Gameplay.Controllers;
 using Gameplay.Enemies;
 using Gameplay.Factories;
+using Gameplay.Providers;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -26,9 +27,9 @@ namespace Gameplay.Services
         private readonly IDataService _dataService;
         private readonly IDebugController _debugController;
         private readonly IDeathKitFactory _deathKitFactory;
+        private readonly IPlayerProvider _playerProvider;
 
         private bool _isActive;
-        private Transform _playerTransform;
         private List<WaveData> _waves;
         private int _nextWaveIndex;
         private float _timeTillSpawnNextWave;
@@ -38,10 +39,12 @@ namespace Gameplay.Services
         public event Action OnAllEnemiesDied;
 
         public EnemyService(IUpdateController updateController, IDataService dataService, IGameFactory gameFactory,
-            IArenaService arenaService, IDebugController debugController, IDeathKitFactory deathKitFactory)
+            IArenaService arenaService, IDebugController debugController, IDeathKitFactory deathKitFactory,
+            IPlayerProvider playerProvider)
         {
             _debugController = debugController;
             _deathKitFactory = deathKitFactory;
+            _playerProvider = playerProvider;
             _gameFactory = gameFactory;
             _arenaService = arenaService;
             _updateController = updateController;
@@ -53,9 +56,8 @@ namespace Gameplay.Services
             debugController.OnKillAllEnemiesRequested += OnKillAllEnemiesRequested;
         }
 
-        public void InitLevel(int levelIndex, Transform playerTransform)
+        public void InitLevel(int levelIndex)
         {
-            _playerTransform = playerTransform;
             _waves = _dataService.GetLevelData(levelIndex).Waves;
         }
 
@@ -159,14 +161,11 @@ namespace Gameplay.Services
 
         private bool IsPositionValid(Vector3 position, List<Vector3> spawnedEnemyPositions)
         {
-            if (_playerTransform)
+            var distanceToPlayer = Vector3.Distance(position, _playerProvider.Player.transform.position);
+            if (distanceToPlayer < MinDistanceFromPlayer ||
+                distanceToPlayer > MaxDistanceFromPlayer)
             {
-                var distanceToPlayer = Vector3.Distance(position, _playerTransform.position);
-                if (distanceToPlayer < MinDistanceFromPlayer ||
-                    distanceToPlayer > MaxDistanceFromPlayer)
-                {
-                    return false;
-                }
+                return false;
             }
 
             foreach (var spawnedEnemyPosition in spawnedEnemyPositions)

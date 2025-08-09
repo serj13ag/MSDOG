@@ -25,7 +25,7 @@ namespace Gameplay.Controllers
         {
             _targetTransform = targetTransform;
 
-            _camera = Camera.main;
+            _camera = Camera.main; // TODO: fix
 
             _updateController.Register(this);
         }

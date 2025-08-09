@@ -29,7 +29,7 @@ namespace Gameplay.Services
             _shownTutorialEvents = tutorialSaveData.ShownTutorialEvents;
         }
 
-        public void SetPlayer(Player player)
+        public void StartTrackPlayer(Player player)
         {
             _player = player;
 
