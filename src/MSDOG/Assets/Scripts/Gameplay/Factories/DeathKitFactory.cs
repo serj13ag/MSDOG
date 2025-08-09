@@ -11,14 +11,14 @@ namespace Gameplay.Factories
     {
         private const int NumberOfPrewarmedPrefabs = 10;
 
-        private readonly ObjectContainerService _objectContainerService;
+        private readonly ObjectContainerProvider _objectContainerProvider;
         private readonly IDataService _dataService;
 
         private readonly Dictionary<EnemyDeathkit, ObjectPool<EnemyDeathkit>> _pools = new();
 
-        public DeathKitFactory(ObjectContainerService objectContainerService, IDataService dataService)
+        public DeathKitFactory(ObjectContainerProvider objectContainerProvider, IDataService dataService)
         {
-            _objectContainerService = objectContainerService;
+            _objectContainerProvider = objectContainerProvider;
             _dataService = dataService;
         }
 
@@ -33,7 +33,7 @@ namespace Gameplay.Factories
                     if (!_pools.ContainsKey(deathKitPrefab))
                     {
                         _pools.Add(deathKitPrefab, new ObjectPool<EnemyDeathkit>(
-                            createFunc: () => Object.Instantiate(deathKitPrefab, _objectContainerService.DeathKitContainer),
+                            createFunc: () => Object.Instantiate(deathKitPrefab, _objectContainerProvider.DeathKitContainer),
                             actionOnGet: obj => obj.OnGet(),
                             actionOnRelease: obj => obj.OnRelease()));
                     }

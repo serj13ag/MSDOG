@@ -10,7 +10,7 @@ namespace UI
     {
         [SerializeField] private TMP_Text _text;
 
-        private DebugController _debugController;
+        private IDebugController _debugController;
 
         private HealthBlock _healthBlock;
         private Camera _mainCamera;
@@ -20,7 +20,7 @@ namespace UI
             _mainCamera = Camera.main;
         }
 
-        public void Init(HealthBlock healthBlock, DebugController debugController)
+        public void Init(HealthBlock healthBlock, IDebugController debugController)
         {
             _debugController = debugController;
             _healthBlock = healthBlock;

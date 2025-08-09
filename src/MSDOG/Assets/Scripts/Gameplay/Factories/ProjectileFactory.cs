@@ -16,17 +16,17 @@ namespace Gameplay.Factories
         private const int NumberOfPrewarmedPrefabs = 10;
 
         private readonly IObjectResolver _container;
-        private readonly ObjectContainerService _objectContainerService;
+        private readonly ObjectContainerProvider _objectContainerProvider;
         private readonly IDataService _dataService;
         private readonly PlayerService _playerService;
 
         private readonly Dictionary<BaseProjectileView, ObjectPool<BaseProjectileView>> _pools = new();
 
-        public ProjectileFactory(IObjectResolver container, ObjectContainerService objectContainerService,
+        public ProjectileFactory(IObjectResolver container, ObjectContainerProvider objectContainerProvider,
             IDataService dataService, PlayerService playerService)
         {
             _container = container;
-            _objectContainerService = objectContainerService;
+            _objectContainerProvider = objectContainerProvider;
             _dataService = dataService;
             _playerService = playerService;
         }
@@ -150,7 +150,7 @@ namespace Gameplay.Factories
             if (!_pools.ContainsKey(projectileView))
             {
                 _pools.Add(projectileView, new ObjectPool<BaseProjectileView>(
-                    createFunc: () => _container.Instantiate(projectileView, _objectContainerService.ProjectileContainer),
+                    createFunc: () => _container.Instantiate(projectileView, _objectContainerProvider.ProjectileContainer),
                     actionOnGet: obj => obj.OnGet(),
                     actionOnRelease: obj => obj.OnRelease()));
             }

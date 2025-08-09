@@ -2,13 +2,13 @@ using UnityEngine;
 
 namespace Gameplay.Services
 {
-    public class ObjectContainerService
+    public class ObjectContainerProvider
     {
         public Transform ProjectileContainer { get; }
         public Transform EnemyContainer { get; }
         public Transform DeathKitContainer { get; }
 
-        public ObjectContainerService(Transform projectileContainer, Transform enemyContainer, Transform deathKitContainer)
+        public ObjectContainerProvider(Transform projectileContainer, Transform enemyContainer, Transform deathKitContainer)
         {
             ProjectileContainer = projectileContainer;
             EnemyContainer = enemyContainer;

@@ -7,7 +7,7 @@ using VContainer;
 
 namespace Gameplay.Controllers
 {
-    public class DebugController : MonoBehaviour
+    public class DebugController : MonoBehaviour, IDebugController
     {
         private IUpdateController _updateController;
         private IDataService _dataService;

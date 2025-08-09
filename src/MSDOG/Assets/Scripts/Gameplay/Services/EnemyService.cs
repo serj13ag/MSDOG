@@ -24,7 +24,7 @@ namespace Gameplay.Services
         private readonly ArenaService _arenaService;
         private readonly IUpdateController _updateController;
         private readonly IDataService _dataService;
-        private readonly DebugController _debugController;
+        private readonly IDebugController _debugController;
         private readonly DeathKitFactory _deathKitFactory;
 
         private bool _isActive;
@@ -38,7 +38,7 @@ namespace Gameplay.Services
         public event Action OnAllEnemiesDied;
 
         public EnemyService(IUpdateController updateController, IDataService dataService, GameFactory gameFactory,
-            ArenaService arenaService, DebugController debugController, DeathKitFactory deathKitFactory)
+            ArenaService arenaService, IDebugController debugController, DeathKitFactory deathKitFactory)
         {
             _debugController = debugController;
             _deathKitFactory = deathKitFactory;

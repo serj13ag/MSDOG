@@ -19,8 +19,8 @@ namespace Gameplay.Factories
         private readonly ProjectileFactory _projectileFactory;
         private readonly VfxFactory _vfxFactory;
         private readonly IDataService _dataService;
-        private readonly ObjectContainerService _objectContainerService;
-        private readonly DebugController _debugController;
+        private readonly ObjectContainerProvider _objectContainerProvider;
+        private readonly IDebugController _debugController;
         private readonly IProgressService _progressService;
         private readonly IUpdateController _updateController;
 
@@ -34,8 +34,8 @@ namespace Gameplay.Factories
             ProjectileFactory projectileFactory,
             VfxFactory vfxFactory,
             IDataService dataService,
-            ObjectContainerService objectContainerService,
-            DebugController debugController,
+            ObjectContainerProvider objectContainerProvider,
+            IDebugController debugController,
             IProgressService progressService)
         {
             _assetProviderService = assetProviderService;
@@ -45,7 +45,7 @@ namespace Gameplay.Factories
             _projectileFactory = projectileFactory;
             _vfxFactory = vfxFactory;
             _dataService = dataService;
-            _objectContainerService = objectContainerService;
+            _objectContainerProvider = objectContainerProvider;
             _debugController = debugController;
             _progressService = progressService;
             _updateController = updateController;
@@ -62,7 +62,7 @@ namespace Gameplay.Factories
         public Enemy CreateEnemy(Vector3 position, EnemyData data)
         {
             // TODO: init via container
-            var enemy = Object.Instantiate(data.Prefab, position, Quaternion.identity, _objectContainerService.EnemyContainer);
+            var enemy = Object.Instantiate(data.Prefab, position, Quaternion.identity, _objectContainerProvider.EnemyContainer);
             enemy.Init(_updateController, this, _projectileFactory, _player, data, _vfxFactory, _debugController, _dataService);
             return enemy;
         }

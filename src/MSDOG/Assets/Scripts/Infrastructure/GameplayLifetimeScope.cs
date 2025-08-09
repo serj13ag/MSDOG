@@ -14,12 +14,13 @@ namespace Infrastructure
 
         protected override void ConfigureContainer(IContainerBuilder builder)
         {
-            builder.RegisterComponent(_cameraController);
-            builder.RegisterComponent(_levelViewController);
+            builder.RegisterComponent(_cameraController).As<ICameraController>();
+            builder.RegisterComponent(_levelViewController).As<ILevelViewController>();
 
-            builder.RegisterComponentOnNewGameObject<DebugController>(Lifetime.Scoped, "DebugService");
+            builder.RegisterComponentOnNewGameObject<DebugController>(Lifetime.Scoped, "DebugController")
+                .As<IDebugController>();
 
-            RegisterObjectContainerService(builder);
+            RegisterObjectContainerProvider(builder);
 
             builder.Register<InputService>(Lifetime.Scoped);
             builder.Register<ArenaService>(Lifetime.Scoped);
@@ -38,12 +39,12 @@ namespace Infrastructure
             builder.Register<GameplayInitializer>(Lifetime.Scoped);
         }
 
-        private static void RegisterObjectContainerService(IContainerBuilder builder)
+        private static void RegisterObjectContainerProvider(IContainerBuilder builder)
         {
             var projectileContainer = new GameObject("ProjectileContainer");
             var enemyContainer = new GameObject("EnemyContainer");
             var deathKitContainer = new GameObject("DeathKitContainer");
-            builder.Register(_ => new ObjectContainerService(projectileContainer.transform,
+            builder.Register(_ => new ObjectContainerProvider(projectileContainer.transform,
                     enemyContainer.transform, deathKitContainer.transform),
                 Lifetime.Scoped);
         }
