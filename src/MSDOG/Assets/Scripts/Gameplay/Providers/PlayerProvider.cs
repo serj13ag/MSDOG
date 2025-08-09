@@ -1,6 +1,6 @@
 using System;
 
-namespace Gameplay.Services
+namespace Gameplay.Providers
 {
     public class PlayerProvider : IPlayerProvider, IDisposable
     {

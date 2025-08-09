@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Constants;
 using Core.Models.Data;
 using Core.Services;
+using Gameplay.Providers;
 using Gameplay.Services;
 using UnityEngine;
 using UnityEngine.EventSystems;

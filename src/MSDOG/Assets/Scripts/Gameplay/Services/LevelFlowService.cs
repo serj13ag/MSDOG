@@ -2,6 +2,7 @@ using System;
 using Core.Controllers;
 using Core.Services;
 using Core.Sounds;
+using Gameplay.Providers;
 
 namespace Gameplay.Services
 {
