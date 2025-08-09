@@ -40,7 +40,7 @@ namespace Infrastructure.StateMachine
 
         private void OnSceneLoaded()
         {
-            var gameplayScope = Object.FindFirstObjectByType<GameplayServicesScope>();
+            var gameplayScope = Object.FindFirstObjectByType<GameplayLifetimeScope>();
             gameplayScope.BuildContainer();
 
             var gameplayWindowFactory = gameplayScope.Container.Resolve<GameplayWindowFactory>();

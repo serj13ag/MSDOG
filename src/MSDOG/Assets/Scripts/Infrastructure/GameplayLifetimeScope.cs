@@ -7,7 +7,7 @@ using VContainer.Unity;
 
 namespace Infrastructure
 {
-    public class GameplayServicesScope : BaseServicesScope
+    public class GameplayLifetimeScope : BaseLifetimeScope
     {
         [SerializeField] private CameraController _cameraController;
         [SerializeField] private LevelViewController _levelViewController;

@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 636791271}
   - component: {fileID: 636791270}
   m_Layer: 0
-  m_Name: GameplayServicesScope
+  m_Name: GameplayLifetimeScope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentReference:
-    TypeName: Infrastructure.GlobalServicesScope
+    TypeName: Infrastructure.GlobalLifetimeScope
   autoRun: 0
   autoInjectGameObjects:
   - {fileID: 6294132970679443289}

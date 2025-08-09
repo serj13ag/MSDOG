@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 754698784}
   - component: {fileID: 754698783}
   m_Layer: 0
-  m_Name: GlobalServicesScope
+  m_Name: GlobalLifetimeScope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f63dc11da3f5f544587de8ce7f2d7e65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _globalServicesScope: {fileID: 754698783}
+  _globalLifetimeScope: {fileID: 754698783}
 --- !u!1001 &1864871815
 PrefabInstance:
   m_ObjectHideFlags: 0

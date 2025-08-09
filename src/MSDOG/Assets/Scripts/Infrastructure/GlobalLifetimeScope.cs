@@ -8,7 +8,7 @@ using VContainer.Unity;
 
 namespace Infrastructure
 {
-    public class GlobalServicesScope : BaseServicesScope
+    public class GlobalLifetimeScope : BaseLifetimeScope
     {
         [SerializeField] private LoadingCurtainController _loadingCurtainController;
         [SerializeField] private SoundController _soundController;

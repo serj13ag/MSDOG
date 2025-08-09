@@ -3,7 +3,7 @@ using VContainer.Unity;
 
 namespace Infrastructure
 {
-    public abstract class BaseServicesScope : LifetimeScope
+    public abstract class BaseLifetimeScope : LifetimeScope
     {
         protected override void Awake()
         {
