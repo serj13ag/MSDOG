@@ -12,7 +12,7 @@ namespace Gameplay.Services
         private readonly IProgressService _progressService;
         private readonly IDialogueService _dialogueService;
         private readonly ISoundController _soundController;
-        private readonly IPlayerService _playerService;
+        private readonly IPlayerProvider _playerProvider;
         private readonly IDataService _dataService;
 
         private int _levelIndex;
@@ -23,19 +23,19 @@ namespace Gameplay.Services
         public bool IsLastLevel => _isLastLevel;
 
         public LevelFlowService(IEnemyService enemyService, IWindowController windowController, IProgressService progressService,
-            IDialogueService dialogueService, ISoundController soundController, IPlayerService playerService,
+            IDialogueService dialogueService, ISoundController soundController, IPlayerProvider playerProvider,
             IDataService dataService)
         {
             _progressService = progressService;
             _dialogueService = dialogueService;
             _soundController = soundController;
-            _playerService = playerService;
+            _playerProvider = playerProvider;
             _dataService = dataService;
             _enemyService = enemyService;
             _windowController = windowController;
 
             enemyService.OnAllEnemiesDied += OnAllEnemiesDied;
-            playerService.OnPlayerDied += OnPlayerDied;
+            playerProvider.OnPlayerDied += OnPlayerDied;
         }
 
         public void InitLevel(int levelIndex)
@@ -75,7 +75,7 @@ namespace Gameplay.Services
         public void Dispose()
         {
             _enemyService.OnAllEnemiesDied -= OnAllEnemiesDied;
-            _playerService.OnPlayerDied -= OnPlayerDied;
+            _playerProvider.OnPlayerDied -= OnPlayerDied;
         }
     }
 }

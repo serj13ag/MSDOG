@@ -17,19 +17,19 @@ namespace Gameplay.Factories
         private const int NumberOfPrewarmedPrefabs = 10;
 
         private readonly IObjectResolver _container;
-        private readonly ObjectContainerProvider _objectContainerProvider;
+        private readonly IObjectContainerProvider _objectContainerProvider;
         private readonly IDataService _dataService;
-        private readonly IPlayerService _playerService;
+        private readonly IPlayerProvider _playerProvider;
 
         private readonly Dictionary<BaseProjectileView, ObjectPool<BaseProjectileView>> _pools = new();
 
-        public ProjectileFactory(IObjectResolver container, ObjectContainerProvider objectContainerProvider,
-            IDataService dataService, IPlayerService playerService)
+        public ProjectileFactory(IObjectResolver container, IObjectContainerProvider objectContainerProvider,
+            IDataService dataService, IPlayerProvider playerProvider)
         {
             _container = container;
             _objectContainerProvider = objectContainerProvider;
             _dataService = dataService;
-            _playerService = playerService;
+            _playerProvider = playerProvider;
         }
 
         public void Prewarm(int levelIndex)
@@ -96,13 +96,13 @@ namespace Gameplay.Factories
                 case ProjectileType.BuzzSaw:
                 {
                     var buzzSawProjectileView = (BuzzSawProjectileView)view;
-                    buzzSawProjectileView.Init(projectile, _playerService.Player);
+                    buzzSawProjectileView.Init(projectile, _playerProvider.Player);
                     break;
                 }
                 case ProjectileType.EnergyLine:
                 {
                     var energyLineProjectileView = (EnergyLineProjectileView)view;
-                    energyLineProjectileView.Init(projectile, _playerService.Player);
+                    energyLineProjectileView.Init(projectile, _playerProvider.Player);
                     break;
                 }
                 case ProjectileType.Puddle:

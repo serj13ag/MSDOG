@@ -20,13 +20,12 @@ namespace Gameplay.Factories
         private readonly IProjectileFactory _projectileFactory;
         private readonly IVfxFactory _vfxFactory;
         private readonly IDataService _dataService;
-        private readonly ObjectContainerProvider _objectContainerProvider;
+        private readonly IObjectContainerProvider _objectContainerProvider;
         private readonly IDebugController _debugController;
         private readonly IProgressService _progressService;
         private readonly IExperiencePieceFactory _experiencePieceFactory;
+        private readonly IPlayerProvider _playerProvider;
         private readonly IUpdateController _updateController;
-
-        private Player _player; // TODO: remove?
 
         public GameFactory(IAssetProviderService assetProviderService,
             IUpdateController updateController,
@@ -36,10 +35,11 @@ namespace Gameplay.Factories
             IProjectileFactory projectileFactory,
             IVfxFactory vfxFactory,
             IDataService dataService,
-            ObjectContainerProvider objectContainerProvider,
+            IObjectContainerProvider objectContainerProvider,
             IDebugController debugController,
             IProgressService progressService,
-            IExperiencePieceFactory experiencePieceFactory)
+            IExperiencePieceFactory experiencePieceFactory,
+            IPlayerProvider playerProvider)
         {
             _assetProviderService = assetProviderService;
             _inputService = inputService;
@@ -52,6 +52,7 @@ namespace Gameplay.Factories
             _debugController = debugController;
             _progressService = progressService;
             _experiencePieceFactory = experiencePieceFactory;
+            _playerProvider = playerProvider;
             _updateController = updateController;
         }
 
@@ -59,7 +60,6 @@ namespace Gameplay.Factories
         {
             var player = _assetProviderService.Instantiate<Player>(AssetPaths.PlayerPrefab);
             player.Init(_inputService, _updateController, _arenaService, _abilityFactory, _dataService, _progressService);
-            _player = player;
             return player;
         }
 
@@ -67,7 +67,7 @@ namespace Gameplay.Factories
         {
             // TODO: init via container
             var enemy = Object.Instantiate(data.Prefab, position, Quaternion.identity, _objectContainerProvider.EnemyContainer);
-            enemy.Init(_updateController, _experiencePieceFactory, _projectileFactory, _player, data, _vfxFactory,
+            enemy.Init(_updateController, _experiencePieceFactory, _projectileFactory, _playerProvider.Player, data, _vfxFactory,
                 _debugController, _dataService);
             return enemy;
         }

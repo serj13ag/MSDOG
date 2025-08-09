@@ -16,7 +16,7 @@ namespace Gameplay.Factories
         private readonly ObjectPool<ExperiencePiece> _pool;
 
         public ExperiencePieceFactory(IAssetProviderService assetProviderService, IUpdateController updateController,
-            ObjectContainerProvider objectContainerProvider)
+            IObjectContainerProvider objectContainerProvider)
         {
             _updateController = updateController;
 

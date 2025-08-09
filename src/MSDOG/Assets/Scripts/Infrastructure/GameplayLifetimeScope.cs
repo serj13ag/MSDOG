@@ -16,7 +16,7 @@ namespace Infrastructure
         protected override void ConfigureContainer(IContainerBuilder builder)
         {
             RegisterControllers(builder);
-            RegisterObjectContainerProvider(builder);
+            RegisterProviders(builder);
             RegisterServices(builder);
             RegisterFactories(builder);
 
@@ -30,6 +30,33 @@ namespace Infrastructure
 
             builder.RegisterComponentOnNewGameObject<DebugController>(Lifetime.Scoped, "DebugController")
                 .As<IDebugController>();
+        }
+
+        private static void RegisterProviders(IContainerBuilder builder)
+        {
+            RegisterObjectContainerProvider(builder);
+
+            builder.Register<IPlayerProvider, PlayerProvider>(Lifetime.Scoped);
+        }
+
+        private static void RegisterServices(IContainerBuilder builder)
+        {
+            builder.Register<IInputService, InputService>(Lifetime.Scoped);
+            builder.Register<IArenaService, ArenaService>(Lifetime.Scoped);
+            builder.Register<IEnemyService, EnemyService>(Lifetime.Scoped);
+            builder.Register<ILevelFlowService, LevelFlowService>(Lifetime.Scoped);
+            builder.Register<ITutorialService, TutorialService>(Lifetime.Scoped);
+        }
+
+        private static void RegisterFactories(IContainerBuilder builder)
+        {
+            builder.Register<IExperiencePieceFactory, ExperiencePieceFactory>(Lifetime.Scoped);
+            builder.Register<IProjectileFactory, ProjectileFactory>(Lifetime.Scoped);
+            builder.Register<IAbilityFactory, AbilityFactory>(Lifetime.Scoped);
+            builder.Register<IGameFactory, GameFactory>(Lifetime.Scoped);
+            builder.Register<IDeathKitFactory, DeathKitFactory>(Lifetime.Scoped);
+            builder.Register<IGameplayWindowFactory, GameplayWindowFactory>(Lifetime.Scoped);
+            builder.Register<IVfxFactory, VfxFactory>(Lifetime.Scoped);
         }
 
         private static void RegisterObjectContainerProvider(IContainerBuilder builder)
@@ -48,28 +75,7 @@ namespace Infrastructure
 
             builder.Register(_ => new ObjectContainerProvider(projectileContainer.transform,
                     enemyContainer.transform, deathKitContainer.transform, experiencePieceContainer.transform),
-                Lifetime.Scoped);
-        }
-
-        private static void RegisterServices(IContainerBuilder builder)
-        {
-            builder.Register<IInputService, InputService>(Lifetime.Scoped);
-            builder.Register<IArenaService, ArenaService>(Lifetime.Scoped);
-            builder.Register<IEnemyService, EnemyService>(Lifetime.Scoped);
-            builder.Register<IPlayerService, PlayerService>(Lifetime.Scoped);
-            builder.Register<ILevelFlowService, LevelFlowService>(Lifetime.Scoped);
-            builder.Register<ITutorialService, TutorialService>(Lifetime.Scoped);
-        }
-
-        private static void RegisterFactories(IContainerBuilder builder)
-        {
-            builder.Register<IExperiencePieceFactory, ExperiencePieceFactory>(Lifetime.Scoped);
-            builder.Register<IProjectileFactory, ProjectileFactory>(Lifetime.Scoped);
-            builder.Register<IAbilityFactory, AbilityFactory>(Lifetime.Scoped);
-            builder.Register<IGameFactory, GameFactory>(Lifetime.Scoped);
-            builder.Register<IDeathKitFactory, DeathKitFactory>(Lifetime.Scoped);
-            builder.Register<IGameplayWindowFactory, GameplayWindowFactory>(Lifetime.Scoped);
-            builder.Register<IVfxFactory, VfxFactory>(Lifetime.Scoped);
+                Lifetime.Scoped).As<IObjectContainerProvider>();
         }
     }
 }

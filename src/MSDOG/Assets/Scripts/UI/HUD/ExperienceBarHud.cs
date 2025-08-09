@@ -20,7 +20,7 @@ namespace UI.HUD
         [SerializeField] private float _maxScale = 1.1f;
 
         private IDataService _dataService;
-        private IPlayerService _playerService;
+        private IPlayerProvider _playerProvider;
         private ISoundController _soundController;
         private ITutorialService _tutorialService;
         private ILevelFlowService _levelFlowService;
@@ -31,11 +31,11 @@ namespace UI.HUD
         private float _oscTimer;
 
         [Inject]
-        public void Construct(IDataService dataService, IPlayerService playerService, ILevelFlowService levelFlowService,
+        public void Construct(IDataService dataService, IPlayerProvider playerProvider, ILevelFlowService levelFlowService,
             ISoundController soundController, ITutorialService tutorialService)
         {
             _levelFlowService = levelFlowService;
-            _playerService = playerService;
+            _playerProvider = playerProvider;
             _tutorialService = tutorialService;
             _soundController = soundController;
             _dataService = dataService;
@@ -49,7 +49,7 @@ namespace UI.HUD
             UpdateView();
 
             _craftButton.onClick.AddListener(OnCraftButtonClick);
-            _playerService.Player.OnExperienceChanged += OnPlayerExperienceChanged;
+            _playerProvider.Player.OnExperienceChanged += OnPlayerExperienceChanged;
         }
 
         private void Update()
@@ -73,7 +73,7 @@ namespace UI.HUD
         {
             var abilityData = _dataService.GetRandomCraftAbilityData(_levelFlowService.CurrentLevelIndex);
             _detailsZoneHud.CreateDetail(abilityData);
-            _playerService.Player.ResetExperience();
+            _playerProvider.Player.ResetExperience();
             UpdateView();
 
             _soundController.PlaySfx(SfxType.Craft);
@@ -88,7 +88,7 @@ namespace UI.HUD
 
         private void UpdateView()
         {
-            var player = _playerService.Player;
+            var player = _playerProvider.Player;
 
             _text.text = $"{player.CurrentExperience}/{player.MaxExperience}";
             _fillImage.fillAmount = (float)player.CurrentExperience / player.MaxExperience;
@@ -106,7 +106,7 @@ namespace UI.HUD
         private void OnDestroy()
         {
             _craftButton.onClick.RemoveListener(OnCraftButtonClick);
-            _playerService.Player.OnExperienceChanged -= OnPlayerExperienceChanged;
+            _playerProvider.Player.OnExperienceChanged -= OnPlayerExperienceChanged;
         }
     }
 }

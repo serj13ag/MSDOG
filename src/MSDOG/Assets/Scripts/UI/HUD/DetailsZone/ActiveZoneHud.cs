@@ -17,14 +17,14 @@ namespace UI.HUD.DetailsZone
         [SerializeField] private int _maxNumberOfActiveParts;
 
         private IAssetProviderService _assetProviderService;
-        private IPlayerService _playerService;
+        private IPlayerProvider _playerProvider;
 
         private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
 
         [Inject]
-        public void Construct(IPlayerService playerService, IAssetProviderService assetProviderService)
+        public void Construct(IPlayerProvider playerProvider, IAssetProviderService assetProviderService)
         {
-            _playerService = playerService;
+            _playerProvider = playerProvider;
             _assetProviderService = assetProviderService;
         }
 
@@ -70,13 +70,13 @@ namespace UI.HUD.DetailsZone
         {
             _detailParts.Add(detailPart.Id, detailPart);
             detailPart.transform.SetParent(_grid.transform);
-            _playerService.Player.AddAbility(detailPart.Id, detailPart.AbilityData);
+            _playerProvider.Player.AddAbility(detailPart.Id, detailPart.AbilityData);
         }
 
         public void Exit(DetailPartHud detailPart)
         {
             _detailParts.Remove(detailPart.Id);
-            _playerService.Player.RemoveAbility(detailPart.Id);
+            _playerProvider.Player.RemoveAbility(detailPart.Id);
         }
 
         public IEnumerable<DetailPartHud> GetDetailParts()

@@ -11,19 +11,19 @@ namespace UI.HUD
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Image _healthFillImage;
 
-        private IPlayerService _playerService;
+        private IPlayerProvider _playerProvider;
 
         [Inject]
-        public void Construct(IPlayerService playerService)
+        public void Construct(IPlayerProvider playerProvider)
         {
-            _playerService = playerService;
+            _playerProvider = playerProvider;
         }
 
         public void Init()
         {
             UpdateView();
 
-            _playerService.Player.OnHealthChanged += OnPlayerHealthChanged;
+            _playerProvider.Player.OnHealthChanged += OnPlayerHealthChanged;
         }
 
         private void OnPlayerHealthChanged()
@@ -33,14 +33,14 @@ namespace UI.HUD
 
         private void UpdateView()
         {
-            var player = _playerService.Player;
+            var player = _playerProvider.Player;
             _text.text = player.CurrentHealth.ToString();
             _healthFillImage.fillAmount = (float)player.CurrentHealth / player.MaxHealth;
         }
 
         private void OnDestroy()
         {
-            _playerService.Player.OnHealthChanged -= OnPlayerHealthChanged;
+            _playerProvider.Player.OnHealthChanged -= OnPlayerHealthChanged;
         }
     }
 }

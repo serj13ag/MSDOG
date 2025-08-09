@@ -2,7 +2,7 @@ using System;
 
 namespace Gameplay.Services
 {
-    public interface IPlayerService
+    public interface IPlayerProvider
     {
         Player Player { get; }
 

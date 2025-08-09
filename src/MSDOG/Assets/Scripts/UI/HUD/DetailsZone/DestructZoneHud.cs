@@ -12,12 +12,12 @@ namespace UI.HUD.DetailsZone
     {
         private IDataService _dataService;
         private ISoundController _soundController;
-        private IPlayerService _playerService;
+        private IPlayerProvider _playerProvider;
 
         [Inject]
-        public void Construct(IPlayerService playerService, IDataService dataService, ISoundController soundController)
+        public void Construct(IPlayerProvider playerProvider, IDataService dataService, ISoundController soundController)
         {
-            _playerService = playerService;
+            _playerProvider = playerProvider;
             _soundController = soundController;
             _dataService = dataService;
         }
@@ -39,7 +39,7 @@ namespace UI.HUD.DetailsZone
 
         public void Enter(DetailPartHud detailPart)
         {
-            var player = _playerService.Player;
+            var player = _playerProvider.Player;
             var settingsData = _dataService.GetSettingsData();
 
             if (player.IsFullHealth)

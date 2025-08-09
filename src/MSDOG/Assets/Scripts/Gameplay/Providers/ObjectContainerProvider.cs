@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Gameplay.Providers
 {
-    public class ObjectContainerProvider
+    public class ObjectContainerProvider : IObjectContainerProvider
     {
         public Transform ProjectileContainer { get; }
         public Transform EnemyContainer { get; }

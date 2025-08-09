@@ -23,14 +23,14 @@ namespace Infrastructure
         private readonly ITutorialService _tutorialService;
         private readonly IDeathKitFactory _deathKitFactory;
         private readonly IProjectileFactory _projectileFactory;
-        private readonly IPlayerService _playerService;
+        private readonly IPlayerProvider _playerProvider;
         private readonly IExperiencePieceFactory _experiencePieceFactory;
 
         public GameplayInitializer(IDebugController debugController, IEnemyService enemyService, IGameFactory gameFactory,
             ICameraController cameraController, ILevelFlowService levelFlowService, IDialogueService dialogueService,
             ILevelViewController levelViewController, ISoundController soundController, IDataService dataService,
             ITutorialService tutorialService, IDeathKitFactory deathKitFactory, IProjectileFactory projectileFactory,
-            IPlayerService playerService, IExperiencePieceFactory experiencePieceFactory)
+            IPlayerProvider playerProvider, IExperiencePieceFactory experiencePieceFactory)
         {
             _levelViewController = levelViewController;
             _soundController = soundController;
@@ -38,7 +38,7 @@ namespace Infrastructure
             _tutorialService = tutorialService;
             _deathKitFactory = deathKitFactory;
             _projectileFactory = projectileFactory;
-            _playerService = playerService;
+            _playerProvider = playerProvider;
             _experiencePieceFactory = experiencePieceFactory;
             _dialogueService = dialogueService;
             _debugController = debugController;
@@ -56,7 +56,7 @@ namespace Infrastructure
 
             // TODO: refactor?
             var player = _gameFactory.CreatePlayer();
-            _playerService.RegisterPlayer(player);
+            _playerProvider.RegisterPlayer(player);
             _tutorialService.SetPlayer(player);
             _cameraController.SetFollowTarget(player.transform);
 
