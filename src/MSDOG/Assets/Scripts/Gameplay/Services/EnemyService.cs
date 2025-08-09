@@ -22,7 +22,7 @@ namespace Gameplay.Services
 
         private readonly GameFactory _gameFactory;
         private readonly ArenaService _arenaService;
-        private readonly UpdateController _updateController;
+        private readonly IUpdateController _updateController;
         private readonly IDataService _dataService;
         private readonly DebugController _debugController;
         private readonly DeathKitFactory _deathKitFactory;
@@ -37,7 +37,7 @@ namespace Gameplay.Services
 
         public event Action OnAllEnemiesDied;
 
-        public EnemyService(UpdateController updateController, IDataService dataService, GameFactory gameFactory,
+        public EnemyService(IUpdateController updateController, IDataService dataService, GameFactory gameFactory,
             ArenaService arenaService, DebugController debugController, DeathKitFactory deathKitFactory)
         {
             _debugController = debugController;

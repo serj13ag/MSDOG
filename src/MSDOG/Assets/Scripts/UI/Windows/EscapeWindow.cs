@@ -17,15 +17,15 @@ namespace UI.Windows
 
         private IGameStateMachine _gameStateMachine;
         private LevelFlowService _levelFlowService;
-        private WindowController _windowController;
-        private UpdateController _updateController;
+        private IWindowController _windowController;
+        private IUpdateController _updateController;
 
         public GameObject GameObject => gameObject;
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(IGameStateMachine gameStateMachine, LevelFlowService levelFlowService, WindowController windowController,
-            UpdateController updateController)
+        public void Construct(IGameStateMachine gameStateMachine, LevelFlowService levelFlowService, IWindowController windowController,
+            IUpdateController updateController)
         {
             _updateController = updateController;
             _windowController = windowController;

@@ -23,8 +23,14 @@ namespace Infrastructure
 
         protected override void ConfigureContainer(IContainerBuilder builder)
         {
-            builder.RegisterComponentOnNewGameObject<CoroutineController>(Lifetime.Singleton, "CoroutineService");
-            builder.RegisterComponentOnNewGameObject<UpdateController>(Lifetime.Singleton, "UpdateService");
+            builder.RegisterComponentOnNewGameObject<CoroutineController>(Lifetime.Singleton, "CoroutineController")
+                .As<ICoroutineController>();
+            builder.RegisterComponentOnNewGameObject<UpdateController>(Lifetime.Singleton, "UpdateController")
+                .As<IUpdateController>();
+
+            builder.RegisterComponent(_loadingCurtainController).As<ILoadingCurtainController>();
+            builder.RegisterComponent(_soundController).As<ISoundController>();
+            builder.RegisterComponent(_windowController).As<IWindowController>();
 
             builder.Register<BootstrapState>(Lifetime.Singleton);
             builder.Register<MainMenuState>(Lifetime.Singleton);
@@ -41,10 +47,6 @@ namespace Infrastructure
             builder.Register<ISaveLoadService, SaveLoadService>(Lifetime.Singleton);
 
             builder.Register<IGlobalWindowFactory, GlobalWindowFactory>(Lifetime.Singleton);
-
-            builder.RegisterComponent(_loadingCurtainController);
-            builder.RegisterComponent(_soundController);
-            builder.RegisterComponent(_windowController);
         }
     }
 }

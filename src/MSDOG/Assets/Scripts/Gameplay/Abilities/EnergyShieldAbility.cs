@@ -13,7 +13,7 @@ namespace Gameplay.Abilities
 
         private FollowingAbilityEffect _followingAbilityEffect;
 
-        public EnergyShieldAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory, SoundController soundController)
+        public EnergyShieldAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory, ISoundController soundController)
             : base(abilityData, soundController)
         {
             _vfxFactory = vfxFactory;

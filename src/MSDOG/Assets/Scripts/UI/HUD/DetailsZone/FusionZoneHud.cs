@@ -16,12 +16,12 @@ namespace UI.HUD.DetailsZone
         [SerializeField] private Button _upgradeButton;
 
         private IDataService _dataService;
-        private SoundController _soundController;
+        private ISoundController _soundController;
 
         private AbilityData _upgradedAbilityData;
 
         [Inject]
-        public void Construct(IDataService dataService, SoundController soundController)
+        public void Construct(IDataService dataService, ISoundController soundController)
         {
             _soundController = soundController;
             _dataService = dataService;

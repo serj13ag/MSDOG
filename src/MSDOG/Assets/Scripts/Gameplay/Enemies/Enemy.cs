@@ -26,7 +26,7 @@ namespace Gameplay.Enemies
         [SerializeField] private ColliderEventProvider _damagePlayerColliderTriggerEnterProvider;
         [SerializeField] private AnimatorEventsProvider _animatorEventsProvider;
 
-        private UpdateController _updateController;
+        private IUpdateController _updateController;
         private GameFactory _gameFactory;
         private ProjectileFactory _projectileFactory;
         private VfxFactory _vfxFactory;
@@ -56,7 +56,7 @@ namespace Gameplay.Enemies
 
         public event Action<Enemy> OnDied;
 
-        public void Init(UpdateController updateController, GameFactory gameFactory, ProjectileFactory projectileFactory,
+        public void Init(IUpdateController updateController, GameFactory gameFactory, ProjectileFactory projectileFactory,
             Player player, EnemyData data, VfxFactory vfxFactory, DebugController debugController, IDataService dataService)
         {
             _dataService = dataService;

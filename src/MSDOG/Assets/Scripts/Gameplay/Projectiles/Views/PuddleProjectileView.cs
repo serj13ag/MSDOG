@@ -17,7 +17,7 @@ namespace Gameplay.Projectiles.Views
         private float _scaleTime;
 
         [Inject]
-        public void Construct(UpdateController updateController)
+        public void Construct(IUpdateController updateController)
         {
             ConstructBase(updateController);
         }

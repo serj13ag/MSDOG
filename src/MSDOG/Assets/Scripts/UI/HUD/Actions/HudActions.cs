@@ -12,12 +12,12 @@ namespace UI.HUD.Actions
         [SerializeField] private NitroAction _nitroAction;
         [SerializeField] private ReloadAction _reloadAction;
 
-        private UpdateController _updateController;
-        private SoundController _soundController;
+        private IUpdateController _updateController;
+        private ISoundController _soundController;
         private TutorialService _tutorialService;
 
         [Inject]
-        public void Construct(UpdateController updateController, SoundController soundController, TutorialService tutorialService)
+        public void Construct(IUpdateController updateController, ISoundController soundController, TutorialService tutorialService)
         {
             _tutorialService = tutorialService;
             _soundController = soundController;

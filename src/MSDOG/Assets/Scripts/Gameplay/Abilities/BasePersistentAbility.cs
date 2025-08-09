@@ -6,11 +6,11 @@ namespace Gameplay.Abilities
     public abstract class BasePersistentAbility : IAbility
     {
         private readonly AbilityData _abilityData;
-        private readonly SoundController _soundController;
+        private readonly ISoundController _soundController;
 
         private bool _isActive;
 
-        protected BasePersistentAbility(AbilityData abilityData, SoundController soundController)
+        protected BasePersistentAbility(AbilityData abilityData, ISoundController soundController)
         {
             _abilityData = abilityData;
             _soundController = soundController;

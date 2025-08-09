@@ -10,13 +10,13 @@ namespace Gameplay.Controllers
         [SerializeField] private Vector3 _cameraPositionOffset;
         [SerializeField] private Vector3 _cameraRotationOffset;
 
-        private UpdateController _updateController;
+        private IUpdateController _updateController;
         private Camera _camera;
 
         private Transform _targetTransform;
 
         [Inject]
-        public void Construct(UpdateController updateController)
+        public void Construct(IUpdateController updateController)
         {
             _updateController = updateController;
         }

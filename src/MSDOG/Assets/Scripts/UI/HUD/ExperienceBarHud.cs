@@ -21,7 +21,7 @@ namespace UI.HUD
 
         private IDataService _dataService;
         private PlayerService _playerService;
-        private SoundController _soundController;
+        private ISoundController _soundController;
         private TutorialService _tutorialService;
         private LevelFlowService _levelFlowService;
 
@@ -32,7 +32,7 @@ namespace UI.HUD
 
         [Inject]
         public void Construct(IDataService dataService, PlayerService playerService, LevelFlowService levelFlowService,
-            SoundController soundController, TutorialService tutorialService)
+            ISoundController soundController, TutorialService tutorialService)
         {
             _levelFlowService = levelFlowService;
             _playerService = playerService;

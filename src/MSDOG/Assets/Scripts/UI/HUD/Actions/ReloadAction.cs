@@ -19,8 +19,8 @@ namespace UI.HUD.Actions
         [SerializeField] private float _maxAngle = 1080f;
 
         private Player _player;
-        private UpdateController _updateController;
-        private SoundController _soundController;
+        private IUpdateController _updateController;
+        private ISoundController _soundController;
         private TutorialService _tutorialService;
 
         private float _currentAngle;
@@ -28,7 +28,7 @@ namespace UI.HUD.Actions
         private bool _dragging;
         private float _currentDragAngle;
 
-        public void Init(Player player, UpdateController updateController, SoundController soundController, TutorialService tutorialService)
+        public void Init(Player player, IUpdateController updateController, ISoundController soundController, TutorialService tutorialService)
         {
             _tutorialService = tutorialService;
             _soundController = soundController;

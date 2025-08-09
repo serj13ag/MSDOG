@@ -14,9 +14,9 @@ namespace UI.HUD.Actions
         [SerializeField] private float _onPositionZ = 1f;
 
         private Player _player;
-        private SoundController _soundController;
+        private ISoundController _soundController;
 
-        public void Init(Player player, SoundController soundController)
+        public void Init(Player player, ISoundController soundController)
         {
             _soundController = soundController;
             _player = player;

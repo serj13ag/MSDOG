@@ -7,9 +7,9 @@ namespace Core.Services
 {
     public class SceneLoadService : ISceneLoadService
     {
-        private readonly CoroutineController _coroutineController;
+        private readonly ICoroutineController _coroutineController;
 
-        public SceneLoadService(CoroutineController coroutineController)
+        public SceneLoadService(ICoroutineController coroutineController)
         {
             _coroutineController = coroutineController;
         }

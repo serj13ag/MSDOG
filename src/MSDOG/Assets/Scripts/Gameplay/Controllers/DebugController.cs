@@ -9,7 +9,7 @@ namespace Gameplay.Controllers
 {
     public class DebugController : MonoBehaviour
     {
-        private UpdateController _updateController;
+        private IUpdateController _updateController;
         private IDataService _dataService;
 
         private HudController _hudController;
@@ -24,7 +24,7 @@ namespace Gameplay.Controllers
         public event EventHandler<EventArgs> OnKillAllEnemiesRequested;
 
         [Inject]
-        public void Construct(UpdateController updateController, IDataService dataService)
+        public void Construct(IUpdateController updateController, IDataService dataService)
         {
             _dataService = dataService;
             _updateController = updateController;

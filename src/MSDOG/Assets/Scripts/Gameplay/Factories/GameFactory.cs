@@ -22,12 +22,12 @@ namespace Gameplay.Factories
         private readonly ObjectContainerService _objectContainerService;
         private readonly DebugController _debugController;
         private readonly IProgressService _progressService;
-        private readonly UpdateController _updateController;
+        private readonly IUpdateController _updateController;
 
         private Player _player; // TODO: remove?
 
         public GameFactory(IAssetProviderService assetProviderService,
-            UpdateController updateController,
+            IUpdateController updateController,
             InputService inputService,
             ArenaService arenaService,
             AbilityFactory abilityFactory,

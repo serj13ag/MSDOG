@@ -19,12 +19,12 @@ namespace UI.HUD
         [SerializeField] private ActiveZoneHud _activeZoneHud;
 
         private IDataService _dataService;
-        private WindowController _windowController;
+        private IWindowController _windowController;
         private InputService _inputService;
         private LevelFlowService _levelFlowService;
 
         [Inject]
-        public void Construct(IDataService dataService, WindowController windowController, InputService inputService,
+        public void Construct(IDataService dataService, IWindowController windowController, InputService inputService,
             LevelFlowService levelFlowService)
         {
             _levelFlowService = levelFlowService;

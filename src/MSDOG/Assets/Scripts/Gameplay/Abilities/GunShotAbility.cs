@@ -12,7 +12,7 @@ namespace Gameplay.Abilities
         private readonly ProjectileFactory _projectileFactory;
 
         public GunShotAbility(AbilityData abilityData, Player player, ProjectileFactory projectileFactory,
-            SoundController soundController)
+            ISoundController soundController)
             : base(abilityData, soundController)
         {
             _abilityData = abilityData;

@@ -14,14 +14,14 @@ namespace UI.Windows
         [SerializeField] private Image _hintImage;
         [SerializeField] private TMP_Text _hintText;
 
-        private UpdateController _updateController;
+        private IUpdateController _updateController;
 
         public GameObject GameObject => gameObject;
 
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(UpdateController updateController)
+        public void Construct(IUpdateController updateController)
         {
             _updateController = updateController;
         }

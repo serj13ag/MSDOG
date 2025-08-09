@@ -7,14 +7,14 @@ namespace Gameplay.Projectiles.Views
 {
     public abstract class BaseProjectileView : BasePooledObject, IUpdatable
     {
-        private UpdateController _updateController;
+        private IUpdateController _updateController;
 
         private Projectile _projectile;
         private bool _shouldRelease;
 
         protected Projectile Projectile => _projectile;
 
-        protected void ConstructBase(UpdateController updateController)
+        protected void ConstructBase(IUpdateController updateController)
         {
             _updateController = updateController;
         }

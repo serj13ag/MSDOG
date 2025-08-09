@@ -21,7 +21,7 @@ namespace Gameplay
         [SerializeField] private float _moveSpeed = 6f;
         [SerializeField] private float _rotationSpeed = 720f;
 
-        private UpdateController _updateController;
+        private IUpdateController _updateController;
         private AbilityFactory _abilityFactory;
 
         private HealthBlock _healthBlock;
@@ -64,7 +64,7 @@ namespace Gameplay
             remove => _experienceBlock.OnExperienceChanged -= value;
         }
 
-        public void Init(InputService inputService, UpdateController updateController, ArenaService arenaService,
+        public void Init(InputService inputService, IUpdateController updateController, ArenaService arenaService,
             AbilityFactory abilityFactory, IDataService dataService, IProgressService progressService)
         {
             _abilityFactory = abilityFactory;

@@ -6,9 +6,9 @@ namespace Core.Services
     public class DialogueService : IDialogueService
     {
         private readonly IDataService _dataService;
-        private readonly WindowController _windowController;
+        private readonly IWindowController _windowController;
 
-        public DialogueService(IDataService dataService, WindowController windowController)
+        public DialogueService(IDataService dataService, IWindowController windowController)
         {
             _dataService = dataService;
             _windowController = windowController;

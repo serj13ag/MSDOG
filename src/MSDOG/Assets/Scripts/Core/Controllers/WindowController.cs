@@ -9,7 +9,7 @@ using VContainer;
 
 namespace Core.Controllers
 {
-    public class WindowController : BasePersistentController
+    public class WindowController : BasePersistentController, IWindowController
     {
         [SerializeField] private Canvas _canvas;
 

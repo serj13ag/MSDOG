@@ -10,11 +10,11 @@ namespace Gameplay
         [SerializeField] private ColliderEventProvider _colliderEventProvider;
         [SerializeField] private GameObject[] _views;
 
-        private UpdateController _updateController;
+        private IUpdateController _updateController;
         private Player _player;
         private int _experience;
 
-        public void Init(int experience, UpdateController updateController)
+        public void Init(int experience, IUpdateController updateController)
         {
             _updateController = updateController;
             _experience = experience;

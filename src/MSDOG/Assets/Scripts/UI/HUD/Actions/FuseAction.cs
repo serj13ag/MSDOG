@@ -21,7 +21,7 @@ namespace UI.HUD.Actions
         [SerializeField] private float _nitroMultiplier = 2f;
 
         private Player _player;
-        private SoundController _soundController;
+        private ISoundController _soundController;
         private TutorialService _tutorialService;
 
         private bool _connected;
@@ -32,7 +32,7 @@ namespace UI.HUD.Actions
         private Vector3? _previousPlayerPosition;
         private float _counter;
 
-        public void Init(Player player, SoundController soundController, TutorialService tutorialService)
+        public void Init(Player player, ISoundController soundController, TutorialService tutorialService)
         {
             _tutorialService = tutorialService;
             _soundController = soundController;

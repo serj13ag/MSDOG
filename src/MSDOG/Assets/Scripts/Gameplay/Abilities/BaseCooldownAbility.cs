@@ -6,7 +6,7 @@ namespace Gameplay.Abilities
     public abstract class BaseCooldownAbility : IAbility
     {
         private readonly AbilityData _abilityData;
-        private readonly SoundController _soundController;
+        private readonly ISoundController _soundController;
 
         private readonly float _cooldown;
 
@@ -15,7 +15,7 @@ namespace Gameplay.Abilities
 
         protected AbilityType AbilityType => _abilityData.AbilityType;
 
-        protected BaseCooldownAbility(AbilityData abilityData, SoundController soundController)
+        protected BaseCooldownAbility(AbilityData abilityData, ISoundController soundController)
         {
             _cooldown = abilityData.Cooldown;
             _abilityData = abilityData;

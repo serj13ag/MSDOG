@@ -8,10 +8,10 @@ namespace Gameplay.Services
     public class LevelFlowService : IDisposable
     {
         private readonly EnemyService _enemyService;
-        private readonly WindowController _windowController;
+        private readonly IWindowController _windowController;
         private readonly IProgressService _progressService;
         private readonly IDialogueService _dialogueService;
-        private readonly SoundController _soundController;
+        private readonly ISoundController _soundController;
         private readonly PlayerService _playerService;
         private readonly IDataService _dataService;
 
@@ -22,8 +22,8 @@ namespace Gameplay.Services
         public int CurrentLevelIndex => _levelIndex;
         public bool IsLastLevel => _isLastLevel;
 
-        public LevelFlowService(EnemyService enemyService, WindowController windowController, IProgressService progressService,
-            IDialogueService dialogueService, SoundController soundController, PlayerService playerService,
+        public LevelFlowService(EnemyService enemyService, IWindowController windowController, IProgressService progressService,
+            IDialogueService dialogueService, ISoundController soundController, PlayerService playerService,
             IDataService dataService)
         {
             _progressService = progressService;

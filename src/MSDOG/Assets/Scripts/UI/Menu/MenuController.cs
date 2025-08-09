@@ -15,12 +15,12 @@ namespace UI.Menu
         [SerializeField] private Button _quitGameButton;
         [SerializeField] private MenuLevelsWindow _menuLevelsWindow;
 
-        private WindowController _windowController;
-        private SoundController _soundController;
+        private IWindowController _windowController;
+        private ISoundController _soundController;
         private IDataService _dataService;
 
         [Inject]
-        public void Construct(WindowController windowController, SoundController soundController, IDataService dataService)
+        public void Construct(IWindowController windowController, ISoundController soundController, IDataService dataService)
         {
             _dataService = dataService;
             _soundController = soundController;
