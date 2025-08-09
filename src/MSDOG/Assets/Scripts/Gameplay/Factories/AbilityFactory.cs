@@ -10,10 +10,10 @@ namespace Gameplay.Factories
     {
         private readonly ProjectileFactory _projectileFactory;
         private readonly VfxFactory _vfxFactory;
-        private readonly DataService _dataService;
+        private readonly IDataService _dataService;
         private readonly SoundController _soundController;
 
-        public AbilityFactory(ProjectileFactory projectileFactory, VfxFactory vfxFactory, DataService dataService,
+        public AbilityFactory(ProjectileFactory projectileFactory, VfxFactory vfxFactory, IDataService dataService,
             SoundController soundController)
         {
             _dataService = dataService;

@@ -12,7 +12,7 @@ namespace UI.Windows
         [SerializeField] private Button _toMainMenuButton;
         [SerializeField] private Button _restartLevelButton;
 
-        private GameStateMachine _gameStateMachine;
+        private IGameStateMachine _gameStateMachine;
         private LevelFlowService _levelFlowService;
         private InputService _inputService;
 
@@ -21,7 +21,7 @@ namespace UI.Windows
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(GameStateMachine gameStateMachine, InputService inputService, LevelFlowService levelFlowService)
+        public void Construct(IGameStateMachine gameStateMachine, InputService inputService, LevelFlowService levelFlowService)
         {
             _gameStateMachine = gameStateMachine;
             _inputService = inputService;

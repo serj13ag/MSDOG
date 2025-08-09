@@ -13,13 +13,13 @@ namespace Core.Controllers
     {
         [SerializeField] private Canvas _canvas;
 
-        private GlobalWindowFactory _globalWindowFactory;
+        private IGlobalWindowFactory _globalWindowFactory;
         private GameplayWindowFactory _gameplayWindowFactory;
 
         private readonly Stack<IWindow> _activeWindows = new Stack<IWindow>();
 
         [Inject]
-        public void Construct(GlobalWindowFactory globalWindowFactory)
+        public void Construct(IGlobalWindowFactory globalWindowFactory)
         {
             _globalWindowFactory = globalWindowFactory;
         }

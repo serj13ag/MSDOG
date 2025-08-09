@@ -16,18 +16,18 @@ namespace Infrastructure
         private readonly GameFactory _gameFactory;
         private readonly CameraController _cameraController;
         private readonly LevelFlowService _levelFlowService;
-        private readonly DialogueService _dialogueService;
+        private readonly IDialogueService _dialogueService;
         private readonly LevelViewController _levelViewController;
         private readonly SoundController _soundController;
-        private readonly DataService _dataService;
+        private readonly IDataService _dataService;
         private readonly TutorialService _tutorialService;
         private readonly DeathKitFactory _deathKitFactory;
         private readonly ProjectileFactory _projectileFactory;
         private readonly PlayerService _playerService;
 
         public GameplayInitializer(DebugController debugController, EnemyService enemyService, GameFactory gameFactory,
-            CameraController cameraController, LevelFlowService levelFlowService, DialogueService dialogueService,
-            LevelViewController levelViewController, SoundController soundController, DataService dataService,
+            CameraController cameraController, LevelFlowService levelFlowService, IDialogueService dialogueService,
+            LevelViewController levelViewController, SoundController soundController, IDataService dataService,
             TutorialService tutorialService, DeathKitFactory deathKitFactory, ProjectileFactory projectileFactory,
             PlayerService playerService)
         {

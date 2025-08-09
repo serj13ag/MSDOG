@@ -14,13 +14,13 @@ namespace UI.Windows
         [SerializeField] private Slider _musicVolumeSlider;
         [SerializeField] private Slider _sfxVolumeSlider;
 
-        private PlayerOptionsService _playerOptionsService;
+        private IPlayerOptionsService _playerOptionsService;
 
         public GameObject GameObject => gameObject;
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(PlayerOptionsService playerOptionsService)
+        public void Construct(IPlayerOptionsService playerOptionsService)
         {
             _playerOptionsService = playerOptionsService;
 

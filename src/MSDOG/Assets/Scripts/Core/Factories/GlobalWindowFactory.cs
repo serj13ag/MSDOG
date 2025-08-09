@@ -6,12 +6,12 @@ using VContainer;
 
 namespace Core.Factories
 {
-    public class GlobalWindowFactory
+    public class GlobalWindowFactory : IGlobalWindowFactory
     {
         private readonly IObjectResolver _container;
-        private readonly AssetProviderService _assetProviderService;
+        private readonly IAssetProviderService _assetProviderService;
 
-        public GlobalWindowFactory(IObjectResolver container, AssetProviderService assetProviderService)
+        public GlobalWindowFactory(IObjectResolver container, IAssetProviderService assetProviderService)
         {
             _container = container;
             _assetProviderService = assetProviderService;

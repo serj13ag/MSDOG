@@ -11,11 +11,11 @@ namespace Core.Controllers
         [SerializeField] private AudioSource _musicAudioSource;
         [SerializeField] private AudioSource _sfxAudioSource;
 
-        private PlayerOptionsService _playerOptionsService;
-        private DataService _dataService;
+        private IPlayerOptionsService _playerOptionsService;
+        private IDataService _dataService;
 
         [Inject]
-        public void Construct(PlayerOptionsService playerOptionsService, DataService dataService)
+        public void Construct(IPlayerOptionsService playerOptionsService, IDataService dataService)
         {
             _dataService = dataService;
             _playerOptionsService = playerOptionsService;

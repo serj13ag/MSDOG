@@ -10,12 +10,12 @@ namespace UI.HUD.DetailsZone
 {
     public class DestructZoneHud : MonoBehaviour, IDetailsZone, IDropHandler
     {
-        private DataService _dataService;
+        private IDataService _dataService;
         private SoundController _soundController;
         private PlayerService _playerService;
 
         [Inject]
-        public void Construct(PlayerService playerService, DataService dataService, SoundController soundController)
+        public void Construct(PlayerService playerService, IDataService dataService, SoundController soundController)
         {
             _playerService = playerService;
             _soundController = soundController;

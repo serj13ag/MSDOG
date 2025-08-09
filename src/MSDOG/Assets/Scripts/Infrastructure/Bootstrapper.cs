@@ -12,7 +12,7 @@ namespace Infrastructure
         {
             _globalLifetimeScope.BuildContainer();
 
-            var gameStateMachine = _globalLifetimeScope.Container.Resolve<GameStateMachine>();
+            var gameStateMachine = _globalLifetimeScope.Container.Resolve<IGameStateMachine>();
             gameStateMachine.Enter<BootstrapState>();
         }
     }

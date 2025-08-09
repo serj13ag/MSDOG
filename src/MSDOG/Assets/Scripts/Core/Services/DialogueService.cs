@@ -3,12 +3,12 @@ using Core.Controllers;
 
 namespace Core.Services
 {
-    public class DialogueService
+    public class DialogueService : IDialogueService
     {
-        private readonly DataService _dataService;
+        private readonly IDataService _dataService;
         private readonly WindowController _windowController;
 
-        public DialogueService(DataService dataService, WindowController windowController)
+        public DialogueService(IDataService dataService, WindowController windowController)
         {
             _dataService = dataService;
             _windowController = windowController;

@@ -2,16 +2,16 @@ using Core.Models.SaveData;
 
 namespace Core.Services
 {
-    public class ProgressService
+    public class ProgressService : IProgressService
     {
         private const string ProgressSaveDataKey = "ProgressSaveData";
 
-        private readonly SaveLoadService _saveLoadService;
+        private readonly ISaveLoadService _saveLoadService;
 
         public int LastPassedLevel { get; private set; }
         public bool EasyModeEnabled { get; private set; }
 
-        public ProgressService(SaveLoadService saveLoadService)
+        public ProgressService(ISaveLoadService saveLoadService)
         {
             _saveLoadService = saveLoadService;
 

@@ -9,11 +9,11 @@ namespace Gameplay.Services
     {
         private readonly EnemyService _enemyService;
         private readonly WindowController _windowController;
-        private readonly ProgressService _progressService;
-        private readonly DialogueService _dialogueService;
+        private readonly IProgressService _progressService;
+        private readonly IDialogueService _dialogueService;
         private readonly SoundController _soundController;
         private readonly PlayerService _playerService;
-        private readonly DataService _dataService;
+        private readonly IDataService _dataService;
 
         private int _levelIndex;
         private bool _isLastLevel;
@@ -22,9 +22,9 @@ namespace Gameplay.Services
         public int CurrentLevelIndex => _levelIndex;
         public bool IsLastLevel => _isLastLevel;
 
-        public LevelFlowService(EnemyService enemyService, WindowController windowController, ProgressService progressService,
-            DialogueService dialogueService, SoundController soundController, PlayerService playerService,
-            DataService dataService)
+        public LevelFlowService(EnemyService enemyService, WindowController windowController, IProgressService progressService,
+            IDialogueService dialogueService, SoundController soundController, PlayerService playerService,
+            IDataService dataService)
         {
             _progressService = progressService;
             _dialogueService = dialogueService;

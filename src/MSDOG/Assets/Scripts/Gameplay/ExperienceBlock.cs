@@ -6,7 +6,7 @@ namespace Gameplay
 {
     public class ExperienceBlock
     {
-        private readonly DataService _dataService;
+        private readonly IDataService _dataService;
 
         private int _currentExperience;
         private int _maxExperience;
@@ -17,7 +17,7 @@ namespace Gameplay
 
         public event Action OnExperienceChanged;
 
-        public ExperienceBlock(DataService dataService)
+        public ExperienceBlock(IDataService dataService)
         {
             _dataService = dataService;
             _maxExperience = GetMaxExperience();

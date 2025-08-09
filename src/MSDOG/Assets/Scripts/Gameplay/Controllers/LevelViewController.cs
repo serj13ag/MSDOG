@@ -8,10 +8,10 @@ namespace Gameplay.Controllers
     {
         [SerializeField] private MeshRenderer _floorMeshRenderer;
 
-        private DataService _dataService;
+        private IDataService _dataService;
 
         [Inject]
-        public void Construct(DataService dataService)
+        public void Construct(IDataService dataService)
         {
             _dataService = dataService;
         }

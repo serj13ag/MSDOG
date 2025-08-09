@@ -12,11 +12,11 @@ namespace Infrastructure.StateMachine
         private int _levelIndex;
 
         private LoadingCurtainController _loadingCurtainController;
-        private SceneLoadService _sceneLoadService;
+        private ISceneLoadService _sceneLoadService;
         private WindowController _windowController;
 
         [Inject]
-        public void Construct(LoadingCurtainController loadingCurtainController, SceneLoadService sceneLoadService,
+        public void Construct(LoadingCurtainController loadingCurtainController, ISceneLoadService sceneLoadService,
             WindowController windowController)
         {
             _windowController = windowController;

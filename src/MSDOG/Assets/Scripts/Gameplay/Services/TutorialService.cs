@@ -13,13 +13,13 @@ namespace Gameplay.Services
         private const string TutorialSaveDataKey = "TutorialSaveData";
 
         private readonly WindowController _windowController;
-        private readonly DataService _dataService;
-        private readonly SaveLoadService _saveLoadService;
+        private readonly IDataService _dataService;
+        private readonly ISaveLoadService _saveLoadService;
 
         private readonly List<TutorialEventType> _shownTutorialEvents;
         private Player _player;
 
-        public TutorialService(WindowController windowController, DataService dataService, SaveLoadService saveLoadService)
+        public TutorialService(WindowController windowController, IDataService dataService, ISaveLoadService saveLoadService)
         {
             _windowController = windowController;
             _dataService = dataService;

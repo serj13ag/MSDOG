@@ -18,13 +18,13 @@ namespace UI.HUD
         [SerializeField] private DetailsZoneHud _detailsZoneHud;
         [SerializeField] private ActiveZoneHud _activeZoneHud;
 
-        private DataService _dataService;
+        private IDataService _dataService;
         private WindowController _windowController;
         private InputService _inputService;
         private LevelFlowService _levelFlowService;
 
         [Inject]
-        public void Construct(DataService dataService, WindowController windowController, InputService inputService,
+        public void Construct(IDataService dataService, WindowController windowController, InputService inputService,
             LevelFlowService levelFlowService)
         {
             _levelFlowService = levelFlowService;

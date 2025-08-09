@@ -16,7 +16,7 @@ namespace Gameplay.Abilities
         private const float BoxWidth = 1.7f;
 
         private readonly VfxFactory _vfxFactory;
-        private readonly DataService _dataService;
+        private readonly IDataService _dataService;
 
         private readonly Player _player;
         private readonly int _damage;
@@ -24,7 +24,7 @@ namespace Gameplay.Abilities
         private readonly Collider[] _hitBuffer = new Collider[32];
 
         public CuttingBlowAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory,
-            DataService dataService, SoundController soundController)
+            IDataService dataService, SoundController soundController)
             : base(abilityData, soundController)
         {
             _vfxFactory = vfxFactory;

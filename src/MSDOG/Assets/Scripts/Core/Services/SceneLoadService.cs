@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace Core.Services
 {
-    public class SceneLoadService
+    public class SceneLoadService : ISceneLoadService
     {
         private readonly CoroutineController _coroutineController;
 

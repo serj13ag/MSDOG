@@ -3,11 +3,11 @@ using Core.Models.SaveData;
 
 namespace Core.Services
 {
-    public class PlayerOptionsService
+    public class PlayerOptionsService : IPlayerOptionsService
     {
         private const string PlayerOptionsSaveDataKey = "PlayerOptionsSaveData";
 
-        private readonly SaveLoadService _saveLoadService;
+        private readonly ISaveLoadService _saveLoadService;
 
         public bool IsMuted { get; private set; }
         public float MasterVolume { get; private set; }
@@ -16,7 +16,7 @@ namespace Core.Services
 
         public event EventHandler<EventArgs> OnSoundOptionsUpdated;
 
-        public PlayerOptionsService(SaveLoadService saveLoadService)
+        public PlayerOptionsService(ISaveLoadService saveLoadService)
         {
             _saveLoadService = saveLoadService;
 

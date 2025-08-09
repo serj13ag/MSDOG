@@ -12,11 +12,11 @@ namespace Gameplay.Factories
         private const int NumberOfPrewarmedPrefabs = 10;
 
         private readonly ObjectContainerService _objectContainerService;
-        private readonly DataService _dataService;
+        private readonly IDataService _dataService;
 
         private readonly Dictionary<EnemyDeathkit, ObjectPool<EnemyDeathkit>> _pools = new();
 
-        public DeathKitFactory(ObjectContainerService objectContainerService, DataService dataService)
+        public DeathKitFactory(ObjectContainerService objectContainerService, IDataService dataService)
         {
             _objectContainerService = objectContainerService;
             _dataService = dataService;

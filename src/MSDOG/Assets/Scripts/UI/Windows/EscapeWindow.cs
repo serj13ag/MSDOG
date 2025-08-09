@@ -15,7 +15,7 @@ namespace UI.Windows
         [SerializeField] private Button _menuButton;
         [SerializeField] private Button _closeButton;
 
-        private GameStateMachine _gameStateMachine;
+        private IGameStateMachine _gameStateMachine;
         private LevelFlowService _levelFlowService;
         private WindowController _windowController;
         private UpdateController _updateController;
@@ -24,7 +24,7 @@ namespace UI.Windows
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(GameStateMachine gameStateMachine, LevelFlowService levelFlowService, WindowController windowController,
+        public void Construct(IGameStateMachine gameStateMachine, LevelFlowService levelFlowService, WindowController windowController,
             UpdateController updateController)
         {
             _updateController = updateController;

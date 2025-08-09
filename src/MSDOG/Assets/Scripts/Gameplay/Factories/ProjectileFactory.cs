@@ -17,13 +17,13 @@ namespace Gameplay.Factories
 
         private readonly IObjectResolver _container;
         private readonly ObjectContainerService _objectContainerService;
-        private readonly DataService _dataService;
+        private readonly IDataService _dataService;
         private readonly PlayerService _playerService;
 
         private readonly Dictionary<BaseProjectileView, ObjectPool<BaseProjectileView>> _pools = new();
 
         public ProjectileFactory(IObjectResolver container, ObjectContainerService objectContainerService,
-            DataService dataService, PlayerService playerService)
+            IDataService dataService, PlayerService playerService)
         {
             _container = container;
             _objectContainerService = objectContainerService;

@@ -65,7 +65,7 @@ namespace Gameplay
         }
 
         public void Init(InputService inputService, UpdateController updateController, ArenaService arenaService,
-            AbilityFactory abilityFactory, DataService dataService, ProgressService progressService)
+            AbilityFactory abilityFactory, IDataService dataService, IProgressService progressService)
         {
             _abilityFactory = abilityFactory;
             _updateController = updateController;

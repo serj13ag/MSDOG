@@ -19,7 +19,7 @@ namespace UI.HUD
         [SerializeField] private float _minScale = 0.8f;
         [SerializeField] private float _maxScale = 1.1f;
 
-        private DataService _dataService;
+        private IDataService _dataService;
         private PlayerService _playerService;
         private SoundController _soundController;
         private TutorialService _tutorialService;
@@ -31,7 +31,7 @@ namespace UI.HUD
         private float _oscTimer;
 
         [Inject]
-        public void Construct(DataService dataService, PlayerService playerService, LevelFlowService levelFlowService,
+        public void Construct(IDataService dataService, PlayerService playerService, LevelFlowService levelFlowService,
             SoundController soundController, TutorialService tutorialService)
         {
             _levelFlowService = levelFlowService;

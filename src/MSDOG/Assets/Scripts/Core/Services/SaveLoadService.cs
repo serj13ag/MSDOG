@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Core.Services
 {
-    public class SaveLoadService
+    public class SaveLoadService : ISaveLoadService
     {
         public T Load<T>(string key) where T : new()
         {

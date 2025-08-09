@@ -12,12 +12,12 @@ namespace UI.Menu
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Button _button;
 
-        private GameStateMachine _gameStateMachine;
+        private IGameStateMachine _gameStateMachine;
 
         private int _levelIndex;
 
         [Inject]
-        public void Construct(GameStateMachine gameStateMachine)
+        public void Construct(IGameStateMachine gameStateMachine)
         {
             _gameStateMachine = gameStateMachine;
         }

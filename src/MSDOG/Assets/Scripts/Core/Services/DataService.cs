@@ -9,7 +9,7 @@ using UnityEngine.Assertions;
 
 namespace Core.Services
 {
-    public class DataService
+    public class DataService : IDataService
     {
         private readonly Dictionary<int, LevelData> _levelsData;
 

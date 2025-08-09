@@ -30,7 +30,7 @@ namespace Gameplay.Enemies
         private GameFactory _gameFactory;
         private ProjectileFactory _projectileFactory;
         private VfxFactory _vfxFactory;
-        private DataService _dataService;
+        private IDataService _dataService;
 
         private Guid _id;
         private Player _player;
@@ -57,7 +57,7 @@ namespace Gameplay.Enemies
         public event Action<Enemy> OnDied;
 
         public void Init(UpdateController updateController, GameFactory gameFactory, ProjectileFactory projectileFactory,
-            Player player, EnemyData data, VfxFactory vfxFactory, DebugController debugController, DataService dataService)
+            Player player, EnemyData data, VfxFactory vfxFactory, DebugController debugController, IDataService dataService)
         {
             _dataService = dataService;
             _vfxFactory = vfxFactory;

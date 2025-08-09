@@ -11,9 +11,9 @@ namespace Gameplay.Factories
     public class GameplayWindowFactory
     {
         private readonly IObjectResolver _container;
-        private readonly AssetProviderService _assetProviderService;
+        private readonly IAssetProviderService _assetProviderService;
 
-        public GameplayWindowFactory(IObjectResolver container, AssetProviderService assetProviderService)
+        public GameplayWindowFactory(IObjectResolver container, IAssetProviderService assetProviderService)
         {
             _container = container;
             _assetProviderService = assetProviderService;

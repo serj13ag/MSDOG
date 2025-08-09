@@ -8,10 +8,10 @@ namespace Infrastructure.StateMachine
     public class MainMenuState : IState
     {
         private LoadingCurtainController _loadingCurtainController;
-        private SceneLoadService _sceneLoadService;
+        private ISceneLoadService _sceneLoadService;
 
         [Inject]
-        public void Construct(LoadingCurtainController loadingCurtainController, SceneLoadService sceneLoadService)
+        public void Construct(LoadingCurtainController loadingCurtainController, ISceneLoadService sceneLoadService)
         {
             _loadingCurtainController = loadingCurtainController;
             _sceneLoadService = sceneLoadService;

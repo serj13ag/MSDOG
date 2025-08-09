@@ -18,11 +18,11 @@ namespace UI.Menu
         private readonly List<MenuLevelButton> _buttons = new List<MenuLevelButton>();
 
         private IObjectResolver _container;
-        private ProgressService _progressService;
-        private DataService _dataService;
+        private IProgressService _progressService;
+        private IDataService _dataService;
 
         [Inject]
-        public void Construct(IObjectResolver container, ProgressService progressService, DataService dataService)
+        public void Construct(IObjectResolver container, IProgressService progressService, IDataService dataService)
         {
             _container = container;
             _dataService = dataService;

@@ -2,7 +2,7 @@ using VContainer;
 
 namespace Infrastructure.StateMachine
 {
-    public class GameStateMachine
+    public class GameStateMachine : IGameStateMachine
     {
         private readonly IObjectResolver _container;
 

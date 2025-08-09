@@ -12,31 +12,31 @@ namespace Gameplay.Factories
 {
     public class GameFactory
     {
-        private readonly AssetProviderService _assetProviderService;
+        private readonly IAssetProviderService _assetProviderService;
         private readonly InputService _inputService;
         private readonly ArenaService _arenaService;
         private readonly AbilityFactory _abilityFactory;
         private readonly ProjectileFactory _projectileFactory;
         private readonly VfxFactory _vfxFactory;
-        private readonly DataService _dataService;
+        private readonly IDataService _dataService;
         private readonly ObjectContainerService _objectContainerService;
         private readonly DebugController _debugController;
-        private readonly ProgressService _progressService;
+        private readonly IProgressService _progressService;
         private readonly UpdateController _updateController;
 
         private Player _player; // TODO: remove?
 
-        public GameFactory(AssetProviderService assetProviderService,
+        public GameFactory(IAssetProviderService assetProviderService,
             UpdateController updateController,
             InputService inputService,
             ArenaService arenaService,
             AbilityFactory abilityFactory,
             ProjectileFactory projectileFactory,
             VfxFactory vfxFactory,
-            DataService dataService,
+            IDataService dataService,
             ObjectContainerService objectContainerService,
             DebugController debugController,
-            ProgressService progressService)
+            IProgressService progressService)
         {
             _assetProviderService = assetProviderService;
             _inputService = inputService;

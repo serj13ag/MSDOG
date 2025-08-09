@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace Core.Services
 {
-    public class AssetProviderService
+    public class AssetProviderService : IAssetProviderService
     {
         public T GetAsset<T>(string path) where T : Object
         {
@@ -29,12 +29,6 @@ namespace Core.Services
         public T Instantiate<T>(string path, Vector3 position, Quaternion rotation) where T : Component
         {
             return InstantiateInner<T>(path, position, rotation, null);
-        }
-
-        public T Instantiate<T>(string path, Vector3 position, Quaternion rotation, Transform parentTransform,
-            IObjectResolver container = null) where T : Component
-        {
-            return InstantiateInner<T>(path, position, rotation, parentTransform, container);
         }
 
         private T InstantiateInner<T>(string path, Vector3 position, Quaternion rotation, Transform parent,

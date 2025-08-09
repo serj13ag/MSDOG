@@ -16,13 +16,13 @@ namespace UI.HUD.DetailsZone
         [SerializeField] private Transform _grid;
         [SerializeField] private int _maxNumberOfActiveParts;
 
-        private AssetProviderService _assetProviderService;
+        private IAssetProviderService _assetProviderService;
         private PlayerService _playerService;
 
         private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
 
         [Inject]
-        public void Construct(PlayerService playerService, AssetProviderService assetProviderService)
+        public void Construct(PlayerService playerService, IAssetProviderService assetProviderService)
         {
             _playerService = playerService;
             _assetProviderService = assetProviderService;

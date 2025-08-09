@@ -9,9 +9,9 @@ namespace Gameplay.Factories
 {
     public class VfxFactory
     {
-        private readonly AssetProviderService _assetProviderService;
+        private readonly IAssetProviderService _assetProviderService;
 
-        public VfxFactory(AssetProviderService assetProviderService)
+        public VfxFactory(IAssetProviderService assetProviderService)
         {
             _assetProviderService = assetProviderService;
         }

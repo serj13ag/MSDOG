@@ -17,10 +17,10 @@ namespace UI.Menu
 
         private WindowController _windowController;
         private SoundController _soundController;
-        private DataService _dataService;
+        private IDataService _dataService;
 
         [Inject]
-        public void Construct(WindowController windowController, SoundController soundController, DataService dataService)
+        public void Construct(WindowController windowController, SoundController soundController, IDataService dataService)
         {
             _dataService = dataService;
             _soundController = soundController;
