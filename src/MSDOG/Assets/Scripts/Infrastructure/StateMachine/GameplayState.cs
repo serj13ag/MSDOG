@@ -43,7 +43,7 @@ namespace Infrastructure.StateMachine
             var gameplayScope = Object.FindFirstObjectByType<GameplayLifetimeScope>();
             gameplayScope.BuildContainer();
 
-            var gameplayWindowFactory = gameplayScope.Container.Resolve<GameplayWindowFactory>();
+            var gameplayWindowFactory = gameplayScope.Container.Resolve<IGameplayWindowFactory>();
             _windowController.RegisterGameplayWindowFactory(gameplayWindowFactory);
 
             var gameplayInitializer = gameplayScope.Container.Resolve<GameplayInitializer>();

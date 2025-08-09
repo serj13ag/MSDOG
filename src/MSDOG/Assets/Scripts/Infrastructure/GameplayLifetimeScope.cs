@@ -30,12 +30,12 @@ namespace Infrastructure
             builder.Register<ILevelFlowService, LevelFlowService>(Lifetime.Scoped);
             builder.Register<ITutorialService, TutorialService>(Lifetime.Scoped);
 
-            builder.Register<ProjectileFactory>(Lifetime.Scoped);
-            builder.Register<AbilityFactory>(Lifetime.Scoped);
-            builder.Register<GameFactory>(Lifetime.Scoped);
-            builder.Register<DeathKitFactory>(Lifetime.Scoped);
-            builder.Register<GameplayWindowFactory>(Lifetime.Scoped);
-            builder.Register<VfxFactory>(Lifetime.Scoped);
+            builder.Register<IProjectileFactory, ProjectileFactory>(Lifetime.Scoped);
+            builder.Register<IAbilityFactory, AbilityFactory>(Lifetime.Scoped);
+            builder.Register<IGameFactory, GameFactory>(Lifetime.Scoped);
+            builder.Register<IDeathKitFactory, DeathKitFactory>(Lifetime.Scoped);
+            builder.Register<IGameplayWindowFactory, GameplayWindowFactory>(Lifetime.Scoped);
+            builder.Register<IVfxFactory, VfxFactory>(Lifetime.Scoped);
 
             builder.Register<GameplayInitializer>(Lifetime.Scoped);
         }

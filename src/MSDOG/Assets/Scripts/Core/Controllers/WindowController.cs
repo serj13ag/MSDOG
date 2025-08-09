@@ -14,7 +14,7 @@ namespace Core.Controllers
         [SerializeField] private Canvas _canvas;
 
         private IGlobalWindowFactory _globalWindowFactory;
-        private GameplayWindowFactory _gameplayWindowFactory;
+        private IGameplayWindowFactory _gameplayWindowFactory;
 
         private readonly Stack<IWindow> _activeWindows = new Stack<IWindow>();
 
@@ -24,7 +24,7 @@ namespace Core.Controllers
             _globalWindowFactory = globalWindowFactory;
         }
 
-        public void RegisterGameplayWindowFactory(GameplayWindowFactory gameplayWindowFactory)
+        public void RegisterGameplayWindowFactory(IGameplayWindowFactory gameplayWindowFactory)
         {
             _gameplayWindowFactory = gameplayWindowFactory;
         }

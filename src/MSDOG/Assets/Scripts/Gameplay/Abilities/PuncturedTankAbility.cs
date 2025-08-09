@@ -10,9 +10,9 @@ namespace Gameplay.Abilities
     {
         private readonly AbilityData _abilityData;
         private readonly Player _player;
-        private readonly ProjectileFactory _projectileFactory;
+        private readonly IProjectileFactory _projectileFactory;
 
-        public PuncturedTankAbility(AbilityData abilityData, Player player, ProjectileFactory projectileFactory,
+        public PuncturedTankAbility(AbilityData abilityData, Player player, IProjectileFactory projectileFactory,
             ISoundController soundController)
             : base(abilityData, soundController)
         {

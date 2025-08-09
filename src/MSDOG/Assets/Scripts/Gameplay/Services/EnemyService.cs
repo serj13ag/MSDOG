@@ -20,12 +20,12 @@ namespace Gameplay.Services
         private const float MaxDistanceFromPlayer = 12f;
         private const float MinDistanceBetweenEnemies = 1f;
 
-        private readonly GameFactory _gameFactory;
+        private readonly IGameFactory _gameFactory;
         private readonly IArenaService _arenaService;
         private readonly IUpdateController _updateController;
         private readonly IDataService _dataService;
         private readonly IDebugController _debugController;
-        private readonly DeathKitFactory _deathKitFactory;
+        private readonly IDeathKitFactory _deathKitFactory;
 
         private bool _isActive;
         private Transform _playerTransform;
@@ -37,8 +37,8 @@ namespace Gameplay.Services
 
         public event Action OnAllEnemiesDied;
 
-        public EnemyService(IUpdateController updateController, IDataService dataService, GameFactory gameFactory,
-            IArenaService arenaService, IDebugController debugController, DeathKitFactory deathKitFactory)
+        public EnemyService(IUpdateController updateController, IDataService dataService, IGameFactory gameFactory,
+            IArenaService arenaService, IDebugController debugController, IDeathKitFactory deathKitFactory)
         {
             _debugController = debugController;
             _deathKitFactory = deathKitFactory;

@@ -7,7 +7,7 @@ using Object = UnityEngine.Object;
 
 namespace Gameplay.Factories
 {
-    public class VfxFactory
+    public class VfxFactory : IVfxFactory
     {
         private readonly IAssetProviderService _assetProviderService;
 

@@ -12,7 +12,7 @@ using VContainer.Unity;
 
 namespace Gameplay.Factories
 {
-    public class ProjectileFactory
+    public class ProjectileFactory : IProjectileFactory
     {
         private const int NumberOfPrewarmedPrefabs = 10;
 

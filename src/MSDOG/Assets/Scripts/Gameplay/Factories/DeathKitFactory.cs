@@ -7,7 +7,7 @@ using UnityEngine.Pool;
 
 namespace Gameplay.Factories
 {
-    public class DeathKitFactory
+    public class DeathKitFactory : IDeathKitFactory
     {
         private const int NumberOfPrewarmedPrefabs = 10;
 

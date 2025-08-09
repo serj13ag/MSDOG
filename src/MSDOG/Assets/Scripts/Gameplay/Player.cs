@@ -22,7 +22,7 @@ namespace Gameplay
         [SerializeField] private float _rotationSpeed = 720f;
 
         private IUpdateController _updateController;
-        private AbilityFactory _abilityFactory;
+        private IAbilityFactory _abilityFactory;
 
         private HealthBlock _healthBlock;
         private ExperienceBlock _experienceBlock;
@@ -65,7 +65,7 @@ namespace Gameplay
         }
 
         public void Init(IInputService inputService, IUpdateController updateController, IArenaService arenaService,
-            AbilityFactory abilityFactory, IDataService dataService, IProgressService progressService)
+            IAbilityFactory abilityFactory, IDataService dataService, IProgressService progressService)
         {
             _abilityFactory = abilityFactory;
             _updateController = updateController;

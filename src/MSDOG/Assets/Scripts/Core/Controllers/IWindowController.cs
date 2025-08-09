@@ -7,7 +7,7 @@ namespace Core.Controllers
 {
     public interface IWindowController
     {
-        void RegisterGameplayWindowFactory(GameplayWindowFactory gameplayWindowFactory);
+        void RegisterGameplayWindowFactory(IGameplayWindowFactory gameplayWindowFactory);
         void RemoveGameplayWindowFactory();
 
         bool WindowIsActive<T>() where T : IWindow;

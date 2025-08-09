@@ -6,14 +6,14 @@ using Gameplay.Abilities;
 
 namespace Gameplay.Factories
 {
-    public class AbilityFactory
+    public class AbilityFactory : IAbilityFactory
     {
-        private readonly ProjectileFactory _projectileFactory;
-        private readonly VfxFactory _vfxFactory;
+        private readonly IProjectileFactory _projectileFactory;
+        private readonly IVfxFactory _vfxFactory;
         private readonly IDataService _dataService;
         private readonly ISoundController _soundController;
 
-        public AbilityFactory(ProjectileFactory projectileFactory, VfxFactory vfxFactory, IDataService dataService,
+        public AbilityFactory(IProjectileFactory projectileFactory, IVfxFactory vfxFactory, IDataService dataService,
             ISoundController soundController)
         {
             _dataService = dataService;

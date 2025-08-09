@@ -7,13 +7,13 @@ namespace Gameplay.Abilities
 {
     public class AntiGravityAbility : BasePersistentAbility
     {
-        private readonly VfxFactory _vfxFactory;
+        private readonly IVfxFactory _vfxFactory;
         private readonly Player _player;
         private readonly float _speed;
 
         private FollowingAbilityEffect _followingAbilityEffect;
 
-        public AntiGravityAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory, ISoundController soundController)
+        public AntiGravityAbility(AbilityData abilityData, Player player, IVfxFactory vfxFactory, ISoundController soundController)
             : base(abilityData, soundController)
         {
             _vfxFactory = vfxFactory;

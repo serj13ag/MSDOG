@@ -13,7 +13,7 @@ namespace Infrastructure
     {
         private readonly IDebugController _debugController;
         private readonly IEnemyService _enemyService;
-        private readonly GameFactory _gameFactory;
+        private readonly IGameFactory _gameFactory;
         private readonly ICameraController _cameraController;
         private readonly ILevelFlowService _levelFlowService;
         private readonly IDialogueService _dialogueService;
@@ -21,14 +21,14 @@ namespace Infrastructure
         private readonly ISoundController _soundController;
         private readonly IDataService _dataService;
         private readonly ITutorialService _tutorialService;
-        private readonly DeathKitFactory _deathKitFactory;
-        private readonly ProjectileFactory _projectileFactory;
+        private readonly IDeathKitFactory _deathKitFactory;
+        private readonly IProjectileFactory _projectileFactory;
         private readonly IPlayerService _playerService;
 
-        public GameplayInitializer(IDebugController debugController, IEnemyService enemyService, GameFactory gameFactory,
+        public GameplayInitializer(IDebugController debugController, IEnemyService enemyService, IGameFactory gameFactory,
             ICameraController cameraController, ILevelFlowService levelFlowService, IDialogueService dialogueService,
             ILevelViewController levelViewController, ISoundController soundController, IDataService dataService,
-            ITutorialService tutorialService, DeathKitFactory deathKitFactory, ProjectileFactory projectileFactory,
+            ITutorialService tutorialService, IDeathKitFactory deathKitFactory, IProjectileFactory projectileFactory,
             IPlayerService playerService)
         {
             _levelViewController = levelViewController;

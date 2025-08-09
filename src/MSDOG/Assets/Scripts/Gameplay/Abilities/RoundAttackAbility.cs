@@ -12,7 +12,7 @@ namespace Gameplay.Abilities
 {
     public class RoundAttackAbility : BaseCooldownAbility
     {
-        private readonly VfxFactory _vfxFactory;
+        private readonly IVfxFactory _vfxFactory;
         private readonly IDataService _dataService;
 
         private readonly Player _player;
@@ -20,7 +20,7 @@ namespace Gameplay.Abilities
         private readonly float _radius;
         private readonly Collider[] _hitBuffer = new Collider[32];
 
-        public RoundAttackAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory,
+        public RoundAttackAbility(AbilityData abilityData, Player player, IVfxFactory vfxFactory,
             IDataService dataService, ISoundController soundController)
             : base(abilityData, soundController)
         {

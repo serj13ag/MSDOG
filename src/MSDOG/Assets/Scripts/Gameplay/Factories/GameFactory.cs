@@ -11,14 +11,14 @@ using Object = UnityEngine.Object;
 
 namespace Gameplay.Factories
 {
-    public class GameFactory
+    public class GameFactory : IGameFactory
     {
         private readonly IAssetProviderService _assetProviderService;
         private readonly IInputService _inputService;
         private readonly IArenaService _arenaService;
-        private readonly AbilityFactory _abilityFactory;
-        private readonly ProjectileFactory _projectileFactory;
-        private readonly VfxFactory _vfxFactory;
+        private readonly IAbilityFactory _abilityFactory;
+        private readonly IProjectileFactory _projectileFactory;
+        private readonly IVfxFactory _vfxFactory;
         private readonly IDataService _dataService;
         private readonly ObjectContainerProvider _objectContainerProvider;
         private readonly IDebugController _debugController;
@@ -31,9 +31,9 @@ namespace Gameplay.Factories
             IUpdateController updateController,
             IInputService inputService,
             IArenaService arenaService,
-            AbilityFactory abilityFactory,
-            ProjectileFactory projectileFactory,
-            VfxFactory vfxFactory,
+            IAbilityFactory abilityFactory,
+            IProjectileFactory projectileFactory,
+            IVfxFactory vfxFactory,
             IDataService dataService,
             ObjectContainerProvider objectContainerProvider,
             IDebugController debugController,

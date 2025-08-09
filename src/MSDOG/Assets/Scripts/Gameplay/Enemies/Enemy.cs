@@ -27,9 +27,9 @@ namespace Gameplay.Enemies
         [SerializeField] private AnimatorEventsProvider _animatorEventsProvider;
 
         private IUpdateController _updateController;
-        private GameFactory _gameFactory;
-        private ProjectileFactory _projectileFactory;
-        private VfxFactory _vfxFactory;
+        private IGameFactory _gameFactory;
+        private IProjectileFactory _projectileFactory;
+        private IVfxFactory _vfxFactory;
         private IDataService _dataService;
 
         private Guid _id;
@@ -56,8 +56,8 @@ namespace Gameplay.Enemies
 
         public event Action<Enemy> OnDied;
 
-        public void Init(IUpdateController updateController, GameFactory gameFactory, ProjectileFactory projectileFactory,
-            Player player, EnemyData data, VfxFactory vfxFactory, IDebugController debugController, IDataService dataService)
+        public void Init(IUpdateController updateController, IGameFactory gameFactory, IProjectileFactory projectileFactory,
+            Player player, EnemyData data, IVfxFactory vfxFactory, IDebugController debugController, IDataService dataService)
         {
             _dataService = dataService;
             _vfxFactory = vfxFactory;

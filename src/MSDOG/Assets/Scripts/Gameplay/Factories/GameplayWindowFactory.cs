@@ -8,7 +8,7 @@ using VContainer;
 
 namespace Gameplay.Factories
 {
-    public class GameplayWindowFactory
+    public class GameplayWindowFactory : IGameplayWindowFactory
     {
         private readonly IObjectResolver _container;
         private readonly IAssetProviderService _assetProviderService;

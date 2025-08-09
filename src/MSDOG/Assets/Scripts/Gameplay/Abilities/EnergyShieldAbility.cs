@@ -7,13 +7,13 @@ namespace Gameplay.Abilities
 {
     public class EnergyShieldAbility : BasePersistentAbility
     {
-        private readonly VfxFactory _vfxFactory;
+        private readonly IVfxFactory _vfxFactory;
         private readonly Player _player;
         private readonly int _damageReductionPercent;
 
         private FollowingAbilityEffect _followingAbilityEffect;
 
-        public EnergyShieldAbility(AbilityData abilityData, Player player, VfxFactory vfxFactory, ISoundController soundController)
+        public EnergyShieldAbility(AbilityData abilityData, Player player, IVfxFactory vfxFactory, ISoundController soundController)
             : base(abilityData, soundController)
         {
             _vfxFactory = vfxFactory;

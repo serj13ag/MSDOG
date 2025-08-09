@@ -13,12 +13,12 @@ namespace Gameplay.Projectiles.Views
     {
         [SerializeField] private ColliderEventProvider _colliderEventProvider;
 
-        private VfxFactory _vfxFactory;
+        private IVfxFactory _vfxFactory;
 
         private GameObject _impactVFXPrefab;
 
         [Inject]
-        public void Construct(IUpdateController updateController, VfxFactory vfxFactory)
+        public void Construct(IUpdateController updateController, IVfxFactory vfxFactory)
         {
             ConstructBase(updateController);
 
