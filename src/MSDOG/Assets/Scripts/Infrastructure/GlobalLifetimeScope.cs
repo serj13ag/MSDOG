@@ -23,6 +23,14 @@ namespace Infrastructure
 
         protected override void ConfigureContainer(IContainerBuilder builder)
         {
+            RegisterControllers(builder);
+            RegisterGameStateMachine(builder);
+            RegisterServices(builder);
+            RegisterFactories(builder);
+        }
+
+        private void RegisterControllers(IContainerBuilder builder)
+        {
             builder.RegisterComponentOnNewGameObject<CoroutineController>(Lifetime.Singleton, "CoroutineController")
                 .As<ICoroutineController>();
             builder.RegisterComponentOnNewGameObject<UpdateController>(Lifetime.Singleton, "UpdateController")
@@ -31,13 +39,19 @@ namespace Infrastructure
             builder.RegisterComponent(_loadingCurtainController).As<ILoadingCurtainController>();
             builder.RegisterComponent(_soundController).As<ISoundController>();
             builder.RegisterComponent(_windowController).As<IWindowController>();
+        }
 
+        private static void RegisterGameStateMachine(IContainerBuilder builder)
+        {
             builder.Register<BootstrapState>(Lifetime.Singleton);
             builder.Register<MainMenuState>(Lifetime.Singleton);
             builder.Register<GameplayState>(Lifetime.Singleton);
 
             builder.Register<IGameStateMachine, GameStateMachine>(Lifetime.Singleton);
+        }
 
+        private static void RegisterServices(IContainerBuilder builder)
+        {
             builder.Register<IAssetProviderService, AssetProviderService>(Lifetime.Singleton);
             builder.Register<IDataService, DataService>(Lifetime.Singleton);
             builder.Register<IProgressService, ProgressService>(Lifetime.Singleton);
@@ -45,7 +59,10 @@ namespace Infrastructure
             builder.Register<ISceneLoadService, SceneLoadService>(Lifetime.Singleton);
             builder.Register<IDialogueService, DialogueService>(Lifetime.Singleton);
             builder.Register<ISaveLoadService, SaveLoadService>(Lifetime.Singleton);
+        }
 
+        private static void RegisterFactories(IContainerBuilder builder)
+        {
             builder.Register<IGlobalWindowFactory, GlobalWindowFactory>(Lifetime.Singleton);
         }
     }
