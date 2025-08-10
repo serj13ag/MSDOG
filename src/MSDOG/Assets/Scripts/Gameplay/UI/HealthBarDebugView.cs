@@ -48,7 +48,7 @@ namespace Gameplay.UI
 
         private void Update()
         {
-            transform.rotation = _cameraController.Camera.transform.rotation;
+            transform.rotation = _cameraController.GameplayCamera.transform.rotation;
         }
 
         private void OnHideDebugHealthBar(object sender, EventArgs e)

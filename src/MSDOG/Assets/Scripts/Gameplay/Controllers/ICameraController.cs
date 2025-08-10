@@ -4,7 +4,7 @@ namespace Gameplay.Controllers
 {
     public interface ICameraController
     {
-        Camera Camera { get; }
+        Camera GameplayCamera { get; }
 
         void SetFollowTarget(Transform targetTransform);
     }

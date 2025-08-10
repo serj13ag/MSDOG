@@ -7,7 +7,7 @@ namespace Gameplay.Controllers
 {
     public class CameraController : MonoBehaviour, ICameraController, IUpdatable
     {
-        [SerializeField] private Camera _camera;
+        [SerializeField] private Camera _gameplayCamera;
         [SerializeField] private Vector3 _cameraPositionOffset;
         [SerializeField] private Vector3 _cameraRotationOffset;
 
@@ -15,7 +15,7 @@ namespace Gameplay.Controllers
 
         private Transform _targetTransform;
 
-        public Camera Camera => _camera;
+        public Camera GameplayCamera => _gameplayCamera;
 
         [Inject]
         public void Construct(IUpdateController updateController)
@@ -37,8 +37,8 @@ namespace Gameplay.Controllers
                 return;
             }
 
-            _camera.transform.position = _targetTransform.position + _cameraPositionOffset;
-            _camera.transform.rotation = Quaternion.Euler(_cameraRotationOffset);
+            _gameplayCamera.transform.position = _targetTransform.position + _cameraPositionOffset;
+            _gameplayCamera.transform.rotation = Quaternion.Euler(_cameraRotationOffset);
         }
 
         private void OnDestroy()
