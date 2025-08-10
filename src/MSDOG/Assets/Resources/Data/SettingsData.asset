@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b799069b602748a3849a6dc20b7cfc61, type: 3}
   m_Name: SettingsData
   m_EditorClassIdentifier: 
+  PlayerPrefab: {fileID: 7140353081894008422, guid: 9705e44e0c74d8048a670720d153c3d9, type: 3}
   HealPerDestructedDetail: 10
   ExperiencePerDestructedDetail: 5
   ShowDebugHitboxes: 0

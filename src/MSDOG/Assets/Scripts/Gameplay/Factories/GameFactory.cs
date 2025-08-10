@@ -1,4 +1,3 @@
-using Constants;
 using Core.Controllers;
 using Core.Models.Data;
 using Core.Services;
@@ -14,7 +13,6 @@ namespace Gameplay.Factories
     public class GameFactory : IGameFactory
     {
         private readonly IObjectResolver _container;
-        private readonly IAssetProviderService _assetProviderService;
         private readonly IInputService _inputService;
         private readonly IArenaService _arenaService;
         private readonly IAbilityFactory _abilityFactory;
@@ -24,7 +22,6 @@ namespace Gameplay.Factories
         private readonly IUpdateController _updateController;
 
         public GameFactory(IObjectResolver container,
-            IAssetProviderService assetProviderService,
             IUpdateController updateController,
             IInputService inputService,
             IArenaService arenaService,
@@ -34,7 +31,6 @@ namespace Gameplay.Factories
             IProgressService progressService)
         {
             _container = container;
-            _assetProviderService = assetProviderService;
             _inputService = inputService;
             _arenaService = arenaService;
             _abilityFactory = abilityFactory;
@@ -46,7 +42,8 @@ namespace Gameplay.Factories
 
         public Player CreatePlayer()
         {
-            var player = _assetProviderService.Instantiate<Player>(AssetPaths.PlayerPrefab);
+            var settingsData = _dataService.GetSettingsData();
+            var player = _container.Instantiate(settingsData.PlayerPrefab);
             player.Init(_inputService, _updateController, _arenaService, _abilityFactory, _dataService, _progressService);
             return player;
         }
