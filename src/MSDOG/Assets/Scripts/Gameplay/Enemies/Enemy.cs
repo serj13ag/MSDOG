@@ -56,8 +56,9 @@ namespace Gameplay.Enemies
 
         public event Action<Enemy> OnDied;
 
-        public void Init(IUpdateController updateController, IExperiencePieceFactory experiencePieceFactory, IProjectileFactory projectileFactory,
-            Player player, EnemyData data, IVfxFactory vfxFactory, IDebugController debugController, IDataService dataService)
+        public void Init(IUpdateController updateController, IExperiencePieceFactory experiencePieceFactory,
+            IProjectileFactory projectileFactory, Player player, EnemyData data, IVfxFactory vfxFactory,
+            IDebugController debugController, IDataService dataService)
         {
             _experiencePieceFactory = experiencePieceFactory;
             _dataService = dataService;

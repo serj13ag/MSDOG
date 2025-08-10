@@ -20,35 +20,15 @@ namespace Gameplay
         {
             _updateController = updateController;
             _experience = experience;
+            _collectorPlayer = null;
+
+            ActivateRandomView();
 
             transform.position = position;
 
             updateController.Register(this);
-        }
-
-        public override void OnGet()
-        {
-            base.OnGet();
-
-            ActivateRandomView();
 
             _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
-        }
-
-        public override void OnRelease()
-        {
-            base.OnRelease();
-
-            _experience = 0;
-            _collectorPlayer = null;
-
-            if (_updateController != null)
-            {
-                _updateController.Remove(this);
-                _updateController = null;
-            }
-
-            _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;
         }
 
         public void OnUpdate(float deltaTime)
@@ -87,6 +67,16 @@ namespace Gameplay
             {
                 _views[i].SetActive(i == randomIndex);
             }
+        }
+
+        protected override void Cleanup()
+        {
+            base.Cleanup();
+
+            _updateController?.Remove(this);
+            _updateController = null;
+
+            _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;
         }
     }
 }

@@ -21,30 +21,14 @@ namespace Gameplay.Projectiles.Views
 
         protected void InitBase(Projectile projectile)
         {
+            _shouldRelease = false;
             _projectile = projectile;
+
+            _updateController.Register(this);
 
             projectile.OnPiercesRunOut += OnPiercesRunOut;
             projectile.OnTickTimeoutRaised += OnTickTimeoutRaised;
             projectile.OnLifetimeEnded += OnLifetimeEnded;
-        }
-
-        public override void OnGet()
-        {
-            base.OnGet();
-
-            _shouldRelease = false;
-
-            _updateController.Register(this);
-        }
-
-        public override void OnRelease()
-        {
-            base.OnRelease();
-
-            _updateController.Remove(this);
-
-            _projectile?.Dispose();
-            _projectile = null;
         }
 
         public void OnUpdate(float deltaTime)
@@ -86,9 +70,14 @@ namespace Gameplay.Projectiles.Views
             return Math.Abs(transform.position.x) > 50f || Math.Abs(transform.position.z) > 50f; // TODO: remove hardcode
         }
 
-        private void OnDestroy()
+        protected override void Cleanup()
         {
-            Release();
+            base.Cleanup();
+
+            _updateController.Remove(this);
+
+            _projectile?.Dispose();
+            _projectile = null;
         }
     }
 }

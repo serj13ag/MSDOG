@@ -7,32 +7,53 @@ namespace Core.Controllers
     public class UpdateController : BasePersistentController, IUpdateController
     {
         private readonly List<IUpdatable> _updatables = new List<IUpdatable>();
+        private readonly Queue<IUpdatable> _toAdd = new Queue<IUpdatable>();
+        private readonly Queue<IUpdatable> _toRemove = new Queue<IUpdatable>();
 
-        private float _gameTime = 1f;
+        private float _gameTimeScale = 1f;
 
-        public bool IsPaused => _gameTime == 0f;
+        public bool IsPaused => _gameTimeScale == 0f;
 
         private void Update()
         {
-            foreach (var updatable in _updatables.ToArray())
+            while (_toRemove.Count > 0)
             {
-                updatable.OnUpdate(Time.deltaTime * _gameTime);
+                _updatables.Remove(_toRemove.Dequeue());
+            }
+
+            while (_toAdd.Count > 0)
+            {
+                var updatableToAdd = _toAdd.Dequeue();
+                if (_updatables.Contains(updatableToAdd))
+                {
+                    Debug.LogError($"Trying to add already registered updatable: {updatableToAdd.GetType()}!");
+                }
+                else
+                {
+                    _updatables.Add(updatableToAdd);
+                }
+            }
+
+            var deltaTime = Time.deltaTime * _gameTimeScale;
+            foreach (var updatable in _updatables)
+            {
+                updatable.OnUpdate(deltaTime);
             }
         }
 
         public void Register(IUpdatable updatable)
         {
-            _updatables.Add(updatable);
+            _toAdd.Enqueue(updatable);
         }
 
         public void Remove(IUpdatable updatable)
         {
-            _updatables.Remove(updatable);
+            _toRemove.Enqueue(updatable);
         }
 
         public void Pause(bool withTimeScale = false)
         {
-            _gameTime = 0f;
+            _gameTimeScale = 0f;
 
             if (withTimeScale)
             {
@@ -42,7 +63,7 @@ namespace Core.Controllers
 
         public void Unpause(bool withTimeScale = false)
         {
-            _gameTime = 1f;
+            _gameTimeScale = 1f;
 
             if (withTimeScale)
             {

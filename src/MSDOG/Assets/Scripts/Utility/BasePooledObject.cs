@@ -20,11 +20,22 @@ namespace Utility
         public virtual void OnRelease()
         {
             gameObject.SetActive(false);
+
+            Cleanup();
         }
 
         protected void Release()
         {
             _releaseCallback?.Invoke();
+        }
+
+        protected virtual void Cleanup()
+        {
+        }
+
+        private void OnDestroy()
+        {
+            Cleanup();
         }
     }
 }

@@ -4,7 +4,6 @@ using Core.Services;
 using Gameplay.Projectiles;
 using Gameplay.Projectiles.Views;
 using Gameplay.Providers;
-using Gameplay.Services;
 using UnityEngine;
 using UnityEngine.Pool;
 using VContainer;

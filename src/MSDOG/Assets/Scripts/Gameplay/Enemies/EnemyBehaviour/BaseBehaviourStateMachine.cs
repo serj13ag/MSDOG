@@ -8,7 +8,7 @@ namespace Gameplay.Enemies.EnemyBehaviour
 
         public void OnUpdate(float deltaTime)
         {
-            State.OnUpdate(deltaTime);
+            State?.OnUpdate(deltaTime);
         }
 
         public abstract void ChangeStateToPostSpawn();
@@ -22,7 +22,8 @@ namespace Gameplay.Enemies.EnemyBehaviour
 
         public void Dispose()
         {
-            State.Dispose();
+            State?.Dispose();
+            State = null;
         }
     }
 }

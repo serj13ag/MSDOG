@@ -30,20 +30,8 @@ namespace Gameplay.Projectiles.Views
             InitBase(projectile);
 
             _impactVFXPrefab = projectileData.ImpactVFXPrefab;
-        }
-
-        public override void OnGet()
-        {
-            base.OnGet();
 
             _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
-        }
-
-        public override void OnRelease()
-        {
-            base.OnRelease();
-
-            _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;
         }
 
         protected override void OnUpdated(float deltaTime)
@@ -79,6 +67,13 @@ namespace Gameplay.Projectiles.Views
         private void CreateImpactVfx()
         {
             _vfxFactory.CreatProjectileImpactEffect(transform.position, _impactVFXPrefab);
+        }
+
+        protected override void Cleanup()
+        {
+            base.Cleanup();
+
+            _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;
         }
     }
 }
