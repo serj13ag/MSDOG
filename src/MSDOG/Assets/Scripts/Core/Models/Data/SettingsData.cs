@@ -8,6 +8,7 @@ namespace Core.Models.Data
     public class SettingsData : ScriptableObject
     {
         public Player PlayerPrefab;
+        public ExperiencePiece ExperiencePiecePrefab;
         public int HealPerDestructedDetail;
         public int ExperiencePerDestructedDetail;
         public bool ShowDebugHitboxes;

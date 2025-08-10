@@ -2,9 +2,6 @@ namespace Constants
 {
     public static class AssetPaths
     {
-        // Gameplay Prefabs
-        public const string ExperiencePiecePrefab = "Prefabs/ExperiencePiece";
-
         // Data
         public const string LevelsData = "Data/Levels";
         public const string AbilitiesData = "Data/Abilities";

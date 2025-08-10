@@ -15,7 +15,6 @@ namespace Core.Services
 
         private readonly AbilityData[] _abilitiesData;
 
-        //private readonly LevelAbilityData _levelAbilityData;
         private readonly AbilityUpgradesData _abilityUpgradesData;
         private readonly SettingsData _settingsData;
         private readonly SoundSettingsData _soundSettingsData;
@@ -29,7 +28,6 @@ namespace Core.Services
             }
 
             _abilitiesData = Resources.LoadAll<AbilityData>(AssetPaths.AbilitiesData);
-            //_levelAbilityData = Resources.Load<LevelAbilityData>(AssetPaths.LevelAbilityData);
             _abilityUpgradesData = Resources.Load<AbilityUpgradesData>(AssetPaths.AbilityUpgradesData);
             _settingsData = Resources.Load<SettingsData>(AssetPaths.SettingsData);
             _soundSettingsData = Resources.Load<SoundSettingsData>(AssetPaths.SoundSettingsData);

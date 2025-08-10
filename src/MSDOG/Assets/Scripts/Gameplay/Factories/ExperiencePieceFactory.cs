@@ -1,9 +1,9 @@
-using Constants;
-using Core.Controllers;
 using Core.Services;
 using Gameplay.Providers;
 using UnityEngine;
 using UnityEngine.Pool;
+using VContainer;
+using VContainer.Unity;
 
 namespace Gameplay.Factories
 {
@@ -11,17 +11,17 @@ namespace Gameplay.Factories
     {
         private const int NumberOfPrewarmedPrefabs = 20;
 
-        private readonly IUpdateController _updateController;
+        private readonly IDataService _dataService;
 
         private readonly ObjectPool<ExperiencePiece> _pool;
 
-        public ExperiencePieceFactory(IAssetProviderService assetProviderService, IUpdateController updateController,
+        public ExperiencePieceFactory(IObjectResolver container, IDataService dataService,
             IObjectContainerProvider objectContainerProvider)
         {
-            _updateController = updateController;
+            var settingsData = dataService.GetSettingsData();
 
             _pool = new ObjectPool<ExperiencePiece>(
-                createFunc: () => assetProviderService.Instantiate<ExperiencePiece>(AssetPaths.ExperiencePiecePrefab,
+                createFunc: () => container.Instantiate(settingsData.ExperiencePiecePrefab,
                     objectContainerProvider.ExperiencePieceContainer),
                 actionOnGet: obj => obj.OnGet(),
                 actionOnRelease: obj => obj.OnRelease());
@@ -45,7 +45,7 @@ namespace Gameplay.Factories
         {
             var experiencePiece = _pool.Get();
             experiencePiece.SetReleaseCallback(() => _pool.Release(experiencePiece));
-            experiencePiece.Init(position, experience, _updateController);
+            experiencePiece.Init(position, experience);
             return experiencePiece;
         }
     }

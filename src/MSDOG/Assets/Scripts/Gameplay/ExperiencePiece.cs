@@ -2,6 +2,7 @@ using Core.Controllers;
 using Core.Interfaces;
 using UnityEngine;
 using Utility;
+using VContainer;
 
 namespace Gameplay
 {
@@ -13,12 +14,18 @@ namespace Gameplay
         [SerializeField] private float _flySpeed = 10f;
 
         private IUpdateController _updateController;
+
         private Player _collectorPlayer;
         private int _experience;
 
-        public void Init(Vector3 position, int experience, IUpdateController updateController)
+        [Inject]
+        public void Construct(IUpdateController updateController)
         {
             _updateController = updateController;
+        }
+
+        public void Init(Vector3 position, int experience)
+        {
             _experience = experience;
             _collectorPlayer = null;
 
@@ -26,7 +33,7 @@ namespace Gameplay
 
             transform.position = position;
 
-            updateController.Register(this);
+            _updateController.Register(this);
 
             _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
@@ -74,7 +81,6 @@ namespace Gameplay
             base.Cleanup();
 
             _updateController?.Remove(this);
-            _updateController = null;
 
             _colliderEventProvider.OnTriggerEntered -= OnTriggerEntered;
         }
