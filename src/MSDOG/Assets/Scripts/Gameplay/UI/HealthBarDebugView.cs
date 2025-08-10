@@ -13,12 +13,12 @@ namespace Gameplay.UI
         [SerializeField] private TMP_Text _text;
 
         private IDebugController _debugController;
-
-        private Camera _mainCamera;
+        private ICameraController _cameraController;
 
         [Inject]
-        public void Construct(IDebugController debugController)
+        public void Construct(IDebugController debugController, ICameraController cameraController)
         {
+            _cameraController = cameraController;
             _debugController = debugController;
         }
 
@@ -34,8 +34,6 @@ namespace Gameplay.UI
 
         private void Start()
         {
-            _mainCamera = Camera.main; // TODO: use provider
-
             var showDebugHp = _debugController.DebugHpIsVisible;
             gameObject.SetActive(showDebugHp);
 
@@ -50,7 +48,7 @@ namespace Gameplay.UI
 
         private void Update()
         {
-            transform.rotation = _mainCamera.transform.rotation;
+            transform.rotation = _cameraController.Camera.transform.rotation;
         }
 
         private void OnHideDebugHealthBar(object sender, EventArgs e)

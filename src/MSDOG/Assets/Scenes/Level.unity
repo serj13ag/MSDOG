@@ -383,6 +383,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3239284110658613723, guid: 46cb2be59ca85ef49a69d142fea8ba5c, type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 8922148837154948330}
     - target: {fileID: 6181930948744016403, guid: 46cb2be59ca85ef49a69d142fea8ba5c, type: 3}
       propertyPath: m_Name
       value: CameraController
@@ -605,6 +609,11 @@ PrefabInstance:
 --- !u!23 &8922148837154948329 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 692816110829507881, guid: 5f069b564a4769e499a936be265fd91a, type: 3}
+  m_PrefabInstance: {fileID: 8922148837154948328}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &8922148837154948330 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8489860562433062410, guid: 5f069b564a4769e499a936be265fd91a, type: 3}
   m_PrefabInstance: {fileID: 8922148837154948328}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8951935198048817670
