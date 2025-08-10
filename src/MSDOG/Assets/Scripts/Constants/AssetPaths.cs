@@ -10,15 +10,7 @@ namespace Constants
         public const string SoundSettingsData = "Data/SoundSettingsData";
 
         // Ui Prefabs
-        public const string UiRootCanvasPath = "Prefabs/Ui/UiRootCanvas"; // TODO: remove?
         public const string DetailPartPrefabPath = "Prefabs/Hud/DetailPartHud";
-        public const string LoseWindowPath = "Prefabs/Ui/LoseWindow";
-        public const string WinWindowPath = "Prefabs/Ui/WinWindow";
-        public const string OptionsWindowPath = "Prefabs/Ui/OptionsWindow";
-        public const string CreditsWindowPath = "Prefabs/Ui/CreditsWindow";
-        public const string DialogueWindowPath = "Prefabs/Ui/DialogueWindow";
-        public const string TutorialWindowPath = "Prefabs/Ui/TutorialWindow";
-        public const string EscapeWindowPath = "Prefabs/Ui/EscapeWindow";
 
         // VFX
         public const string BloodParticlesVFXPath = "Prefabs/Vfx/BloodParticles";

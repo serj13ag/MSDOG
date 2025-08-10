@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efa8cd19531c40449c50b7cf500b2b2a, type: 3}
+  m_Name: WindowsData
+  m_EditorClassIdentifier: 
+  LoseWindowPrefab: {fileID: 1361035123721256745, guid: 2ee4e62e7058bb3478775f7a872c2ec5, type: 3}
+  WinWindowPrefab: {fileID: 893203231749623460, guid: bd9725be2b2a30141b0e70424adf3032, type: 3}
+  OptionsWindowPrefab: {fileID: 6849087055691219399, guid: 7297b57490daa7f4791c761d2ba2751e, type: 3}
+  CreditsWindowPrefab: {fileID: 7042042183886084283, guid: 51f928f345fd7ac41ad528de5bb843bd, type: 3}
+  DialogueWindowPrefab: {fileID: 2280429743423312867, guid: fe00523dd749e8248b83c3bfaa05c749, type: 3}
+  TutorialWindowPrefab: {fileID: 6395159548761988451, guid: 571cee4efa84d3245a1bca4c31f9a8bf, type: 3}
+  EscapeWindowPrefab: {fileID: 8040783969498450069, guid: 2b93bdd30c834484882e40e287b92297, type: 3}

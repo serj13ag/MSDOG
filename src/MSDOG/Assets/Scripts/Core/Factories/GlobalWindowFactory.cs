@@ -1,30 +1,31 @@
-using Constants;
+using Core.Models.Data;
 using Core.Services;
 using UI.Windows;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace Core.Factories
 {
     public class GlobalWindowFactory : IGlobalWindowFactory
     {
         private readonly IObjectResolver _container;
-        private readonly IAssetProviderService _assetProviderService;
+        private readonly WindowsData _windowsData;
 
-        public GlobalWindowFactory(IObjectResolver container, IAssetProviderService assetProviderService)
+        public GlobalWindowFactory(IObjectResolver container, IDataService dataService)
         {
             _container = container;
-            _assetProviderService = assetProviderService;
+            _windowsData = dataService.GetSettingsData().WindowsData;
         }
 
         public OptionsWindow CreateOptionsWindow(Transform canvasTransform)
         {
-            return _assetProviderService.Instantiate<OptionsWindow>(AssetPaths.OptionsWindowPath, canvasTransform, _container);
+            return _container.Instantiate(_windowsData.OptionsWindowPrefab, canvasTransform);
         }
 
         public CreditsWindow CreateCreditsWindow(Transform canvasTransform)
         {
-            return _assetProviderService.Instantiate<CreditsWindow>(AssetPaths.CreditsWindowPath, canvasTransform, _container);
+            return _container.Instantiate(_windowsData.CreditsWindowPrefab, canvasTransform);
         }
     }
 }

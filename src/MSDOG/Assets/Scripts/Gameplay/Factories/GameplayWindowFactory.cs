@@ -1,51 +1,49 @@
 using System;
-using Constants;
 using Core.Models.Data;
 using Core.Services;
 using UI.Windows;
 using UnityEngine;
 using VContainer;
+using VContainer.Unity;
 
 namespace Gameplay.Factories
 {
     public class GameplayWindowFactory : IGameplayWindowFactory
     {
         private readonly IObjectResolver _container;
-        private readonly IAssetProviderService _assetProviderService;
+        private readonly WindowsData _windowsData;
 
-        public GameplayWindowFactory(IObjectResolver container, IAssetProviderService assetProviderService)
+        public GameplayWindowFactory(IObjectResolver container, IDataService dataService)
         {
             _container = container;
-            _assetProviderService = assetProviderService;
+            _windowsData = dataService.GetSettingsData().WindowsData;
         }
 
         public LoseWindow CreateLoseWindow(Transform canvasTransform)
         {
-            return _assetProviderService.Instantiate<LoseWindow>(AssetPaths.LoseWindowPath, canvasTransform, _container);
+            return _container.Instantiate(_windowsData.LoseWindowPrefab, canvasTransform);
         }
 
         public WinWindow CreateWinWindow(Transform canvasTransform)
         {
-            return _assetProviderService.Instantiate<WinWindow>(AssetPaths.WinWindowPath, canvasTransform, _container);
+            return _container.Instantiate(_windowsData.WinWindowPrefab, canvasTransform);
         }
 
         public EscapeWindow CreateEscapeWindow(Transform canvasTransform)
         {
-            return _assetProviderService.Instantiate<EscapeWindow>(AssetPaths.EscapeWindowPath, canvasTransform, _container);
+            return _container.Instantiate(_windowsData.EscapeWindowPrefab, canvasTransform);
         }
 
         public IWindow CreateDialogueWindow(DialogueData dialogueData, Action onDialogueCompleted, Transform canvasTransform)
         {
-            var dialogueWindow =
-                _assetProviderService.Instantiate<DialogueWindow>(AssetPaths.DialogueWindowPath, canvasTransform, _container);
+            var dialogueWindow = _container.Instantiate(_windowsData.DialogueWindowPrefab, canvasTransform);
             dialogueWindow.Init(dialogueData, onDialogueCompleted);
             return dialogueWindow;
         }
 
         public IWindow CreateTutorialWindow(TutorialEventData tutorialEventData, Transform canvasTransform)
         {
-            var dialogueWindow =
-                _assetProviderService.Instantiate<TutorialWindow>(AssetPaths.TutorialWindowPath, canvasTransform, _container);
+            var dialogueWindow = _container.Instantiate(_windowsData.TutorialWindowPrefab, canvasTransform);
             dialogueWindow.Init(tutorialEventData);
             return dialogueWindow;
         }

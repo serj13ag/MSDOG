@@ -15,5 +15,6 @@ namespace Core.Models.Data
         public int[] ExperienceProgression;
         public List<TutorialEventData> TutorialEvents;
         public ProjectileData EnemyProjectileData;
+        public WindowsData WindowsData;
     }
 }
