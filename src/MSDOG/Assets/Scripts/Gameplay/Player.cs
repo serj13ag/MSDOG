@@ -9,6 +9,7 @@ using Gameplay.Abilities;
 using Gameplay.Factories;
 using Gameplay.Services;
 using UnityEngine;
+using VContainer;
 
 namespace Gameplay
 {
@@ -23,6 +24,10 @@ namespace Gameplay
 
         private IUpdateController _updateController;
         private IAbilityFactory _abilityFactory;
+        private IInputService _inputService;
+        private IDataService _dataService;
+        private IArenaService _arenaService;
+        private IProgressService _progressService;
 
         private HealthBlock _healthBlock;
         private ExperienceBlock _experienceBlock;
@@ -64,21 +69,29 @@ namespace Gameplay
             remove => _experienceBlock.OnExperienceChanged -= value;
         }
 
-        public void Init(IInputService inputService, IUpdateController updateController, IArenaService arenaService,
+        [Inject]
+        public void Construct(IInputService inputService, IUpdateController updateController, IArenaService arenaService,
             IAbilityFactory abilityFactory, IDataService dataService, IProgressService progressService)
         {
+            _progressService = progressService;
+            _arenaService = arenaService;
+            _dataService = dataService;
+            _inputService = inputService;
             _abilityFactory = abilityFactory;
             _updateController = updateController;
+        }
 
+        public void Init()
+        {
             _movementIsActive = true;
 
             _animationBlock = new AnimationBlock(_animator);
-            _healthBlock = new HealthBlock(100, progressService.EasyModeEnabled);
-            _experienceBlock = new ExperienceBlock(dataService);
+            _healthBlock = new HealthBlock(100, _progressService.EasyModeEnabled);
+            _experienceBlock = new ExperienceBlock(_dataService);
             _playerDamageBlock = new PlayerDamageBlock(this, _healthBlock);
-            _moveBlock = new InputMoveBlock(this, inputService, arenaService);
+            _moveBlock = new InputMoveBlock(this, _inputService, _arenaService);
 
-            updateController.Register(this);
+            _updateController.Register(this);
         }
 
         public void OnUpdate(float deltaTime)
