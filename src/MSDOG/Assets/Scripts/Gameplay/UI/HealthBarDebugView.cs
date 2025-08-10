@@ -1,10 +1,9 @@
 using System;
-using Gameplay;
 using Gameplay.Controllers;
 using TMPro;
 using UnityEngine;
 
-namespace UI
+namespace Gameplay.UI
 {
     public class HealthBarDebugView : MonoBehaviour
     {
@@ -25,10 +24,7 @@ namespace UI
             _debugController = debugController;
             _healthBlock = healthBlock;
 
-            if (!debugController.DebugHpIsVisible)
-            {
-                gameObject.SetActive(false);
-            }
+            gameObject.SetActive(debugController.DebugHpIsVisible);
 
             UpdateText();
 

@@ -1,7 +1,7 @@
 using Constants;
 using Core.Services;
+using Gameplay.UI;
 using Gameplay.VFX;
-using UI;
 using UnityEngine;
 using Object = UnityEngine.Object;
 

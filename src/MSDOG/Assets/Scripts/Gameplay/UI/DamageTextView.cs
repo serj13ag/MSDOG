@@ -2,7 +2,7 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 
-namespace UI
+namespace Gameplay.UI
 {
     public class DamageTextView : MonoBehaviour
     {

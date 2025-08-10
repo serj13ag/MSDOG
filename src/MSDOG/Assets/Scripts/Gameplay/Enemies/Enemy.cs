@@ -7,6 +7,7 @@ using Gameplay.Controllers;
 using Gameplay.Enemies.EnemyBehaviour;
 using Gameplay.Factories;
 using Gameplay.Projectiles;
+using Gameplay.UI;
 using UI;
 using UnityEngine;
 using UnityEngine.AI;
