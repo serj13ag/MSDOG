@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7781c65f5c134c6f93bdb75ace165252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemy: {fileID: 1731465627681447288}
   _text: {fileID: 6328164541536400103}
 --- !u!1 &6338741701997056228
 GameObject:
@@ -436,7 +437,6 @@ MonoBehaviour:
   _modelRootTransform: {fileID: 6305915170290776621}
   _agent: {fileID: 6251957368140847398}
   _animator: {fileID: 8758378651574052744}
-  _healthBarDebugView: {fileID: 8376822688814715283}
   _damagePlayerColliderTriggerEnterProvider: {fileID: 2692365790454489919}
   _animatorEventsProvider: {fileID: 0}
 --- !u!195 &6251957368140847398

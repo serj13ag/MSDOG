@@ -1,36 +1,51 @@
 using System;
 using Gameplay.Controllers;
+using Gameplay.Enemies;
 using TMPro;
 using UnityEngine;
+using VContainer;
 
 namespace Gameplay.UI
 {
     public class HealthBarDebugView : MonoBehaviour
     {
+        [SerializeField] private Enemy _enemy;
         [SerializeField] private TMP_Text _text;
 
         private IDebugController _debugController;
 
-        private HealthBlock _healthBlock;
         private Camera _mainCamera;
 
-        private void Awake()
-        {
-            _mainCamera = Camera.main;
-        }
-
-        public void Init(HealthBlock healthBlock, IDebugController debugController)
+        [Inject]
+        public void Construct(IDebugController debugController)
         {
             _debugController = debugController;
-            _healthBlock = healthBlock;
+        }
 
-            gameObject.SetActive(debugController.DebugHpIsVisible);
+        private void OnEnable()
+        {
+            _enemy.OnHealthChanged += OnEnemyHealthChanged;
+        }
 
-            UpdateText();
+        private void OnDisable()
+        {
+            _enemy.OnHealthChanged -= OnEnemyHealthChanged;
+        }
 
-            healthBlock.OnHealthChanged += UpdateText;
-            debugController.OnShowDebugHealthBar += OnShowDebugHealthBar;
-            debugController.OnHideDebugHealthBar += OnHideDebugHealthBar;
+        private void Start()
+        {
+            _mainCamera = Camera.main; // TODO: use provider
+
+            var showDebugHp = _debugController.DebugHpIsVisible;
+            gameObject.SetActive(showDebugHp);
+
+            if (showDebugHp)
+            {
+                UpdateText();
+            }
+
+            _debugController.OnShowDebugHealthBar += OnShowDebugHealthBar;
+            _debugController.OnHideDebugHealthBar += OnHideDebugHealthBar;
         }
 
         private void Update()
@@ -50,14 +65,18 @@ namespace Gameplay.UI
             gameObject.SetActive(true);
         }
 
+        private void OnEnemyHealthChanged(object sender, EventArgs eventArgs)
+        {
+            UpdateText();
+        }
+
         private void UpdateText()
         {
-            _text.text = $"{_healthBlock.CurrentHealth}/{_healthBlock.MaxHealth}";
+            _text.text = $"{_enemy.CurrentHealth}/{_enemy.MaxHealth}";
         }
 
         private void OnDestroy()
         {
-            _healthBlock.OnHealthChanged -= UpdateText;
             _debugController.OnShowDebugHealthBar -= OnShowDebugHealthBar;
             _debugController.OnHideDebugHealthBar -= OnHideDebugHealthBar;
         }

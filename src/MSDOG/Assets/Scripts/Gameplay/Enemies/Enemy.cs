@@ -3,15 +3,14 @@ using Core.Controllers;
 using Core.Interfaces;
 using Core.Models.Data;
 using Core.Services;
-using Gameplay.Controllers;
 using Gameplay.Enemies.EnemyBehaviour;
 using Gameplay.Factories;
 using Gameplay.Projectiles;
-using Gameplay.UI;
-using UI;
+using Gameplay.Providers;
 using UnityEngine;
 using UnityEngine.AI;
 using Utility;
+using VContainer;
 
 namespace Gameplay.Enemies
 {
@@ -23,7 +22,6 @@ namespace Gameplay.Enemies
         [SerializeField] private Transform _modelRootTransform;
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private Animator _animator;
-        [SerializeField] private HealthBarDebugView _healthBarDebugView;
         [SerializeField] private ColliderEventProvider _damagePlayerColliderTriggerEnterProvider;
         [SerializeField] private AnimatorEventsProvider _animatorEventsProvider;
 
@@ -32,9 +30,9 @@ namespace Gameplay.Enemies
         private IProjectileFactory _projectileFactory;
         private IVfxFactory _vfxFactory;
         private IDataService _dataService;
+        private IPlayerProvider _playerProvider;
 
         private Guid _id;
-        private Player _player;
         private int _damage;
         private float _cooldown;
         private float _projectileSpeed;
@@ -49,26 +47,34 @@ namespace Gameplay.Enemies
         public NavMeshAgent Agent => _agent;
         public AnimationBlock AnimationBlock => _animationBlock;
         public Vector3 ModelRootPosition => _modelRootTransform.position;
-        public Player Player => _player;
+        public Player Player => _playerProvider.Player;
         public int Damage => _damage;
         public float Cooldown => _cooldown;
 
         public EnemyDeathkit DeathkitPrefab { get; private set; }
 
-        public event Action<Enemy> OnDied;
+        public int CurrentHealth => _healthBlock.CurrentHealth;
+        public int MaxHealth => _healthBlock.MaxHealth;
 
-        public void Init(IUpdateController updateController, IExperiencePieceFactory experiencePieceFactory,
-            IProjectileFactory projectileFactory, Player player, EnemyData data, IVfxFactory vfxFactory,
-            IDebugController debugController, IDataService dataService)
+        public event Action<Enemy> OnDied;
+        public event EventHandler<EventArgs> OnHealthChanged;
+
+        [Inject]
+        public void Construct(IUpdateController updateController, IExperiencePieceFactory experiencePieceFactory,
+            IProjectileFactory projectileFactory, IDataService dataService, IVfxFactory vfxFactory,
+            IPlayerProvider playerProvider)
         {
+            _playerProvider = playerProvider;
+            _updateController = updateController;
             _experiencePieceFactory = experiencePieceFactory;
+            _projectileFactory = projectileFactory;
             _dataService = dataService;
             _vfxFactory = vfxFactory;
-            _projectileFactory = projectileFactory;
-            _updateController = updateController;
+        }
 
+        public void Init(EnemyData data)
+        {
             _id = Guid.NewGuid();
-            _player = player;
             _damage = data.Damage;
             _cooldown = data.Cooldown;
             _projectileSpeed = data.ProjectileSpeed;
@@ -77,7 +83,6 @@ namespace Gameplay.Enemies
 
             _healthBlock = new HealthBlock(data.MaxHealth);
             _animationBlock = new AnimationBlock(_animator);
-            _healthBarDebugView.Init(_healthBlock, debugController);
 
             _stateMachine = data.Type switch
             {
@@ -89,12 +94,14 @@ namespace Gameplay.Enemies
 
             _agent.speed = data.Speed;
 
-            updateController.Register(this);
+            _healthBlock.OnHealthChanged += OnHealthBlockHealthChanged;
 
             if (_animatorEventsProvider)
             {
                 _animatorEventsProvider.OnAnimationAttackHit += OnAnimationAttackHit;
             }
+
+            _updateController.Register(this);
         }
 
         public void OnUpdate(float deltaTime)
@@ -141,9 +148,14 @@ namespace Gameplay.Enemies
             }
         }
 
+        private void OnHealthBlockHealthChanged()
+        {
+            OnHealthChanged?.Invoke(this, EventArgs.Empty);
+        }
+
         private void ShootProjectileTowardsPlayer()
         {
-            var directionToPlayer = (_player.transform.position - transform.position).normalized;
+            var directionToPlayer = (_playerProvider.Player.transform.position - transform.position).normalized;
             directionToPlayer.y = 0f;
 
             var spawnPosition = transform.position + _enemyProjectileOffset;
@@ -157,6 +169,8 @@ namespace Gameplay.Enemies
             _stateMachine.Dispose();
 
             _updateController.Remove(this);
+
+            _healthBlock.OnHealthChanged -= OnHealthBlockHealthChanged;
 
             if (_animatorEventsProvider)
             {
