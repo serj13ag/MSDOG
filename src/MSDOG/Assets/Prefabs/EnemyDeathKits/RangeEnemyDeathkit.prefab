@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4103765422307491402}
   - component: {fileID: 3226597354761109488}
   m_Layer: 25
-  m_Name: EnemyRangeDeathkit
+  m_Name: RangeEnemyDeathkit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

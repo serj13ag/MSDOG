@@ -19,5 +19,5 @@ MonoBehaviour:
   Damage: 10
   ProjectileSpeed: 14
   Experience: 25
-  Prefab: {fileID: 1731465627681447288, guid: 4455126e638dfdf43aa78451db7b522f, type: 3}
+  Prefab: {fileID: 1298614537461390574, guid: 66c91dd5819e2d04eab7af77f9662416, type: 3}
   DeathkitPrefab: {fileID: 3226597354761109488, guid: 4065ca980e7434444a90e8e4fce651b0, type: 3}
