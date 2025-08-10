@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace UI.Menu
+namespace Menu
 {
     public class MenuController : MonoBehaviour
     {

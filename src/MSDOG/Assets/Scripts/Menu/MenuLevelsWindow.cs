@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using VContainer;
 using VContainer.Unity;
 
-namespace UI.Menu
+namespace Menu
 {
     public class MenuLevelsWindow : MonoBehaviour
     {

@@ -1,3 +1,4 @@
+using System;
 using Core.Models.Data;
 using Infrastructure.StateMachine;
 using TMPro;
@@ -5,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace UI.Menu
+namespace Menu
 {
     public class MenuLevelButton : MonoBehaviour
     {
@@ -35,15 +36,6 @@ namespace UI.Menu
             _button.interactable = isAvailable;
         }
 
-        public void UpdateIsAvailable(bool isAvailable)
-        {
-            var textColor = _text.color;
-            textColor.a = isAvailable ? 1f : 0.1f;
-            _text.color = textColor;
-
-            _button.interactable = isAvailable;
-        }
-
         private void OnEnable()
         {
             _button.onClick.AddListener(EnterLevel);
@@ -52,6 +44,15 @@ namespace UI.Menu
         private void OnDisable()
         {
             _button.onClick.RemoveListener(EnterLevel);
+        }
+
+        public void UpdateIsAvailable(bool isAvailable)
+        {
+            var textColor = _text.color;
+            textColor.a = isAvailable ? 1f : 0.1f;
+            _text.color = textColor;
+
+            _button.interactable = isAvailable;
         }
 
         private void EnterLevel()
