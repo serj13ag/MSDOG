@@ -68,14 +68,17 @@ namespace Infrastructure
             var enemyContainer = new GameObject("EnemyContainer");
             var deathKitContainer = new GameObject("DeathKitContainer");
             var experiencePieceContainer = new GameObject("ExperiencePieceContainer");
+            var damageTextContainer = new GameObject("DamageTextContainer");
 
             projectileContainer.transform.SetParent(containersRoot.transform);
             enemyContainer.transform.SetParent(containersRoot.transform);
             deathKitContainer.transform.SetParent(containersRoot.transform);
             experiencePieceContainer.transform.SetParent(containersRoot.transform);
+            damageTextContainer.transform.SetParent(containersRoot.transform);
 
             builder.Register(_ => new ObjectContainerProvider(projectileContainer.transform,
-                    enemyContainer.transform, deathKitContainer.transform, experiencePieceContainer.transform),
+                    enemyContainer.transform, deathKitContainer.transform, experiencePieceContainer.transform,
+                    damageTextContainer.transform),
                 Lifetime.Scoped).As<IObjectContainerProvider>();
         }
     }
