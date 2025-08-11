@@ -27,3 +27,5 @@ MonoBehaviour:
   ActivationSound:
     Clip: {fileID: 8300000, guid: 7acb3458a0f0afd43940182b47c45004, type: 3}
     Volume: 0.265
+  ProjectileData: {fileID: 0}
+  FollowingAbilityEffectPrefab: {fileID: 2435042220222724965, guid: 63720dff7ce18b6458a191c92b56ee34, type: 3}

@@ -52,6 +52,7 @@ namespace Infrastructure
         {
             builder.Register<IExperiencePieceFactory, ExperiencePieceFactory>(Lifetime.Scoped);
             builder.Register<IProjectileFactory, ProjectileFactory>(Lifetime.Scoped);
+            builder.Register<IAbilityEffectFactory, AbilityEffectFactory>(Lifetime.Scoped);
             builder.Register<IAbilityFactory, AbilityFactory>(Lifetime.Scoped);
             builder.Register<IGameFactory, GameFactory>(Lifetime.Scoped);
             builder.Register<IDeathKitFactory, DeathKitFactory>(Lifetime.Scoped);
@@ -69,16 +70,18 @@ namespace Infrastructure
             var deathKitContainer = new GameObject("DeathKitContainer");
             var experiencePieceContainer = new GameObject("ExperiencePieceContainer");
             var damageTextContainer = new GameObject("DamageTextContainer");
+            var abilityEffectContainer = new GameObject("AbilityEffectContainer");
 
             projectileContainer.transform.SetParent(containersRoot.transform);
             enemyContainer.transform.SetParent(containersRoot.transform);
             deathKitContainer.transform.SetParent(containersRoot.transform);
             experiencePieceContainer.transform.SetParent(containersRoot.transform);
             damageTextContainer.transform.SetParent(containersRoot.transform);
+            abilityEffectContainer.transform.SetParent(containersRoot.transform);
 
             builder.Register(_ => new ObjectContainerProvider(projectileContainer.transform,
                     enemyContainer.transform, deathKitContainer.transform, experiencePieceContainer.transform,
-                    damageTextContainer.transform),
+                    damageTextContainer.transform, abilityEffectContainer.transform),
                 Lifetime.Scoped).As<IObjectContainerProvider>();
         }
     }

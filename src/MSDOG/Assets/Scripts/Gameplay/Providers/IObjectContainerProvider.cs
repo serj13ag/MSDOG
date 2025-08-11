@@ -9,5 +9,6 @@ namespace Gameplay.Providers
         Transform DeathKitContainer { get; }
         Transform ExperiencePieceContainer { get; }
         Transform DamageTextContainer { get; }
+        Transform AbilityEffectContainer { get; }
     }
 }

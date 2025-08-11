@@ -1,6 +1,5 @@
 using Constants;
 using Core.Services;
-using Gameplay.VFX;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -45,20 +44,6 @@ namespace Gameplay.Factories
         public void CreatProjectileImpactEffect(Vector3 position, GameObject impactVFXPrefab)
         {
             Object.Instantiate(impactVFXPrefab, position, Quaternion.Euler(90f, 0f, 0f));
-        }
-
-        public FollowingAbilityEffect CreateAntiGravityEffect(Player player)
-        {
-            var effect = _assetProviderService.Instantiate<FollowingAbilityEffect>(AssetPaths.AntiGravityFollowingVFXPath);
-            effect.Init(player);
-            return effect;
-        }
-
-        public FollowingAbilityEffect CreateEnergyShieldEffect(Player player)
-        {
-            var effect = _assetProviderService.Instantiate<FollowingAbilityEffect>(AssetPaths.EnergyShieldFollowingVFXPath);
-            effect.Init(player);
-            return effect;
         }
     }
 }

@@ -12,12 +12,14 @@ namespace Gameplay.Factories
         private readonly IVfxFactory _vfxFactory;
         private readonly IDataService _dataService;
         private readonly ISoundController _soundController;
+        private readonly IAbilityEffectFactory _abilityEffectFactory;
 
         public AbilityFactory(IProjectileFactory projectileFactory, IVfxFactory vfxFactory, IDataService dataService,
-            ISoundController soundController)
+            ISoundController soundController, IAbilityEffectFactory abilityEffectFactory)
         {
             _dataService = dataService;
             _soundController = soundController;
+            _abilityEffectFactory = abilityEffectFactory;
             _projectileFactory = projectileFactory;
             _vfxFactory = vfxFactory;
         }
@@ -34,8 +36,8 @@ namespace Gameplay.Factories
                 AbilityType.PuncturedTank => new PuncturedTankAbility(abilityData, player, _projectileFactory, _soundController),
                 AbilityType.EnergyLine => new EnergyLineAbility(abilityData, player, _projectileFactory, _soundController),
 
-                AbilityType.AntiGravity => new AntiGravityAbility(abilityData, player, _vfxFactory, _soundController),
-                AbilityType.EnergyShield => new EnergyShieldAbility(abilityData, player, _vfxFactory, _soundController),
+                AbilityType.AntiGravity => new AntiGravityAbility(abilityData, player, _abilityEffectFactory, _soundController),
+                AbilityType.EnergyShield => new EnergyShieldAbility(abilityData, player, _abilityEffectFactory, _soundController),
                 _ => throw new ArgumentOutOfRangeException(),
             };
         }
