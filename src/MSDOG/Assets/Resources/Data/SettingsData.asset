@@ -28,3 +28,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c83096e5cffc7c049b98fa40a0bd63db, type: 2}
   EnemyProjectileData: {fileID: 11400000, guid: c18049c34638e9642b0966dff49766e7, type: 2}
   WindowsData: {fileID: 11400000, guid: 08b3e74f76a49d54aab6b3f2ebac8f81, type: 2}
+  DamageTextViewPrefab: {fileID: 7804700427976866563, guid: 02f2fe2ca55959f45900d34a01a70d0e, type: 3}

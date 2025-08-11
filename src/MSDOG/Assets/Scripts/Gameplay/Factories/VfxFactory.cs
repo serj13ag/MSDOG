@@ -1,6 +1,5 @@
 using Constants;
 using Core.Services;
-using Gameplay.UI;
 using Gameplay.VFX;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -60,13 +59,6 @@ namespace Gameplay.Factories
             var effect = _assetProviderService.Instantiate<FollowingAbilityEffect>(AssetPaths.EnergyShieldFollowingVFXPath);
             effect.Init(player);
             return effect;
-        }
-
-        public void CreateDamageTextEffect(int damageDealt, Vector3 position)
-        {
-            var damageTextView = _assetProviderService.Instantiate<DamageTextView>(AssetPaths.DamageTextViewPrefabPath, position,
-                Quaternion.Euler(90f, 0f, 0f));
-            damageTextView.Init(damageDealt);
         }
     }
 }

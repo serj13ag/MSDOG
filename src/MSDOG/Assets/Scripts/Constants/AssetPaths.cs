@@ -19,7 +19,5 @@ namespace Constants
 
         public const string AntiGravityFollowingVFXPath = "Prefabs/Vfx/AbilityVFX/AntiGravity";
         public const string EnergyShieldFollowingVFXPath = "Prefabs/Vfx/AbilityVFX/EnergyShield";
-
-        public const string DamageTextViewPrefabPath = "Prefabs/DamageTextView";
     }
 }

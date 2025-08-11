@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Gameplay;
+using Gameplay.UI;
 using UnityEngine;
 
 namespace Core.Models.Data
@@ -16,5 +17,6 @@ namespace Core.Models.Data
         public List<TutorialEventData> TutorialEvents;
         public ProjectileData EnemyProjectileData;
         public WindowsData WindowsData;
+        public DamageTextView DamageTextViewPrefab;
     }
 }

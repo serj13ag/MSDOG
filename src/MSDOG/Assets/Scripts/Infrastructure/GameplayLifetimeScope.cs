@@ -57,6 +57,7 @@ namespace Infrastructure
             builder.Register<IDeathKitFactory, DeathKitFactory>(Lifetime.Scoped);
             builder.Register<IGameplayWindowFactory, GameplayWindowFactory>(Lifetime.Scoped);
             builder.Register<IVfxFactory, VfxFactory>(Lifetime.Scoped);
+            builder.Register<IDamageTextFactory, DamageTextFactory>(Lifetime.Scoped);
         }
 
         private static void RegisterObjectContainerProvider(IContainerBuilder builder)

@@ -12,7 +12,5 @@ namespace Gameplay.Factories
 
         FollowingAbilityEffect CreateAntiGravityEffect(Player player);
         FollowingAbilityEffect CreateEnergyShieldEffect(Player player);
-
-        void CreateDamageTextEffect(int damageDealt, Vector3 position);
     }
 }

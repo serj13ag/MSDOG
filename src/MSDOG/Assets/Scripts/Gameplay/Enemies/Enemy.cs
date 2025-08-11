@@ -31,6 +31,7 @@ namespace Gameplay.Enemies
         private IVfxFactory _vfxFactory;
         private IDataService _dataService;
         private IPlayerProvider _playerProvider;
+        private IDamageTextFactory _damageTextFactory;
 
         private Guid _id;
         private int _damage;
@@ -62,8 +63,9 @@ namespace Gameplay.Enemies
         [Inject]
         public void Construct(IUpdateController updateController, IExperiencePieceFactory experiencePieceFactory,
             IProjectileFactory projectileFactory, IDataService dataService, IVfxFactory vfxFactory,
-            IPlayerProvider playerProvider)
+            IPlayerProvider playerProvider, IDamageTextFactory damageTextFactory)
         {
+            _damageTextFactory = damageTextFactory;
             _playerProvider = playerProvider;
             _updateController = updateController;
             _experiencePieceFactory = experiencePieceFactory;
@@ -137,7 +139,7 @@ namespace Gameplay.Enemies
             _healthBlock.ReduceHealth(damage);
             var healthAfter = _healthBlock.CurrentHealth;
             var damageDealt = healthBefore - healthAfter;
-            _vfxFactory.CreateDamageTextEffect(damageDealt, transform.position + _damageTextOffset);
+            _damageTextFactory.CreateDamageTextEffect(damageDealt, transform.position + _damageTextOffset);
 
             if (_healthBlock.HasZeroHealth)
             {
