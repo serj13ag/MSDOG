@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: EnemyProjectileData
   m_EditorClassIdentifier: 
   Type: 1
-  ViewPrefab: {fileID: 2729120517290830673, guid: 5484aec9f12c31e4bb418c19f0d572bb, type: 3}
+  ViewPrefab: {fileID: 4490539195523019209, guid: 92b9e7effdbdd9b42a800fb1842e6715, type: 3}
   ImpactVFXPrefab: {fileID: 4964743200703482252, guid: 4c30f6a979238c34ebf7e166d3cb3235, type: 3}

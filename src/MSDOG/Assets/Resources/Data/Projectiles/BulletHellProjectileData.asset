@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BulletHellProjectileData
   m_EditorClassIdentifier: 
   Type: 3
-  ViewPrefab: {fileID: 2729120517290830673, guid: 70b5033fff1c51b4cbf6a0ca78ff8422, type: 3}
+  ViewPrefab: {fileID: 8599844401203406500, guid: 7a7f50946dfdfb24a9e5e2f76dd9cb61, type: 3}
   ImpactVFXPrefab: {fileID: 4964743200703482252, guid: 915a7d4e629be5645b7669283ebdfbbb, type: 3}

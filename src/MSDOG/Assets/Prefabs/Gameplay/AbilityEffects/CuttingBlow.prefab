@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 4883269162694503191}
   - component: {fileID: 533531344881146968}
   - component: {fileID: 9026082903117992234}
+  - component: {fileID: 3645290098774230206}
   m_Layer: 0
-  m_Name: PR_BulletHell
+  m_Name: CuttingBlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 652d3db40e5eafa4b88067e0ead547d9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d3d84520551f58345bd5da1385dc82d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,15 +101,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33bf0c8ff96c47958994f89fc896abc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 533531344881146968}
   _sprites:
-  - {fileID: 21300000, guid: 9c0f50c1b7d7a3f48bc2d4f0cebef478, type: 3}
-  - {fileID: 21300000, guid: 3dd5290ae8621f74d898c1e5eac99bb5, type: 3}
-  - {fileID: 21300000, guid: 4a5e4d83f34590749b1a64cca0688b49, type: 3}
-  - {fileID: 21300000, guid: 3314e5d6cdca52a46b4eeb3dc5d1559f, type: 3}
-  - {fileID: 21300000, guid: 4b97dcbbdcaa49f4fab7094fbce92230, type: 3}
-  - {fileID: 21300000, guid: 8e43efdec3d9d404b885cc7c9c83b988, type: 3}
-  - {fileID: 21300000, guid: e2110ec7d6c93ea439e5ec4d77c84a04, type: 3}
-  _timePerFrame: 0.08
-  _isLooped: 1
+  - {fileID: 21300000, guid: f98bd4f9a15c92044a9f831f5e07ee13, type: 3}
+  - {fileID: 21300000, guid: e2cc95c06e2ef3c469f7fad65a749f6b, type: 3}
+  - {fileID: 21300000, guid: d3d84520551f58345bd5da1385dc82d5, type: 3}
+  - {fileID: 21300000, guid: d3d84520551f58345bd5da1385dc82d5, type: 3}
+  - {fileID: 21300000, guid: 5683a46d46dbebe4f927cadd220f34d1, type: 3}
+  - {fileID: 21300000, guid: c111a0aee5b7cc747b2e1363c5856a2f, type: 3}
+  - {fileID: 21300000, guid: 652d3db40e5eafa4b88067e0ead547d9, type: 3}
+  - {fileID: 21300000, guid: 5320d39f71a579943afe60012aaf86a6, type: 3}
+  - {fileID: 21300000, guid: cf2bb5c4aa3989c4ea427bfe16fb5d1d, type: 3}
+  _timePerFrame: 0.028
+  _isLooped: 0
   _destroyOnFinish: 0
+  _deactivateOnStart: 0
+  _spriteRenderer: {fileID: 533531344881146968}
+--- !u!114 &3645290098774230206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4964743200703482252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c80af7d6d87459b9d491ebb9093c695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteAnimatorComponent: {fileID: 9026082903117992234}

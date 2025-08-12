@@ -1,6 +1,6 @@
 using Core.Sounds;
-using Gameplay;
 using Gameplay.Abilities;
+using Gameplay.AbilityEffects;
 using UnityEngine;
 
 namespace Core.Models.Data
@@ -23,6 +23,6 @@ namespace Core.Models.Data
         public Sprite Icon;
         public SoundClip ActivationSound;
         public ProjectileData ProjectileData;
-        public FollowingAbilityEffect FollowingAbilityEffectPrefab;
+        public BaseAbilityEffect FollowingAbilityEffectPrefab;
     }
 }

@@ -1,5 +1,6 @@
 using Core.Controllers;
 using Core.Models.Data;
+using Gameplay.AbilityEffects;
 using Gameplay.Factories;
 
 namespace Gameplay.Abilities
@@ -8,9 +9,9 @@ namespace Gameplay.Abilities
     {
         private readonly IAbilityEffectFactory _abilityEffectFactory;
 
+        private readonly AbilityData _abilityData;
         private readonly Player _player;
         private readonly int _damageReductionPercent;
-        private readonly FollowingAbilityEffect _followingAbilityEffectPrefab;
 
         private FollowingAbilityEffect _followingAbilityEffect;
 
@@ -20,16 +21,16 @@ namespace Gameplay.Abilities
         {
             _abilityEffectFactory = abilityEffectFactory;
 
+            _abilityData = abilityData;
             _player = player;
             _damageReductionPercent = abilityData.DamageReductionPercent;
-            _followingAbilityEffectPrefab = abilityData.FollowingAbilityEffectPrefab;
         }
 
         protected override void OnActivated()
         {
             _player.ChangeDamageReductionPercent(_damageReductionPercent);
 
-            _followingAbilityEffect = _abilityEffectFactory.CreateFollowingEffect(_followingAbilityEffectPrefab, _player);
+            _followingAbilityEffect = _abilityEffectFactory.CreateEffect<FollowingAbilityEffect>(_player, _abilityData);
         }
 
         protected override void OnDeactivated()

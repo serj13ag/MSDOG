@@ -1,6 +1,11 @@
+using System;
 using System.Collections.Generic;
+using Core.Models.Data;
 using Core.Services;
+using Gameplay.Abilities;
+using Gameplay.AbilityEffects;
 using Gameplay.Providers;
+using UnityEngine;
 using UnityEngine.Pool;
 using VContainer;
 using VContainer.Unity;
@@ -16,7 +21,7 @@ namespace Gameplay.Factories
         private readonly IObjectContainerProvider _objectContainerProvider;
         private readonly IDataService _dataService;
 
-        private readonly Dictionary<FollowingAbilityEffect, ObjectPool<FollowingAbilityEffect>> _pools = new();
+        private readonly Dictionary<BaseAbilityEffect, ObjectPool<BaseAbilityEffect>> _pools = new();
 
         public AbilityEffectFactory(IObjectResolver container, IObjectContainerProvider objectContainerProvider,
             IDataService dataService)
@@ -36,7 +41,7 @@ namespace Gameplay.Factories
 
             foreach (var pool in _pools.Values)
             {
-                var createdPrefabs = new FollowingAbilityEffect[NumberOfPrewarmedPrefabs];
+                var createdPrefabs = new BaseAbilityEffect[NumberOfPrewarmedPrefabs];
                 for (var i = 0; i < NumberOfPrewarmedPrefabs; i++)
                 {
                     createdPrefabs[i] = pool.Get();
@@ -49,18 +54,31 @@ namespace Gameplay.Factories
             }
         }
 
-        public FollowingAbilityEffect CreateFollowingEffect(FollowingAbilityEffect abilityEffectPrefab, Player player)
+        public T CreateEffect<T>(Player player, AbilityData abilityData) where T : BaseAbilityEffect
         {
-            var pool = _pools[abilityEffectPrefab];
-            var followingAbilityEffect = pool.Get();
-            followingAbilityEffect.SetReleaseCallback(() => pool.Release(followingAbilityEffect));
-            followingAbilityEffect.Init(player.transform);
-            return followingAbilityEffect;
+            var pool = _pools[abilityData.FollowingAbilityEffectPrefab];
+            var baseAbilityEffect = (T)pool.Get();
+            baseAbilityEffect.SetReleaseCallback(() => pool.Release(baseAbilityEffect));
+
+            switch (baseAbilityEffect)
+            {
+                case FollowingAbilityEffect followingAbilityEffect:
+                    followingAbilityEffect.Init(player.transform);
+                    break;
+                case OneTimeAbilityEffect oneTimeAbilityEffect:
+                    var position = player.GetAbilitySpawnPosition(abilityData.AbilityType);
+                    var rotation = Quaternion.Euler(90f, 0f, 0f);
+                    var scale = GetScale(abilityData);
+                    oneTimeAbilityEffect.Init(position, rotation, scale);
+                    break;
+            }
+
+            return baseAbilityEffect;
         }
 
-        private List<FollowingAbilityEffect> GetAvailablePrefabsForLevel(int levelIndex)
+        private List<BaseAbilityEffect> GetAvailablePrefabsForLevel(int levelIndex)
         {
-            var availablePrefabs = new List<FollowingAbilityEffect>();
+            var availablePrefabs = new List<BaseAbilityEffect>();
 
             var startAbilities = _dataService.GetStartAbilitiesData(levelIndex);
             foreach (var startAbility in startAbilities)
@@ -85,14 +103,40 @@ namespace Gameplay.Factories
             return availablePrefabs;
         }
 
-        private void TryToCreatePool(FollowingAbilityEffect projectileView)
+        private void TryToCreatePool(BaseAbilityEffect projectileView)
         {
             if (!_pools.ContainsKey(projectileView))
             {
-                _pools.Add(projectileView, new ObjectPool<FollowingAbilityEffect>(
+                _pools.Add(projectileView, new ObjectPool<BaseAbilityEffect>(
                     createFunc: () => _container.Instantiate(projectileView, _objectContainerProvider.AbilityEffectContainer),
                     actionOnGet: obj => obj.OnGet(),
                     actionOnRelease: obj => obj.OnRelease()));
+            }
+        }
+
+        /// <summary>
+        /// Visual scale base on effect size
+        /// </summary>
+        private static Vector3 GetScale(AbilityData abilityData)
+        {
+            switch (abilityData.AbilityType)
+            {
+                case AbilityType.CuttingBlow:
+                {
+                    var size = abilityData.Size;
+                    var t = Mathf.InverseLerp(7f, 9f, size);
+                    var scale = Mathf.LerpUnclamped(0.7f, 1f, t);
+                    return new Vector3(scale, 1.4f, 1f);
+                }
+                case AbilityType.RoundAttack:
+                {
+                    var size = abilityData.Size;
+                    var t = Mathf.InverseLerp(3f, 6f, size);
+                    var scale = Mathf.LerpUnclamped(1f, 2.2f, t);
+                    return new Vector3(scale, scale, 1f);
+                }
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

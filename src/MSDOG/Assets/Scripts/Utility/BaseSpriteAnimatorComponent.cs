@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Utility
@@ -13,6 +14,8 @@ namespace Utility
         private bool _isActive;
         private float _timeTillChangeSprite;
         private int _frameIndex;
+
+        public event EventHandler<EventArgs> OnAnimationFinished;
 
         private void Start()
         {
@@ -83,6 +86,8 @@ namespace Utility
             {
                 _isActive = false;
                 ChangeSprite(null);
+
+                OnAnimationFinished?.Invoke(this, EventArgs.Empty);
 
                 if (_destroyOnFinish)
                 {

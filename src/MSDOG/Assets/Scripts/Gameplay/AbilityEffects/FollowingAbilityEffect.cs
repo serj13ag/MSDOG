@@ -1,9 +1,8 @@
 using UnityEngine;
-using Utility;
 
-namespace Gameplay
+namespace Gameplay.AbilityEffects
 {
-    public class FollowingAbilityEffect : BasePooledObject
+    public class FollowingAbilityEffect : BaseAbilityEffect
     {
         private Transform _followTarget;
 

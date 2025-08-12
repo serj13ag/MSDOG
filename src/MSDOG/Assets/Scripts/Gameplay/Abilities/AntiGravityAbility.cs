@@ -1,5 +1,6 @@
 using Core.Controllers;
 using Core.Models.Data;
+using Gameplay.AbilityEffects;
 using Gameplay.Factories;
 
 namespace Gameplay.Abilities
@@ -8,9 +9,9 @@ namespace Gameplay.Abilities
     {
         private readonly IAbilityEffectFactory _abilityEffectFactory;
 
+        private readonly AbilityData _abilityData;
         private readonly Player _player;
         private readonly float _speed;
-        private readonly FollowingAbilityEffect _followingAbilityEffectPrefab;
 
         private FollowingAbilityEffect _followingAbilityEffect;
 
@@ -18,18 +19,18 @@ namespace Gameplay.Abilities
             ISoundController soundController)
             : base(abilityData, soundController)
         {
+            _abilityData = abilityData;
             _abilityEffectFactory = abilityEffectFactory;
 
             _player = player;
             _speed = abilityData.Speed;
-            _followingAbilityEffectPrefab = abilityData.FollowingAbilityEffectPrefab;
         }
 
         protected override void OnActivated()
         {
             _player.ChangeAdditionalSpeed(_speed);
 
-            _followingAbilityEffect = _abilityEffectFactory.CreateFollowingEffect(_followingAbilityEffectPrefab, _player);
+            _followingAbilityEffect = _abilityEffectFactory.CreateEffect<FollowingAbilityEffect>(_player, _abilityData);
         }
 
         protected override void OnDeactivated()

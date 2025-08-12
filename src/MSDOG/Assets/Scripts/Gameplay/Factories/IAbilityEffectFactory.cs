@@ -1,8 +1,11 @@
+using Core.Models.Data;
+using Gameplay.AbilityEffects;
+
 namespace Gameplay.Factories
 {
     public interface IAbilityEffectFactory
     {
         void Prewarm(int levelIndex);
-        FollowingAbilityEffect CreateFollowingEffect(FollowingAbilityEffect abilityEffectPrefab, Player player);
+        T CreateEffect<T>(Player player, AbilityData abilityData) where T : BaseAbilityEffect;
     }
 }
