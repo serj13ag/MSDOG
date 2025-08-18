@@ -71,7 +71,7 @@ namespace UI.HUD
 
         private void OnDestroy()
         {
-            _inputService.OnMenuActionPerformed += OnMenuActionPerformed;
+            _inputService.OnMenuActionPerformed -= OnMenuActionPerformed;
         }
     }
 }

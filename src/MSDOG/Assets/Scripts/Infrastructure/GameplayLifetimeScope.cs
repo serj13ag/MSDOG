@@ -20,7 +20,7 @@ namespace Infrastructure
             RegisterServices(builder);
             RegisterFactories(builder);
 
-            builder.Register<GameplayInitializer>(Lifetime.Scoped);
+            builder.Register<GameplayInitializer>(Lifetime.Singleton);
         }
 
         private void RegisterControllers(IContainerBuilder builder)
@@ -28,7 +28,7 @@ namespace Infrastructure
             builder.RegisterComponent(_cameraController).As<ICameraController>();
             builder.RegisterComponent(_levelViewController).As<ILevelViewController>();
 
-            builder.RegisterComponentOnNewGameObject<DebugController>(Lifetime.Scoped, "DebugController")
+            builder.RegisterComponentOnNewGameObject<DebugController>(Lifetime.Singleton, "DebugController")
                 .As<IDebugController>();
         }
 
@@ -36,29 +36,29 @@ namespace Infrastructure
         {
             RegisterObjectContainerProvider(builder);
 
-            builder.Register<IPlayerProvider, PlayerProvider>(Lifetime.Scoped);
+            builder.Register<IPlayerProvider, PlayerProvider>(Lifetime.Singleton);
         }
 
         private static void RegisterServices(IContainerBuilder builder)
         {
-            builder.Register<IInputService, InputService>(Lifetime.Scoped);
-            builder.Register<IArenaService, ArenaService>(Lifetime.Scoped);
-            builder.Register<IEnemyService, EnemyService>(Lifetime.Scoped);
-            builder.Register<ILevelFlowService, LevelFlowService>(Lifetime.Scoped);
-            builder.Register<ITutorialService, TutorialService>(Lifetime.Scoped);
+            builder.Register<IInputService, InputService>(Lifetime.Singleton);
+            builder.Register<IArenaService, ArenaService>(Lifetime.Singleton);
+            builder.Register<IEnemyService, EnemyService>(Lifetime.Singleton);
+            builder.Register<ILevelFlowService, LevelFlowService>(Lifetime.Singleton);
+            builder.Register<ITutorialService, TutorialService>(Lifetime.Singleton);
         }
 
         private static void RegisterFactories(IContainerBuilder builder)
         {
-            builder.Register<IExperiencePieceFactory, ExperiencePieceFactory>(Lifetime.Scoped);
-            builder.Register<IProjectileFactory, ProjectileFactory>(Lifetime.Scoped);
-            builder.Register<IAbilityEffectFactory, AbilityEffectFactory>(Lifetime.Scoped);
-            builder.Register<IAbilityFactory, AbilityFactory>(Lifetime.Scoped);
-            builder.Register<IGameFactory, GameFactory>(Lifetime.Scoped);
-            builder.Register<IDeathKitFactory, DeathKitFactory>(Lifetime.Scoped);
-            builder.Register<IGameplayWindowFactory, GameplayWindowFactory>(Lifetime.Scoped);
-            builder.Register<IVfxFactory, VfxFactory>(Lifetime.Scoped);
-            builder.Register<IDamageTextFactory, DamageTextFactory>(Lifetime.Scoped);
+            builder.Register<IExperiencePieceFactory, ExperiencePieceFactory>(Lifetime.Singleton);
+            builder.Register<IProjectileFactory, ProjectileFactory>(Lifetime.Singleton);
+            builder.Register<IAbilityEffectFactory, AbilityEffectFactory>(Lifetime.Singleton);
+            builder.Register<IAbilityFactory, AbilityFactory>(Lifetime.Singleton);
+            builder.Register<IGameFactory, GameFactory>(Lifetime.Singleton);
+            builder.Register<IDeathKitFactory, DeathKitFactory>(Lifetime.Singleton);
+            builder.Register<IGameplayWindowFactory, GameplayWindowFactory>(Lifetime.Singleton);
+            builder.Register<IVfxFactory, VfxFactory>(Lifetime.Singleton);
+            builder.Register<IDamageTextFactory, DamageTextFactory>(Lifetime.Singleton);
         }
 
         private static void RegisterObjectContainerProvider(IContainerBuilder builder)
@@ -82,7 +82,7 @@ namespace Infrastructure
             builder.Register(_ => new ObjectContainerProvider(projectileContainer.transform,
                     enemyContainer.transform, deathKitContainer.transform, experiencePieceContainer.transform,
                     damageTextContainer.transform, abilityEffectContainer.transform),
-                Lifetime.Scoped).As<IObjectContainerProvider>();
+                Lifetime.Singleton).As<IObjectContainerProvider>();
         }
     }
 }

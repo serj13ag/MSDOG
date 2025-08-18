@@ -8,6 +8,7 @@ namespace Constants
         {
             public const string MenuSceneName = "Menu";
             public const string LevelSceneName = "Level";
+            public const string LevelTvHudSceneName = "LevelTvHud";
         }
 
         public static class Arena

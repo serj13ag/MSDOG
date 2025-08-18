@@ -1,19 +1,14 @@
 using Core.Controllers;
 using Core.Services;
-using Gameplay;
 using Gameplay.Controllers;
 using Gameplay.Factories;
 using Gameplay.Providers;
 using Gameplay.Services;
-using UI.HUD;
-using UI.HUD.Actions;
-using UnityEngine;
 
 namespace Infrastructure
 {
     public class GameplayInitializer
     {
-        private readonly IDebugController _debugController;
         private readonly IEnemyService _enemyService;
         private readonly IGameFactory _gameFactory;
         private readonly ICameraController _cameraController;
@@ -30,11 +25,20 @@ namespace Infrastructure
         private readonly IDamageTextFactory _damageTextFactory;
         private readonly IAbilityEffectFactory _abilityEffectFactory;
 
-        public GameplayInitializer(IDebugController debugController, IEnemyService enemyService, IGameFactory gameFactory,
-            ICameraController cameraController, ILevelFlowService levelFlowService, IDialogueService dialogueService,
-            ILevelViewController levelViewController, ISoundController soundController, IDataService dataService,
-            ITutorialService tutorialService, IDeathKitFactory deathKitFactory, IProjectileFactory projectileFactory,
-            IPlayerProvider playerProvider, IExperiencePieceFactory experiencePieceFactory, IDamageTextFactory damageTextFactory,
+        public GameplayInitializer(IEnemyService enemyService,
+            IGameFactory gameFactory,
+            ICameraController cameraController,
+            ILevelFlowService levelFlowService,
+            IDialogueService dialogueService,
+            ILevelViewController levelViewController,
+            ISoundController soundController,
+            IDataService dataService,
+            ITutorialService tutorialService,
+            IDeathKitFactory deathKitFactory,
+            IProjectileFactory projectileFactory,
+            IPlayerProvider playerProvider,
+            IExperiencePieceFactory experiencePieceFactory,
+            IDamageTextFactory damageTextFactory,
             IAbilityEffectFactory abilityEffectFactory)
         {
             _levelViewController = levelViewController;
@@ -48,7 +52,6 @@ namespace Infrastructure
             _damageTextFactory = damageTextFactory;
             _abilityEffectFactory = abilityEffectFactory;
             _dialogueService = dialogueService;
-            _debugController = debugController;
             _enemyService = enemyService;
             _gameFactory = gameFactory;
             _cameraController = cameraController;
@@ -58,20 +61,10 @@ namespace Infrastructure
         public void Start(int levelIndex)
         {
             PrewarmFactories(levelIndex);
-            var player = SetupPlayer();
+            SetupPlayer();
             InitLevelSystems(levelIndex);
 
-            // TODO: add ui to DI
-            var hudController = Object.FindFirstObjectByType<HudController>();
-            hudController.Init();
-            hudController.AddStartAbility();
-
-            var hudActions = Object.FindFirstObjectByType<HudActions>();
-            hudActions.Init(player);
-
             PlayMusic(levelIndex);
-
-            _debugController.Setup(hudController);
 
             if (!_dialogueService.TryShowStartLevelDialogue(levelIndex, ActivateLevel))
             {
@@ -88,13 +81,12 @@ namespace Infrastructure
             _abilityEffectFactory.Prewarm(levelIndex);
         }
 
-        private Player SetupPlayer()
+        private void SetupPlayer()
         {
             var player = _gameFactory.CreatePlayer();
             _playerProvider.RegisterPlayer(player);
             _tutorialService.StartTrackPlayer(player);
             _cameraController.SetFollowTarget(player.transform);
-            return player;
         }
 
         private void InitLevelSystems(int levelIndex)
