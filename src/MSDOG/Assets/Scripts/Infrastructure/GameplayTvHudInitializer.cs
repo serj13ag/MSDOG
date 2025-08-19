@@ -1,6 +1,5 @@
 using Core.Services;
 using Gameplay.Controllers;
-using Gameplay.Providers;
 using Gameplay.Services;
 using UI.HUD;
 using UI.HUD.Actions;
@@ -16,9 +15,10 @@ namespace Infrastructure
         private readonly ExperienceBarHud _experienceBarHud;
         private readonly ActiveZoneHud _activeZoneHud;
         private readonly DetailsZoneHud _detailsZoneHud;
-        private readonly HudActions _hudActions;
+        private readonly FuseAction _fuseAction;
+        private readonly NitroAction _nitroAction;
+        private readonly ReloadAction _reloadAction;
         private readonly IEscapeWindowHandler _escapeWindowHandler;
-        private readonly IPlayerProvider _playerProvider;
         private readonly IDebugController _debugController;
 
         public GameplayTvHudInitializer(IDataService dataService,
@@ -27,9 +27,10 @@ namespace Infrastructure
             ExperienceBarHud experienceBarHud,
             ActiveZoneHud activeZoneHud,
             DetailsZoneHud detailsZoneHud,
-            HudActions hudActions,
+            FuseAction fuseAction,
+            NitroAction nitroAction,
+            ReloadAction reloadAction,
             IEscapeWindowHandler escapeWindowHandler,
-            IPlayerProvider playerProvider,
             IDebugController debugController)
         {
             _dataService = dataService;
@@ -38,9 +39,10 @@ namespace Infrastructure
             _experienceBarHud = experienceBarHud;
             _activeZoneHud = activeZoneHud;
             _detailsZoneHud = detailsZoneHud;
-            _hudActions = hudActions;
+            _fuseAction = fuseAction;
+            _nitroAction = nitroAction;
+            _reloadAction = reloadAction;
             _escapeWindowHandler = escapeWindowHandler;
-            _playerProvider = playerProvider;
             _debugController = debugController;
         }
 
@@ -57,7 +59,9 @@ namespace Infrastructure
                 _activeZoneHud.AddDetail(abilityData);
             }
 
-            _hudActions.Init(_playerProvider.Player);
+            _fuseAction.Init();
+            _nitroAction.Init();
+            _reloadAction.Init();
 
             _debugController.Setup(_detailsZoneHud);
         }

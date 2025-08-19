@@ -1,7 +1,8 @@
 using Core.Controllers;
 using Core.Sounds;
-using Gameplay;
+using Gameplay.Providers;
 using UnityEngine;
+using VContainer;
 
 namespace UI.HUD.Actions
 {
@@ -13,14 +14,18 @@ namespace UI.HUD.Actions
         [SerializeField] private float _offPositionZ = 1.4f;
         [SerializeField] private float _onPositionZ = 1f;
 
-        private Player _player;
+        private IPlayerProvider _playerProvider;
         private ISoundController _soundController;
 
-        public void Init(Player player, ISoundController soundController)
+        [Inject]
+        public void Construct(IPlayerProvider playerProvider, ISoundController soundController)
         {
+            _playerProvider = playerProvider;
             _soundController = soundController;
-            _player = player;
+        }
 
+        public void Init()
+        {
             _buttonObject.transform.localPosition = new Vector3(_buttonObject.transform.localPosition.x,
                 _buttonObject.transform.localPosition.y, _offPositionZ);
         }
@@ -53,7 +58,7 @@ namespace UI.HUD.Actions
 
         private void Press()
         {
-            _player.SetNitro(_moveSpeedMultiplier);
+            _playerProvider.Player.SetNitro(_moveSpeedMultiplier);
             _soundController.PlaySfx(SfxType.Nitro);
 
             _buttonObject.transform.localPosition = new Vector3(_buttonObject.transform.localPosition.x,
@@ -62,7 +67,7 @@ namespace UI.HUD.Actions
 
         private void Unpress()
         {
-            _player.ResetNitro();
+            _playerProvider.Player.ResetNitro();
             _buttonObject.transform.localPosition = new Vector3(_buttonObject.transform.localPosition.x,
                 _buttonObject.transform.localPosition.y, _offPositionZ);
         }

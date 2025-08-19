@@ -1,10 +1,11 @@
 using Core.Controllers;
 using Core.Interfaces;
 using Core.Sounds;
-using Gameplay;
+using Gameplay.Providers;
 using Gameplay.Services;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace UI.HUD.Actions
 {
@@ -18,7 +19,7 @@ namespace UI.HUD.Actions
         [SerializeField] private float _startingAngleLerp = 0.8f;
         [SerializeField] private float _maxAngle = 1080f;
 
-        private Player _player;
+        private IPlayerProvider _playerProvider;
         private IUpdateController _updateController;
         private ISoundController _soundController;
         private ITutorialService _tutorialService;
@@ -28,17 +29,22 @@ namespace UI.HUD.Actions
         private bool _dragging;
         private float _currentDragAngle;
 
-        public void Init(Player player, IUpdateController updateController, ISoundController soundController, ITutorialService tutorialService)
+        [Inject]
+        public void Construct(IPlayerProvider playerProvider, IUpdateController updateController,
+            ISoundController soundController, ITutorialService tutorialService)
         {
+            _playerProvider = playerProvider;
             _tutorialService = tutorialService;
             _soundController = soundController;
             _updateController = updateController;
-            _player = player;
+        }
 
+        public void Init()
+        {
             _currentAngle = Mathf.Lerp(0f, _maxAngle, _startingAngleLerp);
             UpdateFillImageView();
 
-            updateController.Register(this);
+            _updateController.Register(this);
         }
 
         public void OnUpdate(float deltaTime)
@@ -108,7 +114,7 @@ namespace UI.HUD.Actions
 
             _currentAngle = newAngle;
             var angleIsZero = Mathf.Approximately(_currentAngle, 0f);
-            _player.AbilitiesSetActive(!angleIsZero);
+            _playerProvider.Player.AbilitiesSetActive(!angleIsZero);
 
             if (angleIsZero)
             {

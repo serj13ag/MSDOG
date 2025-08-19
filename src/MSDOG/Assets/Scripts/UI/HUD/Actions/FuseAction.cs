@@ -1,9 +1,10 @@
 using Core.Controllers;
 using Core.Sounds;
-using Gameplay;
+using Gameplay.Providers;
 using Gameplay.Services;
 using UnityEngine;
 using UnityEngine.UI;
+using VContainer;
 
 namespace UI.HUD.Actions
 {
@@ -20,7 +21,7 @@ namespace UI.HUD.Actions
         [SerializeField] private float _reduceMultiplier = 2f;
         [SerializeField] private float _nitroMultiplier = 2f;
 
-        private Player _player;
+        private IPlayerProvider _playerProvider;
         private ISoundController _soundController;
         private ITutorialService _tutorialService;
 
@@ -32,12 +33,16 @@ namespace UI.HUD.Actions
         private Vector3? _previousPlayerPosition;
         private float _counter;
 
-        public void Init(Player player, ISoundController soundController, ITutorialService tutorialService)
+        [Inject]
+        public void Construct(IPlayerProvider playerProvider, ISoundController soundController, ITutorialService tutorialService)
         {
+            _playerProvider = playerProvider;
             _tutorialService = tutorialService;
             _soundController = soundController;
-            _player = player;
+        }
 
+        public void Init()
+        {
             Connect();
         }
 
@@ -67,17 +72,19 @@ namespace UI.HUD.Actions
 
         private void UpdateCounter()
         {
+            var player = _playerProvider.Player;
+
             if (!_previousPlayerPosition.HasValue)
             {
-                _previousPlayerPosition = _player.transform.position;
+                _previousPlayerPosition = player.transform.position;
                 return;
             }
 
-            var passedDistance = Vector3.Distance(_player.transform.position, _previousPlayerPosition.Value);
-            _previousPlayerPosition = _player.transform.position;
+            var passedDistance = Vector3.Distance(player.transform.position, _previousPlayerPosition.Value);
+            _previousPlayerPosition = player.transform.position;
             if (passedDistance > 0f)
             {
-                var timeToAdd = Time.deltaTime * (_player.HasNitro ? _nitroMultiplier : 1f);
+                var timeToAdd = Time.deltaTime * (player.HasNitro ? _nitroMultiplier : 1f);
                 _counter += timeToAdd;
             }
             else
@@ -131,7 +138,7 @@ namespace UI.HUD.Actions
             SetLocalRotation(_maxAngle);
             _alarmIcon.DeactivateAlarm();
 
-            _player.MovementSetActive(true);
+            _playerProvider.Player.MovementSetActive(true);
             _soundController.PlaySfx(SfxType.LeverUp);
         }
 
@@ -142,7 +149,7 @@ namespace UI.HUD.Actions
             SetLocalRotation(_minAngle);
             _alarmIcon.ActivateAlarm();
 
-            _player.MovementSetActive(false);
+            _playerProvider.Player.MovementSetActive(false);
             _soundController.PlaySfx(SfxType.LeverDown);
             _tutorialService.OnFuseActionDisconnected();
         }

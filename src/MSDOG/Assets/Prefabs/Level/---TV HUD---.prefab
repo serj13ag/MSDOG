@@ -1523,7 +1523,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5794900367406826368}
-  - component: {fileID: 2505641167950812174}
   m_Layer: 0
   m_Name: HudActions
   m_TagString: Untagged
@@ -1549,21 +1548,6 @@ Transform:
   - {fileID: 6062471124965231218}
   m_Father: {fileID: 977983769944930107}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2505641167950812174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5146839024107216779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f4ad96b8b914ce6a94142c69e3f1d02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fuseAction: {fileID: 8917521154655156341}
-  _nitroAction: {fileID: 7577680276398795669}
-  _reloadAction: {fileID: 7738602735344618845}
 --- !u!1 &5314352143733459841
 GameObject:
   m_ObjectHideFlags: 0
