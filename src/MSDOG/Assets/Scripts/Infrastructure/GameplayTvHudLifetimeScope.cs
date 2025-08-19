@@ -8,12 +8,14 @@ namespace Infrastructure
 {
     public class GameplayTvHudLifetimeScope : BaseLifetimeScope
     {
+        [SerializeField] private HealthBarHud _healthBarHud;
         [SerializeField] private HudController _hudController;
         [SerializeField] private HudActions _hudActions;
 
         protected override void ConfigureContainer(IContainerBuilder builder)
         {
             // TODO: register all child components and remove them from hud controller
+            builder.RegisterComponent(_healthBarHud).As<HealthBarHud>();
             builder.RegisterComponent(_hudController).As<HudController>();
             builder.RegisterComponent(_hudActions).As<HudActions>();
 

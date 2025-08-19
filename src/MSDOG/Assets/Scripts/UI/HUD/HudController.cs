@@ -13,7 +13,6 @@ namespace UI.HUD
     public class HudController : MonoBehaviour
     {
         [SerializeField] private Transform _canvasTransform;
-        [SerializeField] private HealthBarHud _healthBarHud;
         [SerializeField] private ExperienceBarHud _experienceBarHud;
         [SerializeField] private DetailsZoneHud _detailsZoneHud;
         [SerializeField] private ActiveZoneHud _activeZoneHud;
@@ -38,7 +37,6 @@ namespace UI.HUD
         public void Init()
         {
             // TODO: refactor
-            _healthBarHud.Init();
             _experienceBarHud.Init(_detailsZoneHud);
             _detailsZoneHud.Init(_activeZoneHud);
         }

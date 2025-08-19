@@ -167,8 +167,8 @@ MonoBehaviour:
     TypeName: Infrastructure.GameplayLifetimeScope
   autoRun: 0
   autoInjectGameObjects:
-  - {fileID: 6294132970679443292}
   - {fileID: 6294132970679443291}
+  _healthBarHud: {fileID: 6294132970679443292}
   _hudController: {fileID: 6294132970679443290}
   _hudActions: {fileID: 6294132970679443289}
 --- !u!1001 &6294132970679443288
@@ -319,11 +319,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7018558773300091856, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
   m_PrefabInstance: {fileID: 6294132970679443288}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6294132970679443292 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6942563091214015317, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+--- !u!114 &6294132970679443292 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4179722409870436676, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
   m_PrefabInstance: {fileID: 6294132970679443288}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7a009dbd75643c9a938d625db2fc940, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8951935198048817670
 PrefabInstance:
   m_ObjectHideFlags: 0
