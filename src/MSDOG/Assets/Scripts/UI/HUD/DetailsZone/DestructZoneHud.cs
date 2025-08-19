@@ -2,7 +2,6 @@ using Core.Controllers;
 using Core.Services;
 using Core.Sounds;
 using Gameplay.Providers;
-using Gameplay.Services;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;

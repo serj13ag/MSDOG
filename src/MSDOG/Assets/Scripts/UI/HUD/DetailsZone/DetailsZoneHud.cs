@@ -25,15 +25,12 @@ namespace UI.HUD.DetailsZone
         private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
 
         [Inject]
-        public void Construct(IAssetProviderService assetProviderService, ITutorialService tutorialService)
+        public void Construct(IAssetProviderService assetProviderService, ITutorialService tutorialService,
+            ActiveZoneHud activeZoneHud)
         {
             _tutorialService = tutorialService;
             _assetProviderService = assetProviderService;
-        }
-
-        public void Init(ActiveZoneHud activeZoneHud)
-        {
-            _activeZoneHud = activeZoneHud; // TODO: fix
+            _activeZoneHud = activeZoneHud;
         }
 
         public void CreateDetail(AbilityData abilityData)

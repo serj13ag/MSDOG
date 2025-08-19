@@ -13,32 +13,32 @@ namespace UI.HUD
     public class HudController : MonoBehaviour
     {
         [SerializeField] private Transform _canvasTransform;
-        [SerializeField] private ExperienceBarHud _experienceBarHud;
-        [SerializeField] private DetailsZoneHud _detailsZoneHud;
-        [SerializeField] private ActiveZoneHud _activeZoneHud;
 
         private IDataService _dataService;
         private IWindowController _windowController;
         private IInputService _inputService;
         private ILevelFlowService _levelFlowService;
 
+        private DetailsZoneHud _detailsZoneHud;
+        private ActiveZoneHud _activeZoneHud;
+
         [Inject]
         public void Construct(IDataService dataService, IWindowController windowController, IInputService inputService,
-            ILevelFlowService levelFlowService)
+            ILevelFlowService levelFlowService, DetailsZoneHud detailsZoneHud, ActiveZoneHud activeZoneHud)
         {
             _levelFlowService = levelFlowService;
             _inputService = inputService;
             _windowController = windowController;
             _dataService = dataService;
 
+            _detailsZoneHud = detailsZoneHud;
+            _activeZoneHud = activeZoneHud;
+
             inputService.OnMenuActionPerformed += OnMenuActionPerformed;
         }
 
         public void Init()
         {
-            // TODO: refactor
-            _experienceBarHud.Init(_detailsZoneHud);
-            _detailsZoneHud.Init(_activeZoneHud);
         }
 
         public void AddStartAbility()

@@ -33,20 +33,18 @@ namespace UI.HUD
 
         [Inject]
         public void Construct(IDataService dataService, IPlayerProvider playerProvider, ILevelFlowService levelFlowService,
-            ISoundController soundController, ITutorialService tutorialService)
+            ISoundController soundController, ITutorialService tutorialService, DetailsZoneHud detailsZoneHud)
         {
             _levelFlowService = levelFlowService;
             _playerProvider = playerProvider;
             _tutorialService = tutorialService;
             _soundController = soundController;
             _dataService = dataService;
+            _detailsZoneHud = detailsZoneHud;
         }
 
-        public void Init(DetailsZoneHud detailsZoneHud)
+        public void Init()
         {
-            // TODO: refactor
-            _detailsZoneHud = detailsZoneHud;
-
             UpdateView();
 
             _craftButton.onClick.AddListener(OnCraftButtonClick);
