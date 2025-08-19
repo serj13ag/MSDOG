@@ -1174,7 +1174,6 @@ GameObject:
   - component: {fileID: 8321623607874761516}
   - component: {fileID: 602491271916633377}
   - component: {fileID: 3743732737343243287}
-  - component: {fileID: 881398105755638395}
   m_Layer: 5
   m_Name: HudCanvas
   m_TagString: Untagged
@@ -1267,23 +1266,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &881398105755638395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3227683236998504065}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dfe94d8683f48fb92ae30756d2539d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _canvasTransform: {fileID: 1853682272033940953}
-  _healthBarHud: {fileID: 4179722409870436676}
-  _experienceBarHud: {fileID: 3087336828757248262}
-  _detailsZoneHud: {fileID: 5324587836441854160}
-  _activeZoneHud: {fileID: 7602228076207450070}
 --- !u!1 &3310136421744729842
 GameObject:
   m_ObjectHideFlags: 0

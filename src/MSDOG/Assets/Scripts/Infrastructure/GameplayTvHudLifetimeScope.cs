@@ -17,7 +17,6 @@ namespace Infrastructure
         [SerializeField] private DestructZoneHud _destructZoneHud;
         [SerializeField] private FusionZoneHud _fusionZoneHud;
 
-        [SerializeField] private HudController _hudController;
         [SerializeField] private HudActions _hudActions;
 
         protected override void ConfigureContainer(IContainerBuilder builder)
@@ -31,7 +30,6 @@ namespace Infrastructure
             builder.RegisterComponent(_destructZoneHud).As<DestructZoneHud>();
             builder.RegisterComponent(_fusionZoneHud).As<FusionZoneHud>();
 
-            builder.RegisterComponent(_hudController).As<HudController>();
             builder.RegisterComponent(_hudActions).As<HudActions>();
 
             builder.Register<IEscapeWindowHandler, EscapeWindowHandler>(Lifetime.Singleton);

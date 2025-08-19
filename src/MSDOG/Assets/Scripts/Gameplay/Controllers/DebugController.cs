@@ -1,7 +1,7 @@
 using System;
 using Core.Controllers;
 using Core.Services;
-using UI.HUD;
+using UI.HUD.DetailsZone;
 using UnityEngine;
 using VContainer;
 
@@ -12,7 +12,7 @@ namespace Gameplay.Controllers
         private IUpdateController _updateController;
         private IDataService _dataService;
 
-        private HudController _hudController;
+        private DetailsZoneHud _detailsZoneHud;
 
         private bool _isActive;
 
@@ -30,9 +30,9 @@ namespace Gameplay.Controllers
             _updateController = updateController;
         }
 
-        public void Setup(HudController hudController)
+        public void Setup(DetailsZoneHud detailsZoneHud)
         {
-            _hudController = hudController;
+            _detailsZoneHud = detailsZoneHud;
         }
 
         public void OnGUI()
@@ -124,7 +124,7 @@ namespace Gameplay.Controllers
             {
                 if (GUILayout.Button(abilityData.name, style))
                 {
-                    _hudController.AddAbility(abilityData);
+                    _detailsZoneHud.CreateDetail(abilityData);
                 }
             }
         }

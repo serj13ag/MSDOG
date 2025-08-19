@@ -1,5 +1,5 @@
 using System;
-using UI.HUD;
+using UI.HUD.DetailsZone;
 
 namespace Gameplay.Controllers
 {
@@ -12,6 +12,6 @@ namespace Gameplay.Controllers
         event EventHandler<EventArgs> OnForceSpawnEnemiesRequested;
         event EventHandler<EventArgs> OnKillAllEnemiesRequested;
 
-        void Setup(HudController hudController);
+        void Setup(DetailsZoneHud detailsZoneHud);
     }
 }

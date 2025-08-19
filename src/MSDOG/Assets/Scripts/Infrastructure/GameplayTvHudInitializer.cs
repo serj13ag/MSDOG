@@ -12,10 +12,10 @@ namespace Infrastructure
     {
         private readonly IDataService _dataService;
         private readonly ILevelFlowService _levelFlowService;
-        private readonly HudController _hudController;
         private readonly HealthBarHud _healthBarHud;
         private readonly ExperienceBarHud _experienceBarHud;
         private readonly ActiveZoneHud _activeZoneHud;
+        private readonly DetailsZoneHud _detailsZoneHud;
         private readonly HudActions _hudActions;
         private readonly IEscapeWindowHandler _escapeWindowHandler;
         private readonly IPlayerProvider _playerProvider;
@@ -23,10 +23,10 @@ namespace Infrastructure
 
         public GameplayTvHudInitializer(IDataService dataService,
             ILevelFlowService levelFlowService,
-            HudController hudController,
             HealthBarHud healthBarHud,
             ExperienceBarHud experienceBarHud,
             ActiveZoneHud activeZoneHud,
+            DetailsZoneHud detailsZoneHud,
             HudActions hudActions,
             IEscapeWindowHandler escapeWindowHandler,
             IPlayerProvider playerProvider,
@@ -34,10 +34,10 @@ namespace Infrastructure
         {
             _dataService = dataService;
             _levelFlowService = levelFlowService;
-            _hudController = hudController;
             _healthBarHud = healthBarHud;
             _experienceBarHud = experienceBarHud;
             _activeZoneHud = activeZoneHud;
+            _detailsZoneHud = detailsZoneHud;
             _hudActions = hudActions;
             _escapeWindowHandler = escapeWindowHandler;
             _playerProvider = playerProvider;
@@ -59,7 +59,7 @@ namespace Infrastructure
 
             _hudActions.Init(_playerProvider.Player);
 
-            _debugController.Setup(_hudController);
+            _debugController.Setup(_detailsZoneHud);
         }
     }
 }
