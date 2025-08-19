@@ -11,6 +11,7 @@ namespace Infrastructure
         private readonly HealthBarHud _healthBarHud;
         private readonly ExperienceBarHud _experienceBarHud;
         private readonly HudActions _hudActions;
+        private readonly IEscapeWindowHandler _escapeWindowHandler;
         private readonly IPlayerProvider _playerProvider;
         private readonly IDebugController _debugController;
 
@@ -18,6 +19,7 @@ namespace Infrastructure
             HealthBarHud healthBarHud,
             ExperienceBarHud experienceBarHud,
             HudActions hudActions,
+            IEscapeWindowHandler escapeWindowHandler,
             IPlayerProvider playerProvider,
             IDebugController debugController)
         {
@@ -25,6 +27,7 @@ namespace Infrastructure
             _healthBarHud = healthBarHud;
             _experienceBarHud = experienceBarHud;
             _hudActions = hudActions;
+            _escapeWindowHandler = escapeWindowHandler;
             _playerProvider = playerProvider;
             _debugController = debugController;
         }
@@ -34,8 +37,9 @@ namespace Infrastructure
             _healthBarHud.Init();
             _experienceBarHud.Init();
 
+            _escapeWindowHandler.Init();
+
             // TODO: refactor if needed
-            _hudController.Init();
             _hudController.AddStartAbility();
 
             _hudActions.Init(_playerProvider.Player);

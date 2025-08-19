@@ -34,6 +34,8 @@ namespace Infrastructure
             builder.RegisterComponent(_hudController).As<HudController>();
             builder.RegisterComponent(_hudActions).As<HudActions>();
 
+            builder.Register<IEscapeWindowHandler, EscapeWindowHandler>(Lifetime.Singleton);
+
             builder.Register<GameplayTvHudInitializer>(Lifetime.Singleton);
         }
     }
