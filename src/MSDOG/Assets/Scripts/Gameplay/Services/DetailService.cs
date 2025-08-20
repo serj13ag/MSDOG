@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Models.Data;
+using Core.Services;
 using Gameplay.Providers;
 
 namespace Gameplay.Services
@@ -8,6 +10,8 @@ namespace Gameplay.Services
     public class DetailService : IDetailService
     {
         private readonly IPlayerProvider _playerProvider;
+        private readonly ITutorialService _tutorialService;
+        private readonly IDataService _dataService;
 
         private readonly Dictionary<Guid, Detail> _activeDetails = new Dictionary<Guid, Detail>();
         private readonly Dictionary<Guid, Detail> _inactiveDetails = new Dictionary<Guid, Detail>();
@@ -17,8 +21,10 @@ namespace Gameplay.Services
         public event EventHandler<DetailCreatedEventArgs> OnActiveDetailCreated;
         public event EventHandler<DetailCreatedEventArgs> OnInactiveDetailCreated;
 
-        public DetailService(IPlayerProvider playerProvider)
+        public DetailService(IPlayerProvider playerProvider, ITutorialService tutorialService, IDataService dataService)
         {
+            _tutorialService = tutorialService;
+            _dataService = dataService;
             _playerProvider = playerProvider;
         }
 
@@ -34,6 +40,11 @@ namespace Gameplay.Services
         {
             var detail = new Detail(abilityData);
             _inactiveDetails.Add(detail.Id, detail);
+
+            if (HasSameDetails())
+            {
+                _tutorialService.OnHasTwoSameDetails();
+            }
 
             OnInactiveDetailCreated?.Invoke(this, new DetailCreatedEventArgs(detail));
         }
@@ -62,10 +73,26 @@ namespace Gameplay.Services
             _activeDetails.Remove(detailToDeactivate.Id);
         }
 
+        public bool TryGetUpgrade(Detail detail, out AbilityData upgradedAbilityData)
+        {
+            var abilityData = detail.AbilityData;
+            return _dataService.TryGetAbilityUpgradeData(abilityData.AbilityType, abilityData.Level, out upgradedAbilityData);
+        }
+
         private void ActivateDetail(Detail detail)
         {
             _playerProvider.Player.AddAbility(detail.Id, detail.AbilityData);
             _activeDetails.Add(detail.Id, detail);
+        }
+
+        private bool HasSameDetails()
+        {
+            // TODO: refactor add comparer
+            var allDetails = new List<Detail>(_activeDetails.Values);
+            allDetails.AddRange(_inactiveDetails.Values);
+            return allDetails
+                .GroupBy(a => new { a.AbilityData.AbilityType, a.AbilityData.Level })
+                .Any(g => g.Count() > 1);
         }
     }
 }

@@ -77,14 +77,6 @@ namespace UI.HUD.DetailsZone
             _detailParts.Remove(detailPart.Id);
             _detailService.DeactivateDetail(detailPart.Id);
         }
-
-        public IEnumerable<DetailPartHud> GetDetailParts()
-        {
-            foreach (var detailPart in _detailParts)
-            {
-                yield return detailPart.Value;
-            }
-        }
         
         private void OnActiveDetailCreated(object sender, DetailCreatedEventArgs e)
         {

@@ -25,6 +25,7 @@ namespace UI.HUD.DetailsZone
 
         public Guid Id => _detail.Id;
         public AbilityData AbilityData => _detail.AbilityData;
+        public Detail Detail => _detail;
 
         public void Init(Detail detail, Canvas parentCanvas)
         {

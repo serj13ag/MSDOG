@@ -14,6 +14,8 @@ namespace Gameplay.Services
         void ActivateDetail(Guid detailId);
         void DeactivateDetail(Guid detailId);
 
+        bool TryGetUpgrade(Detail detail, out AbilityData upgradedAbilityData);
+
         event EventHandler<DetailCreatedEventArgs> OnActiveDetailCreated;
         event EventHandler<DetailCreatedEventArgs> OnInactiveDetailCreated;
     }

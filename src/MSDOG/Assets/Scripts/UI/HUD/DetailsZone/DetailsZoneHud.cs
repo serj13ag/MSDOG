@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Constants;
 using Core.Services;
 using Gameplay;
@@ -19,20 +18,15 @@ namespace UI.HUD.DetailsZone
         [SerializeField] private int _maxNumberOfParts;
 
         private IAssetProviderService _assetProviderService;
-        private ITutorialService _tutorialService;
-        private ActiveZoneHud _activeZoneHud;
         private IDetailService _detailService;
 
         private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
 
         [Inject]
-        public void Construct(IAssetProviderService assetProviderService, ITutorialService tutorialService,
-            ActiveZoneHud activeZoneHud, IDetailService detailService)
+        public void Construct(IAssetProviderService assetProviderService, IDetailService detailService)
         {
             _detailService = detailService;
-            _tutorialService = tutorialService;
             _assetProviderService = assetProviderService;
-            _activeZoneHud = activeZoneHud;
         }
 
         public void Init()
@@ -69,11 +63,6 @@ namespace UI.HUD.DetailsZone
         {
             detailPart.transform.SetParent(_detailsGrid.transform);
             _detailParts.Add(detailPart.Id, detailPart);
-
-            if (HasSameDetails())
-            {
-                _tutorialService.OnHasTwoSameDetails();
-            }
         }
 
         public void Exit(DetailPartHud detailPart)
@@ -86,16 +75,6 @@ namespace UI.HUD.DetailsZone
             var detailPart = _assetProviderService.Instantiate<DetailPartHud>(AssetPaths.DetailPartPrefabPath, _detailsGrid.transform);
             detailPart.Init(e.Detail, _parentCanvas);
             detailPart.SetCurrentZone(this);
-        }
-
-        private bool HasSameDetails()
-        {
-            // TODO: refactor
-            var allDetails = new List<DetailPartHud>(_detailParts.Values);
-            allDetails.AddRange(_activeZoneHud.GetDetailParts());
-            return allDetails
-                .GroupBy(a => new { a.AbilityData.AbilityType, a.AbilityData.Level })
-                .Any(g => g.Count() > 1);
         }
 
         private void OnDestroy()

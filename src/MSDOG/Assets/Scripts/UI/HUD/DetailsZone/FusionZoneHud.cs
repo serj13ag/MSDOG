@@ -1,6 +1,4 @@
 using Core.Controllers;
-using Core.Models.Data;
-using Core.Services;
 using Core.Sounds;
 using Gameplay.Services;
 using UnityEngine;
@@ -15,18 +13,14 @@ namespace UI.HUD.DetailsZone
         [SerializeField] private FusionSlotHud _fusionSlotHud2;
         [SerializeField] private Button _upgradeButton;
 
-        private IDataService _dataService;
         private ISoundController _soundController;
         private IDetailService _detailService;
 
-        private AbilityData _upgradedAbilityData;
-
         [Inject]
-        public void Construct(IDataService dataService, ISoundController soundController, IDetailService detailService)
+        public void Construct(ISoundController soundController, IDetailService detailService)
         {
             _detailService = detailService;
             _soundController = soundController;
-            _dataService = dataService;
         }
 
         private void OnEnable()
@@ -63,21 +57,20 @@ namespace UI.HUD.DetailsZone
                 return;
             }
 
-            var hasUpgrade =
-                _dataService.TryGetAbilityUpgradeData(abilityData1.AbilityType, abilityData1.Level, out _upgradedAbilityData);
-
+            var hasUpgrade = _detailService.TryGetUpgrade(detailPart1.Detail, out _);
             _upgradeButton.gameObject.SetActive(hasUpgrade);
         }
 
         public void OnDetailExitsTheZone()
         {
-            _upgradedAbilityData = null;
             _upgradeButton.gameObject.SetActive(false);
         }
 
         private void UpgradeAbility()
         {
-            _detailService.CreateInactiveDetail(_upgradedAbilityData);
+            _detailService.TryGetUpgrade(_fusionSlotHud1.DetailPart.Detail, out var upgradedAbilityData);
+
+            _detailService.CreateInactiveDetail(upgradedAbilityData);
             _fusionSlotHud1.DestroyDetail();
             _fusionSlotHud2.DestroyDetail();
 
