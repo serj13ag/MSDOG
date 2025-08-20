@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Constants;
-using Core.Models.Data;
 using Core.Services;
-using Gameplay.Providers;
+using Gameplay;
+using Gameplay.Services;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;
@@ -17,28 +17,27 @@ namespace UI.HUD.DetailsZone
         [SerializeField] private int _maxNumberOfActiveParts;
 
         private IAssetProviderService _assetProviderService;
-        private IPlayerProvider _playerProvider;
+        private IDetailService _detailService;
 
         private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
 
         [Inject]
-        public void Construct(IPlayerProvider playerProvider, IAssetProviderService assetProviderService)
+        public void Construct(IAssetProviderService assetProviderService, IDetailService detailService)
         {
-            _playerProvider = playerProvider;
+            _detailService = detailService;
             _assetProviderService = assetProviderService;
         }
 
-        public void AddDetail(AbilityData abilityData)
+        public void Init()
         {
-            if (_detailParts.Count >= _maxNumberOfActiveParts)
+            foreach (var activeDetail in _detailService.ActiveDetails)
             {
-                Debug.LogError("Too many active detail parts");
-                return;
+                var detailPart = _assetProviderService.Instantiate<DetailPartHud>(AssetPaths.DetailPartPrefabPath, _grid.transform);
+                detailPart.Init(activeDetail.Value, _parentCanvas);
+                detailPart.SetCurrentZone(this);
             }
 
-            var detailPart = _assetProviderService.Instantiate<DetailPartHud>(AssetPaths.DetailPartPrefabPath, _grid.transform);
-            detailPart.Init(abilityData, _parentCanvas);
-            detailPart.SetCurrentZone(this);
+            _detailService.OnActiveDetailCreated += OnActiveDetailCreated;
         }
 
         public void OnDrop(PointerEventData eventData)
@@ -70,13 +69,13 @@ namespace UI.HUD.DetailsZone
         {
             _detailParts.Add(detailPart.Id, detailPart);
             detailPart.transform.SetParent(_grid.transform);
-            _playerProvider.Player.AddAbility(detailPart.Id, detailPart.AbilityData);
+            _detailService.ActivateDetail(detailPart.Id);
         }
 
         public void Exit(DetailPartHud detailPart)
         {
             _detailParts.Remove(detailPart.Id);
-            _playerProvider.Player.RemoveAbility(detailPart.Id);
+            _detailService.DeactivateDetail(detailPart.Id);
         }
 
         public IEnumerable<DetailPartHud> GetDetailParts()
@@ -85,6 +84,18 @@ namespace UI.HUD.DetailsZone
             {
                 yield return detailPart.Value;
             }
+        }
+        
+        private void OnActiveDetailCreated(object sender, DetailCreatedEventArgs e)
+        {
+            var detailPart = _assetProviderService.Instantiate<DetailPartHud>(AssetPaths.DetailPartPrefabPath, _grid.transform);
+            detailPart.Init(e.Detail, _parentCanvas);
+            detailPart.SetCurrentZone(this);
+        }
+
+        private void OnDestroy()
+        {
+            _detailService.OnActiveDetailCreated -= OnActiveDetailCreated;
         }
     }
 }

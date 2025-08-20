@@ -11,7 +11,5 @@ namespace Gameplay.Controllers
         event EventHandler<EventArgs> OnHideDebugHealthBar;
         event EventHandler<EventArgs> OnForceSpawnEnemiesRequested;
         event EventHandler<EventArgs> OnKillAllEnemiesRequested;
-
-        void Setup(DetailsZoneHud detailsZoneHud);
     }
 }

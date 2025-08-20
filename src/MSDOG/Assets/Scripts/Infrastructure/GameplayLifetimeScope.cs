@@ -46,6 +46,7 @@ namespace Infrastructure
             builder.Register<IEnemyService, EnemyService>(Lifetime.Singleton);
             builder.Register<ILevelFlowService, LevelFlowService>(Lifetime.Singleton);
             builder.Register<ITutorialService, TutorialService>(Lifetime.Singleton);
+            builder.Register<IDetailService, DetailService>(Lifetime.Singleton);
         }
 
         private static void RegisterFactories(IContainerBuilder builder)

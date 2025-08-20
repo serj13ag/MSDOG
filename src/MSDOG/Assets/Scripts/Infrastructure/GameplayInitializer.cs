@@ -24,6 +24,7 @@ namespace Infrastructure
         private readonly IExperiencePieceFactory _experiencePieceFactory;
         private readonly IDamageTextFactory _damageTextFactory;
         private readonly IAbilityEffectFactory _abilityEffectFactory;
+        private readonly IDetailService _detailService;
 
         public GameplayInitializer(IEnemyService enemyService,
             IGameFactory gameFactory,
@@ -39,7 +40,8 @@ namespace Infrastructure
             IPlayerProvider playerProvider,
             IExperiencePieceFactory experiencePieceFactory,
             IDamageTextFactory damageTextFactory,
-            IAbilityEffectFactory abilityEffectFactory)
+            IAbilityEffectFactory abilityEffectFactory,
+            IDetailService detailService)
         {
             _levelViewController = levelViewController;
             _soundController = soundController;
@@ -51,6 +53,7 @@ namespace Infrastructure
             _experiencePieceFactory = experiencePieceFactory;
             _damageTextFactory = damageTextFactory;
             _abilityEffectFactory = abilityEffectFactory;
+            _detailService = detailService;
             _dialogueService = dialogueService;
             _enemyService = enemyService;
             _gameFactory = gameFactory;
@@ -62,6 +65,7 @@ namespace Infrastructure
         {
             PrewarmFactories(levelIndex);
             SetupPlayer();
+            CreateStartDetails(levelIndex);
             InitLevelSystems(levelIndex);
 
             PlayMusic(levelIndex);
@@ -87,6 +91,15 @@ namespace Infrastructure
             _playerProvider.RegisterPlayer(player);
             _tutorialService.StartTrackPlayer(player);
             _cameraController.SetFollowTarget(player.transform);
+        }
+
+        private void CreateStartDetails(int levelIndex)
+        {
+            var startAbilitiesData = _dataService.GetStartAbilitiesData(levelIndex);
+            foreach (var abilityData in startAbilitiesData)
+            {
+                _detailService.CreateActiveDetail(abilityData);
+            }
         }
 
         private void InitLevelSystems(int levelIndex)

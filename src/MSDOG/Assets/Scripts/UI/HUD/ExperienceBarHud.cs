@@ -4,7 +4,6 @@ using Core.Sounds;
 using Gameplay.Providers;
 using Gameplay.Services;
 using TMPro;
-using UI.HUD.DetailsZone;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -25,22 +24,21 @@ namespace UI.HUD
         private ISoundController _soundController;
         private ITutorialService _tutorialService;
         private ILevelFlowService _levelFlowService;
-
-        private DetailsZoneHud _detailsZoneHud;
+        private IDetailService _detailService;
 
         private bool _canCraft;
         private float _oscTimer;
 
         [Inject]
         public void Construct(IDataService dataService, IPlayerProvider playerProvider, ILevelFlowService levelFlowService,
-            ISoundController soundController, ITutorialService tutorialService, DetailsZoneHud detailsZoneHud)
+            ISoundController soundController, ITutorialService tutorialService, IDetailService detailService)
         {
+            _detailService = detailService;
             _levelFlowService = levelFlowService;
             _playerProvider = playerProvider;
             _tutorialService = tutorialService;
             _soundController = soundController;
             _dataService = dataService;
-            _detailsZoneHud = detailsZoneHud;
         }
 
         public void Init()
@@ -71,7 +69,7 @@ namespace UI.HUD
         private void OnCraftButtonClick()
         {
             var abilityData = _dataService.GetRandomCraftAbilityData(_levelFlowService.CurrentLevelIndex);
-            _detailsZoneHud.CreateDetail(abilityData);
+            _detailService.CreateInactiveDetail(abilityData);
             _playerProvider.Player.ResetExperience();
             UpdateView();
 

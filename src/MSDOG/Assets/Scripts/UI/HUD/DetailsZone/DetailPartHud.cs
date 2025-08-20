@@ -1,5 +1,6 @@
 using System;
 using Core.Models.Data;
+using Gameplay;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -20,14 +21,15 @@ namespace UI.HUD.DetailsZone
         private AbilityData _abilityData;
         private IDetailsZone _currentDetailsZone;
         private DetailPartGhostHud _dragGhost;
+        private Detail _detail;
 
-        public Guid Id { get; private set; }
-        public AbilityData AbilityData => _abilityData;
+        public Guid Id => _detail.Id;
+        public AbilityData AbilityData => _detail.AbilityData;
 
-        public void Init(AbilityData abilityData, Canvas parentCanvas)
+        public void Init(Detail detail, Canvas parentCanvas)
         {
-            Id = Guid.NewGuid();
-            _abilityData = abilityData;
+            _detail = detail;
+            _abilityData = detail.AbilityData; // TODO: remove?
             _parentCanvas = parentCanvas;
             _icon.sprite = _abilityData.Icon;
             //_text.text = $"{_abilityData.AbilityType}_{_abilityData.Level}";

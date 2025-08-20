@@ -2,6 +2,7 @@ using Core.Controllers;
 using Core.Models.Data;
 using Core.Services;
 using Core.Sounds;
+using Gameplay.Services;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -10,19 +11,20 @@ namespace UI.HUD.DetailsZone
 {
     public class FusionZoneHud : MonoBehaviour
     {
-        [SerializeField] private DetailsZoneHud _detailsZoneHud;
         [SerializeField] private FusionSlotHud _fusionSlotHud1;
         [SerializeField] private FusionSlotHud _fusionSlotHud2;
         [SerializeField] private Button _upgradeButton;
 
         private IDataService _dataService;
         private ISoundController _soundController;
+        private IDetailService _detailService;
 
         private AbilityData _upgradedAbilityData;
 
         [Inject]
-        public void Construct(IDataService dataService, ISoundController soundController)
+        public void Construct(IDataService dataService, ISoundController soundController, IDetailService detailService)
         {
+            _detailService = detailService;
             _soundController = soundController;
             _dataService = dataService;
         }
@@ -75,7 +77,7 @@ namespace UI.HUD.DetailsZone
 
         private void UpgradeAbility()
         {
-            _detailsZoneHud.CreateDetail(_upgradedAbilityData);
+            _detailService.CreateInactiveDetail(_upgradedAbilityData);
             _fusionSlotHud1.DestroyDetail();
             _fusionSlotHud2.DestroyDetail();
 
