@@ -1,4 +1,4 @@
-using UI.Windows;
+using Windows;
 using UnityEngine;
 
 namespace Core.Factories

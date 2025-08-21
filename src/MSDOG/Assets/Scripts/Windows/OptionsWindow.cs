@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace UI.Windows
+namespace Windows
 {
     public class OptionsWindow : MonoBehaviour, IWindow
     {

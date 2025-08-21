@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI.Windows
+namespace Windows
 {
     public class CreditsWindow : MonoBehaviour, IWindow
     {

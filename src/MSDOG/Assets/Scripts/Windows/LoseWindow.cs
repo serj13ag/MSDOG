@@ -1,20 +1,18 @@
 using System;
-using Core.Services;
 using Gameplay.Services;
 using Infrastructure.StateMachine;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace UI.Windows
+namespace Windows
 {
-    public class WinWindow : MonoBehaviour, IWindow
+    public class LoseWindow : MonoBehaviour, IWindow
     {
         [SerializeField] private Button _toMainMenuButton;
-        [SerializeField] private Button _toNextLevelButton;
+        [SerializeField] private Button _restartLevelButton;
 
         private IGameStateMachine _gameStateMachine;
-        private IDataService _dataService;
         private ILevelFlowService _levelFlowService;
         private IInputService _inputService;
 
@@ -23,15 +21,11 @@ namespace UI.Windows
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(IGameStateMachine gameStateMachine, IDataService dataService, ILevelFlowService levelFlowService,
-            IInputService inputService)
+        public void Construct(IGameStateMachine gameStateMachine, IInputService inputService, ILevelFlowService levelFlowService)
         {
             _gameStateMachine = gameStateMachine;
             _inputService = inputService;
-            _dataService = dataService;
             _levelFlowService = levelFlowService;
-
-            _toNextLevelButton.gameObject.SetActive(!levelFlowService.IsLastLevel);
         }
 
         private void OnEnable()
@@ -39,22 +33,12 @@ namespace UI.Windows
             _inputService.LockInput();
 
             _toMainMenuButton.onClick.AddListener(OnToMainMenuButtonClicked);
-            _toNextLevelButton.onClick.AddListener(OnToNextLevelButtonClicked);
+            _restartLevelButton.onClick.AddListener(OnRestartLevelButtonClicked);
         }
 
-        private void OnToNextLevelButtonClicked()
+        private void OnRestartLevelButtonClicked()
         {
-            var nextLevelIndex = _levelFlowService.CurrentLevelIndex + 1;
-            if (nextLevelIndex < _dataService.GetNumberOfLevels())
-            {
-                _gameStateMachine.Enter<GameplayState, int>(nextLevelIndex);
-            }
-            else
-            {
-                Debug.LogWarning("This is last level! Going to main menu.");
-                _gameStateMachine.Enter<MainMenuState>();
-            }
-
+            _gameStateMachine.Enter<GameplayState, int>(_levelFlowService.CurrentLevelIndex);
             OnCloseRequested?.Invoke(this, EventArgs.Empty);
         }
 
@@ -67,7 +51,7 @@ namespace UI.Windows
         private void OnDisable()
         {
             _toMainMenuButton.onClick.RemoveListener(OnToMainMenuButtonClicked);
-            _toNextLevelButton.onClick.RemoveListener(OnToNextLevelButtonClicked);
+            _restartLevelButton.onClick.RemoveListener(OnRestartLevelButtonClicked);
         }
     }
 }

@@ -1,7 +1,7 @@
 using System;
+using Windows;
 using Core.Models.Data;
 using Gameplay.Factories;
-using UI.Windows;
 
 namespace Core.Controllers
 {

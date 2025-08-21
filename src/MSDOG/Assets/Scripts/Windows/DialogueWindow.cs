@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using VContainer;
 
-namespace UI.Windows
+namespace Windows
 {
     public class DialogueWindow : MonoBehaviour, IWindow, IPointerClickHandler
     {

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace UI.Windows
+namespace Windows
 {
     public class TutorialWindow : MonoBehaviour, IWindow
     {

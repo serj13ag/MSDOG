@@ -1,7 +1,7 @@
 using System;
+using Windows;
 using Core.Models.Data;
 using Core.Services;
-using UI.Windows;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

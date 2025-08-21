@@ -1,7 +1,7 @@
 using System;
+using Windows;
 using Core.Controllers;
 using Gameplay.Services;
-using UI.Windows;
 
 namespace GameplayTvHud.Services
 {
