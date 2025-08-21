@@ -1,7 +1,7 @@
 using GameplayView;
+using GameplayView.Actions;
 using GameplayView.DetailsZone;
 using UI.HUD;
-using UI.HUD.Actions;
 
 namespace Infrastructure
 {

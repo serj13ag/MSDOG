@@ -1,12 +1,12 @@
 using Core.Controllers;
 using Core.Interfaces;
 using Core.Sounds;
-using GameplayView;
+using UI.HUD;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace UI.HUD.Actions
+namespace GameplayView.Actions
 {
     public class ReloadAction : MonoBehaviour, IUpdatable
     {

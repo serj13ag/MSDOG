@@ -1,10 +1,9 @@
 using Core.Controllers;
 using Core.Sounds;
-using GameplayView;
 using UnityEngine;
 using VContainer;
 
-namespace UI.HUD.Actions
+namespace GameplayView.Actions
 {
     public class NitroAction : MonoBehaviour
     {
