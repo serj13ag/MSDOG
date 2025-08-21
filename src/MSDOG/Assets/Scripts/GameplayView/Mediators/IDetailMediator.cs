@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Gameplay;
 
-namespace GameplayView
+namespace GameplayView.Mediators
 {
     public interface IDetailMediator
     {

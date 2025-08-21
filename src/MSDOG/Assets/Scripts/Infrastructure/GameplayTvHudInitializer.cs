@@ -1,6 +1,6 @@
-using GameplayView;
 using GameplayView.Actions;
 using GameplayView.DetailsZone;
+using GameplayView.Services;
 using UI.HUD;
 
 namespace Infrastructure
