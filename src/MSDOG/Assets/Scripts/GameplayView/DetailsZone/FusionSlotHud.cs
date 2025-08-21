@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace UI.HUD.DetailsZone
+namespace GameplayView.DetailsZone
 {
     public class FusionSlotHud : MonoBehaviour, IDetailsZone, IDropHandler
     {

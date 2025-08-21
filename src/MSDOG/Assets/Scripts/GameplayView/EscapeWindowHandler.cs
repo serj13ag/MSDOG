@@ -3,7 +3,7 @@ using Core.Controllers;
 using Gameplay.Services;
 using UI.Windows;
 
-namespace UI.HUD
+namespace GameplayView
 {
     public class EscapeWindowHandler : IEscapeWindowHandler, IDisposable
     {

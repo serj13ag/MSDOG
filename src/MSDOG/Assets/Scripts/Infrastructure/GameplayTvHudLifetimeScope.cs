@@ -1,6 +1,7 @@
+using GameplayView;
+using GameplayView.DetailsZone;
 using UI.HUD;
 using UI.HUD.Actions;
-using UI.HUD.DetailsZone;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

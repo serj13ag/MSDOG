@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace UI.HUD.DetailsZone
+namespace GameplayView.DetailsZone
 {
     public class FusionZoneHud : MonoBehaviour
     {

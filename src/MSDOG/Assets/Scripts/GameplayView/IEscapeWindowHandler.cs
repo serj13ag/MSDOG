@@ -1,4 +1,4 @@
-namespace UI.HUD
+namespace GameplayView
 {
     public interface IEscapeWindowHandler
     {

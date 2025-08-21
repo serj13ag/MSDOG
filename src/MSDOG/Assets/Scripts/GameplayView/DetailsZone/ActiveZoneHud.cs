@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;
 
-namespace UI.HUD.DetailsZone
+namespace GameplayView.DetailsZone
 {
     public class ActiveZoneHud : MonoBehaviour, IDetailsZone, IDropHandler
     {

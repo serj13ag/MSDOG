@@ -6,7 +6,7 @@ using Gameplay.Providers;
 using Gameplay.Services;
 using UnityEngine;
 
-namespace UI.HUD
+namespace GameplayView
 {
     public class DetailMediator : IDetailMediator, IDisposable
     {

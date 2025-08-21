@@ -2,6 +2,7 @@ using Core.Controllers;
 using Core.Sounds;
 using Gameplay.Providers;
 using Gameplay.Services;
+using GameplayView;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
