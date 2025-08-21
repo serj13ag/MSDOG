@@ -1,7 +1,7 @@
 using UnityEngine;
 using Utility;
 
-namespace UI.HUD
+namespace GameplayTvHud.UI
 {
     public class AlarmIcon : MonoBehaviour
     {

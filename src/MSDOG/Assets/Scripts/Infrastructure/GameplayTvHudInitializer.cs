@@ -1,7 +1,7 @@
 using GameplayTvHud.Actions;
 using GameplayTvHud.DetailsZone;
 using GameplayTvHud.Services;
-using UI.HUD;
+using GameplayTvHud.UI;
 
 namespace Infrastructure
 {

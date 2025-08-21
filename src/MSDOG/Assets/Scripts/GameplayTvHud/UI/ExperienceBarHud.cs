@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace UI.HUD
+namespace GameplayTvHud.UI
 {
     public class ExperienceBarHud : MonoBehaviour
     {

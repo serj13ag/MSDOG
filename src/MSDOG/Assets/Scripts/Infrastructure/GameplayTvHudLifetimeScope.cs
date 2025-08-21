@@ -2,7 +2,7 @@ using GameplayTvHud.Actions;
 using GameplayTvHud.DetailsZone;
 using GameplayTvHud.Mediators;
 using GameplayTvHud.Services;
-using UI.HUD;
+using GameplayTvHud.UI;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;

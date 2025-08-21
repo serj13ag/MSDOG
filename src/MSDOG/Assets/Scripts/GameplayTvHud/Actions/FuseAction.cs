@@ -1,7 +1,7 @@
 using Core.Controllers;
 using Core.Sounds;
 using GameplayTvHud.Mediators;
-using UI.HUD;
+using GameplayTvHud.UI;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
