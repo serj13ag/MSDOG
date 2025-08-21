@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GameplayView.Mediators
+namespace GameplayTvHud.Mediators
 {
     public interface IActionMediator
     {

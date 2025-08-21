@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using Constants;
 using Core.Services;
 using Gameplay;
-using GameplayView.Mediators;
+using GameplayTvHud.Mediators;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using VContainer;
 
-namespace GameplayView.DetailsZone
+namespace GameplayTvHud.DetailsZone
 {
-    public class ActiveZoneHud : MonoBehaviour, IDetailsZone, IDropHandler
+    public class DetailsZoneHud : MonoBehaviour, IDetailsZone, IDropHandler
     {
         [SerializeField] private Canvas _parentCanvas;
-        [SerializeField] private Transform _grid;
-        [SerializeField] private int _maxNumberOfActiveParts;
+        [SerializeField] private GridLayoutGroup _detailsGrid;
+        [SerializeField] private int _maxNumberOfParts;
 
         private IAssetProviderService _assetProviderService;
         private IDetailMediator _detailMediator;
@@ -30,14 +31,7 @@ namespace GameplayView.DetailsZone
 
         public void Init()
         {
-            foreach (var activeDetail in _detailMediator.GetActiveDetails())
-            {
-                var detailPart = _assetProviderService.Instantiate<DetailPartHud>(AssetPaths.DetailPartPrefabPath, _grid.transform);
-                detailPart.Init(activeDetail, _parentCanvas);
-                detailPart.SetCurrentZone(this);
-            }
-
-            _detailMediator.OnActiveDetailCreated += OnActiveDetailCreated;
+            _detailMediator.OnInactiveDetailCreated += OnInactiveDetailCreated;
         }
 
         public void OnDrop(PointerEventData eventData)
@@ -57,7 +51,7 @@ namespace GameplayView.DetailsZone
                 return;
             }
 
-            if (_detailParts.Count >= _maxNumberOfActiveParts)
+            if (_detailParts.Count >= _maxNumberOfParts)
             {
                 return;
             }
@@ -67,27 +61,25 @@ namespace GameplayView.DetailsZone
 
         public void Enter(DetailPartHud detailPart)
         {
+            detailPart.transform.SetParent(_detailsGrid.transform);
             _detailParts.Add(detailPart.Id, detailPart);
-            detailPart.transform.SetParent(_grid.transform);
-            _detailMediator.ActivateDetail(detailPart.Detail);
         }
 
         public void Exit(DetailPartHud detailPart)
         {
             _detailParts.Remove(detailPart.Id);
-            _detailMediator.DeactivateDetail(detailPart.Detail);
         }
-        
-        private void OnActiveDetailCreated(object sender, DetailCreatedEventArgs e)
+
+        private void OnInactiveDetailCreated(object sender, DetailCreatedEventArgs e)
         {
-            var detailPart = _assetProviderService.Instantiate<DetailPartHud>(AssetPaths.DetailPartPrefabPath, _grid.transform);
+            var detailPart = _assetProviderService.Instantiate<DetailPartHud>(AssetPaths.DetailPartPrefabPath, _detailsGrid.transform);
             detailPart.Init(e.Detail, _parentCanvas);
             detailPart.SetCurrentZone(this);
         }
 
         private void OnDestroy()
         {
-            _detailMediator.OnActiveDetailCreated -= OnActiveDetailCreated;
+            _detailMediator.OnInactiveDetailCreated -= OnInactiveDetailCreated;
         }
     }
 }

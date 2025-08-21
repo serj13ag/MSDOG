@@ -1,13 +1,13 @@
 using Core.Controllers;
 using Core.Interfaces;
 using Core.Sounds;
-using GameplayView.Mediators;
+using GameplayTvHud.Mediators;
 using UI.HUD;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace GameplayView.Actions
+namespace GameplayTvHud.Actions
 {
     public class ReloadAction : MonoBehaviour, IUpdatable
     {

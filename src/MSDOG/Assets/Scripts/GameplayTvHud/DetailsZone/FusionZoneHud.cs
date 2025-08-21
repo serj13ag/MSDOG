@@ -1,11 +1,11 @@
 using Core.Controllers;
 using Core.Sounds;
-using GameplayView.Mediators;
+using GameplayTvHud.Mediators;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
 
-namespace GameplayView.DetailsZone
+namespace GameplayTvHud.DetailsZone
 {
     public class FusionZoneHud : MonoBehaviour
     {

@@ -6,7 +6,7 @@ using Gameplay.Providers;
 using Gameplay.Services;
 using UnityEngine;
 
-namespace GameplayView.Mediators
+namespace GameplayTvHud.Mediators
 {
     public class DetailMediator : IDetailMediator, IDisposable
     {

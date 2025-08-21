@@ -1,4 +1,4 @@
-namespace GameplayView.DetailsZone
+namespace GameplayTvHud.DetailsZone
 {
     public interface IDetailsZone
     {

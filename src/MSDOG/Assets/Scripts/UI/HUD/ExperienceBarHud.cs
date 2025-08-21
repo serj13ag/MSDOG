@@ -2,7 +2,7 @@ using Core.Controllers;
 using Core.Sounds;
 using Gameplay.Providers;
 using Gameplay.Services;
-using GameplayView.Mediators;
+using GameplayTvHud.Mediators;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

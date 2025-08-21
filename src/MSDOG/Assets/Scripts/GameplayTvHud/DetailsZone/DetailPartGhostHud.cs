@@ -2,7 +2,7 @@ using Core.Models.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GameplayView.DetailsZone
+namespace GameplayTvHud.DetailsZone
 {
     public class DetailPartGhostHud : MonoBehaviour
     {
