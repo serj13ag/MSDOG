@@ -35,14 +35,14 @@ namespace GameplayTvHud.Actions
             _actionMediator = actionMediator;
             _soundController = soundController;
             _updateController = updateController;
+
+            updateController.Register(this);
         }
 
-        public void Init()
+        private void Start()
         {
             _currentAngle = Mathf.Lerp(0f, _maxAngle, _startingAngleLerp);
             UpdateFillImageView();
-
-            _updateController.Register(this);
         }
 
         public void OnUpdate(float deltaTime)

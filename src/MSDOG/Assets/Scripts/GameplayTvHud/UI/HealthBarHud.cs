@@ -17,13 +17,10 @@ namespace GameplayTvHud.UI
         public void Construct(IPlayerProvider playerProvider)
         {
             _playerProvider = playerProvider;
-        }
 
-        public void Init()
-        {
             UpdateView();
 
-            _playerProvider.Player.OnHealthChanged += OnPlayerHealthChanged;
+            playerProvider.Player.OnHealthChanged += OnPlayerHealthChanged;
         }
 
         private void OnPlayerHealthChanged()

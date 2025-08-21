@@ -35,14 +35,15 @@ namespace GameplayTvHud.UI
             _playerProvider = playerProvider;
             _tutorialService = tutorialService;
             _soundController = soundController;
-        }
 
-        public void Init()
-        {
             UpdateView();
 
+            playerProvider.Player.OnExperienceChanged += OnPlayerExperienceChanged;
+        }
+
+        private void Awake()
+        {
             _craftButton.onClick.AddListener(OnCraftButtonClick);
-            _playerProvider.Player.OnExperienceChanged += OnPlayerExperienceChanged;
         }
 
         private void Update()

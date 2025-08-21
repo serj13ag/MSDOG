@@ -24,7 +24,7 @@ namespace GameplayTvHud.Actions
             _soundController = soundController;
         }
 
-        public void Init()
+        private void Start()
         {
             _buttonObject.transform.localPosition = new Vector3(_buttonObject.transform.localPosition.x,
                 _buttonObject.transform.localPosition.y, _offPositionZ);

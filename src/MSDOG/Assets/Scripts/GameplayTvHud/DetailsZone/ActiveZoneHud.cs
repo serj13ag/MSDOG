@@ -26,18 +26,16 @@ namespace GameplayTvHud.DetailsZone
         {
             _detailMediator = detailMediator;
             _assetProviderService = assetProviderService;
+
+            detailMediator.OnActiveDetailCreated += OnActiveDetailCreated;
         }
 
-        public void Init()
+        public void CreateStarActiveDetails()
         {
             foreach (var activeDetail in _detailMediator.GetActiveDetails())
             {
-                var detailPart = _assetProviderService.Instantiate<DetailPartHud>(AssetPaths.DetailPartPrefabPath, _grid.transform);
-                detailPart.Init(activeDetail, _parentCanvas);
-                detailPart.SetCurrentZone(this);
+                CreateDetailPart(activeDetail);
             }
-
-            _detailMediator.OnActiveDetailCreated += OnActiveDetailCreated;
         }
 
         public void OnDrop(PointerEventData eventData)
@@ -77,11 +75,16 @@ namespace GameplayTvHud.DetailsZone
             _detailParts.Remove(detailPart.Id);
             _detailMediator.DeactivateDetail(detailPart.Detail);
         }
-        
+
         private void OnActiveDetailCreated(object sender, DetailCreatedEventArgs e)
         {
+            CreateDetailPart(e.Detail);
+        }
+
+        private void CreateDetailPart(Detail detail)
+        {
             var detailPart = _assetProviderService.Instantiate<DetailPartHud>(AssetPaths.DetailPartPrefabPath, _grid.transform);
-            detailPart.Init(e.Detail, _parentCanvas);
+            detailPart.Init(detail, _parentCanvas);
             detailPart.SetCurrentZone(this);
         }
 

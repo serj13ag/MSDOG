@@ -27,11 +27,8 @@ namespace GameplayTvHud.DetailsZone
         {
             _detailMediator = detailMediator;
             _assetProviderService = assetProviderService;
-        }
 
-        public void Init()
-        {
-            _detailMediator.OnInactiveDetailCreated += OnInactiveDetailCreated;
+            detailMediator.OnInactiveDetailCreated += OnInactiveDetailCreated;
         }
 
         public void OnDrop(PointerEventData eventData)
@@ -72,6 +69,7 @@ namespace GameplayTvHud.DetailsZone
 
         private void OnInactiveDetailCreated(object sender, DetailCreatedEventArgs e)
         {
+            // TODO: to factory
             var detailPart = _assetProviderService.Instantiate<DetailPartHud>(AssetPaths.DetailPartPrefabPath, _detailsGrid.transform);
             detailPart.Init(e.Detail, _parentCanvas);
             detailPart.SetCurrentZone(this);

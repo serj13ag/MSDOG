@@ -24,18 +24,17 @@ namespace Infrastructure
 
         protected override void ConfigureContainer(IContainerBuilder builder)
         {
-            // TODO: register all child components and remove them from hud controller
-            builder.RegisterComponent(_healthBarHud).As<HealthBarHud>();
-            builder.RegisterComponent(_experienceBarHud).As<ExperienceBarHud>();
+            builder.RegisterComponent(_healthBarHud);
+            builder.RegisterComponent(_experienceBarHud);
 
-            builder.RegisterComponent(_detailsZoneHud).As<DetailsZoneHud>();
-            builder.RegisterComponent(_activeZoneHud).As<ActiveZoneHud>();
-            builder.RegisterComponent(_destructZoneHud).As<DestructZoneHud>();
-            builder.RegisterComponent(_fusionZoneHud).As<FusionZoneHud>();
+            builder.RegisterComponent(_detailsZoneHud);
+            builder.RegisterComponent(_activeZoneHud);
+            builder.RegisterComponent(_destructZoneHud);
+            builder.RegisterComponent(_fusionZoneHud);
 
-            builder.RegisterComponent(_fuseAction).As<FuseAction>();
-            builder.RegisterComponent(_nitroAction).As<NitroAction>();
-            builder.RegisterComponent(_reloadAction).As<ReloadAction>();
+            builder.RegisterComponent(_fuseAction);
+            builder.RegisterComponent(_nitroAction);
+            builder.RegisterComponent(_reloadAction);
 
             builder.Register<IDetailMediator, DetailMediator>(Lifetime.Singleton);
             builder.Register<IActionMediator, ActionMediator>(Lifetime.Singleton);

@@ -60,21 +60,22 @@ namespace Infrastructure.StateMachine
 
         private void OnScenesLoaded(Scene levelScene, Scene levelTvScene)
         {
+            // TODO: to methods
             var gameplayScope = levelScene.GetRootGameObjects()
                 .Select(gameObject => gameObject.GetComponent<GameplayLifetimeScope>())
                 .First();
             gameplayScope.BuildContainer();
-
-            var gameplayTvHudScope = levelTvScene.GetRootGameObjects()
-                .Select(go => go.GetComponent<GameplayTvHudLifetimeScope>())
-                .First();
-            gameplayTvHudScope.BuildContainer();
 
             var gameplayWindowFactory = gameplayScope.Container.Resolve<IGameplayWindowFactory>();
             _windowController.RegisterGameplayWindowFactory(gameplayWindowFactory);
 
             var gameplayInitializer = gameplayScope.Container.Resolve<GameplayInitializer>();
             gameplayInitializer.Start(_levelIndex); // TODO: add await for factories warmup ?
+
+            var gameplayTvHudScope = levelTvScene.GetRootGameObjects()
+                .Select(go => go.GetComponent<GameplayTvHudLifetimeScope>())
+                .First();
+            gameplayTvHudScope.BuildContainer();
 
             var tvInitializer = gameplayTvHudScope.Container.Resolve<GameplayTvHudInitializer>();
             tvInitializer.Start();

@@ -39,7 +39,7 @@ namespace GameplayTvHud.Actions
             _soundController = soundController;
         }
 
-        public void Init()
+        public void StartConnected()
         {
             Connect();
         }
