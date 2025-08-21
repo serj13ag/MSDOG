@@ -1,5 +1,4 @@
 using Core.Controllers;
-using Core.Services;
 using Core.Sounds;
 using Gameplay.Providers;
 using Gameplay.Services;
@@ -19,26 +18,22 @@ namespace UI.HUD
         [SerializeField] private float _minScale = 0.8f;
         [SerializeField] private float _maxScale = 1.1f;
 
-        private IDataService _dataService;
-        private IPlayerProvider _playerProvider;
+        private IPlayerProvider _playerProvider; // TODO: to mediator?
         private ISoundController _soundController;
         private ITutorialService _tutorialService;
-        private ILevelFlowService _levelFlowService;
-        private IDetailService _detailService;
+        private IDetailMediator _detailMediator;
 
         private bool _canCraft;
         private float _oscTimer;
 
         [Inject]
-        public void Construct(IDataService dataService, IPlayerProvider playerProvider, ILevelFlowService levelFlowService,
-            ISoundController soundController, ITutorialService tutorialService, IDetailService detailService)
+        public void Construct(IPlayerProvider playerProvider, ISoundController soundController, ITutorialService tutorialService,
+            IDetailMediator detailMediator)
         {
-            _detailService = detailService;
-            _levelFlowService = levelFlowService;
+            _detailMediator = detailMediator;
             _playerProvider = playerProvider;
             _tutorialService = tutorialService;
             _soundController = soundController;
-            _dataService = dataService;
         }
 
         public void Init()
@@ -68,8 +63,7 @@ namespace UI.HUD
 
         private void OnCraftButtonClick()
         {
-            var abilityData = _dataService.GetRandomCraftAbilityData(_levelFlowService.CurrentLevelIndex);
-            _detailService.CreateInactiveDetail(abilityData);
+            _detailMediator.CraftDetail();
             _playerProvider.Player.ResetExperience();
             UpdateView();
 

@@ -1,6 +1,5 @@
 using Core.Controllers;
 using Core.Sounds;
-using Gameplay.Services;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -14,12 +13,12 @@ namespace UI.HUD.DetailsZone
         [SerializeField] private Button _upgradeButton;
 
         private ISoundController _soundController;
-        private IDetailService _detailService;
+        private IDetailMediator _detailMediator;
 
         [Inject]
-        public void Construct(ISoundController soundController, IDetailService detailService)
+        public void Construct(ISoundController soundController, IDetailMediator detailMediator)
         {
-            _detailService = detailService;
+            _detailMediator = detailMediator;
             _soundController = soundController;
         }
 
@@ -57,7 +56,7 @@ namespace UI.HUD.DetailsZone
                 return;
             }
 
-            var hasUpgrade = _detailService.TryGetUpgrade(detailPart1.Detail, out _);
+            var hasUpgrade = _detailMediator.HasUpgrade(detailPart1.Detail);
             _upgradeButton.gameObject.SetActive(hasUpgrade);
         }
 
@@ -68,9 +67,8 @@ namespace UI.HUD.DetailsZone
 
         private void UpgradeAbility()
         {
-            _detailService.TryGetUpgrade(_fusionSlotHud1.DetailPart.Detail, out var upgradedAbilityData);
-
-            _detailService.CreateInactiveDetail(upgradedAbilityData);
+            _detailMediator.UpgradeDetail(_fusionSlotHud1.DetailPart.Detail);
+            
             _fusionSlotHud1.DestroyDetail();
             _fusionSlotHud2.DestroyDetail();
 

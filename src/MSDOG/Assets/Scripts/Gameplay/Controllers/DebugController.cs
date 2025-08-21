@@ -9,6 +9,7 @@ namespace Gameplay.Controllers
 {
     public class DebugController : MonoBehaviour, IDebugController
     {
+        // TODO: to view part?
         private IUpdateController _updateController;
         private IDataService _dataService;
         private IDetailService _detailService;

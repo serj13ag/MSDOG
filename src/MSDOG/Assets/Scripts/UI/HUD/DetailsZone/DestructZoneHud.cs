@@ -1,7 +1,5 @@
 using Core.Controllers;
-using Core.Services;
 using Core.Sounds;
-using Gameplay.Providers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;
@@ -10,16 +8,14 @@ namespace UI.HUD.DetailsZone
 {
     public class DestructZoneHud : MonoBehaviour, IDetailsZone, IDropHandler
     {
-        private IDataService _dataService;
         private ISoundController _soundController;
-        private IPlayerProvider _playerProvider;
+        private IDetailMediator _detailMediator;
 
         [Inject]
-        public void Construct(IPlayerProvider playerProvider, IDataService dataService, ISoundController soundController)
+        public void Construct(ISoundController soundController, IDetailMediator detailMediator)
         {
-            _playerProvider = playerProvider;
+            _detailMediator = detailMediator;
             _soundController = soundController;
-            _dataService = dataService;
         }
 
         public void OnDrop(PointerEventData eventData)
@@ -39,19 +35,9 @@ namespace UI.HUD.DetailsZone
 
         public void Enter(DetailPartHud detailPart)
         {
-            var player = _playerProvider.Player;
-            var settingsData = _dataService.GetSettingsData();
-
-            if (player.IsFullHealth)
-            {
-                player.CollectExperience(settingsData.ExperiencePerDestructedDetail);
-            }
-            else
-            {
-                player.Heal(settingsData.HealPerDestructedDetail);
-            }
-
             detailPart.Destruct();
+
+            _detailMediator.DetailDestructed();
 
             _soundController.PlaySfx(SfxType.Destructor);
         }

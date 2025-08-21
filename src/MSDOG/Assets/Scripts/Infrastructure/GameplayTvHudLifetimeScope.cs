@@ -36,6 +36,8 @@ namespace Infrastructure
             builder.RegisterComponent(_nitroAction).As<NitroAction>();
             builder.RegisterComponent(_reloadAction).As<ReloadAction>();
 
+            builder.Register<IDetailMediator, DetailMediator>(Lifetime.Singleton);
+
             builder.Register<IEscapeWindowHandler, EscapeWindowHandler>(Lifetime.Singleton);
 
             builder.Register<GameplayTvHudInitializer>(Lifetime.Singleton);

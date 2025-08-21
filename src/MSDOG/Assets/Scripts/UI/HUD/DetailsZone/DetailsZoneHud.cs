@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Constants;
 using Core.Services;
 using Gameplay;
-using Gameplay.Services;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -18,20 +17,20 @@ namespace UI.HUD.DetailsZone
         [SerializeField] private int _maxNumberOfParts;
 
         private IAssetProviderService _assetProviderService;
-        private IDetailService _detailService;
+        private IDetailMediator _detailMediator;
 
         private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
 
         [Inject]
-        public void Construct(IAssetProviderService assetProviderService, IDetailService detailService)
+        public void Construct(IAssetProviderService assetProviderService, IDetailMediator detailMediator)
         {
-            _detailService = detailService;
+            _detailMediator = detailMediator;
             _assetProviderService = assetProviderService;
         }
 
         public void Init()
         {
-            _detailService.OnInactiveDetailCreated += OnInactiveDetailCreated;
+            _detailMediator.OnInactiveDetailCreated += OnInactiveDetailCreated;
         }
 
         public void OnDrop(PointerEventData eventData)
@@ -79,7 +78,7 @@ namespace UI.HUD.DetailsZone
 
         private void OnDestroy()
         {
-            _detailService.OnInactiveDetailCreated -= OnInactiveDetailCreated;
+            _detailMediator.OnInactiveDetailCreated -= OnInactiveDetailCreated;
         }
     }
 }

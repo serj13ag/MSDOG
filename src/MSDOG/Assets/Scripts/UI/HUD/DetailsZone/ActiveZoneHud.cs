@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Constants;
 using Core.Services;
 using Gameplay;
-using Gameplay.Services;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using VContainer;
@@ -17,27 +16,27 @@ namespace UI.HUD.DetailsZone
         [SerializeField] private int _maxNumberOfActiveParts;
 
         private IAssetProviderService _assetProviderService;
-        private IDetailService _detailService;
+        private IDetailMediator _detailMediator;
 
         private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
 
         [Inject]
-        public void Construct(IAssetProviderService assetProviderService, IDetailService detailService)
+        public void Construct(IAssetProviderService assetProviderService, IDetailMediator detailMediator)
         {
-            _detailService = detailService;
+            _detailMediator = detailMediator;
             _assetProviderService = assetProviderService;
         }
 
         public void Init()
         {
-            foreach (var activeDetail in _detailService.ActiveDetails)
+            foreach (var activeDetail in _detailMediator.GetActiveDetails())
             {
                 var detailPart = _assetProviderService.Instantiate<DetailPartHud>(AssetPaths.DetailPartPrefabPath, _grid.transform);
-                detailPart.Init(activeDetail.Value, _parentCanvas);
+                detailPart.Init(activeDetail, _parentCanvas);
                 detailPart.SetCurrentZone(this);
             }
 
-            _detailService.OnActiveDetailCreated += OnActiveDetailCreated;
+            _detailMediator.OnActiveDetailCreated += OnActiveDetailCreated;
         }
 
         public void OnDrop(PointerEventData eventData)
@@ -69,13 +68,13 @@ namespace UI.HUD.DetailsZone
         {
             _detailParts.Add(detailPart.Id, detailPart);
             detailPart.transform.SetParent(_grid.transform);
-            _detailService.ActivateDetail(detailPart.Id);
+            _detailMediator.ActivateDetail(detailPart.Detail);
         }
 
         public void Exit(DetailPartHud detailPart)
         {
             _detailParts.Remove(detailPart.Id);
-            _detailService.DeactivateDetail(detailPart.Id);
+            _detailMediator.DeactivateDetail(detailPart.Detail);
         }
         
         private void OnActiveDetailCreated(object sender, DetailCreatedEventArgs e)
@@ -87,7 +86,7 @@ namespace UI.HUD.DetailsZone
 
         private void OnDestroy()
         {
-            _detailService.OnActiveDetailCreated -= OnActiveDetailCreated;
+            _detailMediator.OnActiveDetailCreated -= OnActiveDetailCreated;
         }
     }
 }
