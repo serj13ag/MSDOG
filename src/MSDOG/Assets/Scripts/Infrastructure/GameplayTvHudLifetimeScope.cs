@@ -1,7 +1,6 @@
 using GameplayTvHud.Actions;
 using GameplayTvHud.DetailsZone;
 using GameplayTvHud.Mediators;
-using GameplayTvHud.Services;
 using GameplayTvHud.UI;
 using UnityEngine;
 using VContainer;
@@ -40,8 +39,6 @@ namespace Infrastructure
 
             builder.Register<IDetailMediator, DetailMediator>(Lifetime.Singleton);
             builder.Register<IActionMediator, ActionMediator>(Lifetime.Singleton);
-
-            builder.Register<IEscapeWindowHandler, EscapeWindowHandler>(Lifetime.Singleton);
 
             builder.Register<GameplayTvHudInitializer>(Lifetime.Singleton);
         }

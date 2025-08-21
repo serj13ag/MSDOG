@@ -1,4 +1,4 @@
-namespace GameplayTvHud.Services
+namespace Gameplay.Services
 {
     public interface IEscapeWindowHandler
     {

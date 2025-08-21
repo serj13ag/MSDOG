@@ -1,6 +1,5 @@
 using GameplayTvHud.Actions;
 using GameplayTvHud.DetailsZone;
-using GameplayTvHud.Services;
 using GameplayTvHud.UI;
 
 namespace Infrastructure
@@ -14,7 +13,6 @@ namespace Infrastructure
         private readonly FuseAction _fuseAction;
         private readonly NitroAction _nitroAction;
         private readonly ReloadAction _reloadAction;
-        private readonly IEscapeWindowHandler _escapeWindowHandler;
 
         public GameplayTvHudInitializer(HealthBarHud healthBarHud,
             ExperienceBarHud experienceBarHud,
@@ -22,8 +20,7 @@ namespace Infrastructure
             DetailsZoneHud detailsZoneHud,
             FuseAction fuseAction,
             NitroAction nitroAction,
-            ReloadAction reloadAction,
-            IEscapeWindowHandler escapeWindowHandler)
+            ReloadAction reloadAction)
         {
             _healthBarHud = healthBarHud;
             _experienceBarHud = experienceBarHud;
@@ -32,7 +29,6 @@ namespace Infrastructure
             _fuseAction = fuseAction;
             _nitroAction = nitroAction;
             _reloadAction = reloadAction;
-            _escapeWindowHandler = escapeWindowHandler;
         }
 
         public void Start()
@@ -46,8 +42,6 @@ namespace Infrastructure
             _fuseAction.Init();
             _nitroAction.Init();
             _reloadAction.Init();
-
-            _escapeWindowHandler.Init();
         }
     }
 }

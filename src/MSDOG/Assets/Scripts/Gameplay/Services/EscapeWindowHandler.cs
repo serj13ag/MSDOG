@@ -1,9 +1,8 @@
 using System;
 using Windows;
 using Core.Controllers;
-using Gameplay.Services;
 
-namespace GameplayTvHud.Services
+namespace Gameplay.Services
 {
     public class EscapeWindowHandler : IEscapeWindowHandler, IDisposable
     {

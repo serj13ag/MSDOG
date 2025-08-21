@@ -47,6 +47,8 @@ namespace Infrastructure
             builder.Register<ILevelFlowService, LevelFlowService>(Lifetime.Singleton);
             builder.Register<ITutorialService, TutorialService>(Lifetime.Singleton);
             builder.Register<IDetailService, DetailService>(Lifetime.Singleton);
+
+            builder.Register<IEscapeWindowHandler, EscapeWindowHandler>(Lifetime.Singleton);
         }
 
         private static void RegisterFactories(IContainerBuilder builder)
