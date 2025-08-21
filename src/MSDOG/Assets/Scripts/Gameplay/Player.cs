@@ -190,9 +190,9 @@ namespace Gameplay
             _healthBlock.Heal(value);
         }
 
-        public void SetNitro(float moveSpeedMultiplier)
+        public void SetNitro(float nitroMultiplier)
         {
-            _nitroMultiplier = moveSpeedMultiplier;
+            _nitroMultiplier = nitroMultiplier;
         }
 
         public void ResetNitro()

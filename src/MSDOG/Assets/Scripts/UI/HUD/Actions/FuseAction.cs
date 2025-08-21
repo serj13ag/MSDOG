@@ -1,7 +1,6 @@
 using Core.Controllers;
 using Core.Sounds;
-using Gameplay.Providers;
-using Gameplay.Services;
+using GameplayView;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -21,9 +20,8 @@ namespace UI.HUD.Actions
         [SerializeField] private float _reduceMultiplier = 2f;
         [SerializeField] private float _nitroMultiplier = 2f;
 
-        private IPlayerProvider _playerProvider;
         private ISoundController _soundController;
-        private ITutorialService _tutorialService;
+        private IActionMediator _actionMediator;
 
         private bool _connected;
         private bool _dragging;
@@ -34,10 +32,9 @@ namespace UI.HUD.Actions
         private float _counter;
 
         [Inject]
-        public void Construct(IPlayerProvider playerProvider, ISoundController soundController, ITutorialService tutorialService)
+        public void Construct(ISoundController soundController, IActionMediator actionMediator)
         {
-            _playerProvider = playerProvider;
-            _tutorialService = tutorialService;
+            _actionMediator = actionMediator;
             _soundController = soundController;
         }
 
@@ -72,19 +69,18 @@ namespace UI.HUD.Actions
 
         private void UpdateCounter()
         {
-            var player = _playerProvider.Player;
+            var playerPosition = _actionMediator.GetPlayerPosition();
 
             if (!_previousPlayerPosition.HasValue)
             {
-                _previousPlayerPosition = player.transform.position;
+                _previousPlayerPosition = playerPosition;
                 return;
             }
 
-            var passedDistance = Vector3.Distance(player.transform.position, _previousPlayerPosition.Value);
-            _previousPlayerPosition = player.transform.position;
+            var passedDistance = Vector3.Distance(playerPosition, _previousPlayerPosition.Value);
             if (passedDistance > 0f)
             {
-                var timeToAdd = Time.deltaTime * (player.HasNitro ? _nitroMultiplier : 1f);
+                var timeToAdd = Time.deltaTime * (_actionMediator.PlayerHasNitro ? _nitroMultiplier : 1f);
                 _counter += timeToAdd;
             }
             else
@@ -97,6 +93,8 @@ namespace UI.HUD.Actions
             {
                 Disconnect();
             }
+
+            _previousPlayerPosition = playerPosition;
 
             UpdateFillImageView();
         }
@@ -138,7 +136,8 @@ namespace UI.HUD.Actions
             SetLocalRotation(_maxAngle);
             _alarmIcon.DeactivateAlarm();
 
-            _playerProvider.Player.MovementSetActive(true);
+            _actionMediator.ConnectFuse();
+
             _soundController.PlaySfx(SfxType.LeverUp);
         }
 
@@ -149,9 +148,9 @@ namespace UI.HUD.Actions
             SetLocalRotation(_minAngle);
             _alarmIcon.ActivateAlarm();
 
-            _playerProvider.Player.MovementSetActive(false);
+            _actionMediator.DisconnectFuse();
+
             _soundController.PlaySfx(SfxType.LeverDown);
-            _tutorialService.OnFuseActionDisconnected();
         }
 
         private void SetLocalRotation(float angle)

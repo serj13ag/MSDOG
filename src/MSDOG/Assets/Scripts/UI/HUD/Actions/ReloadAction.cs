@@ -1,8 +1,7 @@
 using Core.Controllers;
 using Core.Interfaces;
 using Core.Sounds;
-using Gameplay.Providers;
-using Gameplay.Services;
+using GameplayView;
 using UnityEngine;
 using UnityEngine.UI;
 using VContainer;
@@ -19,10 +18,9 @@ namespace UI.HUD.Actions
         [SerializeField] private float _startingAngleLerp = 0.8f;
         [SerializeField] private float _maxAngle = 1080f;
 
-        private IPlayerProvider _playerProvider;
         private IUpdateController _updateController;
         private ISoundController _soundController;
-        private ITutorialService _tutorialService;
+        private IActionMediator _actionMediator;
 
         private float _currentAngle;
 
@@ -30,11 +28,10 @@ namespace UI.HUD.Actions
         private float _currentDragAngle;
 
         [Inject]
-        public void Construct(IPlayerProvider playerProvider, IUpdateController updateController,
-            ISoundController soundController, ITutorialService tutorialService)
+        public void Construct(IUpdateController updateController, ISoundController soundController,
+            IActionMediator actionMediator)
         {
-            _playerProvider = playerProvider;
-            _tutorialService = tutorialService;
+            _actionMediator = actionMediator;
             _soundController = soundController;
             _updateController = updateController;
         }
@@ -114,17 +111,18 @@ namespace UI.HUD.Actions
 
             _currentAngle = newAngle;
             var angleIsZero = Mathf.Approximately(_currentAngle, 0f);
-            _playerProvider.Player.AbilitiesSetActive(!angleIsZero);
-
             if (angleIsZero)
             {
                 _alarmIcon.ActivateAlarm();
+
+                _actionMediator.DisablePlayerAbilities();
                 _soundController.PlaySfx(SfxType.NeedReload);
-                _tutorialService.OnReloadNeeded();
             }
             else
             {
                 _alarmIcon.DeactivateAlarm();
+
+                _actionMediator.EnablePlayerAbilities();
             }
 
             _handleObject.transform.Rotate(Vector3.back, oldAngle - _currentAngle);

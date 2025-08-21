@@ -38,6 +38,7 @@ namespace Infrastructure
             builder.RegisterComponent(_reloadAction).As<ReloadAction>();
 
             builder.Register<IDetailMediator, DetailMediator>(Lifetime.Singleton);
+            builder.Register<IActionMediator, ActionMediator>(Lifetime.Singleton);
 
             builder.Register<IEscapeWindowHandler, EscapeWindowHandler>(Lifetime.Singleton);
 
