@@ -1,12 +1,9 @@
 using System;
-using Core.Controllers;
 using Core.Models.Data;
-using Gameplay.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using VContainer;
 
 namespace Windows
 {
@@ -16,9 +13,6 @@ namespace Windows
         [SerializeField] private TMP_Text _speech;
         [SerializeField] private TMP_Text _name;
 
-        private IInputService _inputService;
-        private IUpdateController _updateController;
-
         private Action _onDialogueCompleted;
         private DialogueStage[] _dialogueStages;
         private int _currentDialogueStageIndex;
@@ -27,26 +21,12 @@ namespace Windows
 
         public event EventHandler<EventArgs> OnCloseRequested;
 
-        [Inject]
-        public void Construct(IInputService inputService, IUpdateController updateController)
-        {
-            _updateController = updateController;
-            _inputService = inputService;
-        }
-
         public void Init(DialogueData dialogueData, Action onDialogueCompleted)
         {
             _dialogueStages = dialogueData.DialogueStages;
             _onDialogueCompleted = onDialogueCompleted;
 
             UpdateWindow();
-        }
-
-        private void OnEnable()
-        {
-            // TODO: fix
-            _inputService.LockInput();
-            _updateController.Pause();
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -100,12 +80,6 @@ namespace Windows
         private void UpdateSpeech(string speech)
         {
             _speech.text = speech;
-        }
-
-        private void OnDisable()
-        {
-            _inputService.UnlockInput();
-            _updateController.Unpause();
         }
 
         private void OnDestroy()

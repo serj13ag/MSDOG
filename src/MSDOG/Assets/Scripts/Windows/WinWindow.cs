@@ -16,18 +16,15 @@ namespace Windows
         private IGameStateMachine _gameStateMachine;
         private IDataService _dataService;
         private ILevelFlowService _levelFlowService;
-        private IInputService _inputService;
 
         public GameObject GameObject => gameObject;
 
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(IGameStateMachine gameStateMachine, IDataService dataService, ILevelFlowService levelFlowService,
-            IInputService inputService)
+        public void Construct(IGameStateMachine gameStateMachine, IDataService dataService, ILevelFlowService levelFlowService)
         {
             _gameStateMachine = gameStateMachine;
-            _inputService = inputService;
             _dataService = dataService;
             _levelFlowService = levelFlowService;
 
@@ -36,8 +33,6 @@ namespace Windows
 
         private void OnEnable()
         {
-            _inputService.LockInput();
-
             _toMainMenuButton.onClick.AddListener(OnToMainMenuButtonClicked);
             _toNextLevelButton.onClick.AddListener(OnToNextLevelButtonClicked);
         }

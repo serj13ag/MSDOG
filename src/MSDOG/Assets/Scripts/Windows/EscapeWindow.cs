@@ -18,16 +18,14 @@ namespace Windows
         private IGameStateMachine _gameStateMachine;
         private ILevelFlowService _levelFlowService;
         private IWindowController _windowController;
-        private IUpdateController _updateController;
 
         public GameObject GameObject => gameObject;
         public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
-        public void Construct(IGameStateMachine gameStateMachine, ILevelFlowService levelFlowService, IWindowController windowController,
-            IUpdateController updateController)
+        public void Construct(IGameStateMachine gameStateMachine, ILevelFlowService levelFlowService,
+            IWindowController windowController)
         {
-            _updateController = updateController;
             _windowController = windowController;
             _levelFlowService = levelFlowService;
             _gameStateMachine = gameStateMachine;
@@ -35,8 +33,6 @@ namespace Windows
 
         private void OnEnable()
         {
-            _updateController.Pause(true);
-
             _restartButton.onClick.AddListener(Restart);
             _optionsButton.onClick.AddListener(OnOptionsButtonClicked);
             _menuButton.onClick.AddListener(GoToMenu);
@@ -45,8 +41,6 @@ namespace Windows
 
         private void OnDisable()
         {
-            _updateController.Unpause(true);
-
             _restartButton.onClick.RemoveListener(Restart);
             _optionsButton.onClick.RemoveListener(OnOptionsButtonClicked);
             _menuButton.onClick.RemoveListener(GoToMenu);

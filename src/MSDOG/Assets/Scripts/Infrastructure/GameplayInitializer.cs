@@ -25,7 +25,7 @@ namespace Infrastructure
         private readonly IDamageTextFactory _damageTextFactory;
         private readonly IAbilityEffectFactory _abilityEffectFactory;
         private readonly IDetailService _detailService;
-        private readonly IEscapeWindowHandler _escapeWindowHandler;
+        private readonly IGameplayWindowsHandler _gameplayWindowsHandler;
 
         public GameplayInitializer(IEnemyService enemyService,
             IGameFactory gameFactory,
@@ -43,7 +43,7 @@ namespace Infrastructure
             IDamageTextFactory damageTextFactory,
             IAbilityEffectFactory abilityEffectFactory,
             IDetailService detailService,
-            IEscapeWindowHandler escapeWindowHandler)
+            IGameplayWindowsHandler gameplayWindowsHandler)
         {
             _levelViewController = levelViewController;
             _soundController = soundController;
@@ -56,7 +56,7 @@ namespace Infrastructure
             _damageTextFactory = damageTextFactory;
             _abilityEffectFactory = abilityEffectFactory;
             _detailService = detailService;
-            _escapeWindowHandler = escapeWindowHandler;
+            _gameplayWindowsHandler = gameplayWindowsHandler;
             _dialogueService = dialogueService;
             _enemyService = enemyService;
             _gameFactory = gameFactory;
@@ -71,7 +71,7 @@ namespace Infrastructure
             CreateStartDetails(levelIndex);
             InitLevelSystems(levelIndex);
 
-            _escapeWindowHandler.Init();
+            _gameplayWindowsHandler.Init(); // TODO: need?
 
             PlayMusic(levelIndex);
 

@@ -48,7 +48,7 @@ namespace Infrastructure
             builder.Register<ITutorialService, TutorialService>(Lifetime.Singleton);
             builder.Register<IDetailService, DetailService>(Lifetime.Singleton);
 
-            builder.Register<IEscapeWindowHandler, EscapeWindowHandler>(Lifetime.Singleton);
+            builder.Register<IGameplayWindowsHandler, GameplayWindowsHandler>(Lifetime.Singleton);
         }
 
         private static void RegisterFactories(IContainerBuilder builder)

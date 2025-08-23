@@ -57,7 +57,7 @@ namespace Core.Controllers
 
             if (withTimeScale)
             {
-                Time.timeScale = 0f;
+                Time.timeScale = 0f; // TODO: fix curtain
             }
         }
 

@@ -1,10 +1,8 @@
 using System;
-using Core.Controllers;
 using Core.Models.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using VContainer;
 
 namespace Windows
 {
@@ -14,17 +12,9 @@ namespace Windows
         [SerializeField] private Image _hintImage;
         [SerializeField] private TMP_Text _hintText;
 
-        private IUpdateController _updateController;
-
         public GameObject GameObject => gameObject;
 
         public event EventHandler<EventArgs> OnCloseRequested;
-
-        [Inject]
-        public void Construct(IUpdateController updateController)
-        {
-            _updateController = updateController;
-        }
 
         public void Init(TutorialEventData tutorialEventData)
         {
@@ -34,15 +24,11 @@ namespace Windows
 
         private void OnEnable()
         {
-            _updateController.Pause(true);
-
             _closeButton.onClick.AddListener(Close);
         }
 
         private void OnDisable()
         {
-            _updateController.Unpause(true);
-
             _closeButton.onClick.RemoveListener(Close);
         }
 

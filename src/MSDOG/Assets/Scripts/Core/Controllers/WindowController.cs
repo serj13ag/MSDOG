@@ -18,6 +18,11 @@ namespace Core.Controllers
 
         private readonly Stack<IWindow> _activeWindows = new Stack<IWindow>();
 
+        public bool HasActiveWindows => _activeWindows.Count > 0;
+
+        public event EventHandler<EventArgs> OnWindowShowed;
+        public event EventHandler<EventArgs> OnWindowClosed;
+
         [Inject]
         public void Construct(IGlobalWindowFactory globalWindowFactory)
         {
@@ -79,7 +84,8 @@ namespace Core.Controllers
 
         public void ShowDialogueWindow(DialogueData dialogueData, Action onDialogueCompleted)
         {
-            var dialogueWindow = _gameplayWindowFactory.CreateDialogueWindow(dialogueData, onDialogueCompleted, _canvas.transform);
+            var dialogueWindow =
+                _gameplayWindowFactory.CreateDialogueWindow(dialogueData, onDialogueCompleted, _canvas.transform);
             ShowWindow(dialogueWindow);
         }
 
@@ -108,12 +114,16 @@ namespace Core.Controllers
             var windowToClose = _activeWindows.Pop();
             windowToClose.OnCloseRequested -= OnWindowCloseRequested;
             Destroy(windowToClose.GameObject);
+
+            OnWindowClosed?.Invoke(this, EventArgs.Empty);
         }
 
         private void ShowWindow(IWindow window)
         {
             _activeWindows.Push(window);
             window.OnCloseRequested += OnWindowCloseRequested;
+
+            OnWindowShowed?.Invoke(this, EventArgs.Empty);
         }
 
         private void OnWindowCloseRequested(object sender, EventArgs e)

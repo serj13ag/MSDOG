@@ -1,6 +1,6 @@
 namespace Gameplay.Services
 {
-    public interface IEscapeWindowHandler
+    public interface IGameplayWindowsHandler
     {
         void Init();
     }

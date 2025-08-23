@@ -7,6 +7,11 @@ namespace Core.Controllers
 {
     public interface IWindowController
     {
+        bool HasActiveWindows { get; }
+
+        event EventHandler<EventArgs> OnWindowShowed;
+        event EventHandler<EventArgs> OnWindowClosed;
+
         void RegisterGameplayWindowFactory(IGameplayWindowFactory gameplayWindowFactory);
         void RemoveGameplayWindowFactory();
 
