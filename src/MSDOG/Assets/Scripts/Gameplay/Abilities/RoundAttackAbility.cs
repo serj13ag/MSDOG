@@ -7,7 +7,7 @@ using Gameplay.AbilityEffects;
 using Gameplay.Enemies;
 using Gameplay.Factories;
 using UnityEngine;
-using Utility;
+using Utility.Extensions;
 
 namespace Gameplay.Abilities
 {

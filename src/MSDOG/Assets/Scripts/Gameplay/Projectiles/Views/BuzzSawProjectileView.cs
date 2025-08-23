@@ -2,6 +2,7 @@ using Core.Controllers;
 using Gameplay.Enemies;
 using UnityEngine;
 using Utility;
+using Utility.Extensions;
 using VContainer;
 
 namespace Gameplay.Projectiles.Views

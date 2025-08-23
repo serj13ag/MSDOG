@@ -1,5 +1,6 @@
 using UnityEngine;
 using Utility;
+using Utility.Extensions;
 
 namespace Gameplay.Enemies.EnemyBehaviour.States
 {

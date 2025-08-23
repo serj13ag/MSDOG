@@ -5,6 +5,7 @@ using Gameplay.Enemies;
 using Gameplay.Factories;
 using UnityEngine;
 using Utility;
+using Utility.Extensions;
 using VContainer;
 
 namespace Gameplay.Projectiles.Views
