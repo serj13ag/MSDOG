@@ -1,7 +1,7 @@
 using System;
 using Core.Controllers;
 using Core.Interfaces;
-using Utility;
+using Utility.Pools;
 
 namespace Gameplay.Projectiles.Views
 {

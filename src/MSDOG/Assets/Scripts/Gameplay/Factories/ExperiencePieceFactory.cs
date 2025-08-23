@@ -1,7 +1,7 @@
 using Core.Services;
 using Gameplay.Providers;
 using UnityEngine;
-using UnityEngine.Pool;
+using Utility.Pools;
 using VContainer;
 using VContainer.Unity;
 
@@ -13,18 +13,15 @@ namespace Gameplay.Factories
 
         private readonly IDataService _dataService;
 
-        private readonly ObjectPool<ExperiencePiece> _pool;
+        private readonly GameObjectPool<ExperiencePiece> _pool;
 
         public ExperiencePieceFactory(IObjectResolver container, IDataService dataService,
             IObjectContainerProvider objectContainerProvider)
         {
             var settingsData = dataService.GetSettingsData();
 
-            _pool = new ObjectPool<ExperiencePiece>(
-                createFunc: () => container.Instantiate(settingsData.ExperiencePiecePrefab,
-                    objectContainerProvider.ExperiencePieceContainer),
-                actionOnGet: obj => obj.OnGet(),
-                actionOnRelease: obj => obj.OnRelease());
+            _pool = new GameObjectPool<ExperiencePiece>(() =>
+                container.Instantiate(settingsData.ExperiencePiecePrefab, objectContainerProvider.ExperiencePieceContainer));
         }
 
         public void Prewarm()
@@ -44,7 +41,6 @@ namespace Gameplay.Factories
         public ExperiencePiece CreateExperiencePiece(Vector3 position, int experience)
         {
             var experiencePiece = _pool.Get();
-            experiencePiece.SetReleaseCallback(() => _pool.Release(experiencePiece));
             experiencePiece.Init(position, experience);
             return experiencePiece;
         }

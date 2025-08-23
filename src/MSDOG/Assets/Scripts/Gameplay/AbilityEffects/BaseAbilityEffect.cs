@@ -1,4 +1,4 @@
-using Utility;
+using Utility.Pools;
 
 namespace Gameplay.AbilityEffects
 {

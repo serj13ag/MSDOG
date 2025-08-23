@@ -5,7 +5,7 @@ using Gameplay.Projectiles;
 using Gameplay.Projectiles.Views;
 using Gameplay.Providers;
 using UnityEngine;
-using UnityEngine.Pool;
+using Utility.Pools;
 using VContainer;
 using VContainer.Unity;
 
@@ -20,7 +20,7 @@ namespace Gameplay.Factories
         private readonly IDataService _dataService;
         private readonly IPlayerProvider _playerProvider;
 
-        private readonly Dictionary<BaseProjectileView, ObjectPool<BaseProjectileView>> _pools = new();
+        private readonly Dictionary<BaseProjectileView, GameObjectPool<BaseProjectileView>> _pools = new();
 
         public ProjectileFactory(IObjectResolver container, IObjectContainerProvider objectContainerProvider,
             IDataService dataService, IPlayerProvider playerProvider)
@@ -74,7 +74,6 @@ namespace Gameplay.Factories
         {
             var pool = _pools[projectileSpawnData.ProjectileData.ViewPrefab];
             var view = pool.Get();
-            view.SetReleaseCallback(() => pool.Release(view));
             view.transform.position = projectileSpawnData.SpawnPosition;
             view.transform.rotation = Quaternion.LookRotation(projectileSpawnData.ForwardDirection);
             return view;
@@ -149,10 +148,9 @@ namespace Gameplay.Factories
         {
             if (!_pools.ContainsKey(projectileView))
             {
-                _pools.Add(projectileView, new ObjectPool<BaseProjectileView>(
-                    createFunc: () => _container.Instantiate(projectileView, _objectContainerProvider.ProjectileContainer),
-                    actionOnGet: obj => obj.OnGet(),
-                    actionOnRelease: obj => obj.OnRelease()));
+                _pools.Add(projectileView,
+                    new GameObjectPool<BaseProjectileView>(() =>
+                        _container.Instantiate(projectileView, _objectContainerProvider.ProjectileContainer)));
             }
         }
     }

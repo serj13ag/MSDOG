@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Utility
+namespace Utility.Pools
 {
     public abstract class BasePooledObject : MonoBehaviour
     {

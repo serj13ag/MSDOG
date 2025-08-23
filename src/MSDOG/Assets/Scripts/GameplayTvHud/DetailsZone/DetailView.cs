@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Utility;
+using Utility.Pools;
 using VContainer;
 
 namespace GameplayTvHud.DetailsZone

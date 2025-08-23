@@ -2,29 +2,25 @@ using Core.Services;
 using Gameplay.Providers;
 using Gameplay.UI;
 using UnityEngine;
-using UnityEngine.Pool;
+using Utility.Pools;
 using VContainer;
 using VContainer.Unity;
 
 namespace Gameplay.Factories
 {
-    // TODO: add base class
     public class DamageTextFactory : IDamageTextFactory
     {
         private const int NumberOfPrewarmedPrefabs = 20;
 
-        private readonly ObjectPool<DamageTextView> _pool;
+        private readonly GameObjectPool<DamageTextView> _pool;
 
         public DamageTextFactory(IObjectResolver container, IDataService dataService,
             IObjectContainerProvider objectContainerProvider)
         {
             var settingsData = dataService.GetSettingsData();
 
-            _pool = new ObjectPool<DamageTextView>(
-                createFunc: () => container.Instantiate(settingsData.DamageTextViewPrefab,
-                    objectContainerProvider.DamageTextContainer),
-                actionOnGet: obj => obj.OnGet(),
-                actionOnRelease: obj => obj.OnRelease());
+            _pool = new GameObjectPool<DamageTextView>(() =>
+                container.Instantiate(settingsData.DamageTextViewPrefab, objectContainerProvider.DamageTextContainer));
         }
 
         public void Prewarm()
@@ -44,7 +40,6 @@ namespace Gameplay.Factories
         public void CreateDamageTextEffect(int damageDealt, Vector3 position)
         {
             var damageTextView = _pool.Get();
-            damageTextView.SetReleaseCallback(() => _pool.Release(damageTextView));
             damageTextView.Init(position, damageDealt);
         }
     }

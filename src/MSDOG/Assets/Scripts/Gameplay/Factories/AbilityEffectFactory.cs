@@ -6,7 +6,7 @@ using Gameplay.Abilities;
 using Gameplay.AbilityEffects;
 using Gameplay.Providers;
 using UnityEngine;
-using UnityEngine.Pool;
+using Utility.Pools;
 using VContainer;
 using VContainer.Unity;
 
@@ -21,7 +21,7 @@ namespace Gameplay.Factories
         private readonly IObjectContainerProvider _objectContainerProvider;
         private readonly IDataService _dataService;
 
-        private readonly Dictionary<BaseAbilityEffect, ObjectPool<BaseAbilityEffect>> _pools = new();
+        private readonly Dictionary<BaseAbilityEffect, GameObjectPool<BaseAbilityEffect>> _pools = new();
 
         public AbilityEffectFactory(IObjectResolver container, IObjectContainerProvider objectContainerProvider,
             IDataService dataService)
@@ -58,7 +58,6 @@ namespace Gameplay.Factories
         {
             var pool = _pools[abilityData.FollowingAbilityEffectPrefab];
             var baseAbilityEffect = (T)pool.Get();
-            baseAbilityEffect.SetReleaseCallback(() => pool.Release(baseAbilityEffect));
 
             switch (baseAbilityEffect)
             {
@@ -107,10 +106,9 @@ namespace Gameplay.Factories
         {
             if (!_pools.ContainsKey(projectileView))
             {
-                _pools.Add(projectileView, new ObjectPool<BaseAbilityEffect>(
-                    createFunc: () => _container.Instantiate(projectileView, _objectContainerProvider.AbilityEffectContainer),
-                    actionOnGet: obj => obj.OnGet(),
-                    actionOnRelease: obj => obj.OnRelease()));
+                _pools.Add(projectileView,
+                    new GameObjectPool<BaseAbilityEffect>(() =>
+                        _container.Instantiate(projectileView, _objectContainerProvider.AbilityEffectContainer)));
             }
         }
 

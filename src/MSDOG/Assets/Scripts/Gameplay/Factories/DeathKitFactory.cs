@@ -3,7 +3,7 @@ using Core.Services;
 using Gameplay.Enemies;
 using Gameplay.Providers;
 using UnityEngine;
-using UnityEngine.Pool;
+using Utility.Pools;
 
 namespace Gameplay.Factories
 {
@@ -14,7 +14,7 @@ namespace Gameplay.Factories
         private readonly IObjectContainerProvider _objectContainerProvider;
         private readonly IDataService _dataService;
 
-        private readonly Dictionary<EnemyDeathkit, ObjectPool<EnemyDeathkit>> _pools = new();
+        private readonly Dictionary<EnemyDeathkit, GameObjectPool<EnemyDeathkit>> _pools = new();
 
         public DeathKitFactory(IObjectContainerProvider objectContainerProvider, IDataService dataService)
         {
@@ -32,10 +32,9 @@ namespace Gameplay.Factories
                     var deathKitPrefab = enemy.Data.DeathkitPrefab;
                     if (!_pools.ContainsKey(deathKitPrefab))
                     {
-                        _pools.Add(deathKitPrefab, new ObjectPool<EnemyDeathkit>(
-                            createFunc: () => Object.Instantiate(deathKitPrefab, _objectContainerProvider.DeathKitContainer),
-                            actionOnGet: obj => obj.OnGet(),
-                            actionOnRelease: obj => obj.OnRelease()));
+                        _pools.Add(deathKitPrefab,
+                            new GameObjectPool<EnemyDeathkit>(() =>
+                                Object.Instantiate(deathKitPrefab, _objectContainerProvider.DeathKitContainer)));
                     }
                 }
             }
@@ -60,7 +59,6 @@ namespace Gameplay.Factories
             var pool = _pools[deathKitPrefab];
             var enemyDeathKit = pool.Get();
             enemyDeathKit.Init(position, rotation);
-            enemyDeathKit.SetReleaseCallback(() => pool.Release(enemyDeathKit));
             return enemyDeathKit;
         }
     }

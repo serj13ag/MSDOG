@@ -1,6 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
-using Utility;
+using Utility.Pools;
 using Random = UnityEngine.Random;
 
 namespace Gameplay.Enemies
