@@ -1,3 +1,4 @@
+using System;
 using Core.Interfaces;
 
 namespace Core.Controllers
@@ -5,11 +6,14 @@ namespace Core.Controllers
     public interface IUpdateController
     {
         bool IsPaused { get; }
+        float GameTimeScale { get; }
+
+        event EventHandler<EventArgs> OnGameTimeChanged;
 
         void Register(IUpdatable updatable);
         void Remove(IUpdatable updatable);
 
-        void Pause(bool withTimeScale = false);
-        void Unpause(bool withTimeScale = false);
+        void Pause();
+        void Unpause();
     }
 }

@@ -183,6 +183,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8024888846667718641, guid: 279da75488e448d4895918e5a223c65c, type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 5615241051855578176}
     - target: {fileID: 9139200279740212897, guid: 279da75488e448d4895918e5a223c65c, type: 3}
       propertyPath: m_Name
       value: MeleeUrodiusEnemy

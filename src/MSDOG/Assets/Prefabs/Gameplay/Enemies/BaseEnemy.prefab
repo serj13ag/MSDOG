@@ -450,6 +450,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2451733297511529755}
   - component: {fileID: 1731465627681447288}
+  - component: {fileID: 8024888846667718641}
+  - component: {fileID: 9220998673542182384}
   - component: {fileID: 6251957368140847398}
   - component: {fileID: 4752615237146045688}
   m_Layer: 11
@@ -495,6 +497,32 @@ MonoBehaviour:
   _animator: {fileID: 8758378651574052744}
   _damagePlayerColliderTriggerEnterProvider: {fileID: 7808953989115753500}
   _animatorEventsProvider: {fileID: 0}
+--- !u!114 &8024888846667718641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9139200279740212897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfa0a7c26c8b4002b7747f3780c798fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 8758378651574052744}
+--- !u!114 &9220998673542182384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9139200279740212897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60df3128a4f04b82beca806a38a72ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _navMeshAgent: {fileID: 6251957368140847398}
 --- !u!195 &6251957368140847398
 NavMeshAgent:
   m_ObjectHideFlags: 0

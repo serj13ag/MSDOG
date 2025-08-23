@@ -4,7 +4,7 @@ namespace Core.Controllers
 {
     public abstract class BasePersistentController : MonoBehaviour
     {
-        private void Awake()
+        protected virtual void Awake()
         {
             DontDestroyOnLoad(this);
         }

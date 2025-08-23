@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.Interfaces;
 using UnityEngine;
@@ -13,6 +14,9 @@ namespace Core.Controllers
         private float _gameTimeScale = 1f;
 
         public bool IsPaused => _gameTimeScale == 0f;
+        public float GameTimeScale => _gameTimeScale;
+
+        public event EventHandler<EventArgs> OnGameTimeChanged;
 
         private void Update()
         {
@@ -51,24 +55,22 @@ namespace Core.Controllers
             _toRemove.Enqueue(updatable);
         }
 
-        public void Pause(bool withTimeScale = false)
+        public void Pause()
         {
             _gameTimeScale = 0f;
+            Physics.simulationMode = SimulationMode.Script;
 
-            if (withTimeScale)
-            {
-                Time.timeScale = 0f; // TODO: fix curtain
-            }
+            // TODO: fix animator components
+            // TODO: fix using unity update
+            OnGameTimeChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        public void Unpause(bool withTimeScale = false)
+        public void Unpause()
         {
             _gameTimeScale = 1f;
+            Physics.simulationMode = SimulationMode.FixedUpdate;
 
-            if (withTimeScale)
-            {
-                Time.timeScale = 1f;
-            }
+            OnGameTimeChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }
