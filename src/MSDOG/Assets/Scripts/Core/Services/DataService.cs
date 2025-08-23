@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Constants;
 using Core.Models.Data;
 using Core.Sounds;
 using Gameplay.Abilities;
@@ -11,6 +10,12 @@ namespace Core.Services
 {
     public class DataService : IDataService
     {
+        private const string LevelsDataPath = "Data/Levels";
+        private const string AbilitiesDataPath = "Data/Abilities";
+        private const string AbilityUpgradesDataPath = "Data/AbilityUpgradesData";
+        private const string SettingsDataPath = "Data/SettingsData";
+        private const string SoundSettingsDataPath = "Data/SoundSettingsData";
+        
         private readonly Dictionary<int, LevelData> _levelsData;
 
         private readonly AbilityData[] _abilitiesData;
@@ -21,16 +26,16 @@ namespace Core.Services
 
         public DataService()
         {
-            _levelsData = Resources.LoadAll<LevelData>(AssetPaths.LevelsData).ToDictionary(k => k.LevelIndex);
+            _levelsData = Resources.LoadAll<LevelData>(LevelsDataPath).ToDictionary(k => k.LevelIndex);
             for (var i = 0; i < _levelsData.Count; i++)
             {
                 Assert.IsTrue(_levelsData.ContainsKey(i));
             }
 
-            _abilitiesData = Resources.LoadAll<AbilityData>(AssetPaths.AbilitiesData);
-            _abilityUpgradesData = Resources.Load<AbilityUpgradesData>(AssetPaths.AbilityUpgradesData);
-            _settingsData = Resources.Load<SettingsData>(AssetPaths.SettingsData);
-            _soundSettingsData = Resources.Load<SoundSettingsData>(AssetPaths.SoundSettingsData);
+            _abilitiesData = Resources.LoadAll<AbilityData>(AbilitiesDataPath);
+            _abilityUpgradesData = Resources.Load<AbilityUpgradesData>(AbilityUpgradesDataPath);
+            _settingsData = Resources.Load<SettingsData>(SettingsDataPath);
+            _soundSettingsData = Resources.Load<SoundSettingsData>(SoundSettingsDataPath);
         }
 
         public int GetNumberOfLevels()
