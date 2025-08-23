@@ -44,17 +44,9 @@ namespace Windows
 
         private void OnEnable()
         {
+            // TODO: fix
             _inputService.LockInput();
             _updateController.Pause();
-        }
-
-        private void Update()
-        {
-            // TODO: add image?
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                ProgressDialogue();
-            }
         }
 
         public void OnPointerClick(PointerEventData eventData)
