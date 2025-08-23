@@ -37,8 +37,15 @@ namespace GameplayTvHud.Mediators
 
         public void CraftDetail()
         {
-            var abilityData = _dataService.GetRandomCraftAbilityData(_levelFlowService.CurrentLevelIndex);
-            _detailService.CreateInactiveDetail(abilityData);
+            if (_detailService.CanAddInactiveDetail())
+            {
+                var abilityData = _dataService.GetRandomCraftAbilityData(_levelFlowService.CurrentLevelIndex);
+                _detailService.CreateInactiveDetail(abilityData);
+            }
+            else
+            {
+                DetailDestructed();
+            }
         }
 
         public void AddActiveDetail(Detail detail)
@@ -78,7 +85,7 @@ namespace GameplayTvHud.Mediators
             }
         }
 
-        public void DestructDetail(Detail detail)
+        public void DetailDestructed()
         {
             var player = _playerProvider.Player;
             var settingsData = _dataService.GetSettingsData();
