@@ -24,10 +24,11 @@ namespace GameplayTvHud.Factories
             _detailGhostViewPrefab = dataService.GetSettingsData().DetailGhostViewPrefab;
         }
 
-        public DetailView CreateDetailView(Detail detail, Transform parentTransform, Canvas parentCanvas)
+        public DetailView CreateDetailView(Detail detail, IDetailsZone initialZone, Transform parentTransform,
+            Canvas parentCanvas)
         {
             var detailView = _container.Instantiate(_detailViewPrefab, parentTransform);
-            detailView.Init(detail, parentCanvas);
+            detailView.Init(detail, initialZone, parentCanvas);
             return detailView;
         }
 

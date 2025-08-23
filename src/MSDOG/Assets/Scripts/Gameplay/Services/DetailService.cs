@@ -79,7 +79,7 @@ namespace Gameplay.Services
             return _inactiveDetails.Count < _maxNumberOfInactiveDetails;
         }
 
-        public void ActivateDetail(Guid detailId)
+        public void AddActiveDetail(Detail detail)
         {
             if (!CanAddActiveDetail())
             {
@@ -87,51 +87,41 @@ namespace Gameplay.Services
                 return;
             }
 
-            if (_activeDetails.ContainsKey(detailId))
+            if (_activeDetails.ContainsKey(detail.Id))
             {
+                Debug.LogError("That detail already activated!");
                 return;
             }
 
-            var detailToActivate = _inactiveDetails[detailId];
-            ActivateDetail(detailToActivate);
-            _inactiveDetails.Remove(detailToActivate.Id);
+            ActivateDetail(detail);
         }
 
-        public void DeactivateDetail(Guid detailId)
+        public void RemoveActiveDetail(Guid detailId)
         {
             if (!_activeDetails.TryGetValue(detailId, out var detailToDeactivate))
             {
+                Debug.LogError("Detail not found!");
                 return;
             }
 
             _playerProvider.Player.RemoveAbility(detailId);
             _activeDetails.Remove(detailToDeactivate.Id);
-
-            if (CanAddInactiveDetail())
-            {
-                _inactiveDetails.Add(detailToDeactivate.Id, detailToDeactivate);
-            }
         }
 
-        public void DestructDetail(Guid detailId)
+        public void AddInactiveDetail(Detail detail)
         {
-            if (!_activeDetails.Remove(detailId) && !_inactiveDetails.Remove(detailId))
+            if (!CanAddInactiveDetail())
             {
-                Debug.LogError("Trying to destruct not existing detail!");
+                Debug.LogError("Max number of inactive details exceeded!");
                 return;
             }
 
-            var player = _playerProvider.Player;
-            var settingsData = _dataService.GetSettingsData();
+            _inactiveDetails.Add(detail.Id, detail);
+        }
 
-            if (player.IsFullHealth)
-            {
-                player.CollectExperience(settingsData.ExperiencePerDestructedDetail);
-            }
-            else
-            {
-                player.Heal(settingsData.HealPerDestructedDetail);
-            }
+        public void RemoveInactiveDetail(Detail detail)
+        {
+            _inactiveDetails.Remove(detail.Id);
         }
 
         public bool TryGetUpgrade(Detail detail, out AbilityData upgradedAbilityData)

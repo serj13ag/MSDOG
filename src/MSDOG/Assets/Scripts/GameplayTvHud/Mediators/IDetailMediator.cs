@@ -13,8 +13,10 @@ namespace GameplayTvHud.Mediators
 
         void CraftDetail();
 
-        void ActivateDetail(Detail detail);
-        void DeactivateDetail(Detail detail);
+        void AddActiveDetail(Detail detail);
+        void RemoveActiveDetail(Detail detail);
+        void AddInactiveDetail(Detail detail);
+        void RemoveInactiveDetail(Detail detail);
         void DestructDetail(Detail detail);
 
         bool HasUpgrade(Detail detail);

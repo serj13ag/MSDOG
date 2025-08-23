@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Core.Services;
 using Gameplay;
+using Gameplay.Providers;
 using Gameplay.Services;
 using UnityEngine;
 
@@ -12,15 +13,18 @@ namespace GameplayTvHud.Mediators
         private readonly IDetailService _detailService;
         private readonly IDataService _dataService;
         private readonly ILevelFlowService _levelFlowService;
+        private readonly IPlayerProvider _playerProvider;
 
         public event EventHandler<DetailCreatedEventArgs> OnActiveDetailCreated;
         public event EventHandler<DetailCreatedEventArgs> OnInactiveDetailCreated;
 
-        public DetailMediator(IDetailService detailService, IDataService dataService, ILevelFlowService levelFlowService)
+        public DetailMediator(IDetailService detailService, IDataService dataService, ILevelFlowService levelFlowService,
+            IPlayerProvider playerProvider)
         {
             _detailService = detailService;
             _dataService = dataService;
             _levelFlowService = levelFlowService;
+            _playerProvider = playerProvider;
 
             _detailService.OnActiveDetailCreated += DetailServiceOnActiveDetailCreated;
             _detailService.OnInactiveDetailCreated += DetailServiceOnInactiveDetailCreated;
@@ -37,14 +41,24 @@ namespace GameplayTvHud.Mediators
             _detailService.CreateInactiveDetail(abilityData);
         }
 
-        public void ActivateDetail(Detail detail)
+        public void AddActiveDetail(Detail detail)
         {
-            _detailService.ActivateDetail(detail.Id);
+            _detailService.AddActiveDetail(detail);
         }
 
-        public void DeactivateDetail(Detail detail)
+        public void RemoveActiveDetail(Detail detail)
         {
-            _detailService.DeactivateDetail(detail.Id);
+            _detailService.RemoveActiveDetail(detail.Id);
+        }
+
+        public void AddInactiveDetail(Detail detail)
+        {
+            _detailService.AddInactiveDetail(detail);
+        }
+
+        public void RemoveInactiveDetail(Detail detail)
+        {
+            _detailService.RemoveInactiveDetail(detail);
         }
 
         public bool HasUpgrade(Detail detail)
@@ -66,7 +80,17 @@ namespace GameplayTvHud.Mediators
 
         public void DestructDetail(Detail detail)
         {
-            _detailService.DestructDetail(detail.Id);
+            var player = _playerProvider.Player;
+            var settingsData = _dataService.GetSettingsData();
+
+            if (player.IsFullHealth)
+            {
+                player.CollectExperience(settingsData.ExperiencePerDestructedDetail);
+            }
+            else
+            {
+                player.Heal(settingsData.HealPerDestructedDetail);
+            }
         }
 
         public bool CanAddActiveDetail()

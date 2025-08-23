@@ -47,17 +47,20 @@ namespace GameplayTvHud.DetailsZone
         {
             detailView.transform.SetParent(_detailsGrid.transform);
             _detailViews.Add(detailView.Id, detailView);
+
+            _detailMediator.AddInactiveDetail(detailView.Detail);
         }
 
         public void Exit(DetailView detailView)
         {
             _detailViews.Remove(detailView.Id);
+
+            _detailMediator.RemoveInactiveDetail(detailView.Detail);
         }
 
         private void OnInactiveDetailCreated(object sender, DetailCreatedEventArgs e)
         {
-            var detailView = _detailViewFactory.CreateDetailView(e.Detail, _detailsGrid.transform, _parentCanvas);
-            detailView.SetCurrentZone(this);
+            _detailViewFactory.CreateDetailView(e.Detail, this, _detailsGrid.transform, _parentCanvas);
         }
 
         private void OnDestroy()

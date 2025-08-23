@@ -6,7 +6,7 @@ namespace GameplayTvHud.Factories
 {
     public interface IDetailViewFactory
     {
-        DetailView CreateDetailView(Detail detail, Transform parentTransform, Canvas parentCanvas);
+        DetailView CreateDetailView(Detail detail, IDetailsZone initialZone, Transform parentTransform, Canvas parentCanvas);
         DetailGhostView GetDetailGhost(Detail detail, Transform parentTransform);
     }
 }

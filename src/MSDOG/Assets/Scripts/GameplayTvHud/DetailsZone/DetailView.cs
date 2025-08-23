@@ -32,11 +32,16 @@ namespace GameplayTvHud.DetailsZone
             _detailViewFactory = detailViewFactory;
         }
 
-        public void Init(Detail detail, Canvas parentCanvas)
+        public void Init(Detail detail, IDetailsZone initialZone, Canvas parentCanvas)
         {
             _detail = detail;
             _parentCanvas = parentCanvas;
             _icon.sprite = detail.AbilityData.Icon;
+
+            if (initialZone != null)
+            {
+                _currentDetailsZone = initialZone;
+            }
         }
 
         public void OnBeginDrag(PointerEventData eventData)

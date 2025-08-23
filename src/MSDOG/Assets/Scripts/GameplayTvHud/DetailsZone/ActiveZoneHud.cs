@@ -54,13 +54,15 @@ namespace GameplayTvHud.DetailsZone
         {
             _detailViews.Add(detailView.Id, detailView);
             detailView.transform.SetParent(_grid.transform);
-            _detailMediator.ActivateDetail(detailView.Detail);
+
+            _detailMediator.AddActiveDetail(detailView.Detail);
         }
 
         public void Exit(DetailView detailView)
         {
             _detailViews.Remove(detailView.Id);
-            _detailMediator.DeactivateDetail(detailView.Detail);
+
+            _detailMediator.RemoveActiveDetail(detailView.Detail);
         }
 
         private void OnActiveDetailCreated(object sender, DetailCreatedEventArgs e)
@@ -70,8 +72,7 @@ namespace GameplayTvHud.DetailsZone
 
         private void CreateDetailView(Detail detail)
         {
-            var detailView = _detailViewFactory.CreateDetailView(detail, _grid.transform, _parentCanvas);
-            detailView.SetCurrentZone(this);
+            _detailViewFactory.CreateDetailView(detail, this, _grid.transform, _parentCanvas);
         }
 
         private void OnDestroy()
