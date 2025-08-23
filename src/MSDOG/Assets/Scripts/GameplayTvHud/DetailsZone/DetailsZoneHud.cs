@@ -13,7 +13,6 @@ namespace GameplayTvHud.DetailsZone
     {
         [SerializeField] private Canvas _parentCanvas;
         [SerializeField] private GridLayoutGroup _detailsGrid;
-        [SerializeField] private int _maxNumberOfParts; // TODO: settings?
 
         private IDetailMediator _detailMediator;
         private IDetailViewFactory _detailViewFactory;
@@ -36,7 +35,7 @@ namespace GameplayTvHud.DetailsZone
                 return;
             }
 
-            if (_detailViews.Count >= _maxNumberOfParts)
+            if (!_detailMediator.CanAddInactiveDetail())
             {
                 return;
             }

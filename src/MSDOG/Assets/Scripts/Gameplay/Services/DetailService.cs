@@ -15,6 +15,7 @@ namespace Gameplay.Services
         private readonly IDataService _dataService;
 
         private readonly int _maxNumberOfActiveDetails;
+        private readonly int _maxNumberOfInactiveDetails;
 
         private readonly Dictionary<Guid, Detail> _activeDetails = new Dictionary<Guid, Detail>();
         private readonly Dictionary<Guid, Detail> _inactiveDetails = new Dictionary<Guid, Detail>();
@@ -32,6 +33,7 @@ namespace Gameplay.Services
 
             var settings = dataService.GetSettingsData();
             _maxNumberOfActiveDetails = settings.MaxNumberOfActiveDetails;
+            _maxNumberOfInactiveDetails = settings.MaxNumberOfInactiveDetails;
         }
 
         public void CreateActiveDetail(AbilityData abilityData)
@@ -42,7 +44,7 @@ namespace Gameplay.Services
                 return;
             }
 
-            var detail = new Detail(abilityData);
+            var detail = CreateDetail(abilityData);
             ActivateDetail(detail);
 
             OnActiveDetailCreated?.Invoke(this, new DetailCreatedEventArgs(detail));
@@ -50,7 +52,13 @@ namespace Gameplay.Services
 
         public void CreateInactiveDetail(AbilityData abilityData)
         {
-            var detail = new Detail(abilityData);
+            if (!CanAddInactiveDetail())
+            {
+                Debug.LogError("Max number of inactive details exceeded!");
+                return;
+            }
+
+            var detail = CreateDetail(abilityData);
             _inactiveDetails.Add(detail.Id, detail);
 
             if (HasSameDetails())
@@ -64,6 +72,11 @@ namespace Gameplay.Services
         public bool CanAddActiveDetail()
         {
             return _activeDetails.Count < _maxNumberOfActiveDetails;
+        }
+
+        public bool CanAddInactiveDetail()
+        {
+            return _inactiveDetails.Count < _maxNumberOfInactiveDetails;
         }
 
         public void ActivateDetail(Guid detailId)
@@ -92,14 +105,45 @@ namespace Gameplay.Services
             }
 
             _playerProvider.Player.RemoveAbility(detailId);
-            _inactiveDetails.Add(detailToDeactivate.Id, detailToDeactivate);
             _activeDetails.Remove(detailToDeactivate.Id);
+
+            if (CanAddInactiveDetail())
+            {
+                _inactiveDetails.Add(detailToDeactivate.Id, detailToDeactivate);
+            }
+        }
+
+        public void DestructDetail(Guid detailId)
+        {
+            if (!_activeDetails.Remove(detailId) && !_inactiveDetails.Remove(detailId))
+            {
+                Debug.LogError("Trying to destruct not existing detail!");
+                return;
+            }
+
+            var player = _playerProvider.Player;
+            var settingsData = _dataService.GetSettingsData();
+
+            if (player.IsFullHealth)
+            {
+                player.CollectExperience(settingsData.ExperiencePerDestructedDetail);
+            }
+            else
+            {
+                player.Heal(settingsData.HealPerDestructedDetail);
+            }
         }
 
         public bool TryGetUpgrade(Detail detail, out AbilityData upgradedAbilityData)
         {
             var abilityData = detail.AbilityData;
             return _dataService.TryGetAbilityUpgradeData(abilityData.AbilityType, abilityData.Level, out upgradedAbilityData);
+        }
+
+        private static Detail CreateDetail(AbilityData abilityData)
+        {
+            var detail = new Detail(abilityData);
+            return detail;
         }
 
         private void ActivateDetail(Detail detail)

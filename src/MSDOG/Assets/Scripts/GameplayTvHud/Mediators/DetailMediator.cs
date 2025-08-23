@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Core.Services;
 using Gameplay;
-using Gameplay.Providers;
 using Gameplay.Services;
 using UnityEngine;
 
@@ -13,18 +12,15 @@ namespace GameplayTvHud.Mediators
         private readonly IDetailService _detailService;
         private readonly IDataService _dataService;
         private readonly ILevelFlowService _levelFlowService;
-        private readonly IPlayerProvider _playerProvider;
 
         public event EventHandler<DetailCreatedEventArgs> OnActiveDetailCreated;
         public event EventHandler<DetailCreatedEventArgs> OnInactiveDetailCreated;
 
-        public DetailMediator(IDetailService detailService, IDataService dataService, ILevelFlowService levelFlowService,
-            IPlayerProvider playerProvider)
+        public DetailMediator(IDetailService detailService, IDataService dataService, ILevelFlowService levelFlowService)
         {
             _detailService = detailService;
             _dataService = dataService;
             _levelFlowService = levelFlowService;
-            _playerProvider = playerProvider;
 
             _detailService.OnActiveDetailCreated += DetailServiceOnActiveDetailCreated;
             _detailService.OnInactiveDetailCreated += DetailServiceOnInactiveDetailCreated;
@@ -68,24 +64,19 @@ namespace GameplayTvHud.Mediators
             }
         }
 
-        public void DetailDestructed()
+        public void DestructDetail(Detail detail)
         {
-            var player = _playerProvider.Player;
-            var settingsData = _dataService.GetSettingsData();
-
-            if (player.IsFullHealth)
-            {
-                player.CollectExperience(settingsData.ExperiencePerDestructedDetail);
-            }
-            else
-            {
-                player.Heal(settingsData.HealPerDestructedDetail);
-            }
+            _detailService.DestructDetail(detail.Id);
         }
 
         public bool CanAddActiveDetail()
         {
             return _detailService.CanAddActiveDetail();
+        }
+
+        public bool CanAddInactiveDetail()
+        {
+            return _detailService.CanAddInactiveDetail();
         }
 
         private void DetailServiceOnActiveDetailCreated(object sender, DetailCreatedEventArgs e)

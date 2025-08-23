@@ -12,9 +12,10 @@ namespace Core.Models.Data
         public Player PlayerPrefab;
         public ExperiencePiece ExperiencePiecePrefab;
 
-        public int HealPerDestructedDetail;
-        public int ExperiencePerDestructedDetail;
-        public int MaxNumberOfActiveDetails;
+        public int HealPerDestructedDetail = 10;
+        public int ExperiencePerDestructedDetail = 5;
+        public int MaxNumberOfActiveDetails = 6;
+        public int MaxNumberOfInactiveDetails = 18;
 
         public bool ShowDebugHitboxes;
         public int[] ExperienceProgression;

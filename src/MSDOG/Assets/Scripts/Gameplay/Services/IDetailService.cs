@@ -12,9 +12,11 @@ namespace Gameplay.Services
         void CreateInactiveDetail(AbilityData abilityData);
 
         bool CanAddActiveDetail();
+        bool CanAddInactiveDetail();
 
         void ActivateDetail(Guid detailId);
         void DeactivateDetail(Guid detailId);
+        void DestructDetail(Guid detailId);
 
         bool TryGetUpgrade(Detail detail, out AbilityData upgradedAbilityData);
 

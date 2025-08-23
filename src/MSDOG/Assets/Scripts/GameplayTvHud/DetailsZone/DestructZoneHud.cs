@@ -27,7 +27,7 @@ namespace GameplayTvHud.DetailsZone
         {
             detailView.Destruct();
 
-            _detailMediator.DetailDestructed();
+            _detailMediator.DestructDetail(detailView.Detail);
 
             _soundController.PlaySfx(SfxType.Destructor);
         }
