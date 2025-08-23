@@ -9,7 +9,7 @@ using VContainer;
 
 namespace GameplayTvHud.DetailsZone
 {
-    public class DetailView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class DetailView : BasePooledObject, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [SerializeField] private Image _icon;
         [SerializeField] private CanvasGroup _canvasGroup;
@@ -93,11 +93,13 @@ namespace GameplayTvHud.DetailsZone
 
         public void Destruct()
         {
-            Destroy(gameObject);
+            Release();
         }
 
-        private void OnDestroy()
+        protected override void Cleanup()
         {
+            base.Cleanup();
+
             if (_dragGhost)
             {
                 _dragGhost.Hide();

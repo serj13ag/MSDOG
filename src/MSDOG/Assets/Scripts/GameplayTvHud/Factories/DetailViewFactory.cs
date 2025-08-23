@@ -2,6 +2,7 @@ using Core.Services;
 using Gameplay;
 using GameplayTvHud.DetailsZone;
 using UnityEngine;
+using UnityEngine.Pool;
 using VContainer;
 using VContainer.Unity;
 
@@ -9,25 +10,33 @@ namespace GameplayTvHud.Factories
 {
     public class DetailViewFactory : IDetailViewFactory
     {
-        // TODO: add pool
         private readonly IObjectResolver _container;
 
-        private readonly DetailView _detailViewPrefab;
         private readonly DetailGhostView _detailGhostViewPrefab;
+        private readonly ObjectPool<DetailView> _detailViewPool;
 
         private DetailGhostView _detailGhostView;
 
         public DetailViewFactory(IObjectResolver container, IDataService dataService)
         {
             _container = container;
-            _detailViewPrefab = dataService.GetSettingsData().DetailViewPrefab;
-            _detailGhostViewPrefab = dataService.GetSettingsData().DetailGhostViewPrefab;
+
+            var settingsData = dataService.GetSettingsData();
+            _detailGhostViewPrefab = settingsData.DetailGhostViewPrefab;
+
+            // TODO: create base pool to automate release callback call
+            _detailViewPool = new ObjectPool<DetailView>(
+                createFunc: () => container.Instantiate(settingsData.DetailViewPrefab),
+                actionOnGet: obj => obj.OnGet(),
+                actionOnRelease: obj => obj.OnRelease());
         }
 
         public DetailView CreateDetailView(Detail detail, IDetailsZone initialZone, Transform parentTransform,
             Canvas parentCanvas)
         {
-            var detailView = _container.Instantiate(_detailViewPrefab, parentTransform);
+            var detailView = _detailViewPool.Get();
+            detailView.SetReleaseCallback(() => _detailViewPool.Release(detailView));
+            detailView.transform.SetParent(parentTransform, false);
             detailView.Init(detail, initialZone, parentCanvas);
             return detailView;
         }
