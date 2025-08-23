@@ -1,4 +1,4 @@
-using Core.Models.Data;
+using Gameplay;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,9 +8,9 @@ namespace GameplayTvHud.DetailsZone
     {
         [SerializeField] private Image _icon;
 
-        public void Init(AbilityData abilityData)
+        public void Init(Detail detail)
         {
-            _icon.sprite = abilityData.Icon;
+            _icon.sprite = detail.AbilityData.Icon;
         }
     }
 }

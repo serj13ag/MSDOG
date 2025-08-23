@@ -1,7 +1,6 @@
 using System;
 using Core.Models.Data;
 using Gameplay;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,14 +10,12 @@ namespace GameplayTvHud.DetailsZone
     public class DetailView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [SerializeField] private DetailGhostView _detailGhostPrefab;
-        [SerializeField] private TMP_Text _text;
         [SerializeField] private Image _icon;
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private RectTransform _rectTransform;
 
         private Canvas _parentCanvas;
 
-        private AbilityData _abilityData;
         private IDetailsZone _currentDetailsZone;
         private DetailGhostView _dragGhost;
         private Detail _detail;
@@ -30,11 +27,8 @@ namespace GameplayTvHud.DetailsZone
         public void Init(Detail detail, Canvas parentCanvas)
         {
             _detail = detail;
-            _abilityData = detail.AbilityData; // TODO: remove?
             _parentCanvas = parentCanvas;
-            _icon.sprite = _abilityData.Icon;
-            //_text.text = $"{_abilityData.AbilityType}_{_abilityData.Level}";
-            _text.text = string.Empty;
+            _icon.sprite = detail.AbilityData.Icon;
         }
 
         public void SetCurrentZone(IDetailsZone newZone)
@@ -58,7 +52,7 @@ namespace GameplayTvHud.DetailsZone
             _canvasGroup.alpha = 0.4f;
 
             _dragGhost = Instantiate(_detailGhostPrefab, _parentCanvas.transform);
-            _dragGhost.Init(_abilityData);
+            _dragGhost.Init(_detail);
             _dragGhost.transform.SetAsLastSibling();
         }
 
