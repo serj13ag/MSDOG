@@ -7,9 +7,9 @@ namespace GameplayTvHud.DetailsZone
     {
         [SerializeField] private FusionZoneHud _fusionZoneHud;
 
-        private DetailPartHud _detailPart;
+        private DetailView _detailPart;
 
-        public DetailPartHud DetailPart => _detailPart;
+        public DetailView DetailPart => _detailPart;
 
         public void OnDrop(PointerEventData eventData)
         {
@@ -18,7 +18,7 @@ namespace GameplayTvHud.DetailsZone
                 return;
             }
 
-            if (!eventData.pointerDrag.gameObject.TryGetComponent<DetailPartHud>(out var detailPart))
+            if (!eventData.pointerDrag.gameObject.TryGetComponent<DetailView>(out var detailPart))
             {
                 return;
             }
@@ -31,7 +31,7 @@ namespace GameplayTvHud.DetailsZone
             detailPart.SetCurrentZone(this);
         }
 
-        public void Enter(DetailPartHud detailPart)
+        public void Enter(DetailView detailPart)
         {
             _detailPart = detailPart;
             detailPart.transform.SetParent(transform);
@@ -39,7 +39,7 @@ namespace GameplayTvHud.DetailsZone
             _fusionZoneHud.OnDetailEntersTheZone();
         }
 
-        public void Exit(DetailPartHud detailPart)
+        public void Exit(DetailView detailPart)
         {
             _detailPart = null;
             _fusionZoneHud.OnDetailExitsTheZone();

@@ -19,6 +19,6 @@ namespace Core.Models.Data
         public ProjectileData EnemyProjectileData;
         public WindowsData WindowsData;
         public DamageTextView DamageTextViewPrefab;
-        public DetailPartHud DetailPartViewPrefab;
+        public DetailView DetailViewPrefab;
     }
 }

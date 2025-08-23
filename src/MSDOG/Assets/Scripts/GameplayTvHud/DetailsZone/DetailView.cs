@@ -8,10 +8,9 @@ using UnityEngine.UI;
 
 namespace GameplayTvHud.DetailsZone
 {
-    // TODO: rename to view
-    public class DetailPartHud : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class DetailView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        [SerializeField] private DetailPartGhostHud _ghostDetailPrefab;
+        [SerializeField] private DetailGhostView _detailGhostPrefab;
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Image _icon;
         [SerializeField] private CanvasGroup _canvasGroup;
@@ -21,7 +20,7 @@ namespace GameplayTvHud.DetailsZone
 
         private AbilityData _abilityData;
         private IDetailsZone _currentDetailsZone;
-        private DetailPartGhostHud _dragGhost;
+        private DetailGhostView _dragGhost;
         private Detail _detail;
 
         public Guid Id => _detail.Id;
@@ -58,7 +57,7 @@ namespace GameplayTvHud.DetailsZone
         {
             _canvasGroup.alpha = 0.4f;
 
-            _dragGhost = Instantiate(_ghostDetailPrefab, _parentCanvas.transform);
+            _dragGhost = Instantiate(_detailGhostPrefab, _parentCanvas.transform);
             _dragGhost.Init(_abilityData);
             _dragGhost.transform.SetAsLastSibling();
         }

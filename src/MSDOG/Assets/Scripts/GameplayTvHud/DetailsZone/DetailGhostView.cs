@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace GameplayTvHud.DetailsZone
 {
-    public class DetailPartGhostHud : MonoBehaviour
+    public class DetailGhostView : MonoBehaviour
     {
         [SerializeField] private Image _icon;
 

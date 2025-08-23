@@ -26,7 +26,7 @@ namespace GameplayTvHud.DetailsZone
                 return;
             }
 
-            if (!eventData.pointerDrag.gameObject.TryGetComponent<DetailPartHud>(out var detailPart))
+            if (!eventData.pointerDrag.gameObject.TryGetComponent<DetailView>(out var detailPart))
             {
                 return;
             }
@@ -34,7 +34,7 @@ namespace GameplayTvHud.DetailsZone
             detailPart.SetCurrentZone(this);
         }
 
-        public void Enter(DetailPartHud detailPart)
+        public void Enter(DetailView detailPart)
         {
             detailPart.Destruct();
 
@@ -43,7 +43,7 @@ namespace GameplayTvHud.DetailsZone
             _soundController.PlaySfx(SfxType.Destructor);
         }
 
-        public void Exit(DetailPartHud detailPart)
+        public void Exit(DetailView detailPart)
         {
             Debug.LogError("Can't exit from that zone!");
         }

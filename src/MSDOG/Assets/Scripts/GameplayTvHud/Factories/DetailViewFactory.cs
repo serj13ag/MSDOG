@@ -8,16 +8,16 @@ namespace GameplayTvHud.Factories
     public class DetailViewFactory : IDetailViewFactory
     {
         // TODO: add pool
-        private readonly DetailPartHud _detailPartViewPrefab;
+        private readonly DetailView _detailViewPrefab;
 
         public DetailViewFactory(IDataService dataService)
         {
-            _detailPartViewPrefab = dataService.GetSettingsData().DetailPartViewPrefab;
+            _detailViewPrefab = dataService.GetSettingsData().DetailViewPrefab;
         }
 
-        public DetailPartHud CreateDetailPartView(Detail detail, Transform parentTransform, Canvas parentCanvas)
+        public DetailView CreateDetailPartView(Detail detail, Transform parentTransform, Canvas parentCanvas)
         {
-            var detailPart = Object.Instantiate(_detailPartViewPrefab, parentTransform);
+            var detailPart = Object.Instantiate(_detailViewPrefab, parentTransform);
             detailPart.Init(detail, parentCanvas);
             return detailPart;
         }

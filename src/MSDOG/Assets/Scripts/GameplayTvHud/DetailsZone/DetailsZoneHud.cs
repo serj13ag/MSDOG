@@ -19,7 +19,7 @@ namespace GameplayTvHud.DetailsZone
         private IDetailMediator _detailMediator;
         private IDetailViewFactory _detailViewFactory;
 
-        private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
+        private readonly Dictionary<Guid, DetailView> _detailParts = new Dictionary<Guid, DetailView>();
 
         [Inject]
         public void Construct(IDetailMediator detailMediator, IDetailViewFactory detailViewFactory)
@@ -37,7 +37,7 @@ namespace GameplayTvHud.DetailsZone
                 return;
             }
 
-            if (!eventData.pointerDrag.gameObject.TryGetComponent<DetailPartHud>(out var detailPart))
+            if (!eventData.pointerDrag.gameObject.TryGetComponent<DetailView>(out var detailPart))
             {
                 return;
             }
@@ -55,13 +55,13 @@ namespace GameplayTvHud.DetailsZone
             detailPart.SetCurrentZone(this);
         }
 
-        public void Enter(DetailPartHud detailPart)
+        public void Enter(DetailView detailPart)
         {
             detailPart.transform.SetParent(_detailsGrid.transform);
             _detailParts.Add(detailPart.Id, detailPart);
         }
 
-        public void Exit(DetailPartHud detailPart)
+        public void Exit(DetailView detailPart)
         {
             _detailParts.Remove(detailPart.Id);
         }
