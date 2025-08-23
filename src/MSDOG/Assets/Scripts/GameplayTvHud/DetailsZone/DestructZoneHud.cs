@@ -23,16 +23,16 @@ namespace GameplayTvHud.DetailsZone
             detailView.SetCurrentZone(this);
         }
 
-        public void Enter(DetailView detailPart)
+        public void Enter(DetailView detailView)
         {
-            detailPart.Destruct();
+            detailView.Destruct();
 
             _detailMediator.DetailDestructed();
 
             _soundController.PlaySfx(SfxType.Destructor);
         }
 
-        public void Exit(DetailView detailPart)
+        public void Exit(DetailView detailView)
         {
             Debug.LogError("Can't exit from that zone!");
         }

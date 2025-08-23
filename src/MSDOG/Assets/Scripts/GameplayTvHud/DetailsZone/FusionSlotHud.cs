@@ -6,13 +6,13 @@ namespace GameplayTvHud.DetailsZone
     {
         [SerializeField] private FusionZoneHud _fusionZoneHud;
 
-        private DetailView _detailPart;
+        private DetailView _detailView;
 
-        public DetailView DetailPart => _detailPart;
+        public DetailView DetailView => _detailView;
 
         public void OnDetailDrop(DetailView detailView)
         {
-            if (_detailPart != null)
+            if (_detailView != null)
             {
                 return;
             }
@@ -20,25 +20,25 @@ namespace GameplayTvHud.DetailsZone
             detailView.SetCurrentZone(this);
         }
 
-        public void Enter(DetailView detailPart)
+        public void Enter(DetailView detailView)
         {
-            _detailPart = detailPart;
-            detailPart.transform.SetParent(transform);
-            detailPart.transform.localPosition = Vector3.zero;
+            _detailView = detailView;
+            detailView.transform.SetParent(transform);
+            detailView.transform.localPosition = Vector3.zero;
             _fusionZoneHud.OnDetailEntersTheZone();
         }
 
-        public void Exit(DetailView detailPart)
+        public void Exit(DetailView detailView)
         {
-            _detailPart = null;
+            _detailView = null;
             _fusionZoneHud.OnDetailExitsTheZone();
         }
 
         public void DestroyDetail()
         {
-            var detailPartHud = _detailPart;
-            Exit(detailPartHud);
-            Destroy(detailPartHud.gameObject);
+            var detailView = _detailView;
+            Exit(detailView);
+            Destroy(detailView.gameObject);
         }
     }
 }

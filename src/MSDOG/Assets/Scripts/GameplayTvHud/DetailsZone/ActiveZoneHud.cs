@@ -12,12 +12,12 @@ namespace GameplayTvHud.DetailsZone
     {
         [SerializeField] private Canvas _parentCanvas;
         [SerializeField] private Transform _grid;
-        [SerializeField] private int _maxNumberOfActiveParts;
+        [SerializeField] private int _maxNumberOfActiveParts; // TODO: from settings?
 
         private IDetailMediator _detailMediator;
         private IDetailViewFactory _detailViewFactory;
 
-        private readonly Dictionary<Guid, DetailView> _detailParts = new Dictionary<Guid, DetailView>();
+        private readonly Dictionary<Guid, DetailView> _detailViews = new Dictionary<Guid, DetailView>();
 
         [Inject]
         public void Construct(IDetailMediator detailMediator, IDetailViewFactory detailViewFactory)
@@ -32,18 +32,18 @@ namespace GameplayTvHud.DetailsZone
         {
             foreach (var activeDetail in _detailMediator.GetActiveDetails())
             {
-                CreateDetailPart(activeDetail);
+                CreateDetailView(activeDetail);
             }
         }
 
         public void OnDetailDrop(DetailView detailView)
         {
-            if (_detailParts.ContainsKey(detailView.Id))
+            if (_detailViews.ContainsKey(detailView.Id))
             {
                 return;
             }
 
-            if (_detailParts.Count >= _maxNumberOfActiveParts)
+            if (_detailViews.Count >= _maxNumberOfActiveParts)
             {
                 return;
             }
@@ -51,28 +51,28 @@ namespace GameplayTvHud.DetailsZone
             detailView.SetCurrentZone(this);
         }
 
-        public void Enter(DetailView detailPart)
+        public void Enter(DetailView detailView)
         {
-            _detailParts.Add(detailPart.Id, detailPart);
-            detailPart.transform.SetParent(_grid.transform);
-            _detailMediator.ActivateDetail(detailPart.Detail);
+            _detailViews.Add(detailView.Id, detailView);
+            detailView.transform.SetParent(_grid.transform);
+            _detailMediator.ActivateDetail(detailView.Detail);
         }
 
-        public void Exit(DetailView detailPart)
+        public void Exit(DetailView detailView)
         {
-            _detailParts.Remove(detailPart.Id);
-            _detailMediator.DeactivateDetail(detailPart.Detail);
+            _detailViews.Remove(detailView.Id);
+            _detailMediator.DeactivateDetail(detailView.Detail);
         }
 
         private void OnActiveDetailCreated(object sender, DetailCreatedEventArgs e)
         {
-            CreateDetailPart(e.Detail);
+            CreateDetailView(e.Detail);
         }
 
-        private void CreateDetailPart(Detail detail)
+        private void CreateDetailView(Detail detail)
         {
-            var detailPart = _detailViewFactory.CreateDetailPartView(detail, _grid.transform, _parentCanvas);
-            detailPart.SetCurrentZone(this);
+            var detailView = _detailViewFactory.CreateDetailView(detail, _grid.transform, _parentCanvas);
+            detailView.SetCurrentZone(this);
         }
 
         private void OnDestroy()

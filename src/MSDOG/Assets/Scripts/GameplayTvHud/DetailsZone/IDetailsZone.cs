@@ -2,7 +2,7 @@ namespace GameplayTvHud.DetailsZone
 {
     public interface IDetailsZone
     {
-        void Enter(DetailView detailPart);
-        void Exit(DetailView detailPart);
+        void Enter(DetailView detailView);
+        void Exit(DetailView detailView);
     }
 }

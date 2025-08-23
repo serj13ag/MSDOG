@@ -13,12 +13,12 @@ namespace GameplayTvHud.DetailsZone
     {
         [SerializeField] private Canvas _parentCanvas;
         [SerializeField] private GridLayoutGroup _detailsGrid;
-        [SerializeField] private int _maxNumberOfParts;
+        [SerializeField] private int _maxNumberOfParts; // TODO: settings?
 
         private IDetailMediator _detailMediator;
         private IDetailViewFactory _detailViewFactory;
 
-        private readonly Dictionary<Guid, DetailView> _detailParts = new Dictionary<Guid, DetailView>();
+        private readonly Dictionary<Guid, DetailView> _detailViews = new Dictionary<Guid, DetailView>();
 
         [Inject]
         public void Construct(IDetailMediator detailMediator, IDetailViewFactory detailViewFactory)
@@ -31,12 +31,12 @@ namespace GameplayTvHud.DetailsZone
 
         public void OnDetailDrop(DetailView detailView)
         {
-            if (_detailParts.ContainsKey(detailView.Id))
+            if (_detailViews.ContainsKey(detailView.Id))
             {
                 return;
             }
 
-            if (_detailParts.Count >= _maxNumberOfParts)
+            if (_detailViews.Count >= _maxNumberOfParts)
             {
                 return;
             }
@@ -44,21 +44,21 @@ namespace GameplayTvHud.DetailsZone
             detailView.SetCurrentZone(this);
         }
 
-        public void Enter(DetailView detailPart)
+        public void Enter(DetailView detailView)
         {
-            detailPart.transform.SetParent(_detailsGrid.transform);
-            _detailParts.Add(detailPart.Id, detailPart);
+            detailView.transform.SetParent(_detailsGrid.transform);
+            _detailViews.Add(detailView.Id, detailView);
         }
 
-        public void Exit(DetailView detailPart)
+        public void Exit(DetailView detailView)
         {
-            _detailParts.Remove(detailPart.Id);
+            _detailViews.Remove(detailView.Id);
         }
 
         private void OnInactiveDetailCreated(object sender, DetailCreatedEventArgs e)
         {
-            var detailPart = _detailViewFactory.CreateDetailPartView(e.Detail, _detailsGrid.transform, _parentCanvas);
-            detailPart.SetCurrentZone(this);
+            var detailView = _detailViewFactory.CreateDetailView(e.Detail, _detailsGrid.transform, _parentCanvas);
+            detailView.SetCurrentZone(this);
         }
 
         private void OnDestroy()

@@ -1,5 +1,4 @@
 using System;
-using Core.Models.Data;
 using Gameplay;
 using GameplayTvHud.Factories;
 using UnityEngine;
@@ -25,7 +24,6 @@ namespace GameplayTvHud.DetailsZone
         private DetailGhostView _dragGhost;
 
         public Guid Id => _detail.Id;
-        public AbilityData AbilityData => _detail.AbilityData;
         public Detail Detail => _detail;
 
         [Inject]

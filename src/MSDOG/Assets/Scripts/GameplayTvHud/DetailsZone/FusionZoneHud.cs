@@ -36,16 +36,16 @@ namespace GameplayTvHud.DetailsZone
 
         public void OnDetailEntersTheZone()
         {
-            var detailPart1 = _fusionSlotHud1.DetailPart;
-            var detailPart2 = _fusionSlotHud2.DetailPart;
+            var detailView1 = _fusionSlotHud1.DetailView;
+            var detailView2 = _fusionSlotHud2.DetailView;
 
-            if (!detailPart1 || !detailPart2)
+            if (!detailView1 || !detailView2)
             {
                 return;
             }
 
-            var abilityData1 = detailPart1.AbilityData;
-            var abilityData2 = detailPart2.AbilityData;
+            var abilityData1 = detailView1.Detail.AbilityData;
+            var abilityData2 = detailView2.Detail.AbilityData;
 
             if (abilityData1.AbilityType != abilityData2.AbilityType)
             {
@@ -57,7 +57,7 @@ namespace GameplayTvHud.DetailsZone
                 return;
             }
 
-            var hasUpgrade = _detailMediator.HasUpgrade(detailPart1.Detail);
+            var hasUpgrade = _detailMediator.HasUpgrade(detailView1.Detail);
             _upgradeButton.gameObject.SetActive(hasUpgrade);
         }
 
@@ -68,7 +68,7 @@ namespace GameplayTvHud.DetailsZone
 
         private void UpgradeAbility()
         {
-            _detailMediator.UpgradeDetail(_fusionSlotHud1.DetailPart.Detail);
+            _detailMediator.UpgradeDetail(_fusionSlotHud1.DetailView.Detail);
             
             _fusionSlotHud1.DestroyDetail();
             _fusionSlotHud2.DestroyDetail();
