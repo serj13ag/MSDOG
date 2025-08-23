@@ -1,28 +1,37 @@
 using System;
 using Core.Models.Data;
 using Gameplay;
+using GameplayTvHud.Factories;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using VContainer;
 
 namespace GameplayTvHud.DetailsZone
 {
     public class DetailView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        [SerializeField] private DetailGhostView _detailGhostPrefab;
         [SerializeField] private Image _icon;
         [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private RectTransform _rectTransform;
 
+        private IDetailViewFactory _detailViewFactory;
+
         private Canvas _parentCanvas;
+        private Detail _detail;
 
         private IDetailsZone _currentDetailsZone;
         private DetailGhostView _dragGhost;
-        private Detail _detail;
 
         public Guid Id => _detail.Id;
         public AbilityData AbilityData => _detail.AbilityData;
         public Detail Detail => _detail;
+
+        [Inject]
+        public void Construct(IDetailViewFactory detailViewFactory)
+        {
+            _detailViewFactory = detailViewFactory;
+        }
 
         public void Init(Detail detail, Canvas parentCanvas)
         {
@@ -51,8 +60,8 @@ namespace GameplayTvHud.DetailsZone
         {
             _canvasGroup.alpha = 0.4f;
 
-            _dragGhost = Instantiate(_detailGhostPrefab, _parentCanvas.transform);
-            _dragGhost.Init(_detail);
+            // TODO: refactor
+            _dragGhost = _detailViewFactory.GetDetailGhost(_detail, _parentCanvas.transform);
             _dragGhost.transform.SetAsLastSibling();
         }
 
@@ -63,18 +72,12 @@ namespace GameplayTvHud.DetailsZone
                 return;
             }
 
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                _parentCanvas.transform as RectTransform,
-                eventData.position,
-                eventData.pressEventCamera,
-                out var localPoint);
-
-            ((RectTransform)_dragGhost.transform).localPosition = localPoint;
+            _dragGhost.FollowPointer(eventData, _parentCanvas.transform);
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
-            Destroy(_dragGhost.gameObject);
+            _dragGhost.Hide();
             _dragGhost = null;
 
             _canvasGroup.alpha = 1f;
@@ -84,7 +87,7 @@ namespace GameplayTvHud.DetailsZone
         {
             if (_dragGhost)
             {
-                Destroy(_dragGhost.gameObject);
+                _dragGhost.Hide();
             }
         }
     }

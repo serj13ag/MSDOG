@@ -20,5 +20,6 @@ namespace Core.Models.Data
         public WindowsData WindowsData;
         public DamageTextView DamageTextViewPrefab;
         public DetailView DetailViewPrefab;
+        public DetailGhostView DetailGhostViewPrefab;
     }
 }

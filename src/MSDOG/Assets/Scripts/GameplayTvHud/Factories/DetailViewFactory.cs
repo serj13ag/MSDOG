@@ -2,24 +2,38 @@ using Core.Services;
 using Gameplay;
 using GameplayTvHud.DetailsZone;
 using UnityEngine;
+using VContainer;
+using VContainer.Unity;
 
 namespace GameplayTvHud.Factories
 {
     public class DetailViewFactory : IDetailViewFactory
     {
         // TODO: add pool
-        private readonly DetailView _detailViewPrefab;
+        private readonly IObjectResolver _container;
 
-        public DetailViewFactory(IDataService dataService)
+        private readonly DetailView _detailViewPrefab;
+        private readonly DetailGhostView _detailGhostViewPrefab;
+
+        public DetailViewFactory(IObjectResolver container, IDataService dataService)
         {
+            _container = container;
             _detailViewPrefab = dataService.GetSettingsData().DetailViewPrefab;
+            _detailGhostViewPrefab = dataService.GetSettingsData().DetailGhostViewPrefab;
         }
 
         public DetailView CreateDetailPartView(Detail detail, Transform parentTransform, Canvas parentCanvas)
         {
-            var detailPart = Object.Instantiate(_detailViewPrefab, parentTransform);
+            var detailPart = _container.Instantiate(_detailViewPrefab, parentTransform);
             detailPart.Init(detail, parentCanvas);
             return detailPart;
+        }
+
+        public DetailGhostView GetDetailGhost(Detail detail, Transform parentTransform)
+        {
+            var detailGhostView = _container.Instantiate(_detailGhostViewPrefab, parentTransform);
+            detailGhostView.Init(detail);
+            return detailGhostView;
         }
     }
 }

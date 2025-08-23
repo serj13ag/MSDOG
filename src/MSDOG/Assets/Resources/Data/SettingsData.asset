@@ -30,3 +30,4 @@ MonoBehaviour:
   WindowsData: {fileID: 11400000, guid: 08b3e74f76a49d54aab6b3f2ebac8f81, type: 2}
   DamageTextViewPrefab: {fileID: 7804700427976866563, guid: 02f2fe2ca55959f45900d34a01a70d0e, type: 3}
   DetailViewPrefab: {fileID: 5008620555445404248, guid: cc9a0b06c7674a7418a764b9c17ba9a3, type: 3}
+  DetailGhostViewPrefab: {fileID: -1092879963970984833, guid: 914bdc125fd38c849888a4c5383e9dee, type: 3}
