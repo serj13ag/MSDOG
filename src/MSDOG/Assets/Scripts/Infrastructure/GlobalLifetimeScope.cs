@@ -52,7 +52,6 @@ namespace Infrastructure
 
         private static void RegisterServices(IContainerBuilder builder)
         {
-            builder.Register<IAssetProviderService, AssetProviderService>(Lifetime.Singleton);
             builder.Register<IDataService, DataService>(Lifetime.Singleton);
             builder.Register<IProgressService, ProgressService>(Lifetime.Singleton);
             builder.Register<IPlayerOptionsService, PlayerOptionsService>(Lifetime.Singleton);
