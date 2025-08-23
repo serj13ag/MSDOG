@@ -12,7 +12,6 @@ namespace GameplayTvHud.DetailsZone
     {
         [SerializeField] private Canvas _parentCanvas;
         [SerializeField] private Transform _grid;
-        [SerializeField] private int _maxNumberOfActiveParts; // TODO: from settings?
 
         private IDetailMediator _detailMediator;
         private IDetailViewFactory _detailViewFactory;
@@ -43,7 +42,7 @@ namespace GameplayTvHud.DetailsZone
                 return;
             }
 
-            if (_detailViews.Count >= _maxNumberOfActiveParts)
+            if (!_detailMediator.CanAddActiveDetail())
             {
                 return;
             }

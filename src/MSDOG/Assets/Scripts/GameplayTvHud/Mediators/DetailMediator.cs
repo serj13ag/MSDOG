@@ -83,6 +83,11 @@ namespace GameplayTvHud.Mediators
             }
         }
 
+        public bool CanAddActiveDetail()
+        {
+            return _detailService.CanAddActiveDetail();
+        }
+
         private void DetailServiceOnActiveDetailCreated(object sender, DetailCreatedEventArgs e)
         {
             OnActiveDetailCreated?.Invoke(this, e);

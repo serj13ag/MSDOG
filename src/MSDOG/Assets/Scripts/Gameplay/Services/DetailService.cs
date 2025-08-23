@@ -4,6 +4,7 @@ using System.Linq;
 using Core.Models.Data;
 using Core.Services;
 using Gameplay.Providers;
+using UnityEngine;
 
 namespace Gameplay.Services
 {
@@ -12,6 +13,8 @@ namespace Gameplay.Services
         private readonly IPlayerProvider _playerProvider;
         private readonly ITutorialService _tutorialService;
         private readonly IDataService _dataService;
+
+        private readonly int _maxNumberOfActiveDetails;
 
         private readonly Dictionary<Guid, Detail> _activeDetails = new Dictionary<Guid, Detail>();
         private readonly Dictionary<Guid, Detail> _inactiveDetails = new Dictionary<Guid, Detail>();
@@ -26,10 +29,19 @@ namespace Gameplay.Services
             _tutorialService = tutorialService;
             _dataService = dataService;
             _playerProvider = playerProvider;
+
+            var settings = dataService.GetSettingsData();
+            _maxNumberOfActiveDetails = settings.MaxNumberOfActiveDetails;
         }
 
         public void CreateActiveDetail(AbilityData abilityData)
         {
+            if (!CanAddActiveDetail())
+            {
+                Debug.LogError("Max number of active details exceeded!");
+                return;
+            }
+
             var detail = new Detail(abilityData);
             ActivateDetail(detail);
 
@@ -49,8 +61,19 @@ namespace Gameplay.Services
             OnInactiveDetailCreated?.Invoke(this, new DetailCreatedEventArgs(detail));
         }
 
+        public bool CanAddActiveDetail()
+        {
+            return _activeDetails.Count < _maxNumberOfActiveDetails;
+        }
+
         public void ActivateDetail(Guid detailId)
         {
+            if (!CanAddActiveDetail())
+            {
+                Debug.LogError("Max number of active details exceeded!");
+                return;
+            }
+
             if (_activeDetails.ContainsKey(detailId))
             {
                 return;

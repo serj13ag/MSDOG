@@ -11,13 +11,18 @@ namespace Core.Models.Data
     {
         public Player PlayerPrefab;
         public ExperiencePiece ExperiencePiecePrefab;
+
         public int HealPerDestructedDetail;
         public int ExperiencePerDestructedDetail;
+        public int MaxNumberOfActiveDetails;
+
         public bool ShowDebugHitboxes;
         public int[] ExperienceProgression;
         public List<TutorialEventData> TutorialEvents;
+
         public ProjectileData EnemyProjectileData;
         public WindowsData WindowsData;
+
         public DamageTextView DamageTextViewPrefab;
         public DetailView DetailViewPrefab;
         public DetailGhostView DetailGhostViewPrefab;
