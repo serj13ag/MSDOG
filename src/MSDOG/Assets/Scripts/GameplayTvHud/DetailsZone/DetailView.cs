@@ -43,7 +43,6 @@ namespace GameplayTvHud.DetailsZone
         {
             _canvasGroup.alpha = 0.4f;
 
-            // TODO: refactor
             _dragGhost = _detailViewFactory.GetDetailGhost(_detail, _parentCanvas.transform);
             _dragGhost.transform.SetAsLastSibling();
         }

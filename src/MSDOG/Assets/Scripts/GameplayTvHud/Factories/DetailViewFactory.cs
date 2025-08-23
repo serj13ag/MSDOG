@@ -15,6 +15,8 @@ namespace GameplayTvHud.Factories
         private readonly DetailView _detailViewPrefab;
         private readonly DetailGhostView _detailGhostViewPrefab;
 
+        private DetailGhostView _detailGhostView;
+
         public DetailViewFactory(IObjectResolver container, IDataService dataService)
         {
             _container = container;
@@ -31,9 +33,20 @@ namespace GameplayTvHud.Factories
 
         public DetailGhostView GetDetailGhost(Detail detail, Transform parentTransform)
         {
-            var detailGhostView = _container.Instantiate(_detailGhostViewPrefab, parentTransform);
-            detailGhostView.Init(detail);
-            return detailGhostView;
+            if (!_detailGhostView)
+            {
+                _detailGhostView = _container.Instantiate(_detailGhostViewPrefab, parentTransform);
+                _detailGhostView.SetReleaseAction(ReleaseDetailGhostView);
+            }
+
+            _detailGhostView.Init(detail);
+            _detailGhostView.gameObject.SetActive(true);
+            return _detailGhostView;
+        }
+
+        private void ReleaseDetailGhostView()
+        {
+            _detailGhostView.gameObject.SetActive(false);
         }
     }
 }

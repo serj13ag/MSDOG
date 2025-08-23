@@ -1,3 +1,4 @@
+using System;
 using Gameplay;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -8,6 +9,13 @@ namespace GameplayTvHud.DetailsZone
     public class DetailGhostView : MonoBehaviour
     {
         [SerializeField] private Image _icon;
+
+        private Action _releaseDetailAction;
+
+        public void SetReleaseAction(Action releaseDetailAction)
+        {
+            _releaseDetailAction = releaseDetailAction;
+        }
 
         public void Init(Detail detail)
         {
@@ -27,7 +35,7 @@ namespace GameplayTvHud.DetailsZone
 
         public void Hide()
         {
-            Destroy(gameObject);
+            _releaseDetailAction?.Invoke();
         }
     }
 }
