@@ -5,6 +5,7 @@ using GameplayTvHud.Factories;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Utility;
 using VContainer;
 
 namespace GameplayTvHud.DetailsZone
@@ -40,6 +41,43 @@ namespace GameplayTvHud.DetailsZone
             _icon.sprite = detail.AbilityData.Icon;
         }
 
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            _canvasGroup.alpha = 0.4f;
+
+            // TODO: refactor
+            _dragGhost = _detailViewFactory.GetDetailGhost(_detail, _parentCanvas.transform);
+            _dragGhost.transform.SetAsLastSibling();
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            if (_dragGhost)
+            {
+                _dragGhost.FollowPointer(eventData, _parentCanvas.transform);
+            }
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            if (_dragGhost)
+            {
+                _dragGhost.Hide();
+                _dragGhost = null;
+
+                if (eventData.pointerCurrentRaycast.gameObject != null)
+                {
+                    if (eventData.pointerCurrentRaycast.gameObject
+                        .TryGetComponentInHierarchy<IDetailDropTarget>(out var detailDropTarget))
+                    {
+                        detailDropTarget.OnDetailDrop(this);
+                    }
+                }
+            }
+
+            _canvasGroup.alpha = 1f;
+        }
+
         public void SetCurrentZone(IDetailsZone newZone)
         {
             if (_currentDetailsZone != null && _currentDetailsZone != newZone)
@@ -54,33 +92,6 @@ namespace GameplayTvHud.DetailsZone
         public void Destruct()
         {
             Destroy(gameObject);
-        }
-
-        public void OnBeginDrag(PointerEventData eventData)
-        {
-            _canvasGroup.alpha = 0.4f;
-
-            // TODO: refactor
-            _dragGhost = _detailViewFactory.GetDetailGhost(_detail, _parentCanvas.transform);
-            _dragGhost.transform.SetAsLastSibling();
-        }
-
-        public void OnDrag(PointerEventData eventData)
-        {
-            if (!_dragGhost)
-            {
-                return;
-            }
-
-            _dragGhost.FollowPointer(eventData, _parentCanvas.transform);
-        }
-
-        public void OnEndDrag(PointerEventData eventData)
-        {
-            _dragGhost.Hide();
-            _dragGhost = null;
-
-            _canvasGroup.alpha = 1f;
         }
 
         private void OnDestroy()
