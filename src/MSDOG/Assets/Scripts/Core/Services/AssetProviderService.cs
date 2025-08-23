@@ -6,6 +6,7 @@ namespace Core.Services
 {
     public class AssetProviderService : IAssetProviderService
     {
+        // TODO: remove
         public T GetAsset<T>(string path) where T : Object
         {
             return LoadAsset<T>(path);

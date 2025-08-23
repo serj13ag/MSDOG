@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Constants;
-using Core.Services;
 using Gameplay;
+using GameplayTvHud.Factories;
 using GameplayTvHud.Mediators;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,16 +15,16 @@ namespace GameplayTvHud.DetailsZone
         [SerializeField] private Transform _grid;
         [SerializeField] private int _maxNumberOfActiveParts;
 
-        private IAssetProviderService _assetProviderService;
         private IDetailMediator _detailMediator;
+        private IDetailViewFactory _detailViewFactory;
 
         private readonly Dictionary<Guid, DetailPartHud> _detailParts = new Dictionary<Guid, DetailPartHud>();
 
         [Inject]
-        public void Construct(IAssetProviderService assetProviderService, IDetailMediator detailMediator)
+        public void Construct(IDetailMediator detailMediator, IDetailViewFactory detailViewFactory)
         {
+            _detailViewFactory = detailViewFactory;
             _detailMediator = detailMediator;
-            _assetProviderService = assetProviderService;
 
             detailMediator.OnActiveDetailCreated += OnActiveDetailCreated;
         }
@@ -83,8 +82,7 @@ namespace GameplayTvHud.DetailsZone
 
         private void CreateDetailPart(Detail detail)
         {
-            var detailPart = _assetProviderService.Instantiate<DetailPartHud>(AssetPaths.DetailPartPrefabPath, _grid.transform);
-            detailPart.Init(detail, _parentCanvas);
+            var detailPart = _detailViewFactory.CreateDetailPartView(detail, _grid.transform, _parentCanvas);
             detailPart.SetCurrentZone(this);
         }
 

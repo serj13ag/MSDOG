@@ -1,5 +1,6 @@
 using GameplayTvHud.Actions;
 using GameplayTvHud.DetailsZone;
+using GameplayTvHud.Factories;
 using GameplayTvHud.Mediators;
 using GameplayTvHud.UI;
 using UnityEngine;
@@ -35,6 +36,8 @@ namespace Infrastructure
             builder.RegisterComponent(_fuseAction);
             builder.RegisterComponent(_nitroAction);
             builder.RegisterComponent(_reloadAction);
+
+            builder.Register<IDetailViewFactory, DetailViewFactory>(Lifetime.Singleton);
 
             builder.Register<IDetailMediator, DetailMediator>(Lifetime.Singleton);
             builder.Register<IActionMediator, ActionMediator>(Lifetime.Singleton);

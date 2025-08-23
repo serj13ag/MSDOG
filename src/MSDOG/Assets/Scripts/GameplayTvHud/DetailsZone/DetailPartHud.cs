@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 namespace GameplayTvHud.DetailsZone
 {
+    // TODO: rename to view
     public class DetailPartHud : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [SerializeField] private DetailPartGhostHud _ghostDetailPrefab;
