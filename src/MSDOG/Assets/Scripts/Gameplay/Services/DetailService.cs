@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Models.Data;
 using Core.Services;
 using Gameplay.Providers;
@@ -61,9 +60,9 @@ namespace Gameplay.Services
             var detail = CreateDetail(abilityData);
             _inactiveDetails.Add(detail.Id, detail);
 
-            if (HasSameDetails())
+            if (HasDetailsWithSimilarAbilities())
             {
-                _tutorialService.OnHasTwoSameDetails();
+                _tutorialService.OnHasDetailsWithSimilarAbilities();
             }
 
             OnInactiveDetailCreated?.Invoke(this, new DetailCreatedEventArgs(detail));
@@ -142,14 +141,27 @@ namespace Gameplay.Services
             _activeDetails.Add(detail.Id, detail);
         }
 
-        private bool HasSameDetails()
+        private bool HasDetailsWithSimilarAbilities()
         {
-            // TODO: refactor add comparer
-            var allDetails = new List<Detail>(_activeDetails.Values);
-            allDetails.AddRange(_inactiveDetails.Values);
-            return allDetails
-                .GroupBy(a => new { a.AbilityData.AbilityType, a.AbilityData.Level })
-                .Any(g => g.Count() > 1);
+            var abilities = new HashSet<AbilityData>();
+
+            foreach (var activeDetail in _activeDetails)
+            {
+                if (!abilities.Add(activeDetail.Value.AbilityData))
+                {
+                    return true;
+                }
+            }
+
+            foreach (var inactiveDetail in _inactiveDetails)
+            {
+                if (!abilities.Add(inactiveDetail.Value.AbilityData))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Gameplay.Services
         void StartTrackPlayer(Player player);
 
         void OnCanCraft();
-        void OnHasTwoSameDetails();
+        void OnHasDetailsWithSimilarAbilities();
         void OnReloadNeeded();
         void OnFuseActionDisconnected();
         void OnLevelActivated();

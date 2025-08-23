@@ -19,7 +19,7 @@ namespace GameplayTvHud.UI
         [SerializeField] private float _minScale = 0.8f;
         [SerializeField] private float _maxScale = 1.1f;
 
-        private IPlayerProvider _playerProvider; // TODO: to mediator?
+        private IPlayerProvider _playerProvider;
         private ISoundController _soundController;
         private ITutorialService _tutorialService;
         private IDetailMediator _detailMediator;

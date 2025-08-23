@@ -41,7 +41,7 @@ namespace Gameplay.Services
             TryShowTutorialWindow(TutorialEventType.Craft);
         }
 
-        public void OnHasTwoSameDetails()
+        public void OnHasDetailsWithSimilarAbilities()
         {
             TryShowTutorialWindow(TutorialEventType.Fusion);
         }
