@@ -1,4 +1,3 @@
-using Constants;
 using Core.Services;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -9,6 +8,7 @@ namespace Gameplay.Factories
     {
         private readonly IAssetProviderService _assetProviderService;
 
+        // TODO: add pool
         public VfxFactory(IAssetProviderService assetProviderService)
         {
             _assetProviderService = assetProviderService;
@@ -16,7 +16,7 @@ namespace Gameplay.Factories
 
         public void CreateBloodEffect(Vector3 position)
         {
-            _assetProviderService.Instantiate<ParticleSystem>(AssetPaths.BloodParticlesVFXPath, position);
+            // TODO: add
         }
 
         public void CreatProjectileImpactEffect(Vector3 position, GameObject impactVFXPrefab)

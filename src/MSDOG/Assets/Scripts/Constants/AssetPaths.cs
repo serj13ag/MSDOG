@@ -11,8 +11,5 @@ namespace Constants
 
         // Ui Prefabs
         public const string DetailPartPrefabPath = "Prefabs/Hud/DetailPartHud";
-
-        // VFX
-        public const string BloodParticlesVFXPath = "Prefabs/Vfx/BloodParticles";
     }
 }
