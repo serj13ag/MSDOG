@@ -60,7 +60,14 @@ namespace Infrastructure.StateMachine
 
         private void OnScenesLoaded(Scene levelScene, Scene levelTvScene)
         {
-            // TODO: to methods
+            InitGameplayScope(levelScene);
+            InitGameplayTvHudScope(levelTvScene);
+
+            _loadingCurtainController.FadeOffWithDelay();
+        }
+
+        private void InitGameplayScope(Scene levelScene)
+        {
             var gameplayScope = levelScene.GetRootGameObjects()
                 .Select(gameObject => gameObject.GetComponent<GameplayLifetimeScope>())
                 .First();
@@ -71,7 +78,10 @@ namespace Infrastructure.StateMachine
 
             var gameplayInitializer = gameplayScope.Container.Resolve<GameplayInitializer>();
             gameplayInitializer.Start(_levelIndex); // TODO: add await for factories warmup ?
+        }
 
+        private static void InitGameplayTvHudScope(Scene levelTvScene)
+        {
             var gameplayTvHudScope = levelTvScene.GetRootGameObjects()
                 .Select(go => go.GetComponent<GameplayTvHudLifetimeScope>())
                 .First();
@@ -79,8 +89,6 @@ namespace Infrastructure.StateMachine
 
             var tvInitializer = gameplayTvHudScope.Container.Resolve<GameplayTvHudInitializer>();
             tvInitializer.Start();
-
-            _loadingCurtainController.FadeOffWithDelay();
         }
     }
 }
