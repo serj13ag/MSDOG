@@ -2,9 +2,8 @@ using UnityEngine;
 
 namespace Utility
 {
-    public static class ColliderHelper
+    public static class GameObjectExtensions
     {
-        // TODO: not only collider helper
         public static bool TryGetComponentInHierarchy<T>(this GameObject gameObject, out T component)
         {
             if (gameObject.TryGetComponent(out component))
