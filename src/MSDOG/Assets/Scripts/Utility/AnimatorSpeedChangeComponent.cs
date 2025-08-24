@@ -15,8 +15,11 @@ namespace Utility
         public void Construct(IUpdateController updateController)
         {
             _updateController = updateController;
+        }
 
-            updateController.OnGameTimeChanged += OnGameTimeChanged;
+        private void OnEnable()
+        {
+            _updateController.OnGameTimeChanged += OnGameTimeChanged;
         }
 
         private void OnGameTimeChanged(object sender, EventArgs e)
@@ -24,7 +27,7 @@ namespace Utility
             _animator.speed = _updateController.GameTimeScale;
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             _updateController.OnGameTimeChanged -= OnGameTimeChanged;
         }

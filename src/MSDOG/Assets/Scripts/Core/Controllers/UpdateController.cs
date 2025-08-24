@@ -62,6 +62,7 @@ namespace Core.Controllers
 
             // TODO: fix animator components
             // TODO: fix using unity update
+            // TODO: separate update service from game speed service
             OnGameTimeChanged?.Invoke(this, EventArgs.Empty);
         }
 
