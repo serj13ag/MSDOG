@@ -9,7 +9,6 @@ using Gameplay.Enemies;
 using Gameplay.Factories;
 using Gameplay.Providers;
 using UnityEngine;
-using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 namespace Gameplay.Services
@@ -130,7 +129,6 @@ namespace Gameplay.Services
             enemy.OnDied -= OnEnemyDied;
 
             SpawnDeathKit(enemy);
-            Object.Destroy(enemy.gameObject); // TODO: pool?
 
             if (!_isActive && _enemies.Count == 0)
             {

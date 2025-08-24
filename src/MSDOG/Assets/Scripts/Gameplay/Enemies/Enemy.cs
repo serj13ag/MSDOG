@@ -10,11 +10,12 @@ using Gameplay.Providers;
 using UnityEngine;
 using UnityEngine.AI;
 using Utility;
+using Utility.Pools;
 using VContainer;
 
 namespace Gameplay.Enemies
 {
-    public class Enemy : MonoBehaviour, IUpdatable
+    public class Enemy : BasePooledObject, IUpdatable
     {
         private readonly Vector3 _enemyProjectileOffset = Vector3.up * 0.8f;
         private readonly Vector3 _damageTextOffset = Vector3.up * 3f;
@@ -74,7 +75,7 @@ namespace Gameplay.Enemies
             _vfxFactory = vfxFactory;
         }
 
-        public void Init(EnemyData data)
+        public void Init(EnemyData data, Vector3 position)
         {
             _id = Guid.NewGuid();
             _damage = data.Damage;
@@ -95,6 +96,8 @@ namespace Gameplay.Enemies
             };
 
             _agent.speed = data.Speed;
+
+            transform.position = position;
 
             _healthBlock.OnHealthChanged += OnHealthBlockHealthChanged;
 
@@ -146,6 +149,8 @@ namespace Gameplay.Enemies
                 _experiencePieceFactory.CreateExperiencePiece(transform.position, _experience);
                 _vfxFactory.CreateBloodEffect(transform.position + _enemyProjectileOffset);
 
+                Release();
+
                 OnDied?.Invoke(this);
             }
         }
@@ -166,8 +171,10 @@ namespace Gameplay.Enemies
             _projectileFactory.CreateEnemyProjectile(projectileSpawnData);
         }
 
-        private void OnDestroy()
+        protected override void Cleanup()
         {
+            base.Cleanup();
+
             _stateMachine.Dispose();
 
             _updateController.Remove(this);
