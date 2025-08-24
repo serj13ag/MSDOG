@@ -9,6 +9,6 @@ namespace Core.Models.Data
     {
         public ProjectileType Type;
         public BaseProjectileView ViewPrefab;
-        public GameObject ImpactVFXPrefab;
+        public ProjectileImpactVFX ImpactVFXPrefab;
     }
 }

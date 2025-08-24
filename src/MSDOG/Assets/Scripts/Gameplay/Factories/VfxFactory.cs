@@ -1,3 +1,4 @@
+using Gameplay.Projectiles;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -11,9 +12,10 @@ namespace Gameplay.Factories
             // TODO: add
         }
 
-        public void CreatProjectileImpactEffect(Vector3 position, GameObject impactVFXPrefab)
+        public void CreatProjectileImpactEffect(Vector3 position, ProjectileImpactVFX impactVFXPrefab)
         {
-            Object.Instantiate(impactVFXPrefab, position, Quaternion.Euler(90f, 0f, 0f));
+            var vfx = Object.Instantiate(impactVFXPrefab, position, Quaternion.Euler(90f, 0f, 0f));
+            vfx.Play();
         }
     }
 }

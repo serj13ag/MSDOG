@@ -17,7 +17,7 @@ namespace Gameplay.Projectiles.Views
 
         private IVfxFactory _vfxFactory;
 
-        private GameObject _impactVFXPrefab;
+        private ProjectileImpactVFX _impactVFXPrefab;
 
         [Inject]
         public void Construct(IUpdateController updateController, IArenaService arenaService, IVfxFactory vfxFactory)

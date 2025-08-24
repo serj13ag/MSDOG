@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 1
   ViewPrefab: {fileID: 4490539195523019209, guid: 92b9e7effdbdd9b42a800fb1842e6715, type: 3}
-  ImpactVFXPrefab: {fileID: 4964743200703482252, guid: 4c30f6a979238c34ebf7e166d3cb3235, type: 3}
+  ImpactVFXPrefab: {fileID: 7175520987560327403, guid: 4c30f6a979238c34ebf7e166d3cb3235, type: 3}

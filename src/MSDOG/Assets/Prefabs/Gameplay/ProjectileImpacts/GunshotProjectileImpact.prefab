@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4883269162694503191}
   - component: {fileID: 533531344881146968}
+  - component: {fileID: 5121216753788333425}
   - component: {fileID: 9026082903117992234}
   m_Layer: 0
   m_Name: GunshotProjectileImpact
@@ -88,6 +89,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5121216753788333425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4964743200703482252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a93f9377d2cc454f9f36c6a77b1c30cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteAnimatorComponent: {fileID: 9026082903117992234}
 --- !u!114 &9026082903117992234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,7 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33bf0c8ff96c47958994f89fc896abc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spriteRenderer: {fileID: 533531344881146968}
   _sprites:
   - {fileID: 21300000, guid: a2dca51023fb9274998bb8ab763c211a, type: 3}
   - {fileID: 21300000, guid: 5ec3df3aa07fcd147be34c1d74ab72dd, type: 3}
@@ -111,3 +124,5 @@ MonoBehaviour:
   _timePerFrame: 0.05
   _isLooped: 0
   _destroyOnFinish: 1
+  _deactivateOnStart: 0
+  _spriteRenderer: {fileID: 533531344881146968}
