@@ -77,7 +77,7 @@ namespace Infrastructure.StateMachine
             _windowController.RegisterGameplayWindowFactory(gameplayWindowFactory);
 
             var gameplayInitializer = gameplayScope.Container.Resolve<GameplayInitializer>();
-            gameplayInitializer.Start(_levelIndex); // TODO: add await for factories warmup ?
+            gameplayInitializer.Start(_levelIndex);
         }
 
         private static void InitGameplayTvHudScope(Scene levelTvScene)
