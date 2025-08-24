@@ -3,6 +3,7 @@ using Core.Controllers;
 using Core.Models.Data;
 using Gameplay.Enemies;
 using Gameplay.Factories;
+using Gameplay.Services;
 using UnityEngine;
 using Utility;
 using Utility.Extensions;
@@ -19,9 +20,9 @@ namespace Gameplay.Projectiles.Views
         private GameObject _impactVFXPrefab;
 
         [Inject]
-        public void Construct(IUpdateController updateController, IVfxFactory vfxFactory)
+        public void Construct(IUpdateController updateController, IArenaService arenaService, IVfxFactory vfxFactory)
         {
-            ConstructBase(updateController);
+            ConstructBase(updateController, arenaService);
 
             _vfxFactory = vfxFactory;
         }

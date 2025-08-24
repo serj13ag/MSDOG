@@ -1,21 +1,25 @@
 using System;
 using Core.Controllers;
 using Core.Interfaces;
+using Gameplay.Services;
 using Utility.Pools;
 
 namespace Gameplay.Projectiles.Views
 {
     public abstract class BaseProjectileView : BasePooledObject, IUpdatable
     {
+        private const float AdditionalArenaOffset = 10f;
         private IUpdateController _updateController;
+        private IArenaService _arenaService;
 
         private Projectile _projectile;
         private bool _shouldRelease;
 
         protected Projectile Projectile => _projectile;
 
-        protected void ConstructBase(IUpdateController updateController)
+        protected void ConstructBase(IUpdateController updateController, IArenaService arenaService)
         {
+            _arenaService = arenaService;
             _updateController = updateController;
         }
 
@@ -67,7 +71,9 @@ namespace Gameplay.Projectiles.Views
 
         private bool IsOutOfArena()
         {
-            return Math.Abs(transform.position.x) > 50f || Math.Abs(transform.position.z) > 50f; // TODO: remove hardcode
+            var arenaHalfSize = _arenaService.HalfSize;
+            return Math.Abs(transform.position.x) > arenaHalfSize.X + AdditionalArenaOffset ||
+                   Math.Abs(transform.position.z) > arenaHalfSize.Y + AdditionalArenaOffset;
         }
 
         protected override void Cleanup()

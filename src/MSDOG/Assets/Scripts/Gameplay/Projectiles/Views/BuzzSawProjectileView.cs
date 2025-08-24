@@ -1,5 +1,6 @@
 using Core.Controllers;
 using Gameplay.Enemies;
+using Gameplay.Services;
 using UnityEngine;
 using Utility;
 using Utility.Extensions;
@@ -17,9 +18,9 @@ namespace Gameplay.Projectiles.Views
         private Player _player;
 
         [Inject]
-        public void Construct(IUpdateController updateController)
+        public void Construct(IUpdateController updateController, IArenaService arenaService)
         {
-            ConstructBase(updateController);
+            ConstructBase(updateController, arenaService);
         }
 
         public void Init(Projectile projectile, Player player)
