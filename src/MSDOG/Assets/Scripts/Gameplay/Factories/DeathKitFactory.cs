@@ -1,9 +1,10 @@
-using System.Collections.Generic;
+using System;
 using Core.Services;
 using Gameplay.Enemies;
 using Gameplay.Providers;
 using UnityEngine;
 using Utility.Pools;
+using Object = UnityEngine.Object;
 
 namespace Gameplay.Factories
 {
@@ -14,7 +15,7 @@ namespace Gameplay.Factories
         private readonly IObjectContainerProvider _objectContainerProvider;
         private readonly IDataService _dataService;
 
-        private readonly Dictionary<EnemyDeathkit, GameObjectPool<EnemyDeathkit>> _pools = new();
+        private readonly GameObjectPoolRegistry<EnemyDeathkit> _pools = new();
 
         public DeathKitFactory(IObjectContainerProvider objectContainerProvider, IDataService dataService)
         {
@@ -29,37 +30,33 @@ namespace Gameplay.Factories
             {
                 foreach (var enemy in wave.Enemies)
                 {
+                    var createdPrefabs = new EnemyDeathkit[NumberOfPrewarmedPrefabs];
+
                     var deathKitPrefab = enemy.Data.DeathkitPrefab;
-                    if (!_pools.ContainsKey(deathKitPrefab))
+
+                    for (var i = 0; i < NumberOfPrewarmedPrefabs; i++)
                     {
-                        _pools.Add(deathKitPrefab,
-                            new GameObjectPool<EnemyDeathkit>(() =>
-                                Object.Instantiate(deathKitPrefab, _objectContainerProvider.DeathKitContainer)));
+                        createdPrefabs[i] = _pools.Get(deathKitPrefab, Instantiate(deathKitPrefab));
                     }
-                }
-            }
 
-            foreach (var pool in _pools.Values)
-            {
-                var createdPrefabs = new EnemyDeathkit[NumberOfPrewarmedPrefabs];
-                for (var i = 0; i < NumberOfPrewarmedPrefabs; i++)
-                {
-                    createdPrefabs[i] = pool.Get();
-                }
-
-                foreach (var prefab in createdPrefabs)
-                {
-                    pool.Release(prefab);
+                    foreach (var prefab in createdPrefabs)
+                    {
+                        _pools.Release(deathKitPrefab, prefab);
+                    }
                 }
             }
         }
 
         public EnemyDeathkit CreateDeathKit(EnemyDeathkit deathKitPrefab, Vector3 position, Quaternion rotation)
         {
-            var pool = _pools[deathKitPrefab];
-            var enemyDeathKit = pool.Get();
+            var enemyDeathKit = _pools.Get(deathKitPrefab, Instantiate(deathKitPrefab));
             enemyDeathKit.Init(position, rotation);
             return enemyDeathKit;
+        }
+
+        private Func<EnemyDeathkit> Instantiate(EnemyDeathkit deathKitPrefab)
+        {
+            return () => Object.Instantiate(deathKitPrefab, _objectContainerProvider.DeathKitContainer);
         }
     }
 }

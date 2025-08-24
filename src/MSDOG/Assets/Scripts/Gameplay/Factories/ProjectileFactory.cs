@@ -20,7 +20,7 @@ namespace Gameplay.Factories
         private readonly IDataService _dataService;
         private readonly IPlayerProvider _playerProvider;
 
-        private readonly Dictionary<BaseProjectileView, GameObjectPool<BaseProjectileView>> _pools = new();
+        private readonly GameObjectPoolRegistry<BaseProjectileView> _pools = new();
 
         public ProjectileFactory(IObjectResolver container, IObjectContainerProvider objectContainerProvider,
             IDataService dataService, IPlayerProvider playerProvider)
@@ -36,20 +36,16 @@ namespace Gameplay.Factories
             var availablePrefabs = GetAvailablePrefabsForLevel(levelIndex);
             foreach (var availablePrefab in availablePrefabs)
             {
-                TryToCreatePool(availablePrefab);
-            }
-
-            foreach (var pool in _pools.Values)
-            {
                 var createdPrefabs = new BaseProjectileView[NumberOfPrewarmedPrefabs];
+
                 for (var i = 0; i < NumberOfPrewarmedPrefabs; i++)
                 {
-                    createdPrefabs[i] = pool.Get();
+                    createdPrefabs[i] = _pools.Get(availablePrefab, Instantiate(availablePrefab));
                 }
 
                 foreach (var prefab in createdPrefabs)
                 {
-                    pool.Release(prefab);
+                    _pools.Release(availablePrefab, prefab);
                 }
             }
         }
@@ -72,8 +68,8 @@ namespace Gameplay.Factories
 
         private BaseProjectileView GetFromPool(ProjectileSpawnData projectileSpawnData)
         {
-            var pool = _pools[projectileSpawnData.ProjectileData.ViewPrefab];
-            var view = pool.Get();
+            var projectileViewPrefab = projectileSpawnData.ProjectileData.ViewPrefab;
+            var view = _pools.Get(projectileViewPrefab, Instantiate(projectileViewPrefab));
             view.transform.position = projectileSpawnData.SpawnPosition;
             view.transform.rotation = Quaternion.LookRotation(projectileSpawnData.ForwardDirection);
             return view;
@@ -144,14 +140,9 @@ namespace Gameplay.Factories
             return availablePrefabs;
         }
 
-        private void TryToCreatePool(BaseProjectileView projectileView)
+        private Func<BaseProjectileView> Instantiate(BaseProjectileView availablePrefab)
         {
-            if (!_pools.ContainsKey(projectileView))
-            {
-                _pools.Add(projectileView,
-                    new GameObjectPool<BaseProjectileView>(() =>
-                        _container.Instantiate(projectileView, _objectContainerProvider.ProjectileContainer)));
-            }
+            return () => _container.Instantiate(availablePrefab, _objectContainerProvider.ProjectileContainer);
         }
     }
 }

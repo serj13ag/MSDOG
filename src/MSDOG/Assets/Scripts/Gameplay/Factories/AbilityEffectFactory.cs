@@ -20,7 +20,7 @@ namespace Gameplay.Factories
         private readonly IObjectContainerProvider _objectContainerProvider;
         private readonly IDataService _dataService;
 
-        private readonly Dictionary<BaseAbilityEffect, GameObjectPool<BaseAbilityEffect>> _pools = new();
+        private readonly GameObjectPoolRegistry<BaseAbilityEffect> _pools = new();
 
         public AbilityEffectFactory(IObjectResolver container, IObjectContainerProvider objectContainerProvider,
             IDataService dataService)
@@ -35,28 +35,24 @@ namespace Gameplay.Factories
             var availablePrefabs = GetAvailablePrefabsForLevel(levelIndex);
             foreach (var availablePrefab in availablePrefabs)
             {
-                TryToCreatePool(availablePrefab);
-            }
-
-            foreach (var pool in _pools.Values)
-            {
                 var createdPrefabs = new BaseAbilityEffect[NumberOfPrewarmedPrefabs];
+
                 for (var i = 0; i < NumberOfPrewarmedPrefabs; i++)
                 {
-                    createdPrefabs[i] = pool.Get();
+                    createdPrefabs[i] = _pools.Get(availablePrefab, Instantiate(availablePrefab));
                 }
 
                 foreach (var prefab in createdPrefabs)
                 {
-                    pool.Release(prefab);
+                    _pools.Release(availablePrefab, prefab);
                 }
             }
         }
 
         public T CreateEffect<T>(Player player, AbilityData abilityData) where T : BaseAbilityEffect
         {
-            var pool = _pools[abilityData.FollowingAbilityEffectPrefab];
-            var baseAbilityEffect = (T)pool.Get();
+            var prefab = abilityData.FollowingAbilityEffectPrefab;
+            var baseAbilityEffect = (T)_pools.Get(prefab, Instantiate(prefab));
 
             switch (baseAbilityEffect)
             {
@@ -101,14 +97,9 @@ namespace Gameplay.Factories
             return availablePrefabs;
         }
 
-        private void TryToCreatePool(BaseAbilityEffect projectileView)
+        private Func<BaseAbilityEffect> Instantiate(BaseAbilityEffect prefab)
         {
-            if (!_pools.ContainsKey(projectileView))
-            {
-                _pools.Add(projectileView,
-                    new GameObjectPool<BaseAbilityEffect>(() =>
-                        _container.Instantiate(projectileView, _objectContainerProvider.AbilityEffectContainer)));
-            }
+            return () => _container.Instantiate(prefab, _objectContainerProvider.AbilityEffectContainer);
         }
 
         /// <summary>
