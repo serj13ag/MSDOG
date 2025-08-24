@@ -30,19 +30,8 @@ namespace Gameplay.Factories
             {
                 foreach (var enemy in wave.Enemies)
                 {
-                    var createdPrefabs = new EnemyDeathkit[NumberOfPrewarmedPrefabs];
-
                     var deathKitPrefab = enemy.Data.DeathkitPrefab;
-
-                    for (var i = 0; i < NumberOfPrewarmedPrefabs; i++)
-                    {
-                        createdPrefabs[i] = _pools.Get(deathKitPrefab, Instantiate(deathKitPrefab));
-                    }
-
-                    foreach (var prefab in createdPrefabs)
-                    {
-                        _pools.Release(deathKitPrefab, prefab);
-                    }
+                    _pools.Prewarm(deathKitPrefab, Instantiate(deathKitPrefab), NumberOfPrewarmedPrefabs);
                 }
             }
         }

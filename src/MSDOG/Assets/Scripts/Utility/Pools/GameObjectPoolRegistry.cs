@@ -18,9 +18,19 @@ namespace Utility.Pools
             return pooledObject;
         }
 
-        public void Release(T keyPrefab, T pooledObject)
+        public void Prewarm(T prefab, Func<T> instantiate, int numberOfPrewarmedPrefabs)
         {
-            _enemyPools[keyPrefab].Release(pooledObject);
+            var createdPrefabs = new T[numberOfPrewarmedPrefabs];
+
+            for (var i = 0; i < numberOfPrewarmedPrefabs; i++)
+            {
+                createdPrefabs[i] = Get(prefab, instantiate);
+            }
+
+            foreach (var createdPrefab in createdPrefabs)
+            {
+                _enemyPools[prefab].Release(createdPrefab);
+            }
         }
     }
 }

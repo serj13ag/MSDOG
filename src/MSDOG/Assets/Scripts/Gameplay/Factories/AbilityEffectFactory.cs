@@ -35,17 +35,7 @@ namespace Gameplay.Factories
             var availablePrefabs = GetAvailablePrefabsForLevel(levelIndex);
             foreach (var availablePrefab in availablePrefabs)
             {
-                var createdPrefabs = new BaseAbilityEffect[NumberOfPrewarmedPrefabs];
-
-                for (var i = 0; i < NumberOfPrewarmedPrefabs; i++)
-                {
-                    createdPrefabs[i] = _pools.Get(availablePrefab, Instantiate(availablePrefab));
-                }
-
-                foreach (var prefab in createdPrefabs)
-                {
-                    _pools.Release(availablePrefab, prefab);
-                }
+                _pools.Prewarm(availablePrefab, Instantiate(availablePrefab), NumberOfPrewarmedPrefabs);
             }
         }
 
