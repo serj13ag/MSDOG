@@ -12,7 +12,6 @@ using VContainer.Unity;
 
 namespace Gameplay.Factories
 {
-    // TODO: create base mult factory
     public class AbilityEffectFactory : IAbilityEffectFactory
     {
         private const int NumberOfPrewarmedPrefabs = 5;
