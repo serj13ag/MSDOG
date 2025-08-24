@@ -71,7 +71,7 @@ namespace Infrastructure
             CreateStartDetails(levelIndex);
             InitLevelSystems(levelIndex);
 
-            _gameplayWindowsHandler.Init(); // TODO: need?
+            _gameplayWindowsHandler.StartTrackEvents();
 
             PlayMusic(levelIndex);
 

@@ -18,7 +18,7 @@ namespace Gameplay.Services
             _updateController = updateController;
         }
 
-        public void Init()
+        public void StartTrackEvents()
         {
             _inputService.OnMenuActionPerformed += OnMenuActionPerformed;
             _windowController.OnWindowShowed += OnWindowShowed;
