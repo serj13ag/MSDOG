@@ -123,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2952212909283881202}
   - component: {fileID: 2729120517290830673}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: BaseDefaultProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 2185107121797161099}
   - component: {fileID: 4914550987142769707}
   - component: {fileID: 4177332983165476607}
-  m_Layer: 14
+  m_Layer: 15
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}

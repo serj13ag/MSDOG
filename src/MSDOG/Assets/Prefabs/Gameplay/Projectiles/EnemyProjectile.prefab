@@ -50,7 +50,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4947158303832805934, guid: 50dc687586bb61f4d809d0005d98ab61, type: 3}
       propertyPath: m_Name
-      value: EnemyProjectile1
+      value: EnemyProjectile
+      objectReference: {fileID: 0}
+    - target: {fileID: 5522554161654993670, guid: 50dc687586bb61f4d809d0005d98ab61, type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
