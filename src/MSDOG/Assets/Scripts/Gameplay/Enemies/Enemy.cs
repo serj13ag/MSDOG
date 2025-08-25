@@ -147,7 +147,6 @@ namespace Gameplay.Enemies
             if (_healthBlock.HasZeroHealth)
             {
                 _experiencePieceFactory.CreateExperiencePiece(transform.position, _experience);
-                _vfxFactory.CreateBloodEffect(transform.position + _enemyProjectileOffset);
 
                 Release();
 
