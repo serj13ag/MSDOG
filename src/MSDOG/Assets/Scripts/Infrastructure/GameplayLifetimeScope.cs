@@ -25,6 +25,8 @@ namespace Infrastructure
 
         private void RegisterControllers(IContainerBuilder builder)
         {
+            builder.RegisterComponentOnNewGameObject<GameplayUpdateController>(Lifetime.Singleton, "GameplayUpdateController")
+                .As<IGameplayUpdateController>();
             builder.RegisterComponent(_cameraController).As<ICameraController>();
             builder.RegisterComponent(_levelViewController).As<ILevelViewController>();
 

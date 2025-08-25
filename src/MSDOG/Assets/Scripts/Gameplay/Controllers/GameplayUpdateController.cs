@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Core.Interfaces;
+using Gameplay.Interfaces;
 using UnityEngine;
 
-namespace Core.Controllers
+namespace Gameplay.Controllers
 {
-    public class UpdateController : BasePersistentController, IUpdateController
+    public class GameplayUpdateController : MonoBehaviour, IGameplayUpdateController
     {
         private readonly List<IUpdatable> _updatables = new List<IUpdatable>();
         private readonly Queue<IUpdatable> _toAdd = new Queue<IUpdatable>();

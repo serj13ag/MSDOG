@@ -1,5 +1,4 @@
-using Core.Controllers;
-using Core.Interfaces;
+using Gameplay.Interfaces;
 using UnityEngine;
 using VContainer;
 
@@ -11,14 +10,14 @@ namespace Gameplay.Controllers
         [SerializeField] private Vector3 _cameraPositionOffset;
         [SerializeField] private Vector3 _cameraRotationOffset;
 
-        private IUpdateController _updateController;
+        private IGameplayUpdateController _updateController;
 
         private Transform _targetTransform;
 
         public Camera GameplayCamera => _gameplayCamera;
 
         [Inject]
-        public void Construct(IUpdateController updateController)
+        public void Construct(IGameplayUpdateController updateController)
         {
             _updateController = updateController;
         }

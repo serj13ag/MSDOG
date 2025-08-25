@@ -1,5 +1,5 @@
 using System;
-using Core.Controllers;
+using Gameplay.Controllers;
 using UnityEngine;
 using UnityEngine.AI;
 using VContainer;
@@ -10,10 +10,10 @@ namespace Utility
     {
         [SerializeField] private NavMeshAgent _navMeshAgent;
 
-        private IUpdateController _updateController;
+        private IGameplayUpdateController _updateController;
 
         [Inject]
-        public void Construct(IUpdateController updateController)
+        public void Construct(IGameplayUpdateController updateController)
         {
             _updateController = updateController;
         }

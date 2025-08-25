@@ -1,5 +1,4 @@
 using System;
-using Core.Controllers;
 using Core.Services;
 using Gameplay.Services;
 using UnityEngine;
@@ -9,7 +8,7 @@ namespace Gameplay.Controllers
 {
     public class DebugController : MonoBehaviour, IDebugController
     {
-        private IUpdateController _updateController;
+        private IGameplayUpdateController _updateController;
         private IDataService _dataService;
         private IDetailService _detailService;
 
@@ -23,7 +22,7 @@ namespace Gameplay.Controllers
         public event EventHandler<EventArgs> OnKillAllEnemiesRequested;
 
         [Inject]
-        public void Construct(IUpdateController updateController, IDataService dataService, IDetailService detailService)
+        public void Construct(IGameplayUpdateController updateController, IDataService dataService, IDetailService detailService)
         {
             _detailService = detailService;
             _dataService = dataService;

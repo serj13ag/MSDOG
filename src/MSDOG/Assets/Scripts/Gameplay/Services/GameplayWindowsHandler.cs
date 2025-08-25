@@ -1,6 +1,7 @@
 using System;
 using Windows;
 using Core.Controllers;
+using Gameplay.Controllers;
 
 namespace Gameplay.Services
 {
@@ -8,10 +9,10 @@ namespace Gameplay.Services
     {
         private readonly IInputService _inputService;
         private readonly IWindowController _windowController;
-        private readonly IUpdateController _updateController;
+        private readonly IGameplayUpdateController _updateController;
 
         public GameplayWindowsHandler(IInputService inputService, IWindowController windowController,
-            IUpdateController updateController)
+            IGameplayUpdateController updateController)
         {
             _inputService = inputService;
             _windowController = windowController;

@@ -1,9 +1,9 @@
 using System;
-using Core.Interfaces;
+using Gameplay.Interfaces;
 
-namespace Core.Controllers
+namespace Gameplay.Controllers
 {
-    public interface IUpdateController
+    public interface IGameplayUpdateController
     {
         bool IsPaused { get; }
         float GameTimeScale { get; }

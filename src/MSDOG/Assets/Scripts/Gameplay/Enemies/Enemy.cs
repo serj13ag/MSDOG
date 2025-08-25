@@ -1,10 +1,10 @@
 using System;
-using Core.Controllers;
-using Core.Interfaces;
 using Core.Models.Data;
 using Core.Services;
+using Gameplay.Controllers;
 using Gameplay.Enemies.EnemyBehaviour;
 using Gameplay.Factories;
+using Gameplay.Interfaces;
 using Gameplay.Projectiles;
 using Gameplay.Providers;
 using UnityEngine;
@@ -26,7 +26,7 @@ namespace Gameplay.Enemies
         [SerializeField] private ColliderEventProvider _damagePlayerColliderTriggerEnterProvider;
         [SerializeField] private AnimatorEventsProvider _animatorEventsProvider;
 
-        private IUpdateController _updateController;
+        private IGameplayUpdateController _updateController;
         private IExperiencePieceFactory _experiencePieceFactory;
         private IProjectileFactory _projectileFactory;
         private IVfxFactory _vfxFactory;
@@ -62,7 +62,7 @@ namespace Gameplay.Enemies
         public event EventHandler<EventArgs> OnHealthChanged;
 
         [Inject]
-        public void Construct(IUpdateController updateController, IExperiencePieceFactory experiencePieceFactory,
+        public void Construct(IGameplayUpdateController updateController, IExperiencePieceFactory experiencePieceFactory,
             IProjectileFactory projectileFactory, IDataService dataService, IVfxFactory vfxFactory,
             IPlayerProvider playerProvider, IDamageTextFactory damageTextFactory)
         {

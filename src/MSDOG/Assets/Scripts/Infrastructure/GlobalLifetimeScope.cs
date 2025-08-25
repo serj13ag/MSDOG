@@ -33,8 +33,6 @@ namespace Infrastructure
         {
             builder.RegisterComponentOnNewGameObject<CoroutineController>(Lifetime.Singleton, "CoroutineController")
                 .As<ICoroutineController>();
-            builder.RegisterComponentOnNewGameObject<UpdateController>(Lifetime.Singleton, "UpdateController")
-                .As<IUpdateController>();
 
             builder.RegisterComponent(_loadingCurtainController).As<ILoadingCurtainController>();
             builder.RegisterComponent(_soundController).As<ISoundController>();

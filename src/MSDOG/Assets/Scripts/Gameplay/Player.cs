@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Controllers;
-using Core.Interfaces;
 using Core.Models.Data;
 using Core.Services;
 using Gameplay.Abilities;
+using Gameplay.Controllers;
 using Gameplay.Factories;
+using Gameplay.Interfaces;
 using Gameplay.Services;
 using UnityEngine;
 using VContainer;
@@ -22,7 +22,7 @@ namespace Gameplay
         [SerializeField] private float _moveSpeed = 6f;
         [SerializeField] private float _rotationSpeed = 720f;
 
-        private IUpdateController _updateController;
+        private IGameplayUpdateController _updateController;
         private IAbilityFactory _abilityFactory;
         private IInputService _inputService;
         private IDataService _dataService;
@@ -70,7 +70,7 @@ namespace Gameplay
         }
 
         [Inject]
-        public void Construct(IInputService inputService, IUpdateController updateController, IArenaService arenaService,
+        public void Construct(IInputService inputService, IGameplayUpdateController updateController, IArenaService arenaService,
             IAbilityFactory abilityFactory, IDataService dataService, IProgressService progressService)
         {
             _progressService = progressService;

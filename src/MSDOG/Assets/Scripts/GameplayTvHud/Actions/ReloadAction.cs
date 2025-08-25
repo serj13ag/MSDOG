@@ -1,6 +1,7 @@
 using Core.Controllers;
-using Core.Interfaces;
 using Core.Sounds;
+using Gameplay.Controllers;
+using Gameplay.Interfaces;
 using GameplayTvHud.Mediators;
 using GameplayTvHud.UI;
 using UnityEngine;
@@ -19,7 +20,7 @@ namespace GameplayTvHud.Actions
         [SerializeField] private float _startingAngleLerp = 0.8f;
         [SerializeField] private float _maxAngle = 1080f;
 
-        private IUpdateController _updateController;
+        private IGameplayUpdateController _updateController;
         private ISoundController _soundController;
         private IActionMediator _actionMediator;
 
@@ -29,7 +30,7 @@ namespace GameplayTvHud.Actions
         private float _currentDragAngle;
 
         [Inject]
-        public void Construct(IUpdateController updateController, ISoundController soundController,
+        public void Construct(IGameplayUpdateController updateController, ISoundController soundController,
             IActionMediator actionMediator)
         {
             _actionMediator = actionMediator;

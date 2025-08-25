@@ -1,5 +1,5 @@
-using Core.Controllers;
-using Core.Interfaces;
+using Gameplay.Controllers;
+using Gameplay.Interfaces;
 using UnityEngine;
 using Utility;
 using Utility.Extensions;
@@ -15,13 +15,13 @@ namespace Gameplay
         [SerializeField] private float _collectionDistance = 0.1f;
         [SerializeField] private float _flySpeed = 10f;
 
-        private IUpdateController _updateController;
+        private IGameplayUpdateController _updateController;
 
         private Player _collectorPlayer;
         private int _experience;
 
         [Inject]
-        public void Construct(IUpdateController updateController)
+        public void Construct(IGameplayUpdateController updateController)
         {
             _updateController = updateController;
         }

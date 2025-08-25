@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Core.Controllers;
-using Core.Interfaces;
 using Core.Models.Data;
 using Core.Services;
 using Gameplay.Controllers;
 using Gameplay.Enemies;
 using Gameplay.Factories;
+using Gameplay.Interfaces;
 using Gameplay.Providers;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -22,7 +21,7 @@ namespace Gameplay.Services
 
         private readonly IGameFactory _gameFactory;
         private readonly IArenaService _arenaService;
-        private readonly IUpdateController _updateController;
+        private readonly IGameplayUpdateController _updateController;
         private readonly IDataService _dataService;
         private readonly IDebugController _debugController;
         private readonly IDeathKitFactory _deathKitFactory;
@@ -37,7 +36,7 @@ namespace Gameplay.Services
 
         public event Action OnAllEnemiesDied;
 
-        public EnemyService(IUpdateController updateController, IDataService dataService, IGameFactory gameFactory,
+        public EnemyService(IGameplayUpdateController updateController, IDataService dataService, IGameFactory gameFactory,
             IArenaService arenaService, IDebugController debugController, IDeathKitFactory deathKitFactory,
             IPlayerProvider playerProvider)
         {

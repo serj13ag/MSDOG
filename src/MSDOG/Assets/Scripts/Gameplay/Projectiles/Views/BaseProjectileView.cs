@@ -1,6 +1,6 @@
 using System;
-using Core.Controllers;
-using Core.Interfaces;
+using Gameplay.Controllers;
+using Gameplay.Interfaces;
 using Gameplay.Services;
 using Utility.Pools;
 
@@ -9,7 +9,7 @@ namespace Gameplay.Projectiles.Views
     public abstract class BaseProjectileView : BasePooledObject, IUpdatable
     {
         private const float AdditionalArenaOffset = 10f;
-        private IUpdateController _updateController;
+        private IGameplayUpdateController _updateController;
         private IArenaService _arenaService;
 
         private Projectile _projectile;
@@ -17,7 +17,7 @@ namespace Gameplay.Projectiles.Views
 
         protected Projectile Projectile => _projectile;
 
-        protected void ConstructBase(IUpdateController updateController, IArenaService arenaService)
+        protected void ConstructBase(IGameplayUpdateController updateController, IArenaService arenaService)
         {
             _arenaService = arenaService;
             _updateController = updateController;
