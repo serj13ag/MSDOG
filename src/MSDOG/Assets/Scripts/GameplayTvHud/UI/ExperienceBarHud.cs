@@ -1,5 +1,8 @@
+using System;
 using Core.Controllers;
 using Core.Sounds;
+using Gameplay.Controllers;
+using Gameplay.Interfaces;
 using Gameplay.Providers;
 using Gameplay.Services;
 using GameplayTvHud.Mediators;
@@ -10,7 +13,7 @@ using VContainer;
 
 namespace GameplayTvHud.UI
 {
-    public class ExperienceBarHud : MonoBehaviour
+    public class ExperienceBarHud : MonoBehaviour, IUpdatable, IDisposable
     {
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Image _fillImage;
@@ -21,6 +24,7 @@ namespace GameplayTvHud.UI
 
         private IPlayerProvider _playerProvider;
         private ISoundController _soundController;
+        private IGameplayUpdateController _gameplayUpdateController;
         private ITutorialService _tutorialService;
         private IDetailMediator _detailMediator;
 
@@ -29,15 +33,17 @@ namespace GameplayTvHud.UI
 
         [Inject]
         public void Construct(IPlayerProvider playerProvider, ISoundController soundController, ITutorialService tutorialService,
-            IDetailMediator detailMediator)
+            IGameplayUpdateController gameplayUpdateController, IDetailMediator detailMediator)
         {
             _detailMediator = detailMediator;
             _playerProvider = playerProvider;
             _tutorialService = tutorialService;
             _soundController = soundController;
+            _gameplayUpdateController = gameplayUpdateController;
 
             UpdateView();
 
+            gameplayUpdateController.Register(this);
             playerProvider.Player.OnExperienceChanged += OnPlayerExperienceChanged;
         }
 
@@ -46,11 +52,11 @@ namespace GameplayTvHud.UI
             _craftButton.onClick.AddListener(OnCraftButtonClick);
         }
 
-        private void Update()
+        public void OnUpdate(float deltaTime)
         {
             if (_canCraft)
             {
-                _oscTimer += Time.deltaTime * _buttonOscSpeed;
+                _oscTimer += deltaTime * _buttonOscSpeed;
 
                 var t = (Mathf.Sin(_oscTimer) + 1f) / 2f;
                 var scale = Mathf.Lerp(_minScale, _maxScale, t);
@@ -100,6 +106,11 @@ namespace GameplayTvHud.UI
         {
             _craftButton.onClick.RemoveListener(OnCraftButtonClick);
             _playerProvider.Player.OnExperienceChanged -= OnPlayerExperienceChanged;
+        }
+
+        public void Dispose()
+        {
+            _gameplayUpdateController.Remove(this);
         }
     }
 }
