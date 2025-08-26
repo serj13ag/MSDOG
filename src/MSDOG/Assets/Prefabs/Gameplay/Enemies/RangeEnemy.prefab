@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: _modelRootTransform
       value: 
       objectReference: {fileID: 6436414070435114750}
+    - target: {fileID: 1731465627681447288, guid: 279da75488e448d4895918e5a223c65c, type: 3}
+      propertyPath: _animatorEventsProvider
+      value: 
+      objectReference: {fileID: 7349492913098145163}
     - target: {fileID: 2451733297511529755, guid: 279da75488e448d4895918e5a223c65c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

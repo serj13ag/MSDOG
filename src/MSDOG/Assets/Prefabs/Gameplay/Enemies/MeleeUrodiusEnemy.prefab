@@ -140,6 +140,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5074367883257278613}
     - target: {fileID: 1731465627681447288, guid: 279da75488e448d4895918e5a223c65c, type: 3}
+      propertyPath: _animatorEventsProvider
+      value: 
+      objectReference: {fileID: 4520350147769650680}
+    - target: {fileID: 1731465627681447288, guid: 279da75488e448d4895918e5a223c65c, type: 3}
       propertyPath: _damagePlayerColliderTriggerEnterProvider
       value: 
       objectReference: {fileID: 7944337731552239650}
@@ -289,6 +293,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a881df3856e39bf469cea06cff43f564, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5615241051855578176}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a881df3856e39bf469cea06cff43f564, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4520350147769650680}
   m_SourcePrefab: {fileID: 100100000, guid: a881df3856e39bf469cea06cff43f564, type: 3}
 --- !u!4 &3483297864418857997 stripped
 Transform:
@@ -322,6 +329,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4520350147769650680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3877357770361335280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ad9b27e34841cc9700fcc5a45a59f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4504994863666476874 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a881df3856e39bf469cea06cff43f564, type: 3}

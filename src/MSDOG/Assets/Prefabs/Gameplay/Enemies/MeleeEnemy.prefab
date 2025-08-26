@@ -200,8 +200,28 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -43475527947608012, guid: 0c6d16d4e100fba4fbfcd42ee57a66d8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6248573826896517039}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 0c6d16d4e100fba4fbfcd42ee57a66d8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1238464461475185224}
   m_SourcePrefab: {fileID: 100100000, guid: 0c6d16d4e100fba4fbfcd42ee57a66d8, type: 3}
+--- !u!1 &212729322969139378 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0c6d16d4e100fba4fbfcd42ee57a66d8, type: 3}
+  m_PrefabInstance: {fileID: 1023071246523282915}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1238464461475185224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212729322969139378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63ad9b27e34841cc9700fcc5a45a59f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &700332409456087560 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0c6d16d4e100fba4fbfcd42ee57a66d8, type: 3}
@@ -233,6 +253,10 @@ PrefabInstance:
       propertyPath: _modelRootTransform
       value: 
       objectReference: {fileID: 8167039175807014359}
+    - target: {fileID: 1731465627681447288, guid: 279da75488e448d4895918e5a223c65c, type: 3}
+      propertyPath: _animatorEventsProvider
+      value: 
+      objectReference: {fileID: 1238464461475185224}
     - target: {fileID: 1731465627681447288, guid: 279da75488e448d4895918e5a223c65c, type: 3}
       propertyPath: _damagePlayerColliderTriggerEnterProvider
       value: 
