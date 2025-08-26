@@ -97,6 +97,7 @@ namespace Gameplay.Enemies
             _healthBlock = new HealthBlock(data.MaxHealth);
             _animationBlock = new AnimationBlock(_animator);
 
+            // TODO: add context for state machines
             _stateMachine = data.Type switch
             {
                 EnemyType.Wanderer => new WandererBehaviourStateMachine(this, _damagePlayerColliderTriggerEnterProvider),

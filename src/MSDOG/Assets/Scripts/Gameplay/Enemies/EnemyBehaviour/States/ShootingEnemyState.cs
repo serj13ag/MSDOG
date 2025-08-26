@@ -9,7 +9,7 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
         private readonly RangeBehaviourStateMachine _stateMachine;
         private readonly Enemy _enemy;
 
-        private float _timeTillShoot;
+        private float _timeTillShoot; // TODO: refactor
 
         public ShootingEnemyState(RangeBehaviourStateMachine stateMachine, Enemy enemy,
             ColliderEventProvider triggerEnterProvider, float timeTillShoot)
