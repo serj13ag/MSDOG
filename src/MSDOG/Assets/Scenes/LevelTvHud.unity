@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 287550890}
   - component: {fileID: 287550891}
   m_Layer: 0
-  m_Name: TvLifetimeScope
+  m_Name: GameplayTvHudLifetimeScope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -246,73 +246,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2093198866392313021, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
-      propertyPath: m_Color.a
-      value: 0.47058824
-      objectReference: {fileID: 0}
-    - target: {fileID: 2093198866392313021, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2093198866392313021, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2093198866392313021, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5335256215933118269, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
-      propertyPath: m_Color.a
-      value: 0.47058824
-      objectReference: {fileID: 0}
-    - target: {fileID: 5335256215933118269, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5335256215933118269, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5335256215933118269, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5790281440544338271, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
-      propertyPath: m_Color.a
-      value: 0.47058824
-      objectReference: {fileID: 0}
-    - target: {fileID: 5790281440544338271, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5790281440544338271, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5790281440544338271, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
-      propertyPath: m_Color.r
-      value: 0
+    - target: {fileID: 2835430590027396539, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
+      propertyPath: m_Name
+      value: DirectionalLight
       objectReference: {fileID: 0}
     - target: {fileID: 5801496262982422642, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
       propertyPath: m_Name
-      value: ---TV HUD---
-      objectReference: {fileID: 0}
-    - target: {fileID: 7395163531206439416, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
-      propertyPath: m_Color.a
-      value: 0.47058824
-      objectReference: {fileID: 0}
-    - target: {fileID: 7395163531206439416, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7395163531206439416, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7395163531206439416, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
-      propertyPath: m_Color.r
-      value: 0
+      value: GameplayTvHudScenePrefab
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -396,69 +336,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d364c16743a4e7a89ab6b92f977184e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &8951935198048817670
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1231360557525639137, guid: cd2f1d47e4f291e4d804f3beaa2e5722, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1231360557525639137, guid: cd2f1d47e4f291e4d804f3beaa2e5722, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1231360557525639137, guid: cd2f1d47e4f291e4d804f3beaa2e5722, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1231360557525639137, guid: cd2f1d47e4f291e4d804f3beaa2e5722, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1231360557525639137, guid: cd2f1d47e4f291e4d804f3beaa2e5722, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1231360557525639137, guid: cd2f1d47e4f291e4d804f3beaa2e5722, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1231360557525639137, guid: cd2f1d47e4f291e4d804f3beaa2e5722, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1231360557525639137, guid: cd2f1d47e4f291e4d804f3beaa2e5722, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1231360557525639137, guid: cd2f1d47e4f291e4d804f3beaa2e5722, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1231360557525639137, guid: cd2f1d47e4f291e4d804f3beaa2e5722, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1435229819607544548, guid: cd2f1d47e4f291e4d804f3beaa2e5722, type: 3}
-      propertyPath: m_Name
-      value: ---COMMON---
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 629363827140255359, guid: cd2f1d47e4f291e4d804f3beaa2e5722, type: 3}
-    - {fileID: 3395549816564153779, guid: cd2f1d47e4f291e4d804f3beaa2e5722, type: 3}
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: cd2f1d47e4f291e4d804f3beaa2e5722, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 287550890}
-  - {fileID: 8951935198048817670}
   - {fileID: 6294132970679443288}
