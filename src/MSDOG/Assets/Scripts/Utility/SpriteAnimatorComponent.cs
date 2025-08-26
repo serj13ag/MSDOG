@@ -31,7 +31,7 @@ namespace Utility
 
         private void OnDestroy()
         {
-            _updateController.Remove(this);
+            _updateController?.Remove(this);
         }
     }
 }
