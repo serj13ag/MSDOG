@@ -1,5 +1,5 @@
 using System;
-using Gameplay.Controllers;
+using Gameplay.Services;
 using UnityEngine;
 using UnityEngine.AI;
 using VContainer;
@@ -10,27 +10,27 @@ namespace Utility
     {
         [SerializeField] private NavMeshAgent _navMeshAgent;
 
-        private IGameplayUpdateController _updateController;
+        private IGameSpeedService _gameSpeedService;
 
         [Inject]
-        public void Construct(IGameplayUpdateController updateController)
+        public void Construct(IGameSpeedService gameSpeedService)
         {
-            _updateController = updateController;
+            _gameSpeedService = gameSpeedService;
         }
 
         private void OnEnable()
         {
-            _updateController.OnGameTimeChanged += OnGameTimeChanged;
+            _gameSpeedService.OnGameTimeChanged += OnGameTimeChanged;
         }
 
         private void OnGameTimeChanged(object sender, EventArgs e)
         {
-            _navMeshAgent.isStopped = _updateController.IsPaused;
+            _navMeshAgent.isStopped = _gameSpeedService.IsPaused;
         }
 
         private void OnDisable()
         {
-            _updateController.OnGameTimeChanged -= OnGameTimeChanged;
+            _gameSpeedService.OnGameTimeChanged -= OnGameTimeChanged;
         }
     }
 }

@@ -1,7 +1,6 @@
 using System;
 using Windows;
 using Core.Controllers;
-using Gameplay.Controllers;
 
 namespace Gameplay.Services
 {
@@ -9,14 +8,14 @@ namespace Gameplay.Services
     {
         private readonly IInputService _inputService;
         private readonly IWindowController _windowController;
-        private readonly IGameplayUpdateController _updateController;
+        private readonly IGameSpeedService _gameSpeedService;
 
         public GameplayWindowsHandler(IInputService inputService, IWindowController windowController,
-            IGameplayUpdateController updateController)
+            IGameSpeedService gameSpeedService)
         {
             _inputService = inputService;
             _windowController = windowController;
-            _updateController = updateController;
+            _gameSpeedService = gameSpeedService;
         }
 
         public void StartTrackEvents()
@@ -41,7 +40,7 @@ namespace Gameplay.Services
         private void OnWindowShowed(object sender, EventArgs e)
         {
             _inputService.LockInput();
-            _updateController.Pause();
+            _gameSpeedService.Pause();
         }
 
         private void OnWindowClosed(object sender, EventArgs e)
@@ -49,7 +48,7 @@ namespace Gameplay.Services
             if (!_windowController.HasActiveWindows)
             {
                 _inputService.UnlockInput();
-                _updateController.Unpause();
+                _gameSpeedService.Unpause();
             }
         }
 

@@ -43,6 +43,7 @@ namespace Infrastructure
 
         private static void RegisterServices(IContainerBuilder builder)
         {
+            builder.Register<IGameSpeedService, GameSpeedService>(Lifetime.Singleton);
             builder.Register<IInputService, InputService>(Lifetime.Singleton);
             builder.Register<IArenaService, ArenaService>(Lifetime.Singleton);
             builder.Register<IEnemyService, EnemyService>(Lifetime.Singleton);

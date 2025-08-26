@@ -1,7 +1,8 @@
-using System;
 using System.Collections.Generic;
 using Gameplay.Interfaces;
+using Gameplay.Services;
 using UnityEngine;
+using VContainer;
 
 namespace Gameplay.Controllers
 {
@@ -11,12 +12,13 @@ namespace Gameplay.Controllers
         private readonly Queue<IUpdatable> _toAdd = new Queue<IUpdatable>();
         private readonly Queue<IUpdatable> _toRemove = new Queue<IUpdatable>();
 
-        private float _gameTimeScale = 1f;
+        private IGameSpeedService _gameSpeedService;
 
-        public bool IsPaused => _gameTimeScale == 0f;
-        public float GameTimeScale => _gameTimeScale;
-
-        public event EventHandler<EventArgs> OnGameTimeChanged;
+        [Inject]
+        public void Construct(IGameSpeedService gameSpeedService)
+        {
+            _gameSpeedService = gameSpeedService;
+        }
 
         private void Update()
         {
@@ -38,7 +40,7 @@ namespace Gameplay.Controllers
                 }
             }
 
-            var deltaTime = Time.deltaTime * _gameTimeScale;
+            var deltaTime = Time.deltaTime * _gameSpeedService.GameSpeed;
             foreach (var updatable in _updatables)
             {
                 updatable.OnUpdate(deltaTime);
@@ -53,25 +55,6 @@ namespace Gameplay.Controllers
         public void Remove(IUpdatable updatable)
         {
             _toRemove.Enqueue(updatable);
-        }
-
-        public void Pause()
-        {
-            _gameTimeScale = 0f;
-            Physics.simulationMode = SimulationMode.Script;
-
-            // TODO: fix animator components
-            // TODO: fix using unity update
-            // TODO: separate update service from game speed service
-            OnGameTimeChanged?.Invoke(this, EventArgs.Empty);
-        }
-
-        public void Unpause()
-        {
-            _gameTimeScale = 1f;
-            Physics.simulationMode = SimulationMode.FixedUpdate;
-
-            OnGameTimeChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

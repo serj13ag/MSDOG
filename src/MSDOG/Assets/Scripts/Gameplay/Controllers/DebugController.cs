@@ -8,7 +8,7 @@ namespace Gameplay.Controllers
 {
     public class DebugController : MonoBehaviour, IDebugController
     {
-        private IGameplayUpdateController _updateController;
+        private IGameSpeedService _gameSpeedService;
         private IDataService _dataService;
         private IDetailService _detailService;
 
@@ -22,11 +22,11 @@ namespace Gameplay.Controllers
         public event EventHandler<EventArgs> OnKillAllEnemiesRequested;
 
         [Inject]
-        public void Construct(IGameplayUpdateController updateController, IDataService dataService, IDetailService detailService)
+        public void Construct(IDataService dataService, IDetailService detailService, IGameSpeedService gameSpeedService)
         {
+            _gameSpeedService = gameSpeedService;
             _detailService = detailService;
             _dataService = dataService;
-            _updateController = updateController;
         }
 
         public void OnGUI()
@@ -76,13 +76,13 @@ namespace Gameplay.Controllers
         {
             if (GUILayout.Button("Pause/Unpause", style))
             {
-                if (_updateController.IsPaused)
+                if (_gameSpeedService.IsPaused)
                 {
-                    _updateController.Unpause();
+                    _gameSpeedService.Unpause();
                 }
                 else
                 {
-                    _updateController.Pause();
+                    _gameSpeedService.Pause();
                 }
             }
 

@@ -1,5 +1,5 @@
 using System;
-using Gameplay.Controllers;
+using Gameplay.Services;
 using UnityEngine;
 using VContainer;
 
@@ -9,27 +9,27 @@ namespace Utility
     {
         [SerializeField] private Animator _animator;
 
-        private IGameplayUpdateController _updateController;
+        private IGameSpeedService _gameSpeedService;
 
         [Inject]
-        public void Construct(IGameplayUpdateController updateController)
+        public void Construct(IGameSpeedService gameSpeedService)
         {
-            _updateController = updateController;
+            _gameSpeedService = gameSpeedService;
         }
 
         private void OnEnable()
         {
-            _updateController.OnGameTimeChanged += OnGameTimeChanged;
+            _gameSpeedService.OnGameTimeChanged += OnGameTimeChanged;
         }
 
         private void OnGameTimeChanged(object sender, EventArgs e)
         {
-            _animator.speed = _updateController.GameTimeScale;
+            _animator.speed = _gameSpeedService.GameSpeed;
         }
 
         private void OnDisable()
         {
-            _updateController.OnGameTimeChanged -= OnGameTimeChanged;
+            _gameSpeedService.OnGameTimeChanged -= OnGameTimeChanged;
         }
     }
 }
