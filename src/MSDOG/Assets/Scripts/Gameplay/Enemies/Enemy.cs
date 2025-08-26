@@ -73,6 +73,18 @@ namespace Gameplay.Enemies
             _dataService = dataService;
         }
 
+        public override void OnGet()
+        {
+            base.OnGet();
+
+            if (_animatorEventsProvider)
+            {
+                _animatorEventsProvider.OnAnimationAttackHit += OnAnimationAttackHit;
+            }
+
+            _updateController.Register(this);
+        }
+
         public void Init(EnemyData data, Vector3 position)
         {
             _id = Guid.NewGuid();
@@ -98,13 +110,6 @@ namespace Gameplay.Enemies
             transform.position = position;
 
             _healthBlock.OnHealthChanged += OnHealthBlockHealthChanged;
-
-            if (_animatorEventsProvider)
-            {
-                _animatorEventsProvider.OnAnimationAttackHit += OnAnimationAttackHit;
-            }
-
-            _updateController.Register(this);
         }
 
         public void OnUpdate(float deltaTime)
