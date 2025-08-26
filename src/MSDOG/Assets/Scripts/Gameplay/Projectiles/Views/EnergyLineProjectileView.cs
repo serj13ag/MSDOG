@@ -15,7 +15,6 @@ namespace Gameplay.Projectiles.Views
     {
         private const float LaserRange = 15f;
 
-        [SerializeField] private GameObject _boxObject;
         [SerializeField] private GameObject _spriteObject;
 
         private readonly Collider[] _hitBuffer = new Collider[32];
@@ -53,7 +52,6 @@ namespace Gameplay.Projectiles.Views
         {
             transform.rotation = Quaternion.LookRotation(forwardDirection);
             transform.position = _player.GetAbilitySpawnPosition(AbilityType.EnergyLine) + forwardDirection * (LaserRange / 2f);
-            _boxObject.transform.localScale = new Vector3(size, 0.5f, LaserRange);
 
             var t = Mathf.InverseLerp(0.3f, 1.6f, size);
             var scale = Mathf.LerpUnclamped(0.2f, 1.2f, t);

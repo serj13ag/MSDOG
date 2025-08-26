@@ -246,10 +246,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2835430590027396539, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
-      propertyPath: m_Name
-      value: DirectionalLight
-      objectReference: {fileID: 0}
     - target: {fileID: 5801496262982422642, guid: c2256bcdf9ca4e441add71bfd883b0d3, type: 3}
       propertyPath: m_Name
       value: GameplayTvHudScenePrefab
