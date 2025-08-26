@@ -8,9 +8,9 @@ namespace Gameplay.Controllers
 {
     public class GameplayUpdateController : MonoBehaviour, IGameplayUpdateController
     {
-        private readonly List<IUpdatable> _updatables = new List<IUpdatable>();
-        private readonly Queue<IUpdatable> _toAdd = new Queue<IUpdatable>();
-        private readonly Queue<IUpdatable> _toRemove = new Queue<IUpdatable>();
+        private readonly HashSet<IUpdatable> _updatables = new HashSet<IUpdatable>();
+        private readonly HashSet<IUpdatable> _toAdd = new HashSet<IUpdatable>();
+        private readonly HashSet<IUpdatable> _toRemove = new HashSet<IUpdatable>();
 
         private IGameSpeedService _gameSpeedService;
 
@@ -22,23 +22,21 @@ namespace Gameplay.Controllers
 
         private void Update()
         {
-            while (_toRemove.Count > 0)
+            foreach (var updatableToRemove in _toRemove)
             {
-                _updatables.Remove(_toRemove.Dequeue());
+                _toAdd.Remove(updatableToRemove);
+                _updatables.Remove(updatableToRemove);
             }
+            _toRemove.Clear();
 
-            while (_toAdd.Count > 0)
+            foreach (var updatableToAdd in _toAdd)
             {
-                var updatableToAdd = _toAdd.Dequeue();
-                if (_updatables.Contains(updatableToAdd))
+                if (!_updatables.Add(updatableToAdd))
                 {
                     Debug.LogError($"Trying to add already registered updatable: {updatableToAdd.GetType()}!");
                 }
-                else
-                {
-                    _updatables.Add(updatableToAdd);
-                }
             }
+            _toAdd.Clear();
 
             var deltaTime = Time.deltaTime * _gameSpeedService.GameSpeed;
             foreach (var updatable in _updatables)
@@ -49,12 +47,12 @@ namespace Gameplay.Controllers
 
         public void Register(IUpdatable updatable)
         {
-            _toAdd.Enqueue(updatable);
+            _toAdd.Add(updatable);
         }
 
         public void Remove(IUpdatable updatable)
         {
-            _toRemove.Enqueue(updatable);
+            _toRemove.Add(updatable);
         }
     }
 }
