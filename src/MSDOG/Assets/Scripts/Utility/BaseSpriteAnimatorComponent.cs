@@ -50,7 +50,7 @@ namespace Utility
             ResetAndUpdateSprite();
         }
 
-        private void Update()
+        protected void Tick(float deltaTime)
         {
             if (!_isActive)
             {
@@ -59,7 +59,7 @@ namespace Utility
 
             if (_timeTillChangeSprite > 0f)
             {
-                _timeTillChangeSprite -= Time.deltaTime;
+                _timeTillChangeSprite -= deltaTime;
             }
             else
             {

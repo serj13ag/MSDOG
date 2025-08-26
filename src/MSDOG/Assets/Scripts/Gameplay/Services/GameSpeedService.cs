@@ -15,7 +15,6 @@ namespace Gameplay.Services
             GameSpeed = 0f;
             Physics.simulationMode = SimulationMode.Script;
 
-            // TODO: fix animator components
             // TODO: fix using unity update
             OnGameTimeChanged?.Invoke(this, EventArgs.Empty);
         }
