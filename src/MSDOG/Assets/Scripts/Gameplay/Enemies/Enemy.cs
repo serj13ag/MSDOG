@@ -29,7 +29,6 @@ namespace Gameplay.Enemies
         private IGameplayUpdateController _updateController;
         private IExperiencePieceFactory _experiencePieceFactory;
         private IProjectileFactory _projectileFactory;
-        private IVfxFactory _vfxFactory;
         private IDataService _dataService;
         private IPlayerProvider _playerProvider;
         private IDamageTextFactory _damageTextFactory;
@@ -63,8 +62,8 @@ namespace Gameplay.Enemies
 
         [Inject]
         public void Construct(IGameplayUpdateController updateController, IExperiencePieceFactory experiencePieceFactory,
-            IProjectileFactory projectileFactory, IDataService dataService, IVfxFactory vfxFactory,
-            IPlayerProvider playerProvider, IDamageTextFactory damageTextFactory)
+            IProjectileFactory projectileFactory, IDataService dataService, IPlayerProvider playerProvider,
+            IDamageTextFactory damageTextFactory)
         {
             _damageTextFactory = damageTextFactory;
             _playerProvider = playerProvider;
@@ -72,7 +71,6 @@ namespace Gameplay.Enemies
             _experiencePieceFactory = experiencePieceFactory;
             _projectileFactory = projectileFactory;
             _dataService = dataService;
-            _vfxFactory = vfxFactory;
         }
 
         public void Init(EnemyData data, Vector3 position)
