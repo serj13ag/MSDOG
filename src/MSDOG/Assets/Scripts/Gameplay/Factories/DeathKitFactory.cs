@@ -4,7 +4,8 @@ using Gameplay.Enemies;
 using Gameplay.Providers;
 using UnityEngine;
 using Utility.Pools;
-using Object = UnityEngine.Object;
+using VContainer;
+using VContainer.Unity;
 
 namespace Gameplay.Factories
 {
@@ -12,13 +13,16 @@ namespace Gameplay.Factories
     {
         private const int NumberOfPrewarmedPrefabs = 10;
 
+        private readonly IObjectResolver _container;
         private readonly IObjectContainerProvider _objectContainerProvider;
         private readonly IDataService _dataService;
 
         private readonly GameObjectPoolRegistry<EnemyDeathkit> _pools = new();
 
-        public DeathKitFactory(IObjectContainerProvider objectContainerProvider, IDataService dataService)
+        public DeathKitFactory(IObjectResolver container, IObjectContainerProvider objectContainerProvider,
+            IDataService dataService)
         {
+            _container = container;
             _objectContainerProvider = objectContainerProvider;
             _dataService = dataService;
         }
@@ -45,7 +49,7 @@ namespace Gameplay.Factories
 
         private Func<EnemyDeathkit> Instantiate(EnemyDeathkit deathKitPrefab)
         {
-            return () => Object.Instantiate(deathKitPrefab, _objectContainerProvider.DeathKitContainer);
+            return () => _container.Instantiate(deathKitPrefab, _objectContainerProvider.DeathKitContainer);
         }
     }
 }
