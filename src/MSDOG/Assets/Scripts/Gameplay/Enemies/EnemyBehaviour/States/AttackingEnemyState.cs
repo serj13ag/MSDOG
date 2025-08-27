@@ -1,22 +1,18 @@
-using Utility;
-
 namespace Gameplay.Enemies.EnemyBehaviour.States
 {
     public class AttackingEnemyState : BaseTriggerAffectedEnemyState
     {
         private readonly IEnemyStateMachine _stateMachine;
-        private readonly Enemy _enemy;
-        private readonly AnimationBlock _animationBlock;
+        private readonly EnemyBehaviourStateMachineContext _context;
 
         private float _timeTillSpawnEnd;
 
-        public AttackingEnemyState(IEnemyStateMachine stateMachine, Enemy enemy, AnimationBlock animationBlock,
-            ColliderEventProvider triggerEnterProvider, float spawnTime)
-            : base(enemy, triggerEnterProvider)
+        public AttackingEnemyState(IEnemyStateMachine stateMachine, EnemyBehaviourStateMachineContext context, float spawnTime)
+            : base(context)
         {
             _stateMachine = stateMachine;
-            _enemy = enemy;
-            _animationBlock = animationBlock;
+            _context = context;
+
             _timeTillSpawnEnd = spawnTime;
         }
 
@@ -24,9 +20,10 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
         {
             base.Enter();
 
-            _enemy.transform.LookAt(_enemy.Player.transform);
-            _animationBlock.TriggerAttack();
-            _enemy.Agent.ResetPath();
+            var enemy = _context.Enemy;
+            enemy.transform.LookAt(_context.Player.transform);
+            _context.Agent.ResetPath();
+            _context.AnimationBlock.TriggerAttack();
         }
 
         public override void OnUpdate(float deltaTime)

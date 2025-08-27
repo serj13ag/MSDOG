@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AI;
-using Utility;
 
 namespace Gameplay.Enemies.EnemyBehaviour.States
 {
@@ -9,20 +8,19 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
         private const float WalkingTimeout = 10f;
 
         private readonly WandererBehaviourStateMachine _stateMachine;
-        private readonly AnimationBlock _animationBLock;
-        private readonly NavMeshAgent _agent;
+        private readonly EnemyBehaviourStateMachineContext _context;
 
         private float _elapsedTime;
 
-        public WalkingToDestinationEnemyState(Enemy enemy, WandererBehaviourStateMachine stateMachine,
-            AnimationBlock animationBLock, NavMeshAgent agent, ColliderEventProvider triggerEnterProvider, Vector3 destination)
-            : base(enemy, triggerEnterProvider)
+        public WalkingToDestinationEnemyState(WandererBehaviourStateMachine stateMachine,
+            EnemyBehaviourStateMachineContext context, Vector3 destination)
+            : base(context)
         {
             _stateMachine = stateMachine;
-            _animationBLock = animationBLock;
-            _agent = agent;
+            _context = context;
 
             var path = new NavMeshPath();
+            var agent = context.Agent;
             if (agent.CalculatePath(destination, path))
             {
                 agent.SetPath(path);
@@ -37,12 +35,13 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
         {
             base.Enter();
 
-            _animationBLock.SetRunning(true);
+            _context.AnimationBlock.SetRunning(true);
         }
 
         public override void OnUpdate(float deltaTime)
         {
-            if (!_agent.isActiveAndEnabled)
+            var agent = _context.Agent;
+            if (!agent.isActiveAndEnabled)
             {
                 return;
             }
@@ -54,7 +53,7 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
                 return;
             }
 
-            var hasReachedDestination = !_agent.pathPending && _agent.remainingDistance < 0.5f;
+            var hasReachedDestination = !agent.pathPending && agent.remainingDistance < 0.5f;
             if (hasReachedDestination)
             {
                 _stateMachine.ChangeStateToWaiting();
@@ -65,7 +64,7 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
         {
             base.Exit();
 
-            _animationBLock.SetRunning(false);
+            _context.AnimationBlock.SetRunning(false);
         }
     }
 }

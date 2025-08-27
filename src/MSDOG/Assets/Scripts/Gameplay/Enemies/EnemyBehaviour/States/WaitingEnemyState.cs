@@ -1,5 +1,3 @@
-using Utility;
-
 namespace Gameplay.Enemies.EnemyBehaviour.States
 {
     public class WaitingEnemyState : BaseTriggerAffectedEnemyState
@@ -8,9 +6,8 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
 
         private float _timeTillStartWalking;
 
-        public WaitingEnemyState(Enemy enemy, WandererBehaviourStateMachine stateMachine,
-            ColliderEventProvider triggerEnterProvider, float waitTime)
-            : base(enemy, triggerEnterProvider)
+        public WaitingEnemyState(WandererBehaviourStateMachine stateMachine, EnemyBehaviourStateMachineContext context, float waitTime)
+            : base(context)
         {
             _stateMachine = stateMachine;
             _timeTillStartWalking = waitTime;

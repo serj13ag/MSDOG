@@ -1,19 +1,17 @@
 using UnityEngine;
-using Utility;
 using Utility.Extensions;
 
 namespace Gameplay.Enemies.EnemyBehaviour.States
 {
     public abstract class BaseTriggerAffectedEnemyState : IEnemyState
     {
-        private readonly Enemy _enemy;
-        private readonly ColliderEventProvider _triggerEnterProvider;
+        private readonly EnemyBehaviourStateMachineContext _context;
 
-        protected BaseTriggerAffectedEnemyState(Enemy enemy, ColliderEventProvider triggerEnterProvider)
+        protected BaseTriggerAffectedEnemyState(EnemyBehaviourStateMachineContext context)
         {
-            _enemy = enemy;
-            _triggerEnterProvider = triggerEnterProvider;
+            _context = context;
 
+            var triggerEnterProvider = _context.DamagePlayerColliderTriggerEnterProvider;
             if (triggerEnterProvider)
             {
                 triggerEnterProvider.OnTriggerEntered += OnTriggerEntered;
@@ -36,7 +34,8 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
         {
             if (obj.gameObject.TryGetComponentInHierarchy<Player>(out var player))
             {
-                player.RegisterDamager(_enemy.Id, _enemy.Damage);
+                var enemy = _context.Enemy;
+                player.RegisterDamager(enemy.Id, enemy.Damage);
             }
         }
 
@@ -44,18 +43,20 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
         {
             if (obj.gameObject.TryGetComponentInHierarchy<Player>(out var player))
             {
-                player.RemoveDamager(_enemy.Id);
+                player.RemoveDamager(_context.Enemy.Id);
             }
         }
 
         private void RemoveDamager()
         {
-            if (_triggerEnterProvider)
+            var triggerEnterProvider = _context.DamagePlayerColliderTriggerEnterProvider;
+            if (triggerEnterProvider)
             {
-                _enemy.Player.RemoveDamager(_enemy.Id);
+                var enemy = _context.Enemy;
+                _context.Player.RemoveDamager(enemy.Id);
 
-                _triggerEnterProvider.OnTriggerEntered -= OnTriggerEntered;
-                _triggerEnterProvider.OnTriggerExited -= OnTriggerExited;
+                triggerEnterProvider.OnTriggerEntered -= OnTriggerEntered;
+                triggerEnterProvider.OnTriggerExited -= OnTriggerExited;
             }
         }
 

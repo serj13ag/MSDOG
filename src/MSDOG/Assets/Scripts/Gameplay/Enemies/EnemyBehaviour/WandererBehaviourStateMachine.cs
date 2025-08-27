@@ -1,7 +1,6 @@
 using Gameplay.Enemies.EnemyBehaviour.States;
 using UnityEngine;
 using UnityEngine.AI;
-using Utility;
 
 namespace Gameplay.Enemies.EnemyBehaviour
 {
@@ -13,19 +12,11 @@ namespace Gameplay.Enemies.EnemyBehaviour
         private const float MinWalkingRadiusFromPlayer = 5f;
         private const float MaxWalkingRadiusFromPlayer = 15f;
 
-        private readonly NavMeshAgent _agent;
-        private readonly Player _player;
-        private readonly AnimationBlock _animationBLock;
-        private readonly Enemy _enemy;
-        private readonly ColliderEventProvider _triggerEnterProvider;
+        private readonly EnemyBehaviourStateMachineContext _context;
 
-        public WandererBehaviourStateMachine(Enemy enemy, ColliderEventProvider triggerEnterProvider)
+        public WandererBehaviourStateMachine(EnemyBehaviourStateMachineContext context)
         {
-            _triggerEnterProvider = triggerEnterProvider;
-            _enemy = enemy;
-            _agent = enemy.Agent;
-            _player = enemy.Player;
-            _animationBLock = enemy.AnimationBlock;
+            _context = context;
 
             State = new SpawningEnemyState(this, SpawnTime);
         }
@@ -38,13 +29,13 @@ namespace Gameplay.Enemies.EnemyBehaviour
         public void ChangeStateToWaiting()
         {
             var waitTime = Random.Range(1f, 3f);
-            ChangeState(new WaitingEnemyState(_enemy, this, _triggerEnterProvider, waitTime));
+            ChangeState(new WaitingEnemyState(this, _context, waitTime));
         }
 
         public void ChangeStateToWalking()
         {
             var destination = GetRandomDestinationNearPlayer();
-            ChangeState(new WalkingToDestinationEnemyState(_enemy, this, _animationBLock, _agent, _triggerEnterProvider, destination));
+            ChangeState(new WalkingToDestinationEnemyState(this, _context, destination));
         }
 
         private Vector3 GetRandomDestinationNearPlayer()
@@ -76,7 +67,7 @@ namespace Gameplay.Enemies.EnemyBehaviour
             var z = Mathf.Sin(angle) * radius;
 
             var randomPositionInsideCircle = new Vector3(x, 0f, z);
-            return randomPositionInsideCircle + _player.transform.position;
+            return randomPositionInsideCircle + _context.Player.transform.position;
         }
     }
 }

@@ -45,10 +45,7 @@ namespace Gameplay.Enemies
         private bool _waitingToShootProjectile;
 
         public Guid Id => _id;
-        public NavMeshAgent Agent => _agent;
-        public AnimationBlock AnimationBlock => _animationBlock;
         public Vector3 ModelRootPosition => _modelRootTransform.position;
-        public Player Player => _playerProvider.Player;
         public int Damage => _damage;
         public float Cooldown => _cooldown;
 
@@ -97,12 +94,13 @@ namespace Gameplay.Enemies
             _healthBlock = new HealthBlock(data.MaxHealth);
             _animationBlock = new AnimationBlock(_animator);
 
-            // TODO: add context for state machines
+            var enemyBehaviourStateMachineContext = new EnemyBehaviourStateMachineContext(this, _agent, _animationBlock,
+                _damagePlayerColliderTriggerEnterProvider, _playerProvider);
             _stateMachine = data.Type switch
             {
-                EnemyType.Wanderer => new WandererBehaviourStateMachine(this, _damagePlayerColliderTriggerEnterProvider),
-                EnemyType.Melee => new MeleeBehaviourStateMachine(this, _damagePlayerColliderTriggerEnterProvider),
-                EnemyType.Range => new RangeBehaviourStateMachine(this, _damagePlayerColliderTriggerEnterProvider),
+                EnemyType.Wanderer => new WandererBehaviourStateMachine(enemyBehaviourStateMachineContext),
+                EnemyType.Melee => new MeleeBehaviourStateMachine(enemyBehaviourStateMachineContext),
+                EnemyType.Range => new RangeBehaviourStateMachine(enemyBehaviourStateMachineContext),
                 _ => throw new ArgumentOutOfRangeException(nameof(data.Type), data.Type, null),
             };
 

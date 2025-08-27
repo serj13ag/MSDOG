@@ -1,5 +1,4 @@
 using Gameplay.Enemies.EnemyBehaviour.States;
-using Utility;
 
 namespace Gameplay.Enemies.EnemyBehaviour
 {
@@ -7,27 +6,23 @@ namespace Gameplay.Enemies.EnemyBehaviour
     {
         private const float SpawnTime = 1.3f;
 
-        private readonly Enemy _enemy;
-        private readonly ColliderEventProvider _triggerEnterProvider;
-        private readonly AnimationBlock _animationBlock;
+        private readonly EnemyBehaviourStateMachineContext _context;
 
-        public MeleeBehaviourStateMachine(Enemy enemy, ColliderEventProvider triggerEnterProvider)
+        public MeleeBehaviourStateMachine(EnemyBehaviourStateMachineContext context)
         {
-            _enemy = enemy;
-            _triggerEnterProvider = triggerEnterProvider;
-            _animationBlock = enemy.AnimationBlock;
+            _context = context;
 
             State = new SpawningEnemyState(this, SpawnTime);
         }
 
         public override void ChangeStateToPostSpawn()
         {
-            ChangeState(new MeleeWalkingToPlayerEnemyState(this, _enemy, _animationBlock, _triggerEnterProvider));
+            ChangeState(new MeleeWalkingToPlayerEnemyState(this, _context));
         }
 
         public void ChangeStateToAttacking()
         {
-            ChangeState(new AttackingEnemyState(this, _enemy, _animationBlock, _triggerEnterProvider, 2f));
+            ChangeState(new AttackingEnemyState(this, _context, 2f));
         }
     }
 }

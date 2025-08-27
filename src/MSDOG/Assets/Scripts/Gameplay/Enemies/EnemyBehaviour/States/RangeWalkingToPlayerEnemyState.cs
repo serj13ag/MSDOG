@@ -1,19 +1,22 @@
 using Constants;
 using UnityEngine;
-using Utility;
 
 namespace Gameplay.Enemies.EnemyBehaviour.States
 {
     public class RangeWalkingToPlayerEnemyState : BaseWalkingToPlayerEnemyState
     {
         private readonly RangeBehaviourStateMachine _stateMachine;
+        private readonly EnemyBehaviourStateMachineContext _context;
+
         private float _timeTillShoot;
 
-        public RangeWalkingToPlayerEnemyState(RangeBehaviourStateMachine stateMachine, Enemy enemy, AnimationBlock animationBlock,
-            ColliderEventProvider triggerEnterProvider, float timeTillShoot)
-            : base(enemy, animationBlock, triggerEnterProvider)
+        public RangeWalkingToPlayerEnemyState(RangeBehaviourStateMachine stateMachine, EnemyBehaviourStateMachineContext context,
+            float timeTillShoot)
+            : base(context)
         {
             _stateMachine = stateMachine;
+            _context = context;
+
             _timeTillShoot = timeTillShoot;
         }
 
@@ -26,9 +29,9 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
                 _timeTillShoot -= deltaTime;
             }
 
-            if (Vector3.Distance(Enemy.transform.position, Enemy.Player.transform.position) < Settings.Enemy.RangeCloseDistance)
+            if (Vector3.Distance(_context.Enemy.transform.position, _context.Player.transform.position) < Settings.Enemy.RangeCloseDistance)
             {
-                Enemy.Agent.ResetPath();
+                _context.Agent.ResetPath();
                 _stateMachine.ChangeStateToShooting(_timeTillShoot);
             }
         }

@@ -1,31 +1,33 @@
 using Constants;
 using UnityEngine;
-using Utility;
 
 namespace Gameplay.Enemies.EnemyBehaviour.States
 {
     public class ShootingEnemyState : BaseTriggerAffectedEnemyState
     {
         private readonly RangeBehaviourStateMachine _stateMachine;
-        private readonly Enemy _enemy;
+        private readonly EnemyBehaviourStateMachineContext _context;
 
         private float _timeTillShoot; // TODO: refactor
 
-        public ShootingEnemyState(RangeBehaviourStateMachine stateMachine, Enemy enemy,
-            ColliderEventProvider triggerEnterProvider, float timeTillShoot)
-            : base(enemy, triggerEnterProvider)
+        public ShootingEnemyState(RangeBehaviourStateMachine stateMachine, EnemyBehaviourStateMachineContext context,
+            float timeTillShoot)
+            : base(context)
         {
             _stateMachine = stateMachine;
-            _enemy = enemy;
+            _context = context;
 
             _timeTillShoot = timeTillShoot;
         }
 
         public override void OnUpdate(float deltaTime)
         {
-            _enemy.transform.LookAt(_enemy.Player.transform);
+            var enemy = _context.Enemy;
+            var player = _context.Player;
 
-            if (Vector3.Distance(_enemy.transform.position, _enemy.Player.transform.position) >
+            enemy.transform.LookAt(player.transform);
+
+            if (Vector3.Distance(enemy.transform.position, player.transform.position) >
                 Settings.Enemy.RangeCloseDistanceOut)
             {
                 _stateMachine.ChangeStateToWalking(_timeTillShoot);
@@ -37,8 +39,8 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
                 return;
             }
 
-            _enemy.Shoot();
-            _timeTillShoot = _enemy.Cooldown;
+            enemy.Shoot();
+            _timeTillShoot = enemy.Cooldown;
         }
     }
 }

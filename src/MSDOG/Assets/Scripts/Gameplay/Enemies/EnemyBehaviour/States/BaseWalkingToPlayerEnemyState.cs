@@ -1,45 +1,38 @@
-using Utility;
-
 namespace Gameplay.Enemies.EnemyBehaviour.States
 {
     public abstract class BaseWalkingToPlayerEnemyState : BaseTriggerAffectedEnemyState
     {
-        private readonly Enemy _enemy;
-        private readonly AnimationBlock _animationBlock;
+        private readonly EnemyBehaviourStateMachineContext _context;
 
-        protected Enemy Enemy => _enemy;
-
-        protected BaseWalkingToPlayerEnemyState(Enemy enemy, AnimationBlock animationBlock,
-            ColliderEventProvider triggerEnterProvider)
-            : base(enemy, triggerEnterProvider)
+        protected BaseWalkingToPlayerEnemyState(EnemyBehaviourStateMachineContext context)
+            : base(context)
         {
-            _enemy = enemy;
-            _animationBlock = animationBlock;
+            _context = context;
         }
 
         public override void Enter()
         {
             base.Enter();
 
-            _animationBlock.SetRunning(true);
+            _context.AnimationBlock.SetRunning(true);
         }
 
         public override void OnUpdate(float deltaTime)
         {
-            var enemyAgent = _enemy.Agent;
+            var enemyAgent = _context.Agent;
             if (!enemyAgent.isActiveAndEnabled)
             {
                 return;
             }
 
-            enemyAgent.SetDestination(_enemy.Player.transform.position);
+            enemyAgent.SetDestination(_context.Player.transform.position);
         }
 
         public override void Exit()
         {
             base.Exit();
 
-            _animationBlock.SetRunning(false);
+            _context.AnimationBlock.SetRunning(false);
         }
     }
 }

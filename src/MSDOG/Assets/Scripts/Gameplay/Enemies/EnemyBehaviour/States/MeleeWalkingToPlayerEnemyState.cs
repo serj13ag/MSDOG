@@ -1,5 +1,4 @@
 using UnityEngine;
-using Utility;
 
 namespace Gameplay.Enemies.EnemyBehaviour.States
 {
@@ -8,19 +7,20 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
         private const float DistanceToAttack = 4f;
 
         private readonly MeleeBehaviourStateMachine _stateMachine;
+        private readonly EnemyBehaviourStateMachineContext _context;
 
-        public MeleeWalkingToPlayerEnemyState(MeleeBehaviourStateMachine stateMachine, Enemy enemy, AnimationBlock animationBlock,
-            ColliderEventProvider triggerEnterProvider)
-            : base(enemy, animationBlock, triggerEnterProvider)
+        public MeleeWalkingToPlayerEnemyState(MeleeBehaviourStateMachine stateMachine, EnemyBehaviourStateMachineContext context)
+            : base(context)
         {
             _stateMachine = stateMachine;
+            _context = context;
         }
 
         public override void OnUpdate(float deltaTime)
         {
             base.OnUpdate(deltaTime);
 
-            var distanceToPLayer = Vector3.Distance(Enemy.transform.position, Enemy.Player.transform.position);
+            var distanceToPLayer = Vector3.Distance(_context.Enemy.transform.position, _context.Player.transform.position);
             if (distanceToPLayer < DistanceToAttack)
             {
                 _stateMachine.ChangeStateToAttacking();
