@@ -17,17 +17,17 @@ namespace Gameplay.Enemies.EnemyBehaviour
 
         public override void ChangeStateToPostSpawn()
         {
-            ChangeStateToWalking(0f);
+            ChangeStateToWalking();
         }
 
-        public void ChangeStateToWalking(float timeTillShoot)
+        public void ChangeStateToWalking()
         {
-            ChangeState(new RangeWalkingToPlayerEnemyState(this, _context, timeTillShoot));
+            ChangeState(new RangeWalkingToPlayerEnemyState(this, _context));
         }
 
-        public void ChangeStateToShooting(float timeTillShoot)
+        public void ChangeStateToShooting()
         {
-            ChangeState(new ShootingEnemyState(this, _context, timeTillShoot));
+            ChangeState(new ShootingEnemyState(this, _context));
         }
     }
 }

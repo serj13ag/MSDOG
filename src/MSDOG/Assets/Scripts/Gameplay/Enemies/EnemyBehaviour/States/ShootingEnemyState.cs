@@ -8,16 +8,20 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
         private readonly RangeBehaviourStateMachine _stateMachine;
         private readonly EnemyBehaviourStateMachineContext _context;
 
-        private float _timeTillShoot; // TODO: refactor
+        private float _timeTillShoot;
 
-        public ShootingEnemyState(RangeBehaviourStateMachine stateMachine, EnemyBehaviourStateMachineContext context,
-            float timeTillShoot)
+        public ShootingEnemyState(RangeBehaviourStateMachine stateMachine, EnemyBehaviourStateMachineContext context)
             : base(context)
         {
             _stateMachine = stateMachine;
             _context = context;
+        }
 
-            _timeTillShoot = timeTillShoot;
+        public override void Enter()
+        {
+            base.Enter();
+
+            _timeTillShoot = 0f;
         }
 
         public override void OnUpdate(float deltaTime)
@@ -30,7 +34,7 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
             if (Vector3.Distance(enemy.transform.position, player.transform.position) >
                 Settings.Enemy.RangeCloseDistanceOut)
             {
-                _stateMachine.ChangeStateToWalking(_timeTillShoot);
+                _stateMachine.ChangeStateToWalking();
             }
 
             if (_timeTillShoot > 0f)

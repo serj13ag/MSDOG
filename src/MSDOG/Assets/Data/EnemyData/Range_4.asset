@@ -15,7 +15,7 @@ MonoBehaviour:
   Type: 2
   Speed: 2
   MaxHealth: 26
-  Cooldown: 0.4
+  Cooldown: 1.5
   Damage: 10
   ProjectileSpeed: 14
   Experience: 25
