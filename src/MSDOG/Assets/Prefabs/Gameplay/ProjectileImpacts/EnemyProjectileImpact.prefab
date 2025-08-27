@@ -123,6 +123,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 28cef835b015af44cbdfa10aebccee05, type: 3}
   _timePerFrame: 0.05
   _isLooped: 0
-  _destroyOnFinish: 1
+  _destroyOnFinish: 0
   _deactivateOnStart: 0
   _spriteRenderer: {fileID: 533531344881146968}

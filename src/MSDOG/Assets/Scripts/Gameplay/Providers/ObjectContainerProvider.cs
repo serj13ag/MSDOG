@@ -10,9 +10,11 @@ namespace Gameplay.Providers
         public Transform ExperiencePieceContainer { get; }
         public Transform DamageTextContainer { get; }
         public Transform AbilityEffectContainer { get; }
+        public Transform ProjectileVFXContainer { get; }
 
         public ObjectContainerProvider(Transform projectileContainer, Transform enemyContainer, Transform deathKitContainer,
-            Transform experiencePieceContainer, Transform damageTextContainer, Transform abilityEffectContainer)
+            Transform experiencePieceContainer, Transform damageTextContainer, Transform abilityEffectContainer,
+            Transform projectileVFXContainer)
         {
             ProjectileContainer = projectileContainer;
             EnemyContainer = enemyContainer;
@@ -20,6 +22,7 @@ namespace Gameplay.Providers
             ExperiencePieceContainer = experiencePieceContainer;
             DamageTextContainer = damageTextContainer;
             AbilityEffectContainer = abilityEffectContainer;
+            ProjectileVFXContainer = projectileVFXContainer;
         }
     }
 }

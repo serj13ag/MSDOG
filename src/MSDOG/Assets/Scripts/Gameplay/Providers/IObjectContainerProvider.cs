@@ -10,5 +10,6 @@ namespace Gameplay.Providers
         Transform ExperiencePieceContainer { get; }
         Transform DamageTextContainer { get; }
         Transform AbilityEffectContainer { get; }
+        Transform ProjectileVFXContainer { get; }
     }
 }

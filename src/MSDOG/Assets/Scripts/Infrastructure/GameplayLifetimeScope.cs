@@ -77,6 +77,7 @@ namespace Infrastructure
             var experiencePieceContainer = new GameObject("ExperiencePieceContainer");
             var damageTextContainer = new GameObject("DamageTextContainer");
             var abilityEffectContainer = new GameObject("AbilityEffectContainer");
+            var projectileVFXContainer = new GameObject("ProjectileVFXContainer");
 
             projectileContainer.transform.SetParent(containersRoot.transform);
             enemyContainer.transform.SetParent(containersRoot.transform);
@@ -84,10 +85,11 @@ namespace Infrastructure
             experiencePieceContainer.transform.SetParent(containersRoot.transform);
             damageTextContainer.transform.SetParent(containersRoot.transform);
             abilityEffectContainer.transform.SetParent(containersRoot.transform);
+            projectileVFXContainer.transform.SetParent(containersRoot.transform);
 
             builder.Register(_ => new ObjectContainerProvider(projectileContainer.transform,
                     enemyContainer.transform, deathKitContainer.transform, experiencePieceContainer.transform,
-                    damageTextContainer.transform, abilityEffectContainer.transform),
+                    damageTextContainer.transform, abilityEffectContainer.transform, projectileVFXContainer.transform),
                 Lifetime.Singleton).As<IObjectContainerProvider>();
         }
     }
