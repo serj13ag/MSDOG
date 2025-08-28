@@ -9,7 +9,7 @@ namespace Gameplay.Services
     public class LevelFlowService : ILevelFlowService, IDisposable
     {
         private readonly IEnemyService _enemyService;
-        private readonly IWindowController _windowController;
+        private readonly IGameplayWindowService _gameplayWindowService;
         private readonly IProgressService _progressService;
         private readonly IDialogueService _dialogueService;
         private readonly ISoundController _soundController;
@@ -23,9 +23,9 @@ namespace Gameplay.Services
         public int CurrentLevelIndex => _levelIndex;
         public bool IsLastLevel => _isLastLevel;
 
-        public LevelFlowService(IEnemyService enemyService, IWindowController windowController, IProgressService progressService,
-            IDialogueService dialogueService, ISoundController soundController, IPlayerProvider playerProvider,
-            IDataService dataService)
+        public LevelFlowService(IEnemyService enemyService, IGameplayWindowService gameplayWindowService,
+            IProgressService progressService, IDialogueService dialogueService, ISoundController soundController,
+            IPlayerProvider playerProvider, IDataService dataService)
         {
             _progressService = progressService;
             _dialogueService = dialogueService;
@@ -33,7 +33,7 @@ namespace Gameplay.Services
             _playerProvider = playerProvider;
             _dataService = dataService;
             _enemyService = enemyService;
-            _windowController = windowController;
+            _gameplayWindowService = gameplayWindowService;
 
             enemyService.OnAllEnemiesDied += OnAllEnemiesDied;
             playerProvider.OnPlayerDied += OnPlayerDied;
@@ -48,7 +48,7 @@ namespace Gameplay.Services
         private void OnPlayerDied(object sender, EventArgs e)
         {
             _soundController.PlaySfx(SfxType.Death);
-            _windowController.ShowLoseWindow();
+            _gameplayWindowService.ShowLoseWindow();
         }
 
         private void OnAllEnemiesDied()
@@ -64,13 +64,13 @@ namespace Gameplay.Services
 
         private void ShowCreditsAndWinWindow()
         {
-            _windowController.ShowWinWindow();
-            _windowController.ShowCreditsWindow();
+            _gameplayWindowService.ShowWinWindow();
+            _gameplayWindowService.ShowCreditsWindow();
         }
 
         private void ShowWinWindow()
         {
-            _windowController.ShowWinWindow();
+            _gameplayWindowService.ShowWinWindow();
         }
 
         public void Dispose()

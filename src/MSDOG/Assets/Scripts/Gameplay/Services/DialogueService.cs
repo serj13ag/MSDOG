@@ -1,17 +1,17 @@
 using System;
-using Core.Controllers;
+using Core.Services;
 
-namespace Core.Services
+namespace Gameplay.Services
 {
     public class DialogueService : IDialogueService
     {
         private readonly IDataService _dataService;
-        private readonly IWindowController _windowController;
+        private readonly IGameplayWindowService _gameplayWindowService;
 
-        public DialogueService(IDataService dataService, IWindowController windowController)
+        public DialogueService(IDataService dataService, IGameplayWindowService gameplayWindowService)
         {
             _dataService = dataService;
-            _windowController = windowController;
+            _gameplayWindowService = gameplayWindowService;
         }
 
         public bool TryShowStartLevelDialogue(int levelIndex, Action onDialogueCompleted)
@@ -22,7 +22,7 @@ namespace Core.Services
                 return false;
             }
 
-            _windowController.ShowDialogueWindow(levelData.StartDialogue, onDialogueCompleted);
+            _gameplayWindowService.ShowDialogueWindow(levelData.StartDialogue, onDialogueCompleted);
             return true;
         }
 
@@ -34,7 +34,7 @@ namespace Core.Services
                 return false;
             }
 
-            _windowController.ShowDialogueWindow(levelData.EndDialogue, onDialogueCompleted);
+            _gameplayWindowService.ShowDialogueWindow(levelData.EndDialogue, onDialogueCompleted);
             return true;
         }
     }

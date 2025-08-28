@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using Windows;
 using Core.Factories;
-using Core.Models.Data;
-using Gameplay.Factories;
 using UnityEngine;
 using VContainer;
 
@@ -14,10 +12,10 @@ namespace Core.Controllers
         [SerializeField] private Canvas _uiCanvasRoot;
 
         private IGlobalWindowFactory _globalWindowFactory;
-        private IGameplayWindowFactory _gameplayWindowFactory;
 
         private readonly Stack<IWindow> _activeWindows = new Stack<IWindow>();
 
+        public Transform UiCanvasRootTransform => _uiCanvasRoot.transform;
         public bool HasActiveWindows => _activeWindows.Count > 0;
 
         public event EventHandler<EventArgs> OnWindowShowed;
@@ -27,16 +25,6 @@ namespace Core.Controllers
         public void Construct(IGlobalWindowFactory globalWindowFactory)
         {
             _globalWindowFactory = globalWindowFactory;
-        }
-
-        public void RegisterGameplayWindowFactory(IGameplayWindowFactory gameplayWindowFactory)
-        {
-            _gameplayWindowFactory = gameplayWindowFactory;
-        }
-
-        public void RemoveGameplayWindowFactory()
-        {
-            _gameplayWindowFactory = null;
         }
 
         public bool WindowIsActive<T>() where T : IWindow
@@ -52,47 +40,21 @@ namespace Core.Controllers
             return false;
         }
 
+        public void ShowWindow(IWindow window)
+        {
+            ShowWindowInner(window);
+        }
+
         public void ShowOptionsWindow()
         {
             var optionsWindow = _globalWindowFactory.CreateOptionsWindow(_uiCanvasRoot.transform);
-            ShowWindow(optionsWindow);
+            ShowWindowInner(optionsWindow);
         }
 
         public void ShowCreditsWindow()
         {
             var creditsWindow = _globalWindowFactory.CreateCreditsWindow(_uiCanvasRoot.transform);
-            ShowWindow(creditsWindow);
-        }
-
-        public void ShowEscapeWindow()
-        {
-            var escapeWindow = _gameplayWindowFactory.CreateEscapeWindow(_uiCanvasRoot.transform);
-            ShowWindow(escapeWindow);
-        }
-
-        public void ShowWinWindow()
-        {
-            var winWindow = _gameplayWindowFactory.CreateWinWindow(_uiCanvasRoot.transform);
-            ShowWindow(winWindow);
-        }
-
-        public void ShowLoseWindow()
-        {
-            var loseWindow = _gameplayWindowFactory.CreateLoseWindow(_uiCanvasRoot.transform);
-            ShowWindow(loseWindow);
-        }
-
-        public void ShowDialogueWindow(DialogueData dialogueData, Action onDialogueCompleted)
-        {
-            var dialogueWindow =
-                _gameplayWindowFactory.CreateDialogueWindow(dialogueData, onDialogueCompleted, _uiCanvasRoot.transform);
-            ShowWindow(dialogueWindow);
-        }
-
-        public void ShowTutorialWindow(TutorialEventData tutorialEventData)
-        {
-            var dialogueWindow = _gameplayWindowFactory.CreateTutorialWindow(tutorialEventData, _uiCanvasRoot.transform);
-            ShowWindow(dialogueWindow);
+            ShowWindowInner(creditsWindow);
         }
 
         public void CloseAllWindows()
@@ -118,7 +80,7 @@ namespace Core.Controllers
             OnWindowClosed?.Invoke(this, EventArgs.Empty);
         }
 
-        private void ShowWindow(IWindow window)
+        private void ShowWindowInner(IWindow window)
         {
             _activeWindows.Push(window);
             window.OnCloseRequested += OnWindowCloseRequested;

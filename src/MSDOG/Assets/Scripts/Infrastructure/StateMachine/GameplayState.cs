@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Common;
 using Core.Controllers;
 using Core.Services;
-using Gameplay.Factories;
 using UnityEngine.SceneManagement;
 using VContainer;
 
@@ -37,7 +36,6 @@ namespace Infrastructure.StateMachine
 
         public void Exit()
         {
-            _windowController.RemoveGameplayWindowFactory();
             _windowController.CloseAllWindows();
 
             _ = UnloadAdditiveTvScene();
@@ -72,9 +70,6 @@ namespace Infrastructure.StateMachine
                 .Select(gameObject => gameObject.GetComponent<GameplayLifetimeScope>())
                 .First();
             gameplayScope.BuildContainer();
-
-            var gameplayWindowFactory = gameplayScope.Container.Resolve<IGameplayWindowFactory>();
-            _windowController.RegisterGameplayWindowFactory(gameplayWindowFactory);
 
             var gameplayInitializer = gameplayScope.Container.Resolve<GameplayInitializer>();
             gameplayInitializer.Start(_levelIndex);

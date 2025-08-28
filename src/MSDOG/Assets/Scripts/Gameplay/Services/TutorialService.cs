@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Controllers;
 using Core.Models.Data;
 using Core.Models.SaveData;
 using Core.Services;
@@ -12,16 +11,16 @@ namespace Gameplay.Services
     {
         private const string TutorialSaveDataKey = "TutorialSaveData";
 
-        private readonly IWindowController _windowController;
+        private readonly IGameplayWindowService _gameplayWindowService;
         private readonly IDataService _dataService;
         private readonly ISaveLoadService _saveLoadService;
 
         private readonly List<TutorialEventType> _shownTutorialEvents;
         private Player _player;
 
-        public TutorialService(IWindowController windowController, IDataService dataService, ISaveLoadService saveLoadService)
+        public TutorialService(IGameplayWindowService gameplayWindowService, IDataService dataService, ISaveLoadService saveLoadService)
         {
-            _windowController = windowController;
+            _gameplayWindowService = gameplayWindowService;
             _dataService = dataService;
             _saveLoadService = saveLoadService;
 
@@ -83,7 +82,7 @@ namespace Gameplay.Services
 
             if (tutorialEventData != null)
             {
-                _windowController.ShowTutorialWindow(tutorialEventData);
+                _gameplayWindowService.ShowTutorialWindow(tutorialEventData);
 
                 _shownTutorialEvents.Add(tutorialEventType);
 

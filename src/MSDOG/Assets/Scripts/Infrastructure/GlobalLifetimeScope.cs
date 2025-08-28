@@ -54,7 +54,6 @@ namespace Infrastructure
             builder.Register<IProgressService, ProgressService>(Lifetime.Singleton);
             builder.Register<IPlayerOptionsService, PlayerOptionsService>(Lifetime.Singleton);
             builder.Register<ISceneLoadService, SceneLoadService>(Lifetime.Singleton);
-            builder.Register<IDialogueService, DialogueService>(Lifetime.Singleton);
             builder.Register<ISaveLoadService, SaveLoadService>(Lifetime.Singleton);
         }
 

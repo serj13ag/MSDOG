@@ -9,10 +9,12 @@ namespace Gameplay.Services
         private readonly IInputService _inputService;
         private readonly IWindowController _windowController;
         private readonly IGameSpeedService _gameSpeedService;
+        private readonly IGameplayWindowService _gameplayWindowService;
 
         public GameplayWindowsHandler(IInputService inputService, IWindowController windowController,
-            IGameSpeedService gameSpeedService)
+            IGameSpeedService gameSpeedService, IGameplayWindowService gameplayWindowService)
         {
+            _gameplayWindowService = gameplayWindowService;
             _inputService = inputService;
             _windowController = windowController;
             _gameSpeedService = gameSpeedService;
@@ -33,7 +35,7 @@ namespace Gameplay.Services
             }
             else
             {
-                _windowController.ShowEscapeWindow();
+                _gameplayWindowService.ShowEscapeWindow();
             }
         }
 

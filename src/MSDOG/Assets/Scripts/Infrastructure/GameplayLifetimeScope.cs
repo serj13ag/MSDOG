@@ -50,6 +50,8 @@ namespace Infrastructure
             builder.Register<ILevelFlowService, LevelFlowService>(Lifetime.Singleton);
             builder.Register<ITutorialService, TutorialService>(Lifetime.Singleton);
             builder.Register<IDetailService, DetailService>(Lifetime.Singleton);
+            builder.Register<IDialogueService, DialogueService>(Lifetime.Singleton);
+            builder.Register<IGameplayWindowService, GameplayWindowService>(Lifetime.Singleton);
 
             builder.Register<IGameplayWindowsHandler, GameplayWindowsHandler>(Lifetime.Singleton);
         }
