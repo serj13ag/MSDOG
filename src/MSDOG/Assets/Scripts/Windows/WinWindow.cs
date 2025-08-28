@@ -34,6 +34,14 @@ namespace Windows
             _toNextLevelButton.onClick.AddListener(OnToNextLevelButtonClicked);
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+
+            _toMainMenuButton.onClick.RemoveListener(OnToMainMenuButtonClicked);
+            _toNextLevelButton.onClick.RemoveListener(OnToNextLevelButtonClicked);
+        }
+
         private void OnToNextLevelButtonClicked()
         {
             var nextLevelIndex = _levelFlowService.CurrentLevelIndex + 1;
@@ -54,14 +62,6 @@ namespace Windows
         {
             _gameStateMachine.Enter<MainMenuState>();
             Close();
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-
-            _toMainMenuButton.onClick.RemoveListener(OnToMainMenuButtonClicked);
-            _toNextLevelButton.onClick.RemoveListener(OnToNextLevelButtonClicked);
         }
     }
 }

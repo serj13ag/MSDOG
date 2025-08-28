@@ -29,6 +29,14 @@ namespace Windows
             _restartLevelButton.onClick.AddListener(OnRestartLevelButtonClicked);
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+
+            _toMainMenuButton.onClick.RemoveListener(OnToMainMenuButtonClicked);
+            _restartLevelButton.onClick.RemoveListener(OnRestartLevelButtonClicked);
+        }
+
         private void OnRestartLevelButtonClicked()
         {
             _gameStateMachine.Enter<GameplayState, int>(_levelFlowService.CurrentLevelIndex);
@@ -39,14 +47,6 @@ namespace Windows
         {
             _gameStateMachine.Enter<MainMenuState>();
             Close();
-        }
-
-        protected override void OnDisable()
-        {
-            base.OnDisable();
-
-            _toMainMenuButton.onClick.RemoveListener(OnToMainMenuButtonClicked);
-            _restartLevelButton.onClick.RemoveListener(OnRestartLevelButtonClicked);
         }
     }
 }
