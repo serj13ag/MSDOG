@@ -21,8 +21,10 @@ namespace Windows
             _levelFlowService = levelFlowService;
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
+
             _toMainMenuButton.onClick.AddListener(OnToMainMenuButtonClicked);
             _restartLevelButton.onClick.AddListener(OnRestartLevelButtonClicked);
         }
@@ -39,8 +41,10 @@ namespace Windows
             Close();
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
+
             _toMainMenuButton.onClick.RemoveListener(OnToMainMenuButtonClicked);
             _restartLevelButton.onClick.RemoveListener(OnRestartLevelButtonClicked);
         }

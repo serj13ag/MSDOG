@@ -26,8 +26,10 @@ namespace Windows
             _toNextLevelButton.gameObject.SetActive(!levelFlowService.IsLastLevel);
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
+
             _toMainMenuButton.onClick.AddListener(OnToMainMenuButtonClicked);
             _toNextLevelButton.onClick.AddListener(OnToNextLevelButtonClicked);
         }
@@ -54,8 +56,10 @@ namespace Windows
             Close();
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
+
             _toMainMenuButton.onClick.RemoveListener(OnToMainMenuButtonClicked);
             _toNextLevelButton.onClick.RemoveListener(OnToNextLevelButtonClicked);
         }

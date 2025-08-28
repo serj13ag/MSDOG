@@ -7,12 +7,11 @@ using VContainer;
 
 namespace Windows
 {
-    public class EscapeWindow : BaseWindow
+    public class EscapeWindow : BaseCloseableWindow
     {
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _optionsButton;
         [SerializeField] private Button _menuButton;
-        [SerializeField] private Button _closeButton;
 
         private IGameStateMachine _gameStateMachine;
         private ILevelFlowService _levelFlowService;
@@ -27,20 +26,22 @@ namespace Windows
             _gameStateMachine = gameStateMachine;
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
+
             _restartButton.onClick.AddListener(Restart);
             _optionsButton.onClick.AddListener(OnOptionsButtonClicked);
             _menuButton.onClick.AddListener(GoToMenu);
-            _closeButton.onClick.AddListener(Close);
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
+            base.OnDisable();
+
             _restartButton.onClick.RemoveListener(Restart);
             _optionsButton.onClick.RemoveListener(OnOptionsButtonClicked);
             _menuButton.onClick.RemoveListener(GoToMenu);
-            _closeButton.onClick.RemoveListener(Close);
         }
 
         private void Restart()

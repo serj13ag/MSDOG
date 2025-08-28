@@ -5,9 +5,8 @@ using VContainer;
 
 namespace Windows
 {
-    public class OptionsWindow : BaseWindow
+    public class OptionsWindow : BaseCloseableWindow
     {
-        [SerializeField] private Button _closeButton;
         [SerializeField] private Toggle _muteToggle;
         [SerializeField] private Slider _masterVolumeSlider;
         [SerializeField] private Slider _musicVolumeSlider;
@@ -26,18 +25,20 @@ namespace Windows
             _sfxVolumeSlider.value = playerOptionsService.SfxVolume;
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
-            _closeButton.onClick.AddListener(Close);
+            base.OnEnable();
+
             _muteToggle.onValueChanged.AddListener(OnMuteToggleChanged);
             _masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
             _musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
             _sfxVolumeSlider.onValueChanged.AddListener(OnSfxVolumeChanged);
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
-            _closeButton.onClick.RemoveListener(Close);
+            base.OnDisable();
+
             _muteToggle.onValueChanged.RemoveListener(OnMuteToggleChanged);
             _masterVolumeSlider.onValueChanged.RemoveListener(OnMasterVolumeChanged);
             _musicVolumeSlider.onValueChanged.RemoveListener(OnMusicVolumeChanged);

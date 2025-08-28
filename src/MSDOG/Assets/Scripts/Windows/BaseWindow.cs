@@ -9,6 +9,14 @@ namespace Windows
 
         public event EventHandler<EventArgs> OnCloseRequested;
 
+        protected virtual void OnEnable()
+        {
+        }
+
+        protected virtual void OnDisable()
+        {
+        }
+
         protected void Close()
         {
             OnCloseRequested?.Invoke(this, EventArgs.Empty);
