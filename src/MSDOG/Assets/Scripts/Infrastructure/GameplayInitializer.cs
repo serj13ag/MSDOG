@@ -67,11 +67,11 @@ namespace Infrastructure
         public void Start(int levelIndex)
         {
             PrewarmFactories(levelIndex);
-            SetupPlayer();
+            CreateAndSetupPlayer();
             CreateStartDetails(levelIndex);
             InitLevelSystems(levelIndex);
 
-            _gameplayWindowsHandler.StartTrackEvents();
+            _gameplayWindowsHandler.StartTrackingEvents();
 
             PlayMusic(levelIndex);
 
@@ -90,7 +90,7 @@ namespace Infrastructure
             _abilityEffectFactory.Prewarm(levelIndex);
         }
 
-        private void SetupPlayer()
+        private void CreateAndSetupPlayer()
         {
             var player = _gameFactory.CreatePlayer();
             _playerProvider.RegisterPlayer(player);

@@ -26,7 +26,9 @@ namespace Infrastructure
         protected override void ConfigureContainer(IContainerBuilder builder)
         {
             builder.RegisterComponent(_healthBarHud);
+
             builder.RegisterComponent(_experienceBarHud);
+            builder.RegisterComponentInHierarchy<CraftButtonHud>();
 
             builder.RegisterComponent(_detailsZoneHud);
             builder.RegisterComponent(_activeZoneHud);

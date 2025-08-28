@@ -2,6 +2,6 @@ namespace Gameplay.Services
 {
     public interface IGameplayWindowsHandler
     {
-        void StartTrackEvents();
+        void StartTrackingEvents();
     }
 }

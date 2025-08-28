@@ -20,7 +20,7 @@ namespace Gameplay.Services
             _gameSpeedService = gameSpeedService;
         }
 
-        public void StartTrackEvents()
+        public void StartTrackingEvents()
         {
             _inputService.OnMenuActionPerformed += OnMenuActionPerformed;
             _windowController.OnWindowShowed += OnWindowShowed;

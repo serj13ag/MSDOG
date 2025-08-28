@@ -731,10 +731,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _text: {fileID: 1548698948633932697}
   _fillImage: {fileID: 2138176710638887906}
-  _craftButton: {fileID: 2901204499561020344}
-  _buttonOscSpeed: 10
-  _minScale: 0.8
-  _maxScale: 1.1
+  _craftButton: {fileID: 8992862390051254834}
 --- !u!1 &2401149788653105797
 GameObject:
   m_ObjectHideFlags: 0
@@ -2534,6 +2531,7 @@ GameObject:
   - component: {fileID: 1760095268758293380}
   - component: {fileID: 8970432126406375366}
   - component: {fileID: 2901204499561020344}
+  - component: {fileID: 8992862390051254834}
   m_Layer: 5
   m_Name: CreateGearButton
   m_TagString: Untagged
@@ -2643,6 +2641,22 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8992862390051254834
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6403327137725097557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d4efe180194b1fa590d034bd8b5ae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 2901204499561020344}
+  _buttonOscSpeed: 10
+  _minScale: 0.8
+  _maxScale: 1.1
 --- !u!1 &6576127545945459758
 GameObject:
   m_ObjectHideFlags: 0

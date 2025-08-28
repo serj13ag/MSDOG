@@ -1,3 +1,5 @@
+using Core.Controllers;
+using Core.Sounds;
 using Gameplay.Controllers;
 using Gameplay.Interfaces;
 using UnityEngine;
@@ -16,13 +18,15 @@ namespace Gameplay
         [SerializeField] private float _flySpeed = 10f;
 
         private IGameplayUpdateController _updateController;
+        private ISoundController _soundController;
 
         private Player _collectorPlayer;
         private int _experience;
 
         [Inject]
-        public void Construct(IGameplayUpdateController updateController)
+        public void Construct(IGameplayUpdateController updateController, ISoundController soundController)
         {
+            _soundController = soundController;
             _updateController = updateController;
         }
 
@@ -52,6 +56,7 @@ namespace Gameplay
             if (isCloseToPlayer)
             {
                 _collectorPlayer.CollectExperience(_experience);
+                _soundController.PlaySfx(SfxType.DetailUp);
                 Release();
             }
             else
