@@ -11,19 +11,6 @@ namespace Constants
             public const string LevelTvHudSceneName = "LevelTvHud";
         }
 
-        public static class Arena
-        {
-            public const int Size = 40;
-        }
-
-        public static class ScreenFader
-        {
-            public const float SolidAlpha = 1;
-            public const float ClearAlpha = 0;
-            public const float Delay = 1f;
-            public const float TimeToFade = 1f;
-        }
-
         public static class LayerMasks
         {
             public static readonly int EnemyLayer = LayerMask.GetMask("Enemy");

@@ -1,17 +1,13 @@
 using System.Numerics;
-using Constants;
 
 namespace Gameplay.Services
 {
     public class ArenaService : IArenaService
     {
-        private readonly Vector2 _size;
+        private const int Size = 40;
+
+        private readonly Vector2 _size = new(Size, Size);
 
         public Vector2 HalfSize => _size / 2f;
-
-        public ArenaService()
-        {
-            _size = new Vector2(Settings.Arena.Size, Settings.Arena.Size);
-        }
     }
 }
