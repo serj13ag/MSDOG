@@ -59,7 +59,7 @@ namespace Windows
 
         private void OnOptionsButtonClicked()
         {
-            _windowController.ShowOptions();
+            _windowController.ShowOptionsWindow();
         }
 
         private void Close()

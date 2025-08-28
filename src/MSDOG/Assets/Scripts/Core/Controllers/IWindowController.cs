@@ -17,7 +17,7 @@ namespace Core.Controllers
 
         bool WindowIsActive<T>() where T : IWindow;
 
-        void ShowOptions();
+        void ShowOptionsWindow();
         void ShowCreditsWindow();
         void ShowEscapeWindow();
         void ShowWinWindow();

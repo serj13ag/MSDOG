@@ -11,7 +11,7 @@ namespace Core.Controllers
 {
     public class WindowController : BasePersistentController, IWindowController
     {
-        [SerializeField] private Canvas _canvas;
+        [SerializeField] private Canvas _uiCanvasRoot;
 
         private IGlobalWindowFactory _globalWindowFactory;
         private IGameplayWindowFactory _gameplayWindowFactory;
@@ -52,46 +52,46 @@ namespace Core.Controllers
             return false;
         }
 
-        public void ShowOptions()
+        public void ShowOptionsWindow()
         {
-            var optionsWindow = _globalWindowFactory.CreateOptionsWindow(_canvas.transform);
+            var optionsWindow = _globalWindowFactory.CreateOptionsWindow(_uiCanvasRoot.transform);
             ShowWindow(optionsWindow);
         }
 
         public void ShowCreditsWindow()
         {
-            var creditsWindow = _globalWindowFactory.CreateCreditsWindow(_canvas.transform);
+            var creditsWindow = _globalWindowFactory.CreateCreditsWindow(_uiCanvasRoot.transform);
             ShowWindow(creditsWindow);
         }
 
         public void ShowEscapeWindow()
         {
-            var escapeWindow = _gameplayWindowFactory.CreateEscapeWindow(_canvas.transform);
+            var escapeWindow = _gameplayWindowFactory.CreateEscapeWindow(_uiCanvasRoot.transform);
             ShowWindow(escapeWindow);
         }
 
         public void ShowWinWindow()
         {
-            var winWindow = _gameplayWindowFactory.CreateWinWindow(_canvas.transform);
+            var winWindow = _gameplayWindowFactory.CreateWinWindow(_uiCanvasRoot.transform);
             ShowWindow(winWindow);
         }
 
         public void ShowLoseWindow()
         {
-            var loseWindow = _gameplayWindowFactory.CreateLoseWindow(_canvas.transform);
+            var loseWindow = _gameplayWindowFactory.CreateLoseWindow(_uiCanvasRoot.transform);
             ShowWindow(loseWindow);
         }
 
         public void ShowDialogueWindow(DialogueData dialogueData, Action onDialogueCompleted)
         {
             var dialogueWindow =
-                _gameplayWindowFactory.CreateDialogueWindow(dialogueData, onDialogueCompleted, _canvas.transform);
+                _gameplayWindowFactory.CreateDialogueWindow(dialogueData, onDialogueCompleted, _uiCanvasRoot.transform);
             ShowWindow(dialogueWindow);
         }
 
         public void ShowTutorialWindow(TutorialEventData tutorialEventData)
         {
-            var dialogueWindow = _gameplayWindowFactory.CreateTutorialWindow(tutorialEventData, _canvas.transform);
+            var dialogueWindow = _gameplayWindowFactory.CreateTutorialWindow(tutorialEventData, _uiCanvasRoot.transform);
             ShowWindow(dialogueWindow);
         }
 

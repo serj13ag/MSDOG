@@ -52,7 +52,7 @@ namespace Menu
 
         private void ShowOptions()
         {
-            _windowController.ShowOptions();
+            _windowController.ShowOptionsWindow();
         }
 
         private void ShowCredits()

@@ -31,21 +31,6 @@ namespace Core.Controllers
             _musicAudioSource.Play();
         }
 
-        public void StopMusic()
-        {
-            _musicAudioSource.Stop();
-        }
-
-        public void PauseMusic()
-        {
-            _musicAudioSource.Pause();
-        }
-
-        public void ResumeMusic()
-        {
-            _musicAudioSource.UnPause();
-        }
-
         public void PlaySfx(SfxType type)
         {
             if (_playerOptionsService.IsMuted)
