@@ -16,11 +16,14 @@ namespace Core.Services
         IEnumerable<AbilityData> GetAbilitiesData();
         bool TryGetAbilityUpgradeData(AbilityType abilityType, int level, out AbilityData upgradedAbilityData);
 
-        SettingsData GetSettingsData();
+        SettingsData GetSettings();
+        SoundSettingsData GetSoundSettings();
+        WindowsData GetWindowsData();
 
         SoundClip GetEffectSoundClip(SfxType sfxType);
-        SoundSettingsData GetSoundSettingsData();
 
         ProjectileData GetEnemyProjectileData();
+
+        bool TryGetTutorialEventData(TutorialEventType tutorialEventType, out TutorialEventData tutorialEventData);
     }
 }

@@ -28,8 +28,7 @@ namespace Gameplay.Factories
 
         public Player CreatePlayer()
         {
-            var settingsData = _dataService.GetSettingsData();
-            var player = _container.Instantiate(settingsData.PlayerPrefab);
+            var player = _container.Instantiate(_dataService.GetSettings().PlayerPrefab);
             player.Init();
             return player;
         }

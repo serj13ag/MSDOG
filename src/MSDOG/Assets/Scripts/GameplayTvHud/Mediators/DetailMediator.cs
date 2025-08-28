@@ -88,7 +88,7 @@ namespace GameplayTvHud.Mediators
         public void DetailDestructed()
         {
             var player = _playerProvider.Player;
-            var settingsData = _dataService.GetSettingsData();
+            var settingsData = _dataService.GetSettings();
 
             if (player.IsFullHealth)
             {

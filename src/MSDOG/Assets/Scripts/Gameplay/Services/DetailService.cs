@@ -30,7 +30,7 @@ namespace Gameplay.Services
             _dataService = dataService;
             _playerProvider = playerProvider;
 
-            var settings = dataService.GetSettingsData();
+            var settings = dataService.GetSettings();
             _maxNumberOfActiveDetails = settings.MaxNumberOfActiveDetails;
             _maxNumberOfInactiveDetails = settings.MaxNumberOfInactiveDetails;
         }

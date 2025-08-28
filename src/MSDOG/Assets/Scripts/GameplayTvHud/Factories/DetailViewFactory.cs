@@ -21,7 +21,7 @@ namespace GameplayTvHud.Factories
         {
             _container = container;
 
-            var settingsData = dataService.GetSettingsData();
+            var settingsData = dataService.GetSettings();
             _detailGhostViewPrefab = settingsData.DetailGhostViewPrefab;
 
             _detailViewPool = new GameObjectPool<DetailView>(() => container.Instantiate(settingsData.DetailViewPrefab));

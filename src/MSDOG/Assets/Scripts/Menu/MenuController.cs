@@ -29,7 +29,7 @@ namespace Menu
 
         private void OnEnable()
         {
-            _soundController.PlayMusic(_dataService.GetSoundSettingsData().MenuMusic);
+            _soundController.PlayMusic(_dataService.GetSoundSettings().MenuMusic);
 
             _startGameButton.onClick.AddListener(StartGame);
             _optionsButton.onClick.AddListener(ShowOptions);

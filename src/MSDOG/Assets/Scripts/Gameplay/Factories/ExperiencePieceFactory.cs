@@ -18,10 +18,9 @@ namespace Gameplay.Factories
         public ExperiencePieceFactory(IObjectResolver container, IDataService dataService,
             IObjectContainerProvider objectContainerProvider)
         {
-            var settingsData = dataService.GetSettingsData();
-
             _pool = new GameObjectPool<ExperiencePiece>(() =>
-                container.Instantiate(settingsData.ExperiencePiecePrefab, objectContainerProvider.ExperiencePieceContainer));
+                container.Instantiate(dataService.GetSettings().ExperiencePiecePrefab,
+                    objectContainerProvider.ExperiencePieceContainer));
         }
 
         public void Prewarm()

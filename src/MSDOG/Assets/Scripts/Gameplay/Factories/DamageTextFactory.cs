@@ -17,10 +17,9 @@ namespace Gameplay.Factories
         public DamageTextFactory(IObjectResolver container, IDataService dataService,
             IObjectContainerProvider objectContainerProvider)
         {
-            var settingsData = dataService.GetSettingsData();
-
             _pool = new GameObjectPool<DamageTextView>(() =>
-                container.Instantiate(settingsData.DamageTextViewPrefab, objectContainerProvider.DamageTextContainer));
+                container.Instantiate(dataService.GetSettings().DamageTextViewPrefab,
+                    objectContainerProvider.DamageTextContainer));
         }
 
         public void Prewarm()

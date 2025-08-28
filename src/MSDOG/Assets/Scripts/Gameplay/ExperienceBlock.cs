@@ -6,7 +6,7 @@ namespace Gameplay
 {
     public class ExperienceBlock
     {
-        private readonly IDataService _dataService;
+        private readonly int[] _experienceProgression;
 
         private int _currentExperience;
         private int _maxExperience;
@@ -19,7 +19,7 @@ namespace Gameplay
 
         public ExperienceBlock(IDataService dataService)
         {
-            _dataService = dataService;
+            _experienceProgression = dataService.GetSettings().ExperienceProgression;
             _maxExperience = GetMaxExperience();
         }
 
@@ -40,7 +40,7 @@ namespace Gameplay
         {
             SetCurrentExperience(0);
 
-            if (_experienceProgressionIndex < _dataService.GetSettingsData().ExperienceProgression.Length - 1)
+            if (_experienceProgressionIndex < _experienceProgression.Length - 1)
             {
                 _experienceProgressionIndex++;
             }
@@ -59,7 +59,7 @@ namespace Gameplay
 
         private int GetMaxExperience()
         {
-            return _dataService.GetSettingsData().ExperienceProgression[_experienceProgressionIndex];
+            return _experienceProgression[_experienceProgressionIndex];
         }
     }
 }

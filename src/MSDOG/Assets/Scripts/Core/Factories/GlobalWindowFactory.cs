@@ -15,7 +15,7 @@ namespace Core.Factories
         public GlobalWindowFactory(IObjectResolver container, IDataService dataService)
         {
             _container = container;
-            _windowsData = dataService.GetSettingsData().WindowsData;
+            _windowsData = dataService.GetWindowsData();
         }
 
         public OptionsWindow CreateOptionsWindow(Transform canvasTransform)

@@ -44,7 +44,7 @@ namespace Gameplay.Abilities
 
             _abilityEffectFactory.CreateEffect<OneTimeAbilityEffect>(_player, _abilityData);
 
-            if (_dataService.GetSettingsData().ShowDebugHitboxes)
+            if (_dataService.GetSettings().ShowDebugHitboxes)
             {
                 ShowSlashDebugEffect();
             }

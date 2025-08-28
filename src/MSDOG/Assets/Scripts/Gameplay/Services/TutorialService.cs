@@ -76,11 +76,7 @@ namespace Gameplay.Services
                 return;
             }
 
-            var tutorialEventData = _dataService.GetSettingsData()
-                .TutorialEvents
-                .SingleOrDefault(x => x.Type == tutorialEventType);
-
-            if (tutorialEventData != null)
+            if (_dataService.TryGetTutorialEventData(tutorialEventType, out var tutorialEventData))
             {
                 _gameplayWindowService.ShowTutorialWindow(tutorialEventData);
 

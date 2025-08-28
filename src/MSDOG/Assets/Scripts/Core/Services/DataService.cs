@@ -15,7 +15,7 @@ namespace Core.Services
         private const string AbilityUpgradesDataPath = "Data/AbilityUpgradesData";
         private const string SettingsDataPath = "Data/SettingsData";
         private const string SoundSettingsDataPath = "Data/SoundSettingsData";
-        
+
         private readonly Dictionary<int, LevelData> _levelsData;
 
         private readonly AbilityData[] _abilitiesData;
@@ -102,9 +102,19 @@ namespace Core.Services
             return false;
         }
 
-        public SettingsData GetSettingsData()
+        public SettingsData GetSettings()
         {
             return _settingsData;
+        }
+
+        public SoundSettingsData GetSoundSettings()
+        {
+            return _soundSettingsData;
+        }
+
+        public WindowsData GetWindowsData()
+        {
+            return _settingsData.WindowsData;
         }
 
         public SoundClip GetEffectSoundClip(SfxType sfxType)
@@ -112,14 +122,25 @@ namespace Core.Services
             return _soundSettingsData.Effects.SingleOrDefault(x => x.Type == sfxType)?.AudioClip;
         }
 
-        public SoundSettingsData GetSoundSettingsData()
-        {
-            return _soundSettingsData;
-        }
-
         public ProjectileData GetEnemyProjectileData()
         {
             return _settingsData.EnemyProjectileData;
+        }
+
+        public bool TryGetTutorialEventData(TutorialEventType tutorialEventType, out TutorialEventData tutorialEventData)
+        {
+            tutorialEventData = null;
+
+            foreach (var tutorialEvent in _settingsData.TutorialEvents)
+            {
+                if (tutorialEvent.Type == tutorialEventType)
+                {
+                    tutorialEventData = tutorialEvent;
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
