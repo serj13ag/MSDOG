@@ -1,4 +1,3 @@
-using System;
 using Gameplay.Services;
 using Infrastructure.StateMachine;
 using UnityEngine;
@@ -7,17 +6,13 @@ using VContainer;
 
 namespace Windows
 {
-    public class LoseWindow : MonoBehaviour, IWindow
+    public class LoseWindow : BaseWindow
     {
         [SerializeField] private Button _toMainMenuButton;
         [SerializeField] private Button _restartLevelButton;
 
         private IGameStateMachine _gameStateMachine;
         private ILevelFlowService _levelFlowService;
-
-        public GameObject GameObject => gameObject;
-
-        public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
         public void Construct(IGameStateMachine gameStateMachine, ILevelFlowService levelFlowService)
@@ -35,13 +30,13 @@ namespace Windows
         private void OnRestartLevelButtonClicked()
         {
             _gameStateMachine.Enter<GameplayState, int>(_levelFlowService.CurrentLevelIndex);
-            OnCloseRequested?.Invoke(this, EventArgs.Empty);
+            Close();
         }
 
         private void OnToMainMenuButtonClicked()
         {
             _gameStateMachine.Enter<MainMenuState>();
-            OnCloseRequested?.Invoke(this, EventArgs.Empty);
+            Close();
         }
 
         private void OnDisable()

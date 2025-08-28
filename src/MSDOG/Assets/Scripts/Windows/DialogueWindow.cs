@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Windows
 {
-    public class DialogueWindow : MonoBehaviour, IWindow, IPointerClickHandler
+    public class DialogueWindow : BaseWindow, IPointerClickHandler
     {
         [SerializeField] private Image _avatar;
         [SerializeField] private TMP_Text _speech;
@@ -16,10 +16,6 @@ namespace Windows
         private Action _onDialogueCompleted;
         private DialogueStage[] _dialogueStages;
         private int _currentDialogueStageIndex;
-
-        public GameObject GameObject => gameObject;
-
-        public event EventHandler<EventArgs> OnCloseRequested;
 
         public void Init(DialogueData dialogueData, Action onDialogueCompleted)
         {
@@ -38,7 +34,7 @@ namespace Windows
         {
             if (_currentDialogueStageIndex >= _dialogueStages.Length - 1)
             {
-                OnCloseRequested?.Invoke(this, EventArgs.Empty);
+                Close();
             }
             else
             {

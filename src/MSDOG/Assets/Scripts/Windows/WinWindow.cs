@@ -1,4 +1,3 @@
-using System;
 using Core.Services;
 using Gameplay.Services;
 using Infrastructure.StateMachine;
@@ -8,7 +7,7 @@ using VContainer;
 
 namespace Windows
 {
-    public class WinWindow : MonoBehaviour, IWindow
+    public class WinWindow : BaseWindow
     {
         [SerializeField] private Button _toMainMenuButton;
         [SerializeField] private Button _toNextLevelButton;
@@ -16,10 +15,6 @@ namespace Windows
         private IGameStateMachine _gameStateMachine;
         private IDataService _dataService;
         private ILevelFlowService _levelFlowService;
-
-        public GameObject GameObject => gameObject;
-
-        public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
         public void Construct(IGameStateMachine gameStateMachine, IDataService dataService, ILevelFlowService levelFlowService)
@@ -50,13 +45,13 @@ namespace Windows
                 _gameStateMachine.Enter<MainMenuState>();
             }
 
-            OnCloseRequested?.Invoke(this, EventArgs.Empty);
+            Close();
         }
 
         private void OnToMainMenuButtonClicked()
         {
             _gameStateMachine.Enter<MainMenuState>();
-            OnCloseRequested?.Invoke(this, EventArgs.Empty);
+            Close();
         }
 
         private void OnDisable()

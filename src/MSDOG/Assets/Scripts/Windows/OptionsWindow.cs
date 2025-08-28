@@ -1,4 +1,3 @@
-using System;
 using Core.Services;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,7 +5,7 @@ using VContainer;
 
 namespace Windows
 {
-    public class OptionsWindow : MonoBehaviour, IWindow
+    public class OptionsWindow : BaseWindow
     {
         [SerializeField] private Button _closeButton;
         [SerializeField] private Toggle _muteToggle;
@@ -15,9 +14,6 @@ namespace Windows
         [SerializeField] private Slider _sfxVolumeSlider;
 
         private IPlayerOptionsService _playerOptionsService;
-
-        public GameObject GameObject => gameObject;
-        public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
         public void Construct(IPlayerOptionsService playerOptionsService)
@@ -32,7 +28,7 @@ namespace Windows
 
         private void OnEnable()
         {
-            _closeButton.onClick.AddListener(CloseWindow);
+            _closeButton.onClick.AddListener(Close);
             _muteToggle.onValueChanged.AddListener(OnMuteToggleChanged);
             _masterVolumeSlider.onValueChanged.AddListener(OnMasterVolumeChanged);
             _musicVolumeSlider.onValueChanged.AddListener(OnMusicVolumeChanged);
@@ -41,7 +37,7 @@ namespace Windows
 
         private void OnDisable()
         {
-            _closeButton.onClick.RemoveListener(CloseWindow);
+            _closeButton.onClick.RemoveListener(Close);
             _muteToggle.onValueChanged.RemoveListener(OnMuteToggleChanged);
             _masterVolumeSlider.onValueChanged.RemoveListener(OnMasterVolumeChanged);
             _musicVolumeSlider.onValueChanged.RemoveListener(OnMusicVolumeChanged);
@@ -72,11 +68,6 @@ namespace Windows
         {
             _playerOptionsService.UpdateOptions(_muteToggle.isOn, _masterVolumeSlider.value, _musicVolumeSlider.value,
                 _sfxVolumeSlider.value);
-        }
-
-        private void CloseWindow()
-        {
-            OnCloseRequested?.Invoke(this, EventArgs.Empty);
         }
     }
 }

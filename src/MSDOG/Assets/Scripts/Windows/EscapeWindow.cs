@@ -1,4 +1,3 @@
-using System;
 using Core.Controllers;
 using Gameplay.Services;
 using Infrastructure.StateMachine;
@@ -8,7 +7,7 @@ using VContainer;
 
 namespace Windows
 {
-    public class EscapeWindow : MonoBehaviour, IWindow
+    public class EscapeWindow : BaseWindow
     {
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _optionsButton;
@@ -18,9 +17,6 @@ namespace Windows
         private IGameStateMachine _gameStateMachine;
         private ILevelFlowService _levelFlowService;
         private IWindowController _windowController;
-
-        public GameObject GameObject => gameObject;
-        public event EventHandler<EventArgs> OnCloseRequested;
 
         [Inject]
         public void Construct(IGameStateMachine gameStateMachine, ILevelFlowService levelFlowService,
@@ -60,11 +56,6 @@ namespace Windows
         private void OnOptionsButtonClicked()
         {
             _windowController.ShowOptionsWindow();
-        }
-
-        private void Close()
-        {
-            OnCloseRequested?.Invoke(this, EventArgs.Empty);
         }
     }
 }
