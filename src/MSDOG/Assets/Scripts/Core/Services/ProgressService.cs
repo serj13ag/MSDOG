@@ -5,6 +5,7 @@ namespace Core.Services
     public class ProgressService : IProgressService
     {
         private const string ProgressSaveDataKey = "ProgressSaveData";
+        private const int MaxUnlockedLevel = 50;
 
         private readonly ISaveLoadService _saveLoadService;
 
@@ -22,7 +23,7 @@ namespace Core.Services
 
         public void UnlockAllLevels()
         {
-            SetLastPassedLevel(50);
+            SetLastPassedLevel(MaxUnlockedLevel);
         }
 
         public void SetLastPassedLevel(int level)

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Core.Sounds
+namespace Core.Models.Data
 {
     [Serializable]
     public class SoundClip
