@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Constants;
+using Common;
 using Gameplay.Controllers;
 using Gameplay.Enemies;
 using Gameplay.Services;
@@ -66,7 +66,7 @@ namespace Gameplay.Projectiles.Views
             var hitEnemies = new List<Enemy>();
 
             var hits = Physics.OverlapSphereNonAlloc(transform.position, Projectile.Size / 2f, _hitBuffer,
-                Settings.LayerMasks.EnemyLayer);
+                Constants.LayerMasks.EnemyLayer);
             for (var i = 0; i < hits; i++)
             {
                 var hitCollider = _hitBuffer[i];

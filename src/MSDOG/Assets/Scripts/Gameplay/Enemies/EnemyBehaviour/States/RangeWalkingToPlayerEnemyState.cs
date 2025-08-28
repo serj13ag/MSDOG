@@ -1,4 +1,4 @@
-using Constants;
+using Common;
 using UnityEngine;
 
 namespace Gameplay.Enemies.EnemyBehaviour.States
@@ -20,7 +20,7 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
             base.OnUpdate(deltaTime);
 
             var distanceToEnemy = Vector3.Distance(_context.Enemy.transform.position, _context.Player.transform.position);
-            if (distanceToEnemy < Settings.Enemy.RangeCloseDistance)
+            if (distanceToEnemy < Constants.Enemy.RangeCloseDistance)
             {
                 _context.Agent.ResetPath();
                 _stateMachine.ChangeStateToShooting();

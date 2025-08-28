@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Constants;
+using Common;
 using Core.Controllers;
 using Core.Models.Data;
 using Core.Services;
@@ -67,7 +67,7 @@ namespace Gameplay.Abilities
             var boxSize = new Vector3(_length, BoxHeight, BoxWidth);
 
             var hits = Physics.OverlapBoxNonAlloc(boxCenter, boxSize * 0.5f, _hitBuffer, Quaternion.identity,
-                Settings.LayerMasks.EnemyLayer);
+                Constants.LayerMasks.EnemyLayer);
             for (var i = 0; i < hits; i++)
             {
                 var collider = _hitBuffer[i];

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Constants
+namespace Common
 {
-    public static class Settings
+    public static class Constants
     {
         public static class SceneNames
         {

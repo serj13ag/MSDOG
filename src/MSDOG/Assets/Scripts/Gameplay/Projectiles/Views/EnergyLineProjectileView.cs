@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Constants;
+using Common;
 using Gameplay.Abilities;
 using Gameplay.Controllers;
 using Gameplay.Enemies;
@@ -77,7 +77,7 @@ namespace Gameplay.Projectiles.Views
             var boxRotation = Quaternion.LookRotation(Projectile.ForwardDirection);
 
             var hits = Physics.OverlapBoxNonAlloc(boxCenter, boxSize / 2f, _hitBuffer, boxRotation,
-                Settings.LayerMasks.EnemyLayer);
+                Constants.LayerMasks.EnemyLayer);
             for (var i = 0; i < hits; i++)
             {
                 var hitCollider = _hitBuffer[i];

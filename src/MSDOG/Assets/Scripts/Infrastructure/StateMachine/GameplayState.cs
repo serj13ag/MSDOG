@@ -1,6 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
-using Constants;
+using Common;
 using Core.Controllers;
 using Core.Services;
 using Gameplay.Factories;
@@ -45,8 +45,8 @@ namespace Infrastructure.StateMachine
 
         private async Task LoadGameplay()
         {
-            var loadLevel = _sceneLoadService.LoadSceneAsync(Settings.SceneNames.LevelSceneName);
-            var loadLevelTv = _sceneLoadService.LoadSceneAsync(Settings.SceneNames.LevelTvHudSceneName, LoadSceneMode.Additive);
+            var loadLevel = _sceneLoadService.LoadSceneAsync(Constants.SceneNames.LevelSceneName);
+            var loadLevelTv = _sceneLoadService.LoadSceneAsync(Constants.SceneNames.LevelTvHudSceneName, LoadSceneMode.Additive);
 
             await Task.WhenAll(loadLevel, loadLevelTv);
 
@@ -55,7 +55,7 @@ namespace Infrastructure.StateMachine
 
         private async Task UnloadAdditiveTvScene()
         {
-            await _sceneLoadService.UnloadSceneAsync(Settings.SceneNames.LevelTvHudSceneName);
+            await _sceneLoadService.UnloadSceneAsync(Constants.SceneNames.LevelTvHudSceneName);
         }
 
         private void OnScenesLoaded(Scene levelScene, Scene levelTvScene)

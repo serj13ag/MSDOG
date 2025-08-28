@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Constants;
+using Common;
 using Core.Controllers;
 using Core.Models.Data;
 using Core.Services;
@@ -61,7 +61,7 @@ namespace Gameplay.Abilities
             var hitEnemies = new List<Enemy>();
 
             var circleCenter = _player.transform.position;
-            var hits = Physics.OverlapSphereNonAlloc(circleCenter, _radius, _hitBuffer, Settings.LayerMasks.EnemyLayer);
+            var hits = Physics.OverlapSphereNonAlloc(circleCenter, _radius, _hitBuffer, Constants.LayerMasks.EnemyLayer);
             for (var i = 0; i < hits; i++)
             {
                 var collider = _hitBuffer[i];

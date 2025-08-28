@@ -1,4 +1,4 @@
-using Constants;
+using Common;
 using Core.Controllers;
 using Core.Services;
 using VContainer;
@@ -20,7 +20,7 @@ namespace Infrastructure.StateMachine
         public void Enter()
         {
             _loadingCurtainController.FadeOnInstantly();
-            _sceneLoadService.LoadScene(Settings.SceneNames.MenuSceneName, OnSceneLoaded);
+            _sceneLoadService.LoadScene(Constants.SceneNames.MenuSceneName, OnSceneLoaded);
         }
 
         public void Exit()

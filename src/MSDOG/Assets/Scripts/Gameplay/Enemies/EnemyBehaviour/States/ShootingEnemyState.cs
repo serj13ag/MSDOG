@@ -1,4 +1,4 @@
-using Constants;
+using Common;
 using UnityEngine;
 
 namespace Gameplay.Enemies.EnemyBehaviour.States
@@ -32,7 +32,7 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
             enemy.transform.LookAt(player.transform);
 
             if (Vector3.Distance(enemy.transform.position, player.transform.position) >
-                Settings.Enemy.RangeCloseDistanceOut)
+                Constants.Enemy.RangeCloseDistanceOut)
             {
                 _stateMachine.ChangeStateToWalking();
             }
