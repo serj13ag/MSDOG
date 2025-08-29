@@ -6,10 +6,15 @@ namespace Gameplay.Services
 {
     public class InputService : IInputService
     {
+        private readonly InputAction _clickAction;
+
         private Vector2 _moveInput;
         private bool _inputLocked;
 
         public Vector2 MoveInput => _moveInput;
+
+        public bool IsClickDown => _clickAction.WasPressedThisFrame();
+        public bool IsClickUp => _clickAction.WasReleasedThisFrame();
 
         public event EventHandler<EventArgs> OnMenuActionPerformed;
 
@@ -21,6 +26,8 @@ namespace Gameplay.Services
 
             var menuAction = InputSystem.actions.FindAction("Menu");
             menuAction.performed += OnInputMenuActionPerformed;
+
+            _clickAction = InputSystem.actions.FindAction("Click");
         }
 
         public void LockInput()

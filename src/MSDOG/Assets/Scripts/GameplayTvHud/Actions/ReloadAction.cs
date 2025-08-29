@@ -2,6 +2,7 @@ using Core.Controllers;
 using Core.Sounds;
 using Gameplay.Controllers;
 using Gameplay.Interfaces;
+using Gameplay.Services;
 using GameplayTvHud.Mediators;
 using UnityEngine;
 using VContainer;
@@ -20,6 +21,7 @@ namespace GameplayTvHud.Actions
         private IGameplayUpdateController _updateController;
         private ISoundController _soundController;
         private IActionMediator _actionMediator;
+        private IInputService _inputService;
 
         private float _currentAngle;
 
@@ -28,8 +30,9 @@ namespace GameplayTvHud.Actions
 
         [Inject]
         public void Construct(IGameplayUpdateController updateController, ISoundController soundController,
-            IActionMediator actionMediator)
+            IActionMediator actionMediator, IInputService inputService)
         {
+            _inputService = inputService;
             _actionMediator = actionMediator;
             _soundController = soundController;
             _updateController = updateController;
@@ -59,7 +62,7 @@ namespace GameplayTvHud.Actions
 
         private void HandleInput()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (_inputService.IsClickDown)
             {
                 var ray = _hudCamera.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out var hit))
@@ -71,8 +74,7 @@ namespace GameplayTvHud.Actions
                     }
                 }
             }
-
-            if (Input.GetMouseButtonUp(0))
+            else if (_inputService.IsClickUp)
             {
                 _dragging = false;
             }

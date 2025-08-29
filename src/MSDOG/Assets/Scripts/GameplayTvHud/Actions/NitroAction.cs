@@ -1,5 +1,6 @@
 using Core.Controllers;
 using Core.Sounds;
+using Gameplay.Services;
 using GameplayTvHud.Mediators;
 using UnityEngine;
 using VContainer;
@@ -16,10 +17,12 @@ namespace GameplayTvHud.Actions
 
         private ISoundController _soundController;
         private IActionMediator _actionMediator;
+        private IInputService _inputService;
 
         [Inject]
-        public void Construct(ISoundController soundController, IActionMediator actionMediator)
+        public void Construct(ISoundController soundController, IActionMediator actionMediator, IInputService inputService)
         {
+            _inputService = inputService;
             _actionMediator = actionMediator;
             _soundController = soundController;
         }
@@ -37,7 +40,7 @@ namespace GameplayTvHud.Actions
 
         private void HandleInput()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (_inputService.IsClickDown)
             {
                 var ray = _hudCamera.ScreenPointToRay(Input.mousePosition);
 
@@ -49,8 +52,7 @@ namespace GameplayTvHud.Actions
                     }
                 }
             }
-
-            if (Input.GetMouseButtonUp(0))
+            else if (_inputService.IsClickUp)
             {
                 Unpress();
             }
