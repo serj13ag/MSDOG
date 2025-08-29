@@ -29,8 +29,7 @@ namespace GameplayTvHud.Actions
 
         private void Start()
         {
-            _buttonObject.transform.localPosition = new Vector3(_buttonObject.transform.localPosition.x,
-                _buttonObject.transform.localPosition.y, _offPositionZ);
+            UpdateButtonObjectPosition(_offPositionZ);
         }
 
         private void Update()
@@ -43,36 +42,36 @@ namespace GameplayTvHud.Actions
             if (_inputService.IsClickDown)
             {
                 var ray = _hudCamera.ScreenPointToRay(Input.mousePosition);
-
-                if (Physics.Raycast(ray, out var hit))
+                if (Physics.Raycast(ray, out var hit) && hit.collider.gameObject == _buttonObject.gameObject)
                 {
-                    if (hit.collider.gameObject == _buttonObject.gameObject)
-                    {
-                        Press();
-                    }
+                    Press();
                 }
             }
             else if (_inputService.IsClickUp)
             {
-                Unpress();
+                Release();
             }
         }
 
         private void Press()
         {
-            _buttonObject.transform.localPosition = new Vector3(_buttonObject.transform.localPosition.x,
-                _buttonObject.transform.localPosition.y, _onPositionZ);
+            UpdateButtonObjectPosition(_onPositionZ);
 
             _actionMediator.EnableNitro(_moveSpeedMultiplier);
             _soundController.PlaySfx(SfxType.Nitro);
         }
 
-        private void Unpress()
+        private void Release()
         {
-            _buttonObject.transform.localPosition = new Vector3(_buttonObject.transform.localPosition.x,
-                _buttonObject.transform.localPosition.y, _offPositionZ);
+            UpdateButtonObjectPosition(_offPositionZ);
 
             _actionMediator.DisableNitro();
+        }
+
+        private void UpdateButtonObjectPosition(float positionZ)
+        {
+            _buttonObject.transform.localPosition = new Vector3(_buttonObject.transform.localPosition.x,
+                _buttonObject.transform.localPosition.y, positionZ);
         }
     }
 }
