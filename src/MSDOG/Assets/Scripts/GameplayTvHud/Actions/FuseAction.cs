@@ -1,9 +1,7 @@
 using Core.Controllers;
 using Core.Sounds;
 using GameplayTvHud.Mediators;
-using GameplayTvHud.UI;
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer;
 
 namespace GameplayTvHud.Actions
@@ -12,8 +10,7 @@ namespace GameplayTvHud.Actions
     {
         [SerializeField] private Camera _hudCamera;
         [SerializeField] private GameObject _handleObject;
-        [SerializeField] private Image _fillImage;
-        [SerializeField] private AlarmIcon _alarmIcon;
+        [SerializeField] private ActionBar _actionBar;
         [SerializeField] private float _minAngle = 270;
         [SerializeField] private float _maxAngle = 200;
         [SerializeField] private float _distanceToSwitch = 250f;
@@ -97,7 +94,7 @@ namespace GameplayTvHud.Actions
 
             _previousPlayerPosition = playerPosition;
 
-            UpdateFillImageView();
+            _actionBar.UpdateView(_counter / _counterToDisconnect);
         }
 
         private void HandleInput()
@@ -135,7 +132,7 @@ namespace GameplayTvHud.Actions
             _connected = true;
             _previousPlayerPosition = null;
             SetLocalRotation(_maxAngle);
-            _alarmIcon.DeactivateAlarm();
+            _actionBar.DeactivateAlarm();
 
             _actionMediator.ConnectFuse();
 
@@ -147,7 +144,7 @@ namespace GameplayTvHud.Actions
             _connected = false;
             _counter = 0f;
             SetLocalRotation(_minAngle);
-            _alarmIcon.ActivateAlarm();
+            _actionBar.ActivateAlarm();
 
             _actionMediator.DisconnectFuse();
 
@@ -157,19 +154,6 @@ namespace GameplayTvHud.Actions
         private void SetLocalRotation(float angle)
         {
             _handleObject.transform.localRotation = Quaternion.Euler(angle, 0f, 0f);
-        }
-
-        private void UpdateFillImageView()
-        {
-            var t = _counter / _counterToDisconnect;
-            var color = t switch
-            {
-                < 0.4f => Color.green,
-                < 0.8f => Color.yellow,
-                _ => Color.red,
-            };
-            _fillImage.fillAmount = t;
-            _fillImage.color = color;
         }
     }
 }

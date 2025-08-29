@@ -3,9 +3,7 @@ using Core.Sounds;
 using Gameplay.Controllers;
 using Gameplay.Interfaces;
 using GameplayTvHud.Mediators;
-using GameplayTvHud.UI;
 using UnityEngine;
-using UnityEngine.UI;
 using VContainer;
 
 namespace GameplayTvHud.Actions
@@ -14,8 +12,7 @@ namespace GameplayTvHud.Actions
     {
         [SerializeField] private Camera _hudCamera;
         [SerializeField] private GameObject _handleObject;
-        [SerializeField] private Image _fillImage;
-        [SerializeField] private AlarmIcon _alarmIcon;
+        [SerializeField] private ActionBar _actionBar;
         [SerializeField] private float _unwindSpeed = 40f;
         [SerializeField] private float _startingAngleLerp = 0.8f;
         [SerializeField] private float _maxAngle = 1080f;
@@ -43,7 +40,7 @@ namespace GameplayTvHud.Actions
         private void Start()
         {
             _currentAngle = Mathf.Lerp(0f, _maxAngle, _startingAngleLerp);
-            UpdateFillImageView();
+            _actionBar.UpdateView(_currentAngle / _maxAngle);
         }
 
         public void OnUpdate(float deltaTime)
@@ -115,33 +112,20 @@ namespace GameplayTvHud.Actions
             var angleIsZero = Mathf.Approximately(_currentAngle, 0f);
             if (angleIsZero)
             {
-                _alarmIcon.ActivateAlarm();
+                _actionBar.ActivateAlarm();
 
                 _actionMediator.DisablePlayerAbilities();
                 _soundController.PlaySfx(SfxType.NeedReload);
             }
             else
             {
-                _alarmIcon.DeactivateAlarm();
+                _actionBar.DeactivateAlarm();
 
                 _actionMediator.EnablePlayerAbilities();
             }
 
             _handleObject.transform.Rotate(Vector3.back, oldAngle - _currentAngle);
-            UpdateFillImageView();
-        }
-
-        private void UpdateFillImageView()
-        {
-            var t = _currentAngle / _maxAngle;
-            var color = t switch
-            {
-                < 0.2f => Color.red,
-                < 0.4f => Color.yellow,
-                _ => Color.green,
-            };
-            _fillImage.fillAmount = t;
-            _fillImage.color = color;
+            _actionBar.UpdateView(_currentAngle / _maxAngle);
         }
 
         private float GetMouseAngle()
