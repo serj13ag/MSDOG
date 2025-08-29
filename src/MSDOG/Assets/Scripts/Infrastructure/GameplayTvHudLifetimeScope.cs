@@ -1,4 +1,5 @@
 using GameplayTvHud.Actions;
+using GameplayTvHud.Actions.Fuse;
 using GameplayTvHud.DetailsZone;
 using GameplayTvHud.Factories;
 using GameplayTvHud.Mediators;

@@ -1,4 +1,4 @@
-using GameplayTvHud.Actions;
+using GameplayTvHud.Actions.Fuse;
 using GameplayTvHud.DetailsZone;
 
 namespace Infrastructure
