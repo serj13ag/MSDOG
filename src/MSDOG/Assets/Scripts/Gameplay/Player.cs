@@ -34,15 +34,15 @@ namespace Gameplay
         private InputMoveBlock _moveBlock;
         private AnimationBlock _animationBlock;
         private AbilityBlock _abilityBlock;
+        private PlayerSpeedBlock _playerSpeedBlock;
 
-        private float _additionalMoveSpeed;
-        private float _nitroMultiplier = 1f;
         private int _damageReductionPercent;
-        private bool _movementIsActive;
 
         public float RotationSpeed => _rotationSpeed;
-        public float CurrentMoveSpeed => (_movementIsActive ? _moveSpeed + _additionalMoveSpeed : 0f) * _nitroMultiplier;
-        public bool HasNitro => _nitroMultiplier > 1f;
+        public float BaseMoveSpeed => _moveSpeed;
+        public float CurrentMoveSpeed => _playerSpeedBlock.GetCurrentMoveSpeed();
+        public bool HasNitro => _playerSpeedBlock.HasNitro;
+
         public int CurrentDamageReductionPercent => _damageReductionPercent;
 
         public int CurrentHealth => _healthBlock.CurrentHealth;
@@ -78,14 +78,15 @@ namespace Gameplay
 
         public void Init()
         {
-            _movementIsActive = true;
-
             _animationBlock = new AnimationBlock(_animator);
             _healthBlock = new HealthBlock(100, _progressService.EasyModeEnabled);
             _experienceBlock = new ExperienceBlock(_dataService);
             _playerDamageBlock = new PlayerDamageBlock(this, _healthBlock);
             _moveBlock = new InputMoveBlock(this, _characterController, _inputService, _arenaService);
             _abilityBlock = new AbilityBlock(this, _abilityFactory);
+            _playerSpeedBlock = new PlayerSpeedBlock(this);
+
+            _playerSpeedBlock.SetActive(true);
 
             _updateController.Register(this);
         }
@@ -100,7 +101,7 @@ namespace Gameplay
 
         public void MovementSetActive(bool value)
         {
-            _movementIsActive = value;
+            _playerSpeedBlock.SetActive(value);
             _animationBlock.SetMoveless(!value);
         }
 
@@ -146,9 +147,7 @@ namespace Gameplay
 
         public void ChangeAdditionalSpeed(float speed)
         {
-            var newAdditionalSpeed = _additionalMoveSpeed + speed;
-            newAdditionalSpeed = Mathf.Max(newAdditionalSpeed, 0);
-            _additionalMoveSpeed = newAdditionalSpeed;
+            _playerSpeedBlock.ChangeAdditionalSpeed(speed);
         }
 
         public void ChangeDamageReductionPercent(int damageReductionPercent)
@@ -165,12 +164,12 @@ namespace Gameplay
 
         public void SetNitro(float nitroMultiplier)
         {
-            _nitroMultiplier = nitroMultiplier;
+            _playerSpeedBlock.SetNitro(nitroMultiplier);
         }
 
         public void ResetNitro()
         {
-            _nitroMultiplier = 1f;
+            _playerSpeedBlock.ResetNitro();
         }
 
         public Vector3 GetAbilitySpawnPosition(AbilityType abilityType)
