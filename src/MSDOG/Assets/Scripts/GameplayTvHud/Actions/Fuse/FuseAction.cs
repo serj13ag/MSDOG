@@ -1,5 +1,8 @@
+using System;
 using Core.Controllers;
 using Core.Sounds;
+using Gameplay.Controllers;
+using Gameplay.Interfaces;
 using Gameplay.Services;
 using GameplayTvHud.Actions.Fuse.States;
 using GameplayTvHud.Mediators;
@@ -8,7 +11,7 @@ using VContainer;
 
 namespace GameplayTvHud.Actions.Fuse
 {
-    public class FuseAction : MonoBehaviour
+    public class FuseAction : MonoBehaviour, IUpdatable, IDisposable
     {
         [SerializeField] private Camera _hudCamera;
         [SerializeField] private GameObject _handleObject;
@@ -23,6 +26,7 @@ namespace GameplayTvHud.Actions.Fuse
         private ISoundController _soundController;
         private IActionMediator _actionMediator;
         private IInputService _inputService;
+        private IGameplayUpdateController _gameplayUpdateController;
 
         private FuseActionContext _context;
         private IFuseActionState _state;
@@ -35,13 +39,17 @@ namespace GameplayTvHud.Actions.Fuse
         public float NitroMultiplier => _nitroMultiplier;
 
         [Inject]
-        public void Construct(ISoundController soundController, IActionMediator actionMediator, IInputService inputService)
+        public void Construct(ISoundController soundController, IActionMediator actionMediator, IInputService inputService,
+            IGameplayUpdateController gameplayUpdateController)
         {
+            _gameplayUpdateController = gameplayUpdateController;
             _inputService = inputService;
             _actionMediator = actionMediator;
             _soundController = soundController;
 
             _context = new FuseActionContext(this, _actionMediator, _inputService, _actionBar, _hudCamera, _handleObject);
+
+            gameplayUpdateController.Register(this);
         }
 
         public void StartConnected()
@@ -53,9 +61,9 @@ namespace GameplayTvHud.Actions.Fuse
             _state = new ConnectedFuseActionState(_context);
         }
 
-        private void Update()
+        public void OnUpdate(float deltaTime)
         {
-            _state?.OnUpdate(Time.deltaTime); // TODO: register in controller
+            _state?.OnUpdate(deltaTime);
         }
 
         public void ChangeStateToConnected()
@@ -83,6 +91,11 @@ namespace GameplayTvHud.Actions.Fuse
         public void SetHandleLocalRotation(float angle)
         {
             _handleObject.transform.localRotation = Quaternion.Euler(angle, 0f, 0f);
+        }
+
+        public void Dispose()
+        {
+            _gameplayUpdateController.Remove(this);
         }
     }
 }
