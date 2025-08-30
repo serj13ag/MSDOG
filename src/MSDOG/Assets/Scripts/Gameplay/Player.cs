@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Core.Models.Data;
 using Core.Services;
 using Gameplay.Abilities;
@@ -35,13 +33,12 @@ namespace Gameplay
         private PlayerDamageBlock _playerDamageBlock;
         private InputMoveBlock _moveBlock;
         private AnimationBlock _animationBlock;
+        private AbilityBlock _abilityBlock;
 
-        private readonly Dictionary<Guid, IAbility> _abilities = new Dictionary<Guid, IAbility>();
         private float _additionalMoveSpeed;
         private float _nitroMultiplier = 1f;
         private int _damageReductionPercent;
         private bool _movementIsActive;
-        private bool _abilitiesIsActive;
 
         public CharacterController CharacterController => _characterController;
         public AnimationBlock AnimationBlock => _animationBlock;
@@ -91,16 +88,16 @@ namespace Gameplay
             _experienceBlock = new ExperienceBlock(_dataService);
             _playerDamageBlock = new PlayerDamageBlock(this, _healthBlock);
             _moveBlock = new InputMoveBlock(this, _inputService, _arenaService);
+            _abilityBlock = new AbilityBlock(this, _abilityFactory);
 
             _updateController.Register(this);
         }
 
         public void OnUpdate(float deltaTime)
         {
-            HandleAbilities(deltaTime);
-
             _playerDamageBlock.OnUpdate(deltaTime);
             _moveBlock.OnUpdate(deltaTime);
+            _abilityBlock.OnUpdate(deltaTime);
         }
 
         public void MovementSetActive(bool value)
@@ -136,40 +133,17 @@ namespace Gameplay
 
         public void AddAbility(Guid id, AbilityData abilityData)
         {
-            var ability = _abilityFactory.CreateAbility(abilityData, this);
-
-            if (_abilitiesIsActive)
-            {
-                ability.Activate();
-            }
-
-            _abilities.Add(id, ability);
+            _abilityBlock.AddAbility(id, abilityData);
         }
 
         public void RemoveAbility(Guid id)
         {
-            _abilities[id].Deactivate();
-            _abilities.Remove(id);
+            _abilityBlock.RemoveAbility(id);
         }
 
         public void AbilitiesSetActive(bool isActive)
         {
-            if (isActive != _abilitiesIsActive)
-            {
-                foreach (var ability in _abilities)
-                {
-                    if (isActive)
-                    {
-                        ability.Value.Activate();
-                    }
-                    else
-                    {
-                        ability.Value.Deactivate();
-                    }
-                }
-
-                _abilitiesIsActive = isActive;
-            }
+            _abilityBlock.AbilitiesSetActive(isActive);
         }
 
         public void ChangeAdditionalSpeed(float speed)
@@ -203,37 +177,7 @@ namespace Gameplay
 
         public Vector3 GetAbilitySpawnPosition(AbilityType abilityType)
         {
-            Vector3 offset;
-            switch (abilityType)
-            {
-                case AbilityType.CuttingBlow:
-                case AbilityType.RoundAttack:
-                    offset = Vector3.up * 1.55f;
-                    break;
-                case AbilityType.GunShot:
-                case AbilityType.BulletHell:
-                case AbilityType.BuzzSaw:
-                case AbilityType.EnergyLine:
-                    offset = Vector3.up * 1f;
-                    break;
-                case AbilityType.PuncturedTank:
-                case AbilityType.AntiGravity:
-                case AbilityType.EnergyShield:
-                    offset = Vector3.zero;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(abilityType), abilityType, null);
-            }
-
-            return transform.position + offset;
-        }
-
-        private void HandleAbilities(float deltaTime)
-        {
-            foreach (var ability in _abilities.Values.ToArray())
-            {
-                ability.OnUpdate(deltaTime);
-            }
+            return _abilityBlock.GetAbilitySpawnPosition(abilityType);
         }
 
         private void OnDestroy()
