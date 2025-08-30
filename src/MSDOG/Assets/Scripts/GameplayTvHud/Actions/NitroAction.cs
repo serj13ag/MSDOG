@@ -1,5 +1,8 @@
+using System;
 using Core.Controllers;
 using Core.Sounds;
+using Gameplay.Controllers;
+using Gameplay.Interfaces;
 using Gameplay.Services;
 using GameplayTvHud.Mediators;
 using UnityEngine;
@@ -7,7 +10,7 @@ using VContainer;
 
 namespace GameplayTvHud.Actions
 {
-    public class NitroAction : MonoBehaviour
+    public class NitroAction : MonoBehaviour, IUpdatable, IDisposable
     {
         [SerializeField] private Camera _hudCamera;
         [SerializeField] private GameObject _buttonObject;
@@ -18,13 +21,18 @@ namespace GameplayTvHud.Actions
         private ISoundController _soundController;
         private IActionMediator _actionMediator;
         private IInputService _inputService;
+        private IGameplayUpdateController _gameplayUpdateController;
 
         [Inject]
-        public void Construct(ISoundController soundController, IActionMediator actionMediator, IInputService inputService)
+        public void Construct(ISoundController soundController, IActionMediator actionMediator, IInputService inputService,
+            IGameplayUpdateController gameplayUpdateController)
         {
+            _gameplayUpdateController = gameplayUpdateController;
             _inputService = inputService;
             _actionMediator = actionMediator;
             _soundController = soundController;
+
+            gameplayUpdateController.Register(this);
         }
 
         private void Start()
@@ -32,7 +40,7 @@ namespace GameplayTvHud.Actions
             UpdateButtonObjectPosition(_offPositionZ);
         }
 
-        private void Update()
+        public void OnUpdate(float deltaTime)
         {
             HandleInput();
         }
@@ -72,6 +80,11 @@ namespace GameplayTvHud.Actions
         {
             _buttonObject.transform.localPosition = new Vector3(_buttonObject.transform.localPosition.x,
                 _buttonObject.transform.localPosition.y, positionZ);
+        }
+
+        public void Dispose()
+        {
+            _gameplayUpdateController.Remove(this);
         }
     }
 }

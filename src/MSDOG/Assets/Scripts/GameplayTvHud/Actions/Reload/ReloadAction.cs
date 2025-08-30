@@ -3,11 +3,12 @@ using Core.Sounds;
 using Gameplay.Controllers;
 using Gameplay.Interfaces;
 using Gameplay.Services;
+using GameplayTvHud.Actions.Reload.States;
 using GameplayTvHud.Mediators;
 using UnityEngine;
 using VContainer;
 
-namespace GameplayTvHud.Actions
+namespace GameplayTvHud.Actions.Reload
 {
     public class ReloadAction : MonoBehaviour, IUpdatable
     {
@@ -21,21 +22,24 @@ namespace GameplayTvHud.Actions
         private IGameplayUpdateController _updateController;
         private ISoundController _soundController;
         private IActionMediator _actionMediator;
-        private IInputService _inputService;
+
+        private ReloadActionContext _context;
+        private IReloadActionState _state;
 
         private float _currentAngle;
 
-        private bool _dragging;
-        private float _currentDragAngle;
+        public float CurrentAngle => _currentAngle;
 
         [Inject]
         public void Construct(IGameplayUpdateController updateController, ISoundController soundController,
             IActionMediator actionMediator, IInputService inputService)
         {
-            _inputService = inputService;
             _actionMediator = actionMediator;
             _soundController = soundController;
             _updateController = updateController;
+
+            _context = new ReloadActionContext(this, inputService, _hudCamera, _handleObject);
+            ChangeStateToIdle();
 
             updateController.Register(this);
         }
@@ -43,63 +47,30 @@ namespace GameplayTvHud.Actions
         private void Start()
         {
             _currentAngle = Mathf.Lerp(0f, _maxAngle, _startingAngleLerp);
-            _actionBar.UpdateView(_currentAngle / _maxAngle);
+            UpdateActionBar();
         }
 
         public void OnUpdate(float deltaTime)
         {
-            HandleInput();
-
-            if (_dragging)
-            {
-                UpdateDragRotation();
-            }
-            else if (_currentAngle > 0f)
-            {
-                Unwind(deltaTime);
-            }
+            _state?.OnUpdate(deltaTime);
         }
 
-        private void HandleInput()
+        public void ChangeStateToDragging()
         {
-            if (_inputService.IsClickDown)
-            {
-                var ray = _hudCamera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out var hit))
-                {
-                    if (hit.collider.gameObject == _handleObject.gameObject)
-                    {
-                        _dragging = true;
-                        _currentDragAngle = GetMouseAngle();
-                    }
-                }
-            }
-            else if (_inputService.IsClickUp)
-            {
-                _dragging = false;
-            }
+            _state = new DraggingReloadActionState(_context);
         }
 
-        private void Unwind(float deltaTime)
+        public void ChangeStateToIdle()
+        {
+            _state = new IdleReloadActionState(_context);
+        }
+
+        public void Unwind(float deltaTime)
         {
             TryRotate(-deltaTime * _unwindSpeed);
         }
 
-        private void UpdateDragRotation()
-        {
-            var newAngle = GetMouseAngle();
-            var angleDelta = -Mathf.DeltaAngle(_currentDragAngle, newAngle);
-
-            if (angleDelta < 0f)
-            {
-                return;
-            }
-
-            TryRotate(angleDelta);
-            _currentDragAngle = newAngle;
-        }
-
-        private void TryRotate(float angleDelta)
+        public void TryRotate(float angleDelta)
         {
             var oldAngle = _currentAngle;
             var newAngle = _currentAngle + angleDelta;
@@ -127,14 +98,12 @@ namespace GameplayTvHud.Actions
             }
 
             _handleObject.transform.Rotate(Vector3.back, oldAngle - _currentAngle);
-            _actionBar.UpdateView(_currentAngle / _maxAngle);
+            UpdateActionBar();
         }
 
-        private float GetMouseAngle()
+        private void UpdateActionBar()
         {
-            var objectScreenPos = _hudCamera.WorldToScreenPoint(_handleObject.transform.position);
-            var dir = Input.mousePosition - objectScreenPos;
-            return Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            _actionBar.UpdateView(_currentAngle / _maxAngle);
         }
 
         private void OnDestroy()

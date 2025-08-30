@@ -25,7 +25,6 @@ namespace GameplayTvHud.Actions.Fuse
 
         private ISoundController _soundController;
         private IActionMediator _actionMediator;
-        private IInputService _inputService;
         private IGameplayUpdateController _gameplayUpdateController;
 
         private FuseActionContext _context;
@@ -43,11 +42,10 @@ namespace GameplayTvHud.Actions.Fuse
             IGameplayUpdateController gameplayUpdateController)
         {
             _gameplayUpdateController = gameplayUpdateController;
-            _inputService = inputService;
             _actionMediator = actionMediator;
             _soundController = soundController;
 
-            _context = new FuseActionContext(this, _actionMediator, _inputService, _actionBar, _hudCamera, _handleObject);
+            _context = new FuseActionContext(this, actionMediator, inputService, _actionBar, _hudCamera, _handleObject);
 
             gameplayUpdateController.Register(this);
         }
