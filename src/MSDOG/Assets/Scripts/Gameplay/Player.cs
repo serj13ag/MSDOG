@@ -40,9 +40,6 @@ namespace Gameplay
         private int _damageReductionPercent;
         private bool _movementIsActive;
 
-        public CharacterController CharacterController => _characterController;
-        public AnimationBlock AnimationBlock => _animationBlock;
-
         public float RotationSpeed => _rotationSpeed;
         public float CurrentMoveSpeed => (_movementIsActive ? _moveSpeed + _additionalMoveSpeed : 0f) * _nitroMultiplier;
         public bool HasNitro => _nitroMultiplier > 1f;
@@ -87,7 +84,7 @@ namespace Gameplay
             _healthBlock = new HealthBlock(100, _progressService.EasyModeEnabled);
             _experienceBlock = new ExperienceBlock(_dataService);
             _playerDamageBlock = new PlayerDamageBlock(this, _healthBlock);
-            _moveBlock = new InputMoveBlock(this, _inputService, _arenaService);
+            _moveBlock = new InputMoveBlock(this, _characterController, _inputService, _arenaService);
             _abilityBlock = new AbilityBlock(this, _abilityFactory);
 
             _updateController.Register(this);
@@ -98,6 +95,7 @@ namespace Gameplay
             _playerDamageBlock.OnUpdate(deltaTime);
             _moveBlock.OnUpdate(deltaTime);
             _abilityBlock.OnUpdate(deltaTime);
+            _animationBlock.SetRunning(_moveBlock.IsMoving);
         }
 
         public void MovementSetActive(bool value)

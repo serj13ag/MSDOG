@@ -10,11 +10,13 @@ namespace Gameplay.Blocks
         private readonly IInputService _inputService;
         private readonly IArenaService _arenaService;
 
-        public InputMoveBlock(Player player, IInputService inputService,
+        public bool IsMoving { get; private set; }
+
+        public InputMoveBlock(Player player, CharacterController characterController, IInputService inputService,
             IArenaService arenaService)
         {
             _player = player;
-            _characterController = player.CharacterController;
+            _characterController = characterController;
             _inputService = inputService;
             _arenaService = arenaService;
         }
@@ -24,7 +26,7 @@ namespace Gameplay.Blocks
             var moveInput = _inputService.MoveInput;
             if (moveInput == Vector2.zero || _player.CurrentMoveSpeed <= 0f)
             {
-                _player.AnimationBlock.SetRunning(false);
+                IsMoving = false;
                 return;
             }
 
@@ -49,7 +51,7 @@ namespace Gameplay.Blocks
 
             _characterController.Move(move);
 
-            _player.AnimationBlock.SetRunning(true);
+            IsMoving = true;
         }
     }
 }
