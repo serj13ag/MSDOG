@@ -1,7 +1,7 @@
 using Gameplay.Services;
 using UnityEngine;
 
-namespace Gameplay
+namespace Gameplay.Blocks
 {
     public class InputMoveBlock
     {

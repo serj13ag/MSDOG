@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Gameplay
+namespace Gameplay.Blocks
 {
     public class HealthBlock
     {

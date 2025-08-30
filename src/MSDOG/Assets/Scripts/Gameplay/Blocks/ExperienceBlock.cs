@@ -2,7 +2,7 @@ using System;
 using Core.Services;
 using UnityEngine;
 
-namespace Gameplay
+namespace Gameplay.Blocks
 {
     public class ExperienceBlock
     {
