@@ -1,26 +1,26 @@
 using Core.Controllers;
 using Core.Models.Data;
-using Gameplay.AbilityEffects;
+using Gameplay.AbilityVFX;
 using Gameplay.Factories;
 
 namespace Gameplay.Abilities
 {
     public class AntiGravityAbility : BasePersistentAbility
     {
-        private readonly IAbilityEffectFactory _abilityEffectFactory;
+        private readonly IAbilityVFXFactory _abilityVFXFactory;
 
         private readonly AbilityData _abilityData;
         private readonly Player _player;
         private readonly float _speed;
 
-        private FollowingAbilityEffect _followingAbilityEffect;
+        private FollowingAbilityVFX _followingAbilityVFX; // TODO: separate effects from domain
 
-        public AntiGravityAbility(AbilityData abilityData, Player player, IAbilityEffectFactory abilityEffectFactory,
+        public AntiGravityAbility(AbilityData abilityData, Player player, IAbilityVFXFactory abilityVFXFactory,
             ISoundController soundController)
             : base(abilityData, soundController)
         {
             _abilityData = abilityData;
-            _abilityEffectFactory = abilityEffectFactory;
+            _abilityVFXFactory = abilityVFXFactory;
 
             _player = player;
             _speed = abilityData.Speed;
@@ -30,15 +30,15 @@ namespace Gameplay.Abilities
         {
             _player.ChangeAdditionalSpeed(_speed);
 
-            _followingAbilityEffect = _abilityEffectFactory.CreateEffect<FollowingAbilityEffect>(_player, _abilityData);
+            _followingAbilityVFX = _abilityVFXFactory.CreateEffect<FollowingAbilityVFX>(_player, _abilityData);
         }
 
         protected override void OnDeactivated()
         {
             _player.ChangeAdditionalSpeed(-_speed);
 
-            _followingAbilityEffect.Clear();
-            _followingAbilityEffect = null;
+            _followingAbilityVFX.Clear();
+            _followingAbilityVFX = null;
         }
     }
 }

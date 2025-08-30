@@ -23,7 +23,7 @@ namespace Infrastructure
         private readonly IPlayerProvider _playerProvider;
         private readonly IExperiencePieceFactory _experiencePieceFactory;
         private readonly IDamageTextFactory _damageTextFactory;
-        private readonly IAbilityEffectFactory _abilityEffectFactory;
+        private readonly IAbilityVFXFactory _abilityVFXFactory;
         private readonly IDetailService _detailService;
         private readonly IGameplayWindowsHandler _gameplayWindowsHandler;
 
@@ -41,7 +41,7 @@ namespace Infrastructure
             IPlayerProvider playerProvider,
             IExperiencePieceFactory experiencePieceFactory,
             IDamageTextFactory damageTextFactory,
-            IAbilityEffectFactory abilityEffectFactory,
+            IAbilityVFXFactory abilityVFXFactory,
             IDetailService detailService,
             IGameplayWindowsHandler gameplayWindowsHandler)
         {
@@ -54,7 +54,7 @@ namespace Infrastructure
             _playerProvider = playerProvider;
             _experiencePieceFactory = experiencePieceFactory;
             _damageTextFactory = damageTextFactory;
-            _abilityEffectFactory = abilityEffectFactory;
+            _abilityVFXFactory = abilityVFXFactory;
             _detailService = detailService;
             _gameplayWindowsHandler = gameplayWindowsHandler;
             _dialogueService = dialogueService;
@@ -87,7 +87,7 @@ namespace Infrastructure
             _projectileFactory.Prewarm(levelIndex);
             _experiencePieceFactory.Prewarm();
             _damageTextFactory.Prewarm();
-            _abilityEffectFactory.Prewarm(levelIndex);
+            _abilityVFXFactory.Prewarm(levelIndex);
         }
 
         private void CreateAndSetupPlayer()

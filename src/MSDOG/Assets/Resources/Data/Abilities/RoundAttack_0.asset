@@ -28,4 +28,4 @@ MonoBehaviour:
     Clip: {fileID: 8300000, guid: d2e9df9ab6f984840a987f765cbb53ce, type: 3}
     Volume: 0.265
   ProjectileData: {fileID: 0}
-  FollowingAbilityEffectPrefab: {fileID: 7745769353851402844, guid: 119bb3c28e889c046b4f07e9f70c9c1f, type: 3}
+  FollowingAbilityVFXPrefab: {fileID: 7745769353851402844, guid: 119bb3c28e889c046b4f07e9f70c9c1f, type: 3}

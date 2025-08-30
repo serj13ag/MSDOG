@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 using Utility;
 
-namespace Gameplay.AbilityEffects
+namespace Gameplay.AbilityVFX
 {
-    public class OneTimeAbilityEffect : BaseAbilityEffect
+    public class OneTimeAbilityVFX : BaseAbilityVFX
     {
         [SerializeField] private SpriteAnimatorComponent _spriteAnimatorComponent;
 

@@ -3,9 +3,9 @@ using Gameplay.Interfaces;
 using UnityEngine;
 using VContainer;
 
-namespace Gameplay.AbilityEffects
+namespace Gameplay.AbilityVFX
 {
-    public class FollowingAbilityEffect : BaseAbilityEffect, IUpdatable
+    public class FollowingAbilityVFX : BaseAbilityVFX, IUpdatable
     {
         private IGameplayUpdateController _updateController;
 

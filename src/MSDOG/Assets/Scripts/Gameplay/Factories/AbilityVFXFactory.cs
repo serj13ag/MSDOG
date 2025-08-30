@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Core.Models.Data;
 using Core.Services;
 using Gameplay.Abilities;
-using Gameplay.AbilityEffects;
+using Gameplay.AbilityVFX;
 using Gameplay.Providers;
 using UnityEngine;
 using Utility.Pools;
@@ -12,7 +12,7 @@ using VContainer.Unity;
 
 namespace Gameplay.Factories
 {
-    public class AbilityEffectFactory : IAbilityEffectFactory
+    public class AbilityVFXFactory : IAbilityVFXFactory
     {
         private const int NumberOfPrewarmedPrefabs = 5;
 
@@ -20,9 +20,9 @@ namespace Gameplay.Factories
         private readonly IObjectContainerProvider _objectContainerProvider;
         private readonly IDataService _dataService;
 
-        private readonly GameObjectPoolRegistry<BaseAbilityEffect> _pools = new();
+        private readonly GameObjectPoolRegistry<BaseAbilityVFX> _pools = new();
 
-        public AbilityEffectFactory(IObjectResolver container, IObjectContainerProvider objectContainerProvider,
+        public AbilityVFXFactory(IObjectResolver container, IObjectContainerProvider objectContainerProvider,
             IDataService dataService)
         {
             _container = container;
@@ -39,57 +39,58 @@ namespace Gameplay.Factories
             }
         }
 
-        public T CreateEffect<T>(Player player, AbilityData abilityData) where T : BaseAbilityEffect
+        // TODO: separate effects from domain!
+        public T CreateEffect<T>(Player player, AbilityData abilityData) where T : BaseAbilityVFX
         {
-            var prefab = abilityData.FollowingAbilityEffectPrefab;
-            var baseAbilityEffect = (T)_pools.Get(prefab, Instantiate(prefab));
+            var prefab = abilityData.FollowingAbilityVFXPrefab;
+            var baseAbilityVFX = (T)_pools.Get(prefab, Instantiate(prefab));
 
-            switch (baseAbilityEffect)
+            switch (baseAbilityVFX)
             {
-                case FollowingAbilityEffect followingAbilityEffect:
-                    followingAbilityEffect.Init(player.transform);
+                case FollowingAbilityVFX followingAbilityVFX:
+                    followingAbilityVFX.Init(player.transform);
                     break;
-                case OneTimeAbilityEffect oneTimeAbilityEffect:
+                case OneTimeAbilityVFX oneTimeAbilityVFX:
                     var position = player.GetAbilitySpawnPosition(abilityData.AbilityType);
                     var rotation = Quaternion.Euler(90f, 0f, 0f);
                     var scale = GetScale(abilityData);
-                    oneTimeAbilityEffect.Init(position, rotation, scale);
+                    oneTimeAbilityVFX.Init(position, rotation, scale);
                     break;
             }
 
-            return baseAbilityEffect;
+            return baseAbilityVFX;
         }
 
-        private List<BaseAbilityEffect> GetAvailablePrefabsForLevel(int levelIndex)
+        private List<BaseAbilityVFX> GetAvailablePrefabsForLevel(int levelIndex)
         {
-            var availablePrefabs = new List<BaseAbilityEffect>();
+            var availablePrefabs = new List<BaseAbilityVFX>();
 
             var startAbilities = _dataService.GetStartAbilitiesData(levelIndex);
             foreach (var startAbility in startAbilities)
             {
-                var followingAbilityEffectPrefab = startAbility.FollowingAbilityEffectPrefab;
-                if (followingAbilityEffectPrefab)
+                var followingAbilityVFXPrefab = startAbility.FollowingAbilityVFXPrefab;
+                if (followingAbilityVFXPrefab)
                 {
-                    availablePrefabs.Add(followingAbilityEffectPrefab);
+                    availablePrefabs.Add(followingAbilityVFXPrefab);
                 }
             }
 
             var abilitiesAvailableToCraft = _dataService.GetAbilitiesAvailableToCraft(levelIndex);
             foreach (var ability in abilitiesAvailableToCraft)
             {
-                var followingAbilityEffectPrefab = ability.FollowingAbilityEffectPrefab;
-                if (followingAbilityEffectPrefab)
+                var followingAbilityVFXPrefab = ability.FollowingAbilityVFXPrefab;
+                if (followingAbilityVFXPrefab)
                 {
-                    availablePrefabs.Add(followingAbilityEffectPrefab);
+                    availablePrefabs.Add(followingAbilityVFXPrefab);
                 }
             }
 
             return availablePrefabs;
         }
 
-        private Func<BaseAbilityEffect> Instantiate(BaseAbilityEffect prefab)
+        private Func<BaseAbilityVFX> Instantiate(BaseAbilityVFX prefab)
         {
-            return () => _container.Instantiate(prefab, _objectContainerProvider.AbilityEffectContainer);
+            return () => _container.Instantiate(prefab, _objectContainerProvider.AbilityVFXContainer);
         }
 
         /// <summary>

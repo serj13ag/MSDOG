@@ -60,7 +60,7 @@ namespace Infrastructure
         {
             builder.Register<IExperiencePieceFactory, ExperiencePieceFactory>(Lifetime.Singleton);
             builder.Register<IProjectileFactory, ProjectileFactory>(Lifetime.Singleton);
-            builder.Register<IAbilityEffectFactory, AbilityEffectFactory>(Lifetime.Singleton);
+            builder.Register<IAbilityVFXFactory, AbilityVFXFactory>(Lifetime.Singleton);
             builder.Register<IAbilityFactory, AbilityFactory>(Lifetime.Singleton);
             builder.Register<IGameFactory, GameFactory>(Lifetime.Singleton);
             builder.Register<IDeathKitFactory, DeathKitFactory>(Lifetime.Singleton);
@@ -78,7 +78,7 @@ namespace Infrastructure
             var deathKitContainer = new GameObject("DeathKitContainer");
             var experiencePieceContainer = new GameObject("ExperiencePieceContainer");
             var damageTextContainer = new GameObject("DamageTextContainer");
-            var abilityEffectContainer = new GameObject("AbilityEffectContainer");
+            var abilityVFXContainer = new GameObject("AbilityVFXContainer");
             var projectileVFXContainer = new GameObject("ProjectileVFXContainer");
 
             projectileContainer.transform.SetParent(containersRoot.transform);
@@ -86,12 +86,12 @@ namespace Infrastructure
             deathKitContainer.transform.SetParent(containersRoot.transform);
             experiencePieceContainer.transform.SetParent(containersRoot.transform);
             damageTextContainer.transform.SetParent(containersRoot.transform);
-            abilityEffectContainer.transform.SetParent(containersRoot.transform);
+            abilityVFXContainer.transform.SetParent(containersRoot.transform);
             projectileVFXContainer.transform.SetParent(containersRoot.transform);
 
             builder.Register(_ => new ObjectContainerProvider(projectileContainer.transform,
                     enemyContainer.transform, deathKitContainer.transform, experiencePieceContainer.transform,
-                    damageTextContainer.transform, abilityEffectContainer.transform, projectileVFXContainer.transform),
+                    damageTextContainer.transform, abilityVFXContainer.transform, projectileVFXContainer.transform),
                 Lifetime.Singleton).As<IObjectContainerProvider>();
         }
     }
