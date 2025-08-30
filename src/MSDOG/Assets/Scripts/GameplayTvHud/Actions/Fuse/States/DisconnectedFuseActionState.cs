@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace GameplayTvHud.Actions.Fuse.States
 {
@@ -6,7 +7,7 @@ namespace GameplayTvHud.Actions.Fuse.States
     {
         private readonly FuseActionContext _context;
 
-        private Vector3 _startDragMousePosition;
+        private Vector2 _startDragMousePosition;
         private bool _dragging;
         private bool _fullyDragged;
 
@@ -21,7 +22,7 @@ namespace GameplayTvHud.Actions.Fuse.States
 
             if (_dragging)
             {
-                var verticalDistance = Input.mousePosition.y - _startDragMousePosition.y;
+                var verticalDistance = Mouse.current.position.ReadValue().y - _startDragMousePosition.y;
                 var dragAmount = verticalDistance / _context.FuseAction.DistanceToSwitch;
                 _fullyDragged = dragAmount >= 1f;
                 var angle = Mathf.Lerp(_context.FuseAction.MinAngle, _context.FuseAction.MaxAngle, dragAmount);
@@ -38,11 +39,11 @@ namespace GameplayTvHud.Actions.Fuse.States
         {
             if (_context.InputService.IsClickDown)
             {
-                var ray = _context.HUDCamera.ScreenPointToRay(Input.mousePosition);
+                var ray = _context.HUDCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
                 if (Physics.Raycast(ray, out var hit) && hit.collider.gameObject == _context.HandleObject.gameObject)
                 {
                     _dragging = true;
-                    _startDragMousePosition = Input.mousePosition;
+                    _startDragMousePosition = Mouse.current.position.ReadValue();
                 }
             }
             else if (_context.InputService.IsClickUp)

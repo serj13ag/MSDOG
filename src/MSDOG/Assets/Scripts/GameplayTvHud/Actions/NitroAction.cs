@@ -6,6 +6,7 @@ using Gameplay.Interfaces;
 using Gameplay.Services;
 using GameplayTvHud.Mediators;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using VContainer;
 
 namespace GameplayTvHud.Actions
@@ -49,7 +50,7 @@ namespace GameplayTvHud.Actions
         {
             if (_inputService.IsClickDown)
             {
-                var ray = _hudCamera.ScreenPointToRay(Input.mousePosition);
+                var ray = _hudCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
                 if (Physics.Raycast(ray, out var hit) && hit.collider.gameObject == _buttonObject.gameObject)
                 {
                     Press();

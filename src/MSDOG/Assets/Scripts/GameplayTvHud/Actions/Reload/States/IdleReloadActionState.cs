@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace GameplayTvHud.Actions.Reload.States
 {
@@ -32,7 +33,7 @@ namespace GameplayTvHud.Actions.Reload.States
                 return false;
             }
 
-            var ray = _context.HUDCamera.ScreenPointToRay(Input.mousePosition);
+            var ray = _context.HUDCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
             return Physics.Raycast(ray, out var hit) && hit.collider.gameObject == _context.HandleObject.gameObject;
         }
     }

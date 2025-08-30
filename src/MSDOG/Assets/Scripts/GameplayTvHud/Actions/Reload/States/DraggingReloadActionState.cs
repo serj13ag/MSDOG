@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace GameplayTvHud.Actions.Reload.States
 {
@@ -43,7 +44,7 @@ namespace GameplayTvHud.Actions.Reload.States
         private float GetMouseAngle()
         {
             var objectScreenPos = _context.HUDCamera.WorldToScreenPoint(_context.HandleObject.transform.position);
-            var dir = Input.mousePosition - objectScreenPos;
+            var dir = (Vector3)Mouse.current.position.ReadValue() - objectScreenPos;
             return Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         }
     }
