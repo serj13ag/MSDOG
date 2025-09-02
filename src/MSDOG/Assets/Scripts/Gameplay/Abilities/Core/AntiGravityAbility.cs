@@ -1,4 +1,3 @@
-using Core.Controllers;
 using Core.Models.Data;
 
 namespace Gameplay.Abilities.Core
@@ -8,8 +7,7 @@ namespace Gameplay.Abilities.Core
         private readonly Player _player;
         private readonly float _speed;
 
-        public AntiGravityAbility(AbilityData abilityData, Player player, ISoundController soundController)
-            : base(abilityData, soundController)
+        public AntiGravityAbility(AbilityData abilityData, Player player)
         {
             _player = player;
             _speed = abilityData.Speed;

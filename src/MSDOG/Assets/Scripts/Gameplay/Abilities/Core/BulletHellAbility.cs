@@ -1,4 +1,3 @@
-using Core.Controllers;
 using Core.Models.Data;
 using Gameplay.Factories;
 using Gameplay.Projectiles;
@@ -12,9 +11,8 @@ namespace Gameplay.Abilities.Core
         private readonly Player _player;
         private readonly IProjectileFactory _projectileFactory;
 
-        public BulletHellAbility(AbilityData abilityData, Player player, IProjectileFactory projectileFactory,
-            ISoundController soundController)
-            : base(abilityData, soundController)
+        public BulletHellAbility(AbilityData abilityData, Player player, IProjectileFactory projectileFactory)
+            : base(abilityData)
         {
             _abilityData = abilityData;
             _player = player;

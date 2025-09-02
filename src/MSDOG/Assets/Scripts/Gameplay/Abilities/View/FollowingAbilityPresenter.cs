@@ -1,3 +1,4 @@
+using Core.Controllers;
 using Core.Models.Data;
 using Gameplay.Abilities.Core;
 using Gameplay.Abilities.View.VFX;
@@ -9,6 +10,7 @@ namespace Gameplay.Abilities.View
     public class FollowingAbilityPresenter
     {
         private readonly IAbilityVFXFactory _abilityVFXFactory;
+        private readonly ISoundController _soundController;
 
         private readonly Player _player;
         private readonly IAbility _ability;
@@ -17,11 +19,12 @@ namespace Gameplay.Abilities.View
         private FollowingAbilityVFX _vfx;
 
         public FollowingAbilityPresenter(Player player, IAbility ability, AbilityData abilityData,
-            IAbilityVFXFactory abilityVFXFactory)
+            IAbilityVFXFactory abilityVFXFactory, ISoundController soundController)
         {
             Assert.IsNotNull(abilityData.FollowingAbilityVFXPrefab);
 
             _abilityVFXFactory = abilityVFXFactory;
+            _soundController = soundController;
 
             _player = player;
             _ability = ability;
@@ -35,6 +38,7 @@ namespace Gameplay.Abilities.View
         private void OnAbilityActivated()
         {
             _vfx = _abilityVFXFactory.CreateEffect<FollowingAbilityVFX>(_player, _abilityData);
+            _soundController.PlayAbilityActivationSfx(_abilityData.ActivationSound);
         }
 
         private void OnAbilityDeactivated()

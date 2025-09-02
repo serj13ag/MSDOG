@@ -1,14 +1,10 @@
 using System;
-using Core.Controllers;
 using Core.Models.Data;
 
 namespace Gameplay.Abilities.Core
 {
     public abstract class BaseCooldownAbility : ICooldownAbility
     {
-        private readonly AbilityData _abilityData;
-        private readonly ISoundController _soundController;
-
         private readonly float _cooldown;
 
         private bool _isActive;
@@ -19,12 +15,9 @@ namespace Gameplay.Abilities.Core
         public event Action OnActionInvoked;
         public event Action OnDisposed;
 
-        protected BaseCooldownAbility(AbilityData abilityData, ISoundController soundController)
+        protected BaseCooldownAbility(AbilityData abilityData)
         {
             _cooldown = abilityData.Cooldown;
-            _abilityData = abilityData;
-            _soundController = soundController;
-
             _timeTillAction = abilityData.Cooldown - abilityData.FirstCooldownReduction;
         }
 
@@ -54,7 +47,6 @@ namespace Gameplay.Abilities.Core
             InvokeAction();
             ResetTimeTillAction();
 
-            _soundController.PlayAbilityActivationSfx(_abilityData.ActivationSound); // TODO: to presenter
 
             OnActionInvoked?.Invoke();
         }

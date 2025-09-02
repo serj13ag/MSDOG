@@ -1,3 +1,4 @@
+using Core.Controllers;
 using Core.Models.Data;
 using Gameplay.Abilities.Core;
 using Gameplay.Abilities.View.VFX;
@@ -9,17 +10,19 @@ namespace Gameplay.Abilities.View
     public class OneTimeAbilityPresenter
     {
         private readonly IAbilityVFXFactory _abilityVFXFactory;
+        private readonly ISoundController _soundController;
 
         private readonly Player _player;
         private readonly ICooldownAbility _ability;
         private readonly AbilityData _abilityData;
 
         public OneTimeAbilityPresenter(Player player, ICooldownAbility ability, AbilityData abilityData,
-            IAbilityVFXFactory abilityVFXFactory)
+            IAbilityVFXFactory abilityVFXFactory, ISoundController soundController)
         {
             Assert.IsNotNull(abilityData.FollowingAbilityVFXPrefab);
 
             _abilityVFXFactory = abilityVFXFactory;
+            _soundController = soundController;
 
             _player = player;
             _ability = ability;
@@ -32,6 +35,7 @@ namespace Gameplay.Abilities.View
         private void OnAbilityActionInvoked()
         {
             _abilityVFXFactory.CreateEffect<OneTimeAbilityVFX>(_player, _abilityData);
+            _soundController.PlayAbilityActivationSfx(_abilityData.ActivationSound);
         }
 
         private void OnAbilityDisposed()

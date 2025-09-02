@@ -30,43 +30,43 @@ namespace Gameplay.Factories
             {
                 case AbilityType.CuttingBlow:
                 {
-                    var cuttingBlowAbility = new CuttingBlowAbility(abilityData, player, _dataService, _soundController);
-                    _ = new OneTimeAbilityPresenter(player, cuttingBlowAbility, abilityData, _abilityVFXFactory);
+                    var cuttingBlowAbility = new CuttingBlowAbility(abilityData, player, _dataService);
+                    _ = new OneTimeAbilityPresenter(player, cuttingBlowAbility, abilityData, _abilityVFXFactory, _soundController);
                     ability = cuttingBlowAbility;
                     break;
                 }
                 case AbilityType.RoundAttack:
                 {
-                    var roundAttackAbility = new RoundAttackAbility(abilityData, player, _dataService, _soundController);
-                    _ = new OneTimeAbilityPresenter(player, roundAttackAbility, abilityData, _abilityVFXFactory);
+                    var roundAttackAbility = new RoundAttackAbility(abilityData, player, _dataService);
+                    _ = new OneTimeAbilityPresenter(player, roundAttackAbility, abilityData, _abilityVFXFactory, _soundController);
                     ability = roundAttackAbility;
                     break;
                 }
                 case AbilityType.GunShot:
-                    ability = new GunShotAbility(abilityData, player, _projectileFactory, _soundController);
+                    ability = new GunShotAbility(abilityData, player, _projectileFactory);
                     break;
                 case AbilityType.BulletHell:
-                    ability = new BulletHellAbility(abilityData, player, _projectileFactory, _soundController);
+                    ability = new BulletHellAbility(abilityData, player, _projectileFactory);
                     break;
                 case AbilityType.BuzzSaw:
-                    ability = new BuzzSawAbility(abilityData, player, _projectileFactory, _soundController);
+                    ability = new BuzzSawAbility(abilityData, player, _projectileFactory);
                     break;
                 case AbilityType.PuncturedTank:
-                    ability = new PuncturedTankAbility(abilityData, player, _projectileFactory, _soundController);
+                    ability = new PuncturedTankAbility(abilityData, player, _projectileFactory);
                     break;
                 case AbilityType.EnergyLine:
-                    ability = new EnergyLineAbility(abilityData, player, _projectileFactory, _soundController);
+                    ability = new EnergyLineAbility(abilityData, player, _projectileFactory);
                     break;
                 case AbilityType.AntiGravity:
                 {
-                    ability = new AntiGravityAbility(abilityData, player, _soundController);
-                    _ = new FollowingAbilityPresenter(player, ability, abilityData, _abilityVFXFactory);
+                    ability = new AntiGravityAbility(abilityData, player);
+                    _ = new FollowingAbilityPresenter(player, ability, abilityData, _abilityVFXFactory, _soundController);
                     break;
                 }
                 case AbilityType.EnergyShield:
                 {
-                    ability = new EnergyShieldAbility(abilityData, player, _soundController);
-                    _ = new FollowingAbilityPresenter(player, ability, abilityData, _abilityVFXFactory);
+                    ability = new EnergyShieldAbility(abilityData, player);
+                    _ = new FollowingAbilityPresenter(player, ability, abilityData, _abilityVFXFactory, _soundController);
                     break;
                 }
                 default:

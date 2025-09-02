@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Common;
-using Core.Controllers;
 using Core.Models.Data;
 using Core.Services;
 using Gameplay.Enemies;
@@ -21,9 +20,8 @@ namespace Gameplay.Abilities.Core
         private readonly float _length;
         private readonly Collider[] _hitBuffer = new Collider[32];
 
-        public CuttingBlowAbility(AbilityData abilityData, Player player, IDataService dataService,
-            ISoundController soundController)
-            : base(abilityData, soundController)
+        public CuttingBlowAbility(AbilityData abilityData, Player player, IDataService dataService)
+            : base(abilityData)
         {
             _dataService = dataService;
 
