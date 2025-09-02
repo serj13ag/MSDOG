@@ -62,14 +62,14 @@ namespace Gameplay.Factories
                     break;
                 case AbilityType.AntiGravity:
                 {
-                    ability = new AntiGravityAbility(abilityData, (IEntityWithAdditionalSpeed)entityWithAbilities);
+                    ability = new AntiGravityAbility(abilityData, entityWithAbilities);
                     _ = new FollowingAbilityPresenter(entityWithAbilities, ability, abilityData, _abilityVFXFactory,
                         _soundController);
                     break;
                 }
                 case AbilityType.EnergyShield:
                 {
-                    ability = new EnergyShieldAbility(abilityData, (IEntityWithDamageReduction)entityWithAbilities);
+                    ability = new EnergyShieldAbility(abilityData, entityWithAbilities);
                     _ = new FollowingAbilityPresenter(entityWithAbilities, ability, abilityData, _abilityVFXFactory,
                         _soundController);
                     break;
