@@ -12,7 +12,7 @@ using VContainer;
 
 namespace Gameplay
 {
-    public class Player : MonoBehaviour, IUpdatable, IEntityWithAbilities
+    public class Player : MonoBehaviour, IUpdatable, IEntityWithAbilities, IMovingEntity
     {
         private const int MaxDamageReductionPercent = 80;
 
@@ -30,18 +30,18 @@ namespace Gameplay
 
         private HealthBlock _healthBlock;
         private ExperienceBlock _experienceBlock;
-        private PlayerDamageBlock _playerDamageBlock;
+        private AccumulativeDamageBlock _accumulativeDamageBlock;
         private InputMoveBlock _moveBlock;
         private AnimationBlock _animationBlock;
         private AbilityBlock _abilityBlock;
-        private PlayerSpeedBlock _playerSpeedBlock;
+        private SpeedBlock _speedBlock;
 
         private int _damageReductionPercent;
 
         public float RotationSpeed => _rotationSpeed;
         public float BaseMoveSpeed => _moveSpeed;
-        public float CurrentMoveSpeed => _playerSpeedBlock.GetCurrentMoveSpeed();
-        public bool HasNitro => _playerSpeedBlock.HasNitro;
+        public float CurrentMoveSpeed => _speedBlock.GetCurrentMoveSpeed();
+        public bool HasNitro => _speedBlock.HasNitro;
 
         public int CurrentDamageReductionPercent => _damageReductionPercent;
 
@@ -81,19 +81,19 @@ namespace Gameplay
             _animationBlock = new AnimationBlock(_animator);
             _healthBlock = new HealthBlock(100, _progressService.EasyModeEnabled);
             _experienceBlock = new ExperienceBlock(_dataService);
-            _playerDamageBlock = new PlayerDamageBlock(this, _healthBlock);
+            _accumulativeDamageBlock = new AccumulativeDamageBlock(this, _healthBlock);
             _moveBlock = new InputMoveBlock(this, _characterController, _inputService, _arenaService);
             _abilityBlock = new AbilityBlock(this);
-            _playerSpeedBlock = new PlayerSpeedBlock(this);
+            _speedBlock = new SpeedBlock(this);
 
-            _playerSpeedBlock.SetActive(true);
+            _speedBlock.SetActive(true);
 
             _updateController.Register(this);
         }
 
         public void OnUpdate(float deltaTime)
         {
-            _playerDamageBlock.OnUpdate(deltaTime);
+            _accumulativeDamageBlock.OnUpdate(deltaTime);
             _moveBlock.OnUpdate(deltaTime);
             _abilityBlock.OnUpdate(deltaTime);
             _animationBlock.SetRunning(_moveBlock.IsMoving);
@@ -101,23 +101,23 @@ namespace Gameplay
 
         public void MovementSetActive(bool value)
         {
-            _playerSpeedBlock.SetActive(value);
+            _speedBlock.SetActive(value);
             _animationBlock.SetMoveless(!value);
         }
 
         public void RegisterDamager(Guid id, int damage)
         {
-            _playerDamageBlock.RegisterDamager(id, damage);
+            _accumulativeDamageBlock.RegisterDamager(id, damage);
         }
 
         public void RegisterProjectileDamager(Guid id, int damage)
         {
-            _playerDamageBlock.RegisterProjectileDamager(id, damage);
+            _accumulativeDamageBlock.RegisterProjectileDamager(id, damage);
         }
 
         public void RemoveDamager(Guid id)
         {
-            _playerDamageBlock.RemoveDamager(id);
+            _accumulativeDamageBlock.RemoveDamager(id);
         }
 
         public void CollectExperience(int experience)
@@ -148,7 +148,7 @@ namespace Gameplay
 
         public void ChangeAdditionalSpeed(float speed)
         {
-            _playerSpeedBlock.ChangeAdditionalSpeed(speed);
+            _speedBlock.ChangeAdditionalSpeed(speed);
         }
 
         public void ChangeDamageReductionPercent(int damageReductionPercent)
@@ -165,12 +165,17 @@ namespace Gameplay
 
         public void SetNitro(float nitroMultiplier)
         {
-            _playerSpeedBlock.SetNitro(nitroMultiplier);
+            _speedBlock.SetNitro(nitroMultiplier);
         }
 
         public void ResetNitro()
         {
-            _playerSpeedBlock.ResetNitro();
+            _speedBlock.ResetNitro();
+        }
+
+        public void SetRotation(Quaternion rotation)
+        {
+            transform.rotation = rotation;
         }
 
         public Vector3 GetAbilitySpawnPosition(AbilityType abilityType)
@@ -186,6 +191,11 @@ namespace Gameplay
         public Vector3 GetForwardDirection()
         {
             return transform.forward;
+        }
+
+        public Quaternion GetRotation()
+        {
+            return transform.rotation;
         }
 
         private void OnDestroy()

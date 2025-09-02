@@ -5,23 +5,23 @@ namespace Gameplay.Abilities.Core
 {
     public class AntiGravityAbility : BasePersistentAbility
     {
-        private readonly IEntityWithAdditionalSpeed _entityWithAdditionalSpeed;
+        private readonly IEntityWithAdditionalMoveSpeed _entityWithAdditionalMoveSpeed;
         private readonly float _speed;
 
-        public AntiGravityAbility(AbilityData abilityData, IEntityWithAdditionalSpeed entityWithAdditionalSpeed)
+        public AntiGravityAbility(AbilityData abilityData, IEntityWithAdditionalMoveSpeed entityWithAdditionalMoveSpeed)
         {
-            _entityWithAdditionalSpeed = entityWithAdditionalSpeed;
+            _entityWithAdditionalMoveSpeed = entityWithAdditionalMoveSpeed;
             _speed = abilityData.Speed;
         }
 
         protected override void Activated()
         {
-            _entityWithAdditionalSpeed.ChangeAdditionalSpeed(_speed);
+            _entityWithAdditionalMoveSpeed.ChangeAdditionalSpeed(_speed);
         }
 
         protected override void Deactivated()
         {
-            _entityWithAdditionalSpeed.ChangeAdditionalSpeed(-_speed);
+            _entityWithAdditionalMoveSpeed.ChangeAdditionalSpeed(-_speed);
         }
     }
 }

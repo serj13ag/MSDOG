@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Gameplay.Interfaces
 {
-    public interface IEntityWithAbilities : IEntityWithPosition, IEntityWithDamageReduction, IEntityWithAdditionalSpeed
+    public interface IEntityWithAbilities : IEntityWithPosition, IEntityWithDamageReduction, IEntityWithAdditionalMoveSpeed
     {
         Vector3 GetAbilitySpawnPosition(AbilityType abilityDataAbilityType);
     }

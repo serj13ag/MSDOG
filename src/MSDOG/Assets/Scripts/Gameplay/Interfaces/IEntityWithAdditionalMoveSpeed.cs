@@ -1,6 +1,6 @@
 namespace Gameplay.Interfaces
 {
-    public interface IEntityWithAdditionalSpeed
+    public interface IEntityWithAdditionalMoveSpeed : IEntityWithMoveSpeed
     {
         void ChangeAdditionalSpeed(float speed);
     }

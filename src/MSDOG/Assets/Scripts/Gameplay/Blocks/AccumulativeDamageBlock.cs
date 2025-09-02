@@ -1,23 +1,24 @@
 using System;
 using System.Collections.Generic;
+using Gameplay.Interfaces;
 using UnityEngine;
 
 namespace Gameplay.Blocks
 {
-    public class PlayerDamageBlock
+    public class AccumulativeDamageBlock
     {
         private const float TakeDamageCooldown = 0.2f;
 
-        private readonly Player _player;
+        private readonly IEntityWithDamageReduction _entityWithDamageReduction;
         private readonly HealthBlock _healthBlock;
 
         private readonly Dictionary<Guid, int> _damageDealers = new Dictionary<Guid, int>(10);
         private readonly Dictionary<Guid, int> _projectileDamageDealers = new Dictionary<Guid, int>(20);
         private float _timeTillTakeDamage;
 
-        public PlayerDamageBlock(Player player, HealthBlock healthBlock)
+        public AccumulativeDamageBlock(IEntityWithDamageReduction entityWithDamageReduction, HealthBlock healthBlock)
         {
-            _player = player;
+            _entityWithDamageReduction = entityWithDamageReduction;
             _healthBlock = healthBlock;
         }
 
@@ -79,7 +80,7 @@ namespace Gameplay.Blocks
                 accumulatedDamage += projectileDamageDealer.Value;
             }
 
-            var percent = (100 - _player.CurrentDamageReductionPercent) / 100f;
+            var percent = (100 - _entityWithDamageReduction.CurrentDamageReductionPercent) / 100f;
             accumulatedDamage = Mathf.CeilToInt(accumulatedDamage * percent);
 
             _projectileDamageDealers.Clear();

@@ -1,10 +1,11 @@
+using Gameplay.Interfaces;
 using UnityEngine;
 
 namespace Gameplay.Blocks
 {
-    public class PlayerSpeedBlock
+    public class SpeedBlock
     {
-        private readonly Player _player;
+        private readonly IEntityWithMoveSpeed _entityWithMoveSpeed;
 
         private bool _movementIsActive;
         private float _additionalMoveSpeed;
@@ -12,9 +13,9 @@ namespace Gameplay.Blocks
 
         public bool HasNitro => _nitroMultiplier > 1f;
 
-        public PlayerSpeedBlock(Player player)
+        public SpeedBlock(IEntityWithMoveSpeed entityWithMoveSpeed)
         {
-            _player = player;
+            _entityWithMoveSpeed = entityWithMoveSpeed;
         }
 
         public void SetActive(bool value)
@@ -46,7 +47,7 @@ namespace Gameplay.Blocks
                 return 0f;
             }
 
-            return (_player.BaseMoveSpeed + _additionalMoveSpeed) * _nitroMultiplier;
+            return (_entityWithMoveSpeed.BaseMoveSpeed + _additionalMoveSpeed) * _nitroMultiplier;
         }
     }
 }

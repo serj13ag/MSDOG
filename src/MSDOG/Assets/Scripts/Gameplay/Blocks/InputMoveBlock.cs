@@ -1,3 +1,4 @@
+using Gameplay.Interfaces;
 using Gameplay.Services;
 using UnityEngine;
 
@@ -5,17 +6,17 @@ namespace Gameplay.Blocks
 {
     public class InputMoveBlock
     {
-        private readonly Player _player;
+        private readonly IMovingEntity _movingEntity;
         private readonly CharacterController _characterController;
         private readonly IInputService _inputService;
         private readonly IArenaService _arenaService;
 
         public bool IsMoving { get; private set; }
 
-        public InputMoveBlock(Player player, CharacterController characterController, IInputService inputService,
+        public InputMoveBlock(IMovingEntity movingEntity, CharacterController characterController, IInputService inputService,
             IArenaService arenaService)
         {
-            _player = player;
+            _movingEntity = movingEntity;
             _characterController = characterController;
             _inputService = inputService;
             _arenaService = arenaService;
@@ -24,7 +25,7 @@ namespace Gameplay.Blocks
         public void OnUpdate(float deltaTime)
         {
             var moveInput = _inputService.MoveInput;
-            if (moveInput == Vector2.zero || _player.CurrentMoveSpeed <= 0f)
+            if (moveInput == Vector2.zero || _movingEntity.CurrentMoveSpeed <= 0f)
             {
                 IsMoving = false;
                 return;
@@ -33,12 +34,13 @@ namespace Gameplay.Blocks
             var moveDirection = new Vector3(moveInput.x, 0, moveInput.y);
 
             var targetRotation = Quaternion.LookRotation(moveDirection);
-            _player.transform.rotation = Quaternion.RotateTowards(_player.transform.rotation, targetRotation,
-                _player.RotationSpeed * deltaTime);
+            var newRotation = Quaternion.RotateTowards(_movingEntity.GetRotation(), targetRotation,
+                _movingEntity.RotationSpeed * deltaTime);
+            _movingEntity.SetRotation(newRotation);
 
-            var move = moveDirection * (_player.CurrentMoveSpeed * deltaTime);
+            var move = moveDirection * (_movingEntity.CurrentMoveSpeed * deltaTime);
 
-            var nextPosition = _player.transform.position + move;
+            var nextPosition = _movingEntity.GetPosition() + move;
             if (Mathf.Abs(nextPosition.x) > _arenaService.HalfSize.X)
             {
                 move.x = 0f;
