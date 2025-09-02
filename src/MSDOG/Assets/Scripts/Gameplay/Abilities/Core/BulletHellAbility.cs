@@ -4,7 +4,7 @@ using Gameplay.Factories;
 using Gameplay.Projectiles;
 using UnityEngine;
 
-namespace Gameplay.Abilities
+namespace Gameplay.Abilities.Core
 {
     public class BulletHellAbility : BaseCooldownAbility
     {

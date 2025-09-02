@@ -2,17 +2,16 @@ using Core.Controllers;
 using Core.Models.Data;
 using Gameplay.Factories;
 using Gameplay.Projectiles;
-using UnityEngine;
 
-namespace Gameplay.Abilities
+namespace Gameplay.Abilities.Core
 {
-    public class BuzzSawAbility : BaseCooldownAbility
+    public class GunShotAbility : BaseCooldownAbility
     {
         private readonly AbilityData _abilityData;
         private readonly Player _player;
         private readonly IProjectileFactory _projectileFactory;
 
-        public BuzzSawAbility(AbilityData abilityData, Player player, IProjectileFactory projectileFactory,
+        public GunShotAbility(AbilityData abilityData, Player player, IProjectileFactory projectileFactory,
             ISoundController soundController)
             : base(abilityData, soundController)
         {
@@ -23,15 +22,7 @@ namespace Gameplay.Abilities
 
         protected override void InvokeAction()
         {
-            Vector3 randomDirection;
-            do
-            {
-                randomDirection = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
-            } while (randomDirection == Vector3.zero);
-
-            randomDirection.Normalize();
-
-            var projectileSpawnData = new ProjectileSpawnData(_player.GetAbilitySpawnPosition(_abilityData.AbilityType), randomDirection, _abilityData);
+            var projectileSpawnData = new ProjectileSpawnData(_player.GetAbilitySpawnPosition(_abilityData.AbilityType), _player.transform.forward, _abilityData);
             _projectileFactory.CreateAbilityProjectile(projectileSpawnData);
         }
     }

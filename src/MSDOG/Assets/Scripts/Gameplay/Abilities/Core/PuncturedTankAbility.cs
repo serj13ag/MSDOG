@@ -2,16 +2,17 @@ using Core.Controllers;
 using Core.Models.Data;
 using Gameplay.Factories;
 using Gameplay.Projectiles;
+using UnityEngine;
 
-namespace Gameplay.Abilities
+namespace Gameplay.Abilities.Core
 {
-    public class GunShotAbility : BaseCooldownAbility
+    public class PuncturedTankAbility : BaseCooldownAbility
     {
         private readonly AbilityData _abilityData;
         private readonly Player _player;
         private readonly IProjectileFactory _projectileFactory;
 
-        public GunShotAbility(AbilityData abilityData, Player player, IProjectileFactory projectileFactory,
+        public PuncturedTankAbility(AbilityData abilityData, Player player, IProjectileFactory projectileFactory,
             ISoundController soundController)
             : base(abilityData, soundController)
         {
@@ -22,7 +23,7 @@ namespace Gameplay.Abilities
 
         protected override void InvokeAction()
         {
-            var projectileSpawnData = new ProjectileSpawnData(_player.GetAbilitySpawnPosition(_abilityData.AbilityType), _player.transform.forward, _abilityData);
+            var projectileSpawnData = new ProjectileSpawnData(_player.GetAbilitySpawnPosition(_abilityData.AbilityType), Vector3.zero, _abilityData);
             _projectileFactory.CreateAbilityProjectile(projectileSpawnData);
         }
     }

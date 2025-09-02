@@ -4,15 +4,15 @@ using Gameplay.Factories;
 using Gameplay.Projectiles;
 using UnityEngine;
 
-namespace Gameplay.Abilities
+namespace Gameplay.Abilities.Core
 {
-    public class EnergyLineAbility : BaseCooldownAbility
+    public class BuzzSawAbility : BaseCooldownAbility
     {
         private readonly AbilityData _abilityData;
         private readonly Player _player;
         private readonly IProjectileFactory _projectileFactory;
 
-        public EnergyLineAbility(AbilityData abilityData, Player player, IProjectileFactory projectileFactory,
+        public BuzzSawAbility(AbilityData abilityData, Player player, IProjectileFactory projectileFactory,
             ISoundController soundController)
             : base(abilityData, soundController)
         {

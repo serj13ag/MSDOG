@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Utility;
 
-namespace Gameplay.AbilityVFX
+namespace Gameplay.Abilities.View.VFX
 {
     public class OneTimeAbilityVFX : BaseAbilityVFX
     {

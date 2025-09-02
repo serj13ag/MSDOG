@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Core.Models.Data;
 using Core.Sounds;
-using Gameplay.Abilities;
+using Gameplay.Abilities.Core;
 
 namespace Core.Services
 {

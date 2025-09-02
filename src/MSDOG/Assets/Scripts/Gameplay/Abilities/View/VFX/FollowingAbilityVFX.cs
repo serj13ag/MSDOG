@@ -3,7 +3,7 @@ using Gameplay.Interfaces;
 using UnityEngine;
 using VContainer;
 
-namespace Gameplay.AbilityVFX
+namespace Gameplay.Abilities.View.VFX
 {
     public class FollowingAbilityVFX : BaseAbilityVFX, IUpdatable
     {

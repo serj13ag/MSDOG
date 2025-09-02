@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Common;
-using Gameplay.Abilities;
+using Gameplay.Abilities.Core;
 using Gameplay.Controllers;
 using Gameplay.Enemies;
 using Gameplay.Services;

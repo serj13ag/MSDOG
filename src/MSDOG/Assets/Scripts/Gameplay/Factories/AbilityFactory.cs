@@ -2,8 +2,8 @@ using System;
 using Core.Controllers;
 using Core.Models.Data;
 using Core.Services;
-using Gameplay.Abilities;
-using Gameplay.AbilityVFX;
+using Gameplay.Abilities.Core;
+using Gameplay.Abilities.View;
 
 namespace Gameplay.Factories
 {

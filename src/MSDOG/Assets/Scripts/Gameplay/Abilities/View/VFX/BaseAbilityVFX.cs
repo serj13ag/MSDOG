@@ -1,6 +1,6 @@
 using Utility.Pools;
 
-namespace Gameplay.AbilityVFX
+namespace Gameplay.Abilities.View.VFX
 {
     public abstract class BaseAbilityVFX : BasePooledObject
     {

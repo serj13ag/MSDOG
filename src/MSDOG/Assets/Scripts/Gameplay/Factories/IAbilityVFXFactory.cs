@@ -1,5 +1,5 @@
 using Core.Models.Data;
-using Gameplay.AbilityVFX;
+using Gameplay.Abilities.View.VFX;
 
 namespace Gameplay.Factories
 {

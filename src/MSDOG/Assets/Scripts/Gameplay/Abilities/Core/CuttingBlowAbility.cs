@@ -7,7 +7,7 @@ using Gameplay.Enemies;
 using UnityEngine;
 using Utility.Extensions;
 
-namespace Gameplay.Abilities
+namespace Gameplay.Abilities.Core
 {
     public class CuttingBlowAbility : BaseCooldownAbility
     {

@@ -2,7 +2,7 @@ using System;
 using Core.Controllers;
 using Core.Models.Data;
 
-namespace Gameplay.Abilities
+namespace Gameplay.Abilities.Core
 {
     public abstract class BaseCooldownAbility : IAbility
     {

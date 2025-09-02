@@ -1,7 +1,7 @@
 using System;
 using Core.Models.Data;
 using Core.Services;
-using Gameplay.Abilities;
+using Gameplay.Abilities.Core;
 using Gameplay.Blocks;
 using Gameplay.Controllers;
 using Gameplay.Factories;

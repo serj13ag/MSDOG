@@ -1,4 +1,4 @@
-namespace Gameplay.Abilities
+namespace Gameplay.Abilities.Core
 {
     public enum AbilityType
     {

@@ -1,5 +1,5 @@
-using Gameplay.Abilities;
-using Gameplay.AbilityVFX;
+using Gameplay.Abilities.Core;
+using Gameplay.Abilities.View.VFX;
 using UnityEngine;
 
 namespace Core.Models.Data

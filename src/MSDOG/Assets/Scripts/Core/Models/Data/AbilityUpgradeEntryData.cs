@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Gameplay.Abilities;
+using Gameplay.Abilities.Core;
 
 namespace Core.Models.Data
 {

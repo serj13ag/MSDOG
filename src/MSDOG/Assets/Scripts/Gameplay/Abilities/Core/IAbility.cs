@@ -1,6 +1,6 @@
 using System;
 
-namespace Gameplay.Abilities
+namespace Gameplay.Abilities.Core
 {
     public interface IAbility : IDisposable
     {

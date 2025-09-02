@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Gameplay.Abilities;
+using Gameplay.Abilities.Core;
 using UnityEngine;
 
 namespace Gameplay.Blocks

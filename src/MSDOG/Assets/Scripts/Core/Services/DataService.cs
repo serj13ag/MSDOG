@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Models.Data;
 using Core.Sounds;
-using Gameplay.Abilities;
+using Gameplay.Abilities.Core;
 using UnityEngine;
 using UnityEngine.Assertions;
 
