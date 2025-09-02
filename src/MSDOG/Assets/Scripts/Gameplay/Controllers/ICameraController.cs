@@ -1,3 +1,4 @@
+using Gameplay.Interfaces;
 using UnityEngine;
 
 namespace Gameplay.Controllers
@@ -6,6 +7,6 @@ namespace Gameplay.Controllers
     {
         Camera GameplayCamera { get; }
 
-        void SetFollowTarget(Transform targetTransform);
+        void SetFollowTarget(IEntityWithPosition entityWithPosition);
     }
 }

@@ -12,7 +12,7 @@ namespace Gameplay.Controllers
 
         private IGameplayUpdateController _updateController;
 
-        private Transform _targetTransform;
+        private IEntityWithPosition _targetEntityWithPosition;
 
         public Camera GameplayCamera => _gameplayCamera;
 
@@ -22,21 +22,21 @@ namespace Gameplay.Controllers
             _updateController = updateController;
         }
 
-        public void SetFollowTarget(Transform targetTransform)
+        public void SetFollowTarget(IEntityWithPosition entityWithPosition)
         {
-            _targetTransform = targetTransform;
+            _targetEntityWithPosition = entityWithPosition;
 
             _updateController.Register(this);
         }
 
         public void OnUpdate(float deltaTime)
         {
-            if (_targetTransform == null)
+            if (_targetEntityWithPosition == null)
             {
                 return;
             }
 
-            _gameplayCamera.transform.position = _targetTransform.position + _cameraPositionOffset;
+            _gameplayCamera.transform.position = _targetEntityWithPosition.GetPosition() + _cameraPositionOffset;
             _gameplayCamera.transform.rotation = Quaternion.Euler(_cameraRotationOffset);
         }
 
