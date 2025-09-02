@@ -30,14 +30,16 @@ namespace Gameplay.Factories
             {
                 case AbilityType.CuttingBlow:
                 {
-                    ability = new CuttingBlowAbility(abilityData, player, _dataService, _soundController);
-                    _ = new OneTimeAbilityPresenter(player, ability, abilityData, _abilityVFXFactory);
+                    var cuttingBlowAbility = new CuttingBlowAbility(abilityData, player, _dataService, _soundController);
+                    _ = new OneTimeAbilityPresenter(player, cuttingBlowAbility, abilityData, _abilityVFXFactory);
+                    ability = cuttingBlowAbility;
                     break;
                 }
                 case AbilityType.RoundAttack:
                 {
-                    ability = new RoundAttackAbility(abilityData, player, _dataService, _soundController);
-                    _ = new OneTimeAbilityPresenter(player, ability, abilityData, _abilityVFXFactory);
+                    var roundAttackAbility = new RoundAttackAbility(abilityData, player, _dataService, _soundController);
+                    _ = new OneTimeAbilityPresenter(player, roundAttackAbility, abilityData, _abilityVFXFactory);
+                    ability = roundAttackAbility;
                     break;
                 }
                 case AbilityType.GunShot:

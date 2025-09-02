@@ -11,10 +11,10 @@ namespace Gameplay.Abilities.View
         private readonly IAbilityVFXFactory _abilityVFXFactory;
 
         private readonly Player _player;
-        private readonly IAbility _ability;
+        private readonly ICooldownAbility _ability;
         private readonly AbilityData _abilityData;
 
-        public OneTimeAbilityPresenter(Player player, IAbility ability, AbilityData abilityData,
+        public OneTimeAbilityPresenter(Player player, ICooldownAbility ability, AbilityData abilityData,
             IAbilityVFXFactory abilityVFXFactory)
         {
             Assert.IsNotNull(abilityData.FollowingAbilityVFXPrefab);

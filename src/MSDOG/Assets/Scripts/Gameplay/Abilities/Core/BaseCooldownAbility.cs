@@ -4,7 +4,7 @@ using Core.Models.Data;
 
 namespace Gameplay.Abilities.Core
 {
-    public abstract class BaseCooldownAbility : IAbility
+    public abstract class BaseCooldownAbility : ICooldownAbility
     {
         private readonly AbilityData _abilityData;
         private readonly ISoundController _soundController;

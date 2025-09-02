@@ -10,7 +10,6 @@ namespace Gameplay.Abilities.Core
 
         event Action OnActivated;
         event Action OnDeactivated;
-        event Action OnActionInvoked;
         event Action OnDisposed;
     }
 }

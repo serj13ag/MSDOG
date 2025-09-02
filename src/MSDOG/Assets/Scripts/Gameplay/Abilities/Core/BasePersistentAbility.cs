@@ -13,7 +13,6 @@ namespace Gameplay.Abilities.Core
 
         public event Action OnActivated;
         public event Action OnDeactivated;
-        public event Action OnActionInvoked; // TODO: to another interface
         public event Action OnDisposed;
 
         protected BasePersistentAbility(AbilityData abilityData, ISoundController soundController)
