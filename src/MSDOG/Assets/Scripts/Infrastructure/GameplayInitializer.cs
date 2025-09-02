@@ -94,7 +94,7 @@ namespace Infrastructure
         {
             var player = _gameFactory.CreatePlayer();
             _playerProvider.RegisterPlayer(player);
-            _tutorialService.StartTrackPlayer(player);
+            _tutorialService.StartTrackTarget(player);
             _cameraController.SetFollowTarget(player);
         }
 

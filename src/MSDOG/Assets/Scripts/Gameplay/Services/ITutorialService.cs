@@ -1,8 +1,10 @@
+using Gameplay.Interfaces;
+
 namespace Gameplay.Services
 {
     public interface ITutorialService
     {
-        void StartTrackPlayer(Player player);
+        void StartTrackTarget(IEntityWithHealth entityWithHealth);
 
         void OnCanCraft();
         void OnHasDetailsWithSimilarAbilities();

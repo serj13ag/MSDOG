@@ -4,6 +4,7 @@ using System.Linq;
 using Core.Models.Data;
 using Core.Models.SaveData;
 using Core.Services;
+using Gameplay.Interfaces;
 
 namespace Gameplay.Services
 {
@@ -16,7 +17,7 @@ namespace Gameplay.Services
         private readonly ISaveLoadService _saveLoadService;
 
         private readonly List<TutorialEventType> _shownTutorialEvents;
-        private Player _player;
+        private IEntityWithHealth _entityWithHealth;
 
         public TutorialService(IGameplayWindowService gameplayWindowService, IDataService dataService, ISaveLoadService saveLoadService)
         {
@@ -28,11 +29,11 @@ namespace Gameplay.Services
             _shownTutorialEvents = tutorialSaveData.ShownTutorialEvents;
         }
 
-        public void StartTrackPlayer(Player player)
+        public void StartTrackTarget(IEntityWithHealth entityWithHealth)
         {
-            _player = player;
+            _entityWithHealth = entityWithHealth;
 
-            player.OnHealthChanged += OnPlayerHealthChanged;
+            entityWithHealth.OnHealthChanged += OnPlayerHealthChanged;
         }
 
         public void OnCanCraft()
@@ -63,7 +64,7 @@ namespace Gameplay.Services
 
         private void OnPlayerHealthChanged()
         {
-            if (_player.CurrentHealth < _player.MaxHealth)
+            if (_entityWithHealth.CurrentHealth < _entityWithHealth.MaxHealth)
             {
                 TryShowTutorialWindow(TutorialEventType.Destruction);
             }
@@ -99,7 +100,7 @@ namespace Gameplay.Services
 
         public void Dispose()
         {
-            _player.OnHealthChanged -= OnPlayerHealthChanged;
+            _entityWithHealth.OnHealthChanged -= OnPlayerHealthChanged;
         }
     }
 }

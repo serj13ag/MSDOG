@@ -18,7 +18,6 @@ namespace Gameplay.Services
 
         private int _levelIndex;
         private bool _isLastLevel;
-        private Player _player;
 
         public int CurrentLevelIndex => _levelIndex;
         public bool IsLastLevel => _isLastLevel;
