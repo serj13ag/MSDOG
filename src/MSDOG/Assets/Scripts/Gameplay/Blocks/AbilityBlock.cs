@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Gameplay.Abilities.Core;
 using Gameplay.Interfaces;
 using UnityEngine;
@@ -21,9 +20,9 @@ namespace Gameplay.Blocks
 
         public void OnUpdate(float deltaTime)
         {
-            foreach (var ability in _abilities.Values.ToArray())
+            foreach (var ability in _abilities)
             {
-                ability.OnUpdate(deltaTime);
+                ability.Value.OnUpdate(deltaTime);
             }
         }
 

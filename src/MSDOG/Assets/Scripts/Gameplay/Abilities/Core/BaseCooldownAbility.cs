@@ -47,7 +47,6 @@ namespace Gameplay.Abilities.Core
             InvokeAction();
             ResetTimeTillAction();
 
-
             OnActionInvoked?.Invoke();
         }
 
