@@ -40,7 +40,6 @@ namespace Gameplay.Factories
             }
         }
 
-        // TODO: separate effects from domain!
         public T CreateEffect<T>(IEntityWithAbilities entityWithAbilities, AbilityData abilityData) where T : BaseAbilityVFX
         {
             var prefab = abilityData.FollowingAbilityVFXPrefab;
