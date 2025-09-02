@@ -30,7 +30,7 @@ namespace Gameplay.Abilities.Core
 
             _isActive = true;
 
-            _soundController.PlayAbilityActivationSfx(_abilityData.ActivationSound);
+            _soundController.PlayAbilityActivationSfx(_abilityData.ActivationSound); // TODO: to presenter
 
             Activated();
             OnActivated?.Invoke();

@@ -14,8 +14,6 @@ namespace Gameplay.Abilities.Core
         private bool _isActive;
         private float _timeTillAction;
 
-        protected AbilityType AbilityType => _abilityData.AbilityType; // TODO: remove
-
         public event Action OnActivated;
         public event Action OnDeactivated;
         public event Action OnActionInvoked;
@@ -56,7 +54,7 @@ namespace Gameplay.Abilities.Core
             InvokeAction();
             ResetTimeTillAction();
 
-            _soundController.PlayAbilityActivationSfx(_abilityData.ActivationSound);
+            _soundController.PlayAbilityActivationSfx(_abilityData.ActivationSound); // TODO: to presenter
 
             OnActionInvoked?.Invoke();
         }
