@@ -3,9 +3,7 @@ using Common;
 using Core.Controllers;
 using Core.Models.Data;
 using Core.Services;
-using Gameplay.AbilityVFX;
 using Gameplay.Enemies;
-using Gameplay.Factories;
 using UnityEngine;
 using Utility.Extensions;
 
@@ -13,23 +11,19 @@ namespace Gameplay.Abilities
 {
     public class RoundAttackAbility : BaseCooldownAbility
     {
-        private readonly IAbilityVFXFactory _abilityVFXFactory;
         private readonly IDataService _dataService;
 
-        private readonly AbilityData _abilityData;
         private readonly Player _player;
         private readonly int _damage;
         private readonly float _radius;
         private readonly Collider[] _hitBuffer = new Collider[32];
 
-        public RoundAttackAbility(AbilityData abilityData, Player player, IAbilityVFXFactory abilityVFXFactory,
-            IDataService dataService, ISoundController soundController)
+        public RoundAttackAbility(AbilityData abilityData, Player player, IDataService dataService,
+            ISoundController soundController)
             : base(abilityData, soundController)
         {
-            _abilityVFXFactory = abilityVFXFactory;
             _dataService = dataService;
 
-            _abilityData = abilityData;
             _player = player;
             _damage = abilityData.Damage;
             _radius = abilityData.Size;
@@ -38,8 +32,6 @@ namespace Gameplay.Abilities
         protected override void InvokeAction()
         {
             Slash();
-
-            _abilityVFXFactory.CreateEffect<OneTimeAbilityVFX>(_player, _abilityData);
 
             if (_dataService.GetSettings().ShowDebugHitboxes)
             {
@@ -74,6 +66,7 @@ namespace Gameplay.Abilities
             return hitEnemies;
         }
 
+        // TODO: remove?
         private void ShowDebugEffect()
         {
             var slashIndicator = GameObject.CreatePrimitive(PrimitiveType.Cylinder);

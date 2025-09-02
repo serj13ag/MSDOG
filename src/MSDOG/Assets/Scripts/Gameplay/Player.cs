@@ -83,7 +83,7 @@ namespace Gameplay
             _experienceBlock = new ExperienceBlock(_dataService);
             _playerDamageBlock = new PlayerDamageBlock(this, _healthBlock);
             _moveBlock = new InputMoveBlock(this, _characterController, _inputService, _arenaService);
-            _abilityBlock = new AbilityBlock(this, _abilityFactory);
+            _abilityBlock = new AbilityBlock(this);
             _playerSpeedBlock = new PlayerSpeedBlock(this);
 
             _playerSpeedBlock.SetActive(true);
@@ -132,7 +132,8 @@ namespace Gameplay
 
         public void AddAbility(Guid id, AbilityData abilityData)
         {
-            _abilityBlock.AddAbility(id, abilityData);
+            var ability = _abilityFactory.CreateAbility(abilityData, this);
+            _abilityBlock.AddAbility(id, ability);
         }
 
         public void RemoveAbility(Guid id)

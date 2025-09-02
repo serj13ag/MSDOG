@@ -1,3 +1,4 @@
+using System;
 using Core.Controllers;
 using Core.Models.Data;
 
@@ -13,7 +14,12 @@ namespace Gameplay.Abilities
         private bool _isActive;
         private float _timeTillAction;
 
-        protected AbilityType AbilityType => _abilityData.AbilityType;
+        protected AbilityType AbilityType => _abilityData.AbilityType; // TODO: remove
+
+        public event Action OnActivated;
+        public event Action OnDeactivated;
+        public event Action OnActionInvoked;
+        public event Action OnDisposed;
 
         protected BaseCooldownAbility(AbilityData abilityData, ISoundController soundController)
         {
@@ -51,6 +57,8 @@ namespace Gameplay.Abilities
             ResetTimeTillAction();
 
             _soundController.PlayAbilityActivationSfx(_abilityData.ActivationSound);
+
+            OnActionInvoked?.Invoke();
         }
 
         public void Deactivate()
@@ -68,6 +76,11 @@ namespace Gameplay.Abilities
         private void ResetTimeTillAction()
         {
             _timeTillAction = _cooldown;
+        }
+
+        public void Dispose()
+        {
+            OnDisposed?.Invoke();
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using Core.Controllers;
 using Core.Models.Data;
 
@@ -9,6 +10,11 @@ namespace Gameplay.Abilities
         private readonly ISoundController _soundController;
 
         private bool _isActive;
+
+        public event Action OnActivated;
+        public event Action OnDeactivated;
+        public event Action OnActionInvoked; // TODO: to another interface
+        public event Action OnDisposed;
 
         protected BasePersistentAbility(AbilityData abilityData, ISoundController soundController)
         {
@@ -27,7 +33,8 @@ namespace Gameplay.Abilities
 
             _soundController.PlayAbilityActivationSfx(_abilityData.ActivationSound);
 
-            OnActivated();
+            Activated();
+            OnActivated?.Invoke();
         }
 
         public void OnUpdate(float deltaTime)
@@ -43,10 +50,16 @@ namespace Gameplay.Abilities
 
             _isActive = false;
 
-            OnDeactivated();
+            Deactivated();
+            OnDeactivated?.Invoke();
         }
 
-        protected abstract void OnActivated();
-        protected abstract void OnDeactivated();
+        protected abstract void Activated();
+        protected abstract void Deactivated();
+
+        public void Dispose()
+        {
+            OnDisposed?.Invoke();
+        }
     }
 }

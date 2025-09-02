@@ -1,0 +1,52 @@
+using Core.Models.Data;
+using Gameplay.Abilities;
+using Gameplay.Factories;
+using UnityEngine.Assertions;
+
+namespace Gameplay.AbilityVFX
+{
+    public class FollowingAbilityPresenter
+    {
+        private readonly IAbilityVFXFactory _abilityVFXFactory;
+
+        private readonly Player _player;
+        private readonly IAbility _ability;
+        private readonly AbilityData _abilityData;
+
+        private FollowingAbilityVFX _vfx;
+
+        public FollowingAbilityPresenter(Player player, IAbility ability, AbilityData abilityData,
+            IAbilityVFXFactory abilityVFXFactory)
+        {
+            Assert.IsNotNull(abilityData.FollowingAbilityVFXPrefab);
+
+            _abilityVFXFactory = abilityVFXFactory;
+
+            _player = player;
+            _ability = ability;
+            _abilityData = abilityData;
+
+            ability.OnActivated += OnAbilityActivated;
+            ability.OnDeactivated += OnAbilityDeactivated;
+            ability.OnDisposed += OnAbilityDisposed;
+        }
+
+        private void OnAbilityActivated()
+        {
+            _vfx = _abilityVFXFactory.CreateEffect<FollowingAbilityVFX>(_player, _abilityData);
+        }
+
+        private void OnAbilityDeactivated()
+        {
+            _vfx.Clear();
+            _vfx = null;
+        }
+
+        private void OnAbilityDisposed()
+        {
+            _ability.OnActivated -= OnAbilityActivated;
+            _ability.OnDeactivated -= OnAbilityDeactivated;
+            _ability.OnDisposed -= OnAbilityDisposed;
+        }
+    }
+}

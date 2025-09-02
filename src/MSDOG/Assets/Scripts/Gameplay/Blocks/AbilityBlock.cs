@@ -1,25 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Models.Data;
 using Gameplay.Abilities;
-using Gameplay.Factories;
 using UnityEngine;
 
 namespace Gameplay.Blocks
 {
     public class AbilityBlock
     {
-        private readonly Player _player;
-        private readonly IAbilityFactory _abilityFactory;
+        private readonly Player _player; // TODO: IEntityWithPositiona
 
         private readonly Dictionary<Guid, IAbility> _abilities = new Dictionary<Guid, IAbility>();
         private bool _abilitiesIsActive;
 
-        public AbilityBlock(Player player, IAbilityFactory abilityFactory)
+        public AbilityBlock(Player player)
         {
             _player = player;
-            _abilityFactory = abilityFactory;
         }
 
         public void OnUpdate(float deltaTime)
@@ -30,10 +26,8 @@ namespace Gameplay.Blocks
             }
         }
 
-        public void AddAbility(Guid id, AbilityData abilityData)
+        public void AddAbility(Guid id, IAbility ability)
         {
-            var ability = _abilityFactory.CreateAbility(abilityData, _player);
-
             if (_abilitiesIsActive)
             {
                 ability.Activate();
@@ -45,6 +39,7 @@ namespace Gameplay.Blocks
         public void RemoveAbility(Guid id)
         {
             _abilities[id].Deactivate();
+            _abilities[id].Dispose();
             _abilities.Remove(id);
         }
 

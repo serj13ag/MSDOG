@@ -3,6 +3,7 @@ using Core.Controllers;
 using Core.Models.Data;
 using Core.Services;
 using Gameplay.Abilities;
+using Gameplay.AbilityVFX;
 
 namespace Gameplay.Factories
 {
@@ -24,22 +25,53 @@ namespace Gameplay.Factories
 
         public IAbility CreateAbility(AbilityData abilityData, Player player)
         {
-            return abilityData.AbilityType switch
+            IAbility ability;
+            switch (abilityData.AbilityType)
             {
-                AbilityType.CuttingBlow => new CuttingBlowAbility(abilityData, player, _abilityVFXFactory, _dataService,
-                    _soundController),
-                AbilityType.RoundAttack => new RoundAttackAbility(abilityData, player, _abilityVFXFactory, _dataService,
-                    _soundController),
-                AbilityType.GunShot => new GunShotAbility(abilityData, player, _projectileFactory, _soundController),
-                AbilityType.BulletHell => new BulletHellAbility(abilityData, player, _projectileFactory, _soundController),
-                AbilityType.BuzzSaw => new BuzzSawAbility(abilityData, player, _projectileFactory, _soundController),
-                AbilityType.PuncturedTank => new PuncturedTankAbility(abilityData, player, _projectileFactory, _soundController),
-                AbilityType.EnergyLine => new EnergyLineAbility(abilityData, player, _projectileFactory, _soundController),
+                case AbilityType.CuttingBlow:
+                {
+                    ability = new CuttingBlowAbility(abilityData, player, _dataService, _soundController);
+                    _ = new OneTimeAbilityPresenter(player, ability, abilityData, _abilityVFXFactory);
+                    break;
+                }
+                case AbilityType.RoundAttack:
+                {
+                    ability = new RoundAttackAbility(abilityData, player, _dataService, _soundController);
+                    _ = new OneTimeAbilityPresenter(player, ability, abilityData, _abilityVFXFactory);
+                    break;
+                }
+                case AbilityType.GunShot:
+                    ability = new GunShotAbility(abilityData, player, _projectileFactory, _soundController);
+                    break;
+                case AbilityType.BulletHell:
+                    ability = new BulletHellAbility(abilityData, player, _projectileFactory, _soundController);
+                    break;
+                case AbilityType.BuzzSaw:
+                    ability = new BuzzSawAbility(abilityData, player, _projectileFactory, _soundController);
+                    break;
+                case AbilityType.PuncturedTank:
+                    ability = new PuncturedTankAbility(abilityData, player, _projectileFactory, _soundController);
+                    break;
+                case AbilityType.EnergyLine:
+                    ability = new EnergyLineAbility(abilityData, player, _projectileFactory, _soundController);
+                    break;
+                case AbilityType.AntiGravity:
+                {
+                    ability = new AntiGravityAbility(abilityData, player, _soundController);
+                    _ = new FollowingAbilityPresenter(player, ability, abilityData, _abilityVFXFactory);
+                    break;
+                }
+                case AbilityType.EnergyShield:
+                {
+                    ability = new EnergyShieldAbility(abilityData, player, _soundController);
+                    _ = new FollowingAbilityPresenter(player, ability, abilityData, _abilityVFXFactory);
+                    break;
+                }
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
-                AbilityType.AntiGravity => new AntiGravityAbility(abilityData, player, _abilityVFXFactory, _soundController),
-                AbilityType.EnergyShield => new EnergyShieldAbility(abilityData, player, _abilityVFXFactory, _soundController),
-                _ => throw new ArgumentOutOfRangeException(),
-            };
+            return ability;
         }
     }
 }

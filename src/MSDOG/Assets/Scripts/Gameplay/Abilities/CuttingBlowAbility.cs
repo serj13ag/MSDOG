@@ -3,9 +3,7 @@ using Common;
 using Core.Controllers;
 using Core.Models.Data;
 using Core.Services;
-using Gameplay.AbilityVFX;
 using Gameplay.Enemies;
-using Gameplay.Factories;
 using UnityEngine;
 using Utility.Extensions;
 
@@ -16,23 +14,19 @@ namespace Gameplay.Abilities
         private const float BoxHeight = 2f;
         private const float BoxWidth = 1.7f;
 
-        private readonly IAbilityVFXFactory _abilityVFXFactory;
         private readonly IDataService _dataService;
 
-        private readonly AbilityData _abilityData;
         private readonly Player _player;
         private readonly int _damage;
         private readonly float _length;
         private readonly Collider[] _hitBuffer = new Collider[32];
 
-        public CuttingBlowAbility(AbilityData abilityData, Player player, IAbilityVFXFactory abilityVFXFactory,
-            IDataService dataService, ISoundController soundController)
+        public CuttingBlowAbility(AbilityData abilityData, Player player, IDataService dataService,
+            ISoundController soundController)
             : base(abilityData, soundController)
         {
-            _abilityVFXFactory = abilityVFXFactory;
             _dataService = dataService;
 
-            _abilityData = abilityData;
             _player = player;
             _damage = abilityData.Damage;
             _length = abilityData.Size;
@@ -41,8 +35,6 @@ namespace Gameplay.Abilities
         protected override void InvokeAction()
         {
             Slash();
-
-            _abilityVFXFactory.CreateEffect<OneTimeAbilityVFX>(_player, _abilityData); // TODO: separate effects from domain
 
             if (_dataService.GetSettings().ShowDebugHitboxes)
             {
