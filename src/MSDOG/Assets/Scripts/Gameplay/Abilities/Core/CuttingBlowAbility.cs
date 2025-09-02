@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Common;
 using Core.Models.Data;
-using Core.Services;
 using Gameplay.Enemies;
 using Gameplay.Interfaces;
 using UnityEngine;
@@ -11,21 +10,14 @@ namespace Gameplay.Abilities.Core
 {
     public class CuttingBlowAbility : BaseCooldownAbility
     {
-        private const float BoxHeight = 2f;
-        private const float BoxWidth = 1.7f;
-
-        private readonly IDataService _dataService;
-
         private readonly IEntityWithAbilities _entityWithAbilities;
         private readonly int _damage;
         private readonly float _length;
         private readonly Collider[] _hitBuffer = new Collider[32];
 
-        public CuttingBlowAbility(AbilityData abilityData, IEntityWithAbilities entityWithAbilities, IDataService dataService)
+        public CuttingBlowAbility(AbilityData abilityData, IEntityWithAbilities entityWithAbilities)
             : base(abilityData)
         {
-            _dataService = dataService;
-
             _entityWithAbilities = entityWithAbilities;
             _damage = abilityData.Damage;
             _length = abilityData.Size;
@@ -34,11 +26,6 @@ namespace Gameplay.Abilities.Core
         protected override void InvokeAction()
         {
             Slash();
-
-            if (_dataService.GetSettings().ShowDebugHitboxes)
-            {
-                ShowSlashDebugEffect();
-            }
         }
 
         private void Slash()
@@ -55,7 +42,7 @@ namespace Gameplay.Abilities.Core
             var hitEnemies = new List<Enemy>();
 
             var boxCenter = _entityWithAbilities.GetPosition();
-            var boxSize = new Vector3(_length, BoxHeight, BoxWidth);
+            var boxSize = new Vector3(_length, Constants.CuttingBlowAbility.BoxHeight, Constants.CuttingBlowAbility.BoxWidth);
 
             var hits = Physics.OverlapBoxNonAlloc(boxCenter, boxSize * 0.5f, _hitBuffer, Quaternion.identity,
                 Constants.LayerMasks.EnemyLayer);
@@ -69,21 +56,6 @@ namespace Gameplay.Abilities.Core
             }
 
             return hitEnemies;
-        }
-
-        private void ShowSlashDebugEffect()
-        {
-            var slashIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            slashIndicator.transform.position = _entityWithAbilities.GetPosition();
-            slashIndicator.transform.rotation = Quaternion.identity;
-            slashIndicator.transform.localScale = new Vector3(_length, BoxHeight, BoxWidth);
-
-            var renderer = slashIndicator.GetComponent<Renderer>();
-            var mat = renderer.material;
-            mat.color = Color.red;
-
-            Object.Destroy(slashIndicator.GetComponent<Collider>());
-            Object.Destroy(slashIndicator, 0.2f);
         }
     }
 }

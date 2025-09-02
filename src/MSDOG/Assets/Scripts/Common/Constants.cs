@@ -21,5 +21,11 @@ namespace Common
             public const float RangeCloseDistance = 5f;
             public const float RangeCloseDistanceOut = RangeCloseDistance + 1f;
         }
+
+        public static class CuttingBlowAbility
+        {
+            public const float BoxHeight = 2f;
+            public const float BoxWidth = 1.7f;
+        }
     }
 }

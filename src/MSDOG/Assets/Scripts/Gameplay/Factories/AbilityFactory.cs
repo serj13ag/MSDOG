@@ -31,17 +31,17 @@ namespace Gameplay.Factories
             {
                 case AbilityType.CuttingBlow:
                 {
-                    var cuttingBlowAbility = new CuttingBlowAbility(abilityData, entityWithAbilities, _dataService);
+                    var cuttingBlowAbility = new CuttingBlowAbility(abilityData, entityWithAbilities);
                     _ = new OneTimeAbilityPresenter(entityWithAbilities, cuttingBlowAbility, abilityData, _abilityVFXFactory,
-                        _soundController);
+                        _soundController, _dataService);
                     ability = cuttingBlowAbility;
                     break;
                 }
                 case AbilityType.RoundAttack:
                 {
-                    var roundAttackAbility = new RoundAttackAbility(abilityData, entityWithAbilities, _dataService);
+                    var roundAttackAbility = new RoundAttackAbility(abilityData, entityWithAbilities);
                     _ = new OneTimeAbilityPresenter(entityWithAbilities, roundAttackAbility, abilityData, _abilityVFXFactory,
-                        _soundController);
+                        _soundController, _dataService);
                     ability = roundAttackAbility;
                     break;
                 }
