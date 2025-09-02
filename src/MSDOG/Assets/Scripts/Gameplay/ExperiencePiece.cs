@@ -20,7 +20,7 @@ namespace Gameplay
         private IGameplayUpdateController _updateController;
         private ISoundController _soundController;
 
-        private Player _collectorPlayer;
+        private IExperiencePieceCollector _collector;
         private int _experience;
 
         [Inject]
@@ -33,7 +33,7 @@ namespace Gameplay
         public void Init(Vector3 position, int experience)
         {
             _experience = experience;
-            _collectorPlayer = null;
+            _collector = null;
 
             ActivateRandomView();
 
@@ -46,16 +46,16 @@ namespace Gameplay
 
         public void OnUpdate(float deltaTime)
         {
-            if (!_collectorPlayer)
+            if (_collector == null)
             {
                 return;
             }
 
-            var vectorToPlayer = _collectorPlayer.transform.position - transform.position;
+            var vectorToPlayer = _collector.GetPosition() - transform.position;
             var isCloseToPlayer = vectorToPlayer.magnitude < _collectionDistance;
             if (isCloseToPlayer)
             {
-                _collectorPlayer.CollectExperience(_experience);
+                _collector.CollectExperience(_experience);
                 _soundController.PlaySfx(SfxType.DetailUp);
                 Release();
             }
@@ -68,9 +68,9 @@ namespace Gameplay
 
         private void OnTriggerEntered(Collider obj)
         {
-            if (obj.gameObject.TryGetComponentInHierarchy<Player>(out var player))
+            if (obj.gameObject.TryGetComponentInHierarchy<IExperiencePieceCollector>(out var collector))
             {
-                _collectorPlayer = player;
+                _collector = collector;
             }
         }
 

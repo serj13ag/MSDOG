@@ -12,7 +12,7 @@ using VContainer;
 
 namespace Gameplay
 {
-    public class Player : MonoBehaviour, IUpdatable, IEntityWithAbilities, IMovingEntity
+    public class Player : MonoBehaviour, IUpdatable, IEntityWithAbilities, IMovingEntity, IExperiencePieceCollector
     {
         private const int MaxDamageReductionPercent = 80;
 
