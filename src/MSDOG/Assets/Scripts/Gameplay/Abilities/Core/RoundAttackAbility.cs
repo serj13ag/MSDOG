@@ -3,6 +3,7 @@ using Common;
 using Core.Models.Data;
 using Core.Services;
 using Gameplay.Enemies;
+using Gameplay.Interfaces;
 using UnityEngine;
 using Utility.Extensions;
 
@@ -12,17 +13,17 @@ namespace Gameplay.Abilities.Core
     {
         private readonly IDataService _dataService;
 
-        private readonly Player _player;
+        private readonly IEntityWithAbilities _entityWithAbilities;
         private readonly int _damage;
         private readonly float _radius;
         private readonly Collider[] _hitBuffer = new Collider[32];
 
-        public RoundAttackAbility(AbilityData abilityData, Player player, IDataService dataService)
+        public RoundAttackAbility(AbilityData abilityData, IEntityWithAbilities entityWithAbilities, IDataService dataService)
             : base(abilityData)
         {
             _dataService = dataService;
 
-            _player = player;
+            _entityWithAbilities = entityWithAbilities;
             _damage = abilityData.Damage;
             _radius = abilityData.Size;
         }
@@ -50,7 +51,7 @@ namespace Gameplay.Abilities.Core
         {
             var hitEnemies = new List<Enemy>();
 
-            var circleCenter = _player.transform.position;
+            var circleCenter = _entityWithAbilities.GetPosition();
             var hits = Physics.OverlapSphereNonAlloc(circleCenter, _radius, _hitBuffer, Constants.LayerMasks.EnemyLayer);
             for (var i = 0; i < hits; i++)
             {
@@ -68,7 +69,7 @@ namespace Gameplay.Abilities.Core
         private void ShowDebugEffect()
         {
             var slashIndicator = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            slashIndicator.transform.position = _player.transform.position;
+            slashIndicator.transform.position = _entityWithAbilities.GetPosition();
             slashIndicator.transform.rotation = Quaternion.identity;
             var diameter = _radius * 2;
             slashIndicator.transform.localScale = new Vector3(diameter, 0.5f, diameter);

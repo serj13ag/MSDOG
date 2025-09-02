@@ -1,5 +1,6 @@
 using Core.Models.Data;
 using Gameplay.Factories;
+using Gameplay.Interfaces;
 using Gameplay.Projectiles;
 
 namespace Gameplay.Abilities.Core
@@ -7,20 +8,23 @@ namespace Gameplay.Abilities.Core
     public class GunShotAbility : BaseCooldownAbility
     {
         private readonly AbilityData _abilityData;
-        private readonly Player _player;
+        private readonly IEntityWithAbilities _entityWithAbilities;
         private readonly IProjectileFactory _projectileFactory;
 
-        public GunShotAbility(AbilityData abilityData, Player player, IProjectileFactory projectileFactory)
+        public GunShotAbility(AbilityData abilityData, IEntityWithAbilities entityWithAbilities,
+            IProjectileFactory projectileFactory)
             : base(abilityData)
         {
             _abilityData = abilityData;
-            _player = player;
+            _entityWithAbilities = entityWithAbilities;
             _projectileFactory = projectileFactory;
         }
 
         protected override void InvokeAction()
         {
-            var projectileSpawnData = new ProjectileSpawnData(_player.GetAbilitySpawnPosition(_abilityData.AbilityType), _player.transform.forward, _abilityData);
+            var projectileSpawnData =
+                new ProjectileSpawnData(_entityWithAbilities.GetAbilitySpawnPosition(_abilityData.AbilityType),
+                    _entityWithAbilities.GetForwardDirection(), _abilityData);
             _projectileFactory.CreateAbilityProjectile(projectileSpawnData);
         }
     }

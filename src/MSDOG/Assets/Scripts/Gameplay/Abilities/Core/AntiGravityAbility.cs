@@ -1,26 +1,27 @@
 using Core.Models.Data;
+using Gameplay.Interfaces;
 
 namespace Gameplay.Abilities.Core
 {
     public class AntiGravityAbility : BasePersistentAbility
     {
-        private readonly Player _player;
+        private readonly IEntityWithAdditionalSpeed _entityWithAdditionalSpeed;
         private readonly float _speed;
 
-        public AntiGravityAbility(AbilityData abilityData, Player player)
+        public AntiGravityAbility(AbilityData abilityData, IEntityWithAdditionalSpeed entityWithAdditionalSpeed)
         {
-            _player = player;
+            _entityWithAdditionalSpeed = entityWithAdditionalSpeed;
             _speed = abilityData.Speed;
         }
 
         protected override void Activated()
         {
-            _player.ChangeAdditionalSpeed(_speed);
+            _entityWithAdditionalSpeed.ChangeAdditionalSpeed(_speed);
         }
 
         protected override void Deactivated()
         {
-            _player.ChangeAdditionalSpeed(-_speed);
+            _entityWithAdditionalSpeed.ChangeAdditionalSpeed(-_speed);
         }
     }
 }

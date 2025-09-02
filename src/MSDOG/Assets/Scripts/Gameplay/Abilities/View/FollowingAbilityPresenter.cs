@@ -3,6 +3,7 @@ using Core.Models.Data;
 using Gameplay.Abilities.Core;
 using Gameplay.Abilities.View.VFX;
 using Gameplay.Factories;
+using Gameplay.Interfaces;
 using UnityEngine.Assertions;
 
 namespace Gameplay.Abilities.View
@@ -12,13 +13,13 @@ namespace Gameplay.Abilities.View
         private readonly IAbilityVFXFactory _abilityVFXFactory;
         private readonly ISoundController _soundController;
 
-        private readonly Player _player;
+        private readonly IEntityWithAbilities _entityWithAbilities;
         private readonly IAbility _ability;
         private readonly AbilityData _abilityData;
 
         private FollowingAbilityVFX _vfx;
 
-        public FollowingAbilityPresenter(Player player, IAbility ability, AbilityData abilityData,
+        public FollowingAbilityPresenter(IEntityWithAbilities entityWithAbilities, IAbility ability, AbilityData abilityData,
             IAbilityVFXFactory abilityVFXFactory, ISoundController soundController)
         {
             Assert.IsNotNull(abilityData.FollowingAbilityVFXPrefab);
@@ -26,7 +27,7 @@ namespace Gameplay.Abilities.View
             _abilityVFXFactory = abilityVFXFactory;
             _soundController = soundController;
 
-            _player = player;
+            _entityWithAbilities = entityWithAbilities;
             _ability = ability;
             _abilityData = abilityData;
 
@@ -37,7 +38,7 @@ namespace Gameplay.Abilities.View
 
         private void OnAbilityActivated()
         {
-            _vfx = _abilityVFXFactory.CreateEffect<FollowingAbilityVFX>(_player, _abilityData);
+            _vfx = _abilityVFXFactory.CreateEffect<FollowingAbilityVFX>(_entityWithAbilities, _abilityData);
             _soundController.PlayAbilityActivationSfx(_abilityData.ActivationSound);
         }
 

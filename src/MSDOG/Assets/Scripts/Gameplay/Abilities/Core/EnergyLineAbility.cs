@@ -1,5 +1,6 @@
 using Core.Models.Data;
 using Gameplay.Factories;
+using Gameplay.Interfaces;
 using Gameplay.Projectiles;
 using UnityEngine;
 
@@ -8,14 +9,14 @@ namespace Gameplay.Abilities.Core
     public class EnergyLineAbility : BaseCooldownAbility
     {
         private readonly AbilityData _abilityData;
-        private readonly Player _player;
+        private readonly IEntityWithAbilities _entityWithAbilities;
         private readonly IProjectileFactory _projectileFactory;
 
-        public EnergyLineAbility(AbilityData abilityData, Player player, IProjectileFactory projectileFactory)
+        public EnergyLineAbility(AbilityData abilityData, IEntityWithAbilities entityWithAbilities, IProjectileFactory projectileFactory)
             : base(abilityData)
         {
             _abilityData = abilityData;
-            _player = player;
+            _entityWithAbilities = entityWithAbilities;
             _projectileFactory = projectileFactory;
         }
 
@@ -29,7 +30,7 @@ namespace Gameplay.Abilities.Core
 
             randomDirection.Normalize();
 
-            var projectileSpawnData = new ProjectileSpawnData(_player.GetAbilitySpawnPosition(_abilityData.AbilityType), randomDirection, _abilityData);
+            var projectileSpawnData = new ProjectileSpawnData(_entityWithAbilities.GetAbilitySpawnPosition(_abilityData.AbilityType), randomDirection, _abilityData);
             _projectileFactory.CreateAbilityProjectile(projectileSpawnData);
         }
     }

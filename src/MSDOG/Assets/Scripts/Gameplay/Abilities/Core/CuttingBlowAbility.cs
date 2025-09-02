@@ -3,6 +3,7 @@ using Common;
 using Core.Models.Data;
 using Core.Services;
 using Gameplay.Enemies;
+using Gameplay.Interfaces;
 using UnityEngine;
 using Utility.Extensions;
 
@@ -15,17 +16,17 @@ namespace Gameplay.Abilities.Core
 
         private readonly IDataService _dataService;
 
-        private readonly Player _player;
+        private readonly IEntityWithAbilities _entityWithAbilities;
         private readonly int _damage;
         private readonly float _length;
         private readonly Collider[] _hitBuffer = new Collider[32];
 
-        public CuttingBlowAbility(AbilityData abilityData, Player player, IDataService dataService)
+        public CuttingBlowAbility(AbilityData abilityData, IEntityWithAbilities entityWithAbilities, IDataService dataService)
             : base(abilityData)
         {
             _dataService = dataService;
 
-            _player = player;
+            _entityWithAbilities = entityWithAbilities;
             _damage = abilityData.Damage;
             _length = abilityData.Size;
         }
@@ -53,7 +54,7 @@ namespace Gameplay.Abilities.Core
         {
             var hitEnemies = new List<Enemy>();
 
-            var boxCenter = _player.transform.position;
+            var boxCenter = _entityWithAbilities.GetPosition();
             var boxSize = new Vector3(_length, BoxHeight, BoxWidth);
 
             var hits = Physics.OverlapBoxNonAlloc(boxCenter, boxSize * 0.5f, _hitBuffer, Quaternion.identity,
@@ -73,7 +74,7 @@ namespace Gameplay.Abilities.Core
         private void ShowSlashDebugEffect()
         {
             var slashIndicator = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            slashIndicator.transform.position = _player.transform.position;
+            slashIndicator.transform.position = _entityWithAbilities.GetPosition();
             slashIndicator.transform.rotation = Quaternion.identity;
             slashIndicator.transform.localScale = new Vector3(_length, BoxHeight, BoxWidth);
 

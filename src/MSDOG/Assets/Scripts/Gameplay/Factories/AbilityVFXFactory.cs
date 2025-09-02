@@ -4,6 +4,7 @@ using Core.Models.Data;
 using Core.Services;
 using Gameplay.Abilities.Core;
 using Gameplay.Abilities.View.VFX;
+using Gameplay.Interfaces;
 using Gameplay.Providers;
 using UnityEngine;
 using Utility.Pools;
@@ -40,7 +41,7 @@ namespace Gameplay.Factories
         }
 
         // TODO: separate effects from domain!
-        public T CreateEffect<T>(Player player, AbilityData abilityData) where T : BaseAbilityVFX
+        public T CreateEffect<T>(IEntityWithAbilities entityWithAbilities, AbilityData abilityData) where T : BaseAbilityVFX
         {
             var prefab = abilityData.FollowingAbilityVFXPrefab;
             var baseAbilityVFX = (T)_pools.Get(prefab, Instantiate(prefab));
@@ -48,10 +49,10 @@ namespace Gameplay.Factories
             switch (baseAbilityVFX)
             {
                 case FollowingAbilityVFX followingAbilityVFX:
-                    followingAbilityVFX.Init(player.transform);
+                    followingAbilityVFX.Init(entityWithAbilities);
                     break;
                 case OneTimeAbilityVFX oneTimeAbilityVFX:
-                    var position = player.GetAbilitySpawnPosition(abilityData.AbilityType);
+                    var position = entityWithAbilities.GetAbilitySpawnPosition(abilityData.AbilityType);
                     var rotation = Quaternion.Euler(90f, 0f, 0f);
                     var scale = GetScale(abilityData);
                     oneTimeAbilityVFX.Init(position, rotation, scale);

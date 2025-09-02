@@ -1,26 +1,27 @@
 using Core.Models.Data;
+using Gameplay.Interfaces;
 
 namespace Gameplay.Abilities.Core
 {
     public class EnergyShieldAbility : BasePersistentAbility
     {
-        private readonly Player _player;
+        private readonly IEntityWithDamageReduction _entityWithDamageReduction;
         private readonly int _damageReductionPercent;
 
-        public EnergyShieldAbility(AbilityData abilityData, Player player)
+        public EnergyShieldAbility(AbilityData abilityData, IEntityWithDamageReduction entityWithDamageReduction)
         {
-            _player = player;
+            _entityWithDamageReduction = entityWithDamageReduction;
             _damageReductionPercent = abilityData.DamageReductionPercent;
         }
 
         protected override void Activated()
         {
-            _player.ChangeDamageReductionPercent(_damageReductionPercent);
+            _entityWithDamageReduction.ChangeDamageReductionPercent(_damageReductionPercent);
         }
 
         protected override void Deactivated()
         {
-            _player.ChangeDamageReductionPercent(-_damageReductionPercent);
+            _entityWithDamageReduction.ChangeDamageReductionPercent(-_damageReductionPercent);
         }
     }
 }

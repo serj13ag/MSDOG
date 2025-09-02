@@ -1,6 +1,5 @@
 using Gameplay.Controllers;
 using Gameplay.Interfaces;
-using UnityEngine;
 using VContainer;
 
 namespace Gameplay.Abilities.View.VFX
@@ -9,7 +8,7 @@ namespace Gameplay.Abilities.View.VFX
     {
         private IGameplayUpdateController _updateController;
 
-        private Transform _followTarget;
+        private IEntityWithAbilities _entityWithAbilities;
 
         [Inject]
         public void Construct(IGameplayUpdateController updateController)
@@ -24,19 +23,19 @@ namespace Gameplay.Abilities.View.VFX
             _updateController.Register(this);
         }
 
-        public void Init(Transform followTarget)
+        public void Init(IEntityWithAbilities followTarget)
         {
-            _followTarget = followTarget;
+            _entityWithAbilities = followTarget;
         }
 
         public void OnUpdate(float deltaTime)
         {
-            if (!_followTarget)
+            if (_entityWithAbilities == null)
             {
                 return;
             }
 
-            transform.position = _followTarget.transform.position;
+            transform.position = _entityWithAbilities.GetPosition();
         }
 
         public void Clear()
@@ -48,7 +47,7 @@ namespace Gameplay.Abilities.View.VFX
         {
             base.Cleanup();
 
-            _followTarget = null;
+            _entityWithAbilities = null;
             _updateController.Remove(this);
         }
     }

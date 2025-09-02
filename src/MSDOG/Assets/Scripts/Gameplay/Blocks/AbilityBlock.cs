@@ -2,20 +2,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Gameplay.Abilities.Core;
+using Gameplay.Interfaces;
 using UnityEngine;
 
 namespace Gameplay.Blocks
 {
     public class AbilityBlock
     {
-        private readonly Player _player; // TODO: IEntityWithPositiona
+        private readonly IEntityWithPosition _entityWithPosition;
 
         private readonly Dictionary<Guid, IAbility> _abilities = new Dictionary<Guid, IAbility>();
         private bool _abilitiesIsActive;
 
-        public AbilityBlock(Player player)
+        public AbilityBlock(IEntityWithPosition entityWithPosition)
         {
-            _player = player;
+            _entityWithPosition = entityWithPosition;
         }
 
         public void OnUpdate(float deltaTime)
@@ -87,7 +88,7 @@ namespace Gameplay.Blocks
                     throw new ArgumentOutOfRangeException(nameof(abilityType), abilityType, null);
             }
 
-            return _player.transform.position + offset;
+            return _entityWithPosition.GetPosition() + offset;
         }
     }
 }

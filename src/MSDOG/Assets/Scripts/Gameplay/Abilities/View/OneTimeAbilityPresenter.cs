@@ -3,6 +3,7 @@ using Core.Models.Data;
 using Gameplay.Abilities.Core;
 using Gameplay.Abilities.View.VFX;
 using Gameplay.Factories;
+using Gameplay.Interfaces;
 using UnityEngine.Assertions;
 
 namespace Gameplay.Abilities.View
@@ -12,19 +13,19 @@ namespace Gameplay.Abilities.View
         private readonly IAbilityVFXFactory _abilityVFXFactory;
         private readonly ISoundController _soundController;
 
-        private readonly Player _player;
+        private readonly IEntityWithAbilities _entityWithAbilities;
         private readonly ICooldownAbility _ability;
         private readonly AbilityData _abilityData;
 
-        public OneTimeAbilityPresenter(Player player, ICooldownAbility ability, AbilityData abilityData,
-            IAbilityVFXFactory abilityVFXFactory, ISoundController soundController)
+        public OneTimeAbilityPresenter(IEntityWithAbilities entityWithAbilities, ICooldownAbility ability,
+            AbilityData abilityData, IAbilityVFXFactory abilityVFXFactory, ISoundController soundController)
         {
             Assert.IsNotNull(abilityData.FollowingAbilityVFXPrefab);
 
             _abilityVFXFactory = abilityVFXFactory;
             _soundController = soundController;
 
-            _player = player;
+            _entityWithAbilities = entityWithAbilities;
             _ability = ability;
             _abilityData = abilityData;
 
@@ -34,7 +35,7 @@ namespace Gameplay.Abilities.View
 
         private void OnAbilityActionInvoked()
         {
-            _abilityVFXFactory.CreateEffect<OneTimeAbilityVFX>(_player, _abilityData);
+            _abilityVFXFactory.CreateEffect<OneTimeAbilityVFX>(_entityWithAbilities, _abilityData);
             _soundController.PlayAbilityActivationSfx(_abilityData.ActivationSound);
         }
 

@@ -12,7 +12,7 @@ using VContainer;
 
 namespace Gameplay
 {
-    public class Player : MonoBehaviour, IUpdatable
+    public class Player : MonoBehaviour, IUpdatable, IEntityWithAdditionalSpeed, IEntityWithAbilities, IEntityWithDamageReduction
     {
         private const int MaxDamageReductionPercent = 80;
 
@@ -176,6 +176,16 @@ namespace Gameplay
         public Vector3 GetAbilitySpawnPosition(AbilityType abilityType)
         {
             return _abilityBlock.GetAbilitySpawnPosition(abilityType);
+        }
+
+        public Vector3 GetPosition()
+        {
+            return transform.position;
+        }
+
+        public Vector3 GetForwardDirection()
+        {
+            return transform.forward;
         }
 
         private void OnDestroy()
