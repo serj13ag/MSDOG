@@ -16,7 +16,7 @@ using VContainer;
 
 namespace Gameplay.Enemies
 {
-    public class Enemy : BasePooledObject, IUpdatable, IProjectileDamageableEntity, IHitDamageableEntity
+    public class Enemy : BasePooledObject, IEnemy, IUpdatable, IProjectileDamageableEntity, IHitDamageableEntity
     {
         private readonly Vector3 _enemyProjectileOffset = Vector3.up * 0.8f;
         private readonly Vector3 _damageTextOffset = Vector3.up * 3f;
@@ -55,7 +55,7 @@ namespace Gameplay.Enemies
         public int CurrentHealth => _healthBlock.CurrentHealth;
         public int MaxHealth => _healthBlock.MaxHealth;
 
-        public event Action<Enemy> OnDied;
+        public event Action<IEnemy> OnDied;
         public event EventHandler<EventArgs> OnHealthChanged;
 
         [Inject]
@@ -147,6 +147,26 @@ namespace Gameplay.Enemies
         public void TakeHitDamage(int damage)
         {
             TakeDamageInner(damage);
+        }
+
+        public Vector3 GetPosition()
+        {
+            return transform.position;
+        }
+
+        public Vector3 GetForwardDirection()
+        {
+            return transform.forward;
+        }
+
+        public Quaternion GetRotation()
+        {
+            return transform.rotation;
+        }
+
+        public void SetRotation(Quaternion rotation)
+        {
+            transform.rotation = rotation;
         }
 
         private void TakeDamageInner(int damage)

@@ -23,8 +23,8 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
             base.Enter();
 
             var enemy = _context.Enemy;
-            var lookDirection = (_context.Target.GetPosition() - enemy.transform.position).normalized;
-            enemy.transform.rotation = Quaternion.LookRotation(lookDirection);
+            var lookDirection = (_context.Target.GetPosition() - enemy.GetPosition()).normalized;
+            enemy.SetRotation(Quaternion.LookRotation(lookDirection));
 
             _context.Agent.ResetPath();
             _context.AnimationBlock.TriggerAttack();

@@ -29,10 +29,12 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
             var targetPosition = _context.Target.GetPosition();
 
             var enemy = _context.Enemy;
-            var lookDirection = (targetPosition - enemy.transform.position).normalized;
-            enemy.transform.rotation = Quaternion.LookRotation(lookDirection);
+            var enemyPosition = enemy.GetPosition();
 
-            if (Vector3.Distance(enemy.transform.position, targetPosition) > Constants.Enemy.RangeCloseDistanceOut)
+            var lookDirection = (targetPosition - enemyPosition).normalized;
+            enemy.SetRotation(Quaternion.LookRotation(lookDirection));
+
+            if (Vector3.Distance(enemyPosition, targetPosition) > Constants.Enemy.RangeCloseDistanceOut)
             {
                 _stateMachine.ChangeStateToWalking();
             }

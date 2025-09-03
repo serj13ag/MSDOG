@@ -8,13 +8,13 @@ namespace Gameplay.Enemies.EnemyBehaviour
 {
     public class EnemyBehaviourStateMachineContext
     {
-        public Enemy Enemy { get; }
+        public IEnemy Enemy { get; }
         public NavMeshAgent Agent { get; }
         public AnimationBlock AnimationBlock { get; }
         public ColliderEventProvider DamagePlayerColliderTriggerEnterProvider { get; }
         public IEntityWithPosition Target { get; }
 
-        public EnemyBehaviourStateMachineContext(Enemy enemy, NavMeshAgent agent, AnimationBlock animationBlock,
+        public EnemyBehaviourStateMachineContext(IEnemy enemy, NavMeshAgent agent, AnimationBlock animationBlock,
             ColliderEventProvider damagePlayerColliderTriggerEnterProvider, IPlayerProvider playerProvider)
         {
             Enemy = enemy;

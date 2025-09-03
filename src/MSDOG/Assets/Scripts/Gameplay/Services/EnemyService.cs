@@ -32,7 +32,7 @@ namespace Gameplay.Services
         private int _nextWaveIndex;
         private float _timeTillSpawnNextWave;
 
-        private readonly List<Enemy> _enemies = new List<Enemy>();
+        private readonly List<IEnemy> _enemies = new List<IEnemy>();
 
         public event Action OnAllEnemiesDied;
 
@@ -122,7 +122,7 @@ namespace Gameplay.Services
             }
         }
 
-        private void OnEnemyDied(Enemy enemy)
+        private void OnEnemyDied(IEnemy enemy)
         {
             _enemies.Remove(enemy);
             enemy.OnDied -= OnEnemyDied;
@@ -177,9 +177,9 @@ namespace Gameplay.Services
             return true;
         }
 
-        private void SpawnDeathKit(Enemy enemy)
+        private void SpawnDeathKit(IEnemy enemy)
         {
-            _deathKitFactory.CreateDeathKit(enemy.DeathkitPrefab, enemy.ModelRootPosition, enemy.transform.rotation);
+            _deathKitFactory.CreateDeathKit(enemy.DeathkitPrefab, enemy.ModelRootPosition, enemy.GetRotation());
         }
 
         public void Dispose()

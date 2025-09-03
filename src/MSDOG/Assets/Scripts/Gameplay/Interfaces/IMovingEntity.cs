@@ -1,12 +1,7 @@
-using UnityEngine;
-
 namespace Gameplay.Interfaces
 {
-    public interface IMovingEntity : IEntityWithPosition, IEntityWithMoveSpeed
+    public interface IMovingEntity : IEntityWithPosition, IEntityWithRotation, IEntityWithMoveSpeed
     {
         float RotationSpeed { get; }
-
-        void SetRotation(Quaternion rotation);
-        Quaternion GetRotation();
     }
 }
