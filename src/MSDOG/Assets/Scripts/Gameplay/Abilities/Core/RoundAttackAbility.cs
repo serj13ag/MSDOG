@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Common;
 using Core.Models.Data;
-using Gameplay.Enemies;
 using Gameplay.Interfaces;
 using UnityEngine;
 using Utility.Extensions;
@@ -33,20 +32,20 @@ namespace Gameplay.Abilities.Core
             var hitEnemies = DetectEnemiesInRadius();
             foreach (var enemy in hitEnemies)
             {
-                enemy.TakeDamage(_damage);
+                enemy.TakeHitDamage(_damage);
             }
         }
 
-        private List<Enemy> DetectEnemiesInRadius()
+        private List<IHitDamageableEntity> DetectEnemiesInRadius()
         {
-            var hitEnemies = new List<Enemy>();
+            var hitEnemies = new List<IHitDamageableEntity>();
 
             var circleCenter = _entityWithAbilities.GetPosition();
             var hits = Physics.OverlapSphereNonAlloc(circleCenter, _radius, _hitBuffer, Constants.LayerMasks.EnemyLayer);
             for (var i = 0; i < hits; i++)
             {
                 var collider = _hitBuffer[i];
-                if (collider.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
+                if (collider.gameObject.TryGetComponentInHierarchy<IHitDamageableEntity>(out var enemy))
                 {
                     hitEnemies.Add(enemy);
                 }

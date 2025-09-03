@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Common;
 using Core.Models.Data;
-using Gameplay.Enemies;
 using Gameplay.Interfaces;
 using UnityEngine;
 using Utility.Extensions;
@@ -30,16 +29,16 @@ namespace Gameplay.Abilities.Core
 
         private void Slash()
         {
-            var hitEnemies = DetectEnemiesInStrikeBox();
-            foreach (var enemy in hitEnemies)
+            var enemies = DetectEnemiesInStrikeBox();
+            foreach (var enemy in enemies)
             {
-                enemy.TakeDamage(_damage);
+                enemy.TakeHitDamage(_damage);
             }
         }
 
-        private List<Enemy> DetectEnemiesInStrikeBox()
+        private List<IHitDamageableEntity> DetectEnemiesInStrikeBox()
         {
-            var hitEnemies = new List<Enemy>();
+            var hitEnemies = new List<IHitDamageableEntity>();
 
             var boxCenter = _entityWithAbilities.GetPosition();
             var boxSize = new Vector3(_length, Constants.CuttingBlowAbility.BoxHeight, Constants.CuttingBlowAbility.BoxWidth);
@@ -49,7 +48,7 @@ namespace Gameplay.Abilities.Core
             for (var i = 0; i < hits; i++)
             {
                 var collider = _hitBuffer[i];
-                if (collider.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
+                if (collider.gameObject.TryGetComponentInHierarchy<IHitDamageableEntity>(out var enemy))
                 {
                     hitEnemies.Add(enemy);
                 }

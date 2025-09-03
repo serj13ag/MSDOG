@@ -16,7 +16,7 @@ using VContainer;
 
 namespace Gameplay.Enemies
 {
-    public class Enemy : BasePooledObject, IUpdatable, IProjectileDamageableEntity
+    public class Enemy : BasePooledObject, IUpdatable, IProjectileDamageableEntity, IHitDamageableEntity
     {
         private readonly Vector3 _enemyProjectileOffset = Vector3.up * 0.8f;
         private readonly Vector3 _damageTextOffset = Vector3.up * 3f;
@@ -136,15 +136,20 @@ namespace Gameplay.Enemies
 
         public void Kill()
         {
-            TakeDamage(_healthBlock.CurrentHealth);
+            TakeDamageInner(_healthBlock.CurrentHealth);
         }
 
         public void TakeProjectileDamage(Guid projectileId, int damage)
         {
-            TakeDamage(_damage);
+            TakeDamageInner(_damage);
         }
 
-        public void TakeDamage(int damage)
+        public void TakeHitDamage(int damage)
+        {
+            TakeDamageInner(damage);
+        }
+
+        private void TakeDamageInner(int damage)
         {
             var healthBefore = _healthBlock.CurrentHealth;
             _healthBlock.ReduceHealth(damage);
