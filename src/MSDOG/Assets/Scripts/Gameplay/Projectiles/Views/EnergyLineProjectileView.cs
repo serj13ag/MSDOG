@@ -18,7 +18,7 @@ namespace Gameplay.Projectiles.Views
         [SerializeField] private GameObject _spriteObject;
 
         private readonly Collider[] _hitBuffer = new Collider[32];
-        private Player _player;
+        private IEntityWithAbilities _caster;
 
         [Inject]
         public void Construct(IGameplayUpdateController updateController, IArenaService arenaService)
@@ -26,18 +26,18 @@ namespace Gameplay.Projectiles.Views
             ConstructBase(updateController, arenaService);
         }
 
-        public void Init(Projectile projectile, Player player)
+        public void Init(Projectile projectile, IEntityWithAbilities caster)
         {
             InitBase(projectile);
 
-            _player = player;
+            _caster = caster;
 
             UpdateView(projectile.ForwardDirection, projectile.Size);
         }
 
         protected override void OnUpdated(float deltaTime)
         {
-            transform.position = _player.GetAbilitySpawnPosition(AbilityType.EnergyLine) +
+            transform.position = _caster.GetAbilitySpawnPosition(AbilityType.EnergyLine) +
                                  Projectile.ForwardDirection * (LaserRange / 2f);
         }
 
@@ -51,7 +51,7 @@ namespace Gameplay.Projectiles.Views
         private void UpdateView(Vector3 forwardDirection, float size)
         {
             transform.rotation = Quaternion.LookRotation(forwardDirection);
-            transform.position = _player.GetAbilitySpawnPosition(AbilityType.EnergyLine) + forwardDirection * (LaserRange / 2f);
+            transform.position = _caster.GetAbilitySpawnPosition(AbilityType.EnergyLine) + forwardDirection * (LaserRange / 2f);
 
             var t = Mathf.InverseLerp(0.3f, 1.6f, size);
             var scale = Mathf.LerpUnclamped(0.2f, 1.2f, t);
@@ -71,7 +71,7 @@ namespace Gameplay.Projectiles.Views
         {
             var hitEnemies = new List<IProjectileDamageableEntity>();
 
-            var currentStartPos = _player.transform.position;
+            var currentStartPos = _caster.GetPosition();
             var boxCenter = currentStartPos + Projectile.ForwardDirection * (LaserRange / 2f);
             var boxSize = new Vector3(Projectile.Size, Projectile.Size, LaserRange);
             var boxRotation = Quaternion.LookRotation(Projectile.ForwardDirection);

@@ -15,7 +15,7 @@ namespace Gameplay.Projectiles.Views
 
         [SerializeField] private ColliderEventProvider _colliderEventProvider;
 
-        private Player _player;
+        private IEntityWithPosition _centeredEntity;
 
         [Inject]
         public void Construct(IGameplayUpdateController updateController, IArenaService arenaService)
@@ -23,11 +23,11 @@ namespace Gameplay.Projectiles.Views
             ConstructBase(updateController, arenaService);
         }
 
-        public void Init(Projectile projectile, Player player)
+        public void Init(Projectile projectile, IEntityWithPosition centeredEntity)
         {
             InitBase(projectile);
 
-            _player = player;
+            _centeredEntity = centeredEntity;
 
             _colliderEventProvider.OnTriggerEntered += OnTriggerEntered;
         }
@@ -50,7 +50,7 @@ namespace Gameplay.Projectiles.Views
 
         private void CheckBounds()
         {
-            var playerPos = _player.transform.position;
+            var playerPos = _centeredEntity.GetPosition();
             var currentPos = transform.position;
 
             var leftBound = playerPos.x - BoxWidth / 2f;
