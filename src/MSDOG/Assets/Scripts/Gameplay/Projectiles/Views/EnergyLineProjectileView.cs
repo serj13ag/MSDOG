@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Common;
 using Gameplay.Abilities.Core;
 using Gameplay.Controllers;
-using Gameplay.Enemies;
+using Gameplay.Interfaces;
 using Gameplay.Services;
 using UnityEngine;
 using Utility.Extensions;
@@ -60,16 +60,16 @@ namespace Gameplay.Projectiles.Views
 
         private void DealDamage()
         {
-            var hitEnemies = DetectEnemiesInLaserBox();
-            foreach (var enemy in hitEnemies)
+            var enemies = DetectEnemiesInLaserBox();
+            foreach (var enemy in enemies)
             {
                 Projectile.OnHit(enemy);
             }
         }
 
-        private List<Enemy> DetectEnemiesInLaserBox()
+        private List<IProjectileDamageableEntity> DetectEnemiesInLaserBox()
         {
-            var hitEnemies = new List<Enemy>();
+            var hitEnemies = new List<IProjectileDamageableEntity>();
 
             var currentStartPos = _player.transform.position;
             var boxCenter = currentStartPos + Projectile.ForwardDirection * (LaserRange / 2f);
@@ -81,9 +81,9 @@ namespace Gameplay.Projectiles.Views
             for (var i = 0; i < hits; i++)
             {
                 var hitCollider = _hitBuffer[i];
-                if (hitCollider.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
+                if (hitCollider.gameObject.TryGetComponentInHierarchy<IProjectileDamageableEntity>(out var damageableEntity))
                 {
-                    hitEnemies.Add(enemy);
+                    hitEnemies.Add(damageableEntity);
                 }
             }
 

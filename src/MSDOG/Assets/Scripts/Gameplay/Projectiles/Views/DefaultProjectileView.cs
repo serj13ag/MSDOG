@@ -1,8 +1,8 @@
 using System;
 using Core.Models.Data;
 using Gameplay.Controllers;
-using Gameplay.Enemies;
 using Gameplay.Factories;
+using Gameplay.Interfaces;
 using Gameplay.Services;
 using UnityEngine;
 using Utility;
@@ -43,19 +43,9 @@ namespace Gameplay.Projectiles.Views
 
         private void OnTriggerEntered(Collider other)
         {
-            if (Projectile.IsPlayer)
+            if (other.gameObject.TryGetComponentInHierarchy<IProjectileDamageableEntity>(out var projectileDamageableEntity))
             {
-                if (other.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
-                {
-                    Projectile.OnHit(enemy);
-                }
-            }
-            else
-            {
-                if (other.gameObject.TryGetComponentInHierarchy<Player>(out var player))
-                {
-                    Projectile.OnHit(player);
-                }
+                Projectile.OnHit(projectileDamageableEntity);
             }
         }
 

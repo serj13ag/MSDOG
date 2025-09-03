@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Common;
 using Gameplay.Controllers;
-using Gameplay.Enemies;
+using Gameplay.Interfaces;
 using Gameplay.Services;
 using UnityEngine;
 using Utility.Extensions;
@@ -54,25 +54,25 @@ namespace Gameplay.Projectiles.Views
 
         private void Damage()
         {
-            var hitEnemies = DetectEnemiesInSphere();
-            foreach (var enemy in hitEnemies)
+            var enemies = DetectEnemiesInSphere();
+            foreach (var enemy in enemies)
             {
                 Projectile.OnHit(enemy);
             }
         }
 
-        private List<Enemy> DetectEnemiesInSphere()
+        private List<IProjectileDamageableEntity> DetectEnemiesInSphere()
         {
-            var hitEnemies = new List<Enemy>();
+            var hitEnemies = new List<IProjectileDamageableEntity>();
 
             var hits = Physics.OverlapSphereNonAlloc(transform.position, Projectile.Size / 2f, _hitBuffer,
                 Constants.LayerMasks.EnemyLayer);
             for (var i = 0; i < hits; i++)
             {
                 var hitCollider = _hitBuffer[i];
-                if (hitCollider.gameObject.TryGetComponentInHierarchy<Enemy>(out var enemy))
+                if (hitCollider.gameObject.TryGetComponentInHierarchy<IProjectileDamageableEntity>(out var damageable))
                 {
-                    hitEnemies.Add(enemy);
+                    hitEnemies.Add(damageable);
                 }
             }
 

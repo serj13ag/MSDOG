@@ -1,5 +1,5 @@
 using System;
-using Gameplay.Enemies;
+using Gameplay.Interfaces;
 using UnityEngine;
 
 namespace Gameplay.Projectiles
@@ -15,7 +15,7 @@ namespace Gameplay.Projectiles
         private readonly float? _tickTimeout;
         private float _tickRemaining;
 
-        public bool IsPlayer { get; }
+        public bool IsPlayer { get; } // TODO: remove?
         public float Speed { get; }
         public float Size { get; }
 
@@ -82,15 +82,9 @@ namespace Gameplay.Projectiles
             }
         }
 
-        public void OnHit(Player player)
+        public void OnHit(IProjectileDamageableEntity projectileDamageableEntity)
         {
-            player.RegisterProjectileDamager(_id, _damage);
-            CheckPierce();
-        }
-
-        public void OnHit(Enemy enemy)
-        {
-            enemy.TakeDamage(_damage);
+            projectileDamageableEntity.TakeProjectileDamage(_id, _damage);
             CheckPierce();
         }
 

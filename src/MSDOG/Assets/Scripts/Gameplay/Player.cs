@@ -13,7 +13,7 @@ using VContainer;
 namespace Gameplay
 {
     public class Player : MonoBehaviour, IUpdatable, IMovingEntity, IEntityWithHealth, IEntityWithAbilities,
-        IExperiencePieceCollector
+        IExperiencePieceCollector, IProjectileDamageableEntity
     {
         private const int MaxDamageReductionPercent = 80;
 
@@ -111,9 +111,9 @@ namespace Gameplay
             _accumulativeDamageBlock.RegisterDamager(id, damage);
         }
 
-        public void RegisterProjectileDamager(Guid id, int damage)
+        public void TakeProjectileDamage(Guid projectileId, int damage)
         {
-            _accumulativeDamageBlock.RegisterProjectileDamager(id, damage);
+            _accumulativeDamageBlock.RegisterProjectileDamager(projectileId, damage);
         }
 
         public void RemoveDamager(Guid id)
