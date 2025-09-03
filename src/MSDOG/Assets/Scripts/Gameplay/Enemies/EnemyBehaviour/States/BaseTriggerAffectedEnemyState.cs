@@ -1,3 +1,4 @@
+using Gameplay.Interfaces;
 using UnityEngine;
 using Utility.Extensions;
 
@@ -6,6 +7,8 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
     public abstract class BaseTriggerAffectedEnemyState : IEnemyState
     {
         private readonly EnemyBehaviourStateMachineContext _context;
+
+        private IOverlapDamageableEntity _damageable;
 
         protected BaseTriggerAffectedEnemyState(EnemyBehaviourStateMachineContext context)
         {
@@ -32,18 +35,20 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
 
         private void OnTriggerEntered(Collider obj)
         {
-            if (obj.gameObject.TryGetComponentInHierarchy<Player>(out var player))
+            if (obj.gameObject.TryGetComponentInHierarchy<IOverlapDamageableEntity>(out var damageable))
             {
+                _damageable = damageable;
                 var enemy = _context.Enemy;
-                player.RegisterDamager(enemy.Id, enemy.Damage);
+                damageable.RegisterOverlapDamager(enemy.Id, enemy.Damage);
             }
         }
 
         private void OnTriggerExited(Collider obj)
         {
-            if (obj.gameObject.TryGetComponentInHierarchy<Player>(out var player))
+            if (obj.gameObject.TryGetComponentInHierarchy<IOverlapDamageableEntity>(out var damageable))
             {
-                player.RemoveDamager(_context.Enemy.Id);
+                _damageable = null;
+                damageable.RemoveOverlapDamager(_context.Enemy.Id);
             }
         }
 
@@ -52,8 +57,7 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
             var triggerEnterProvider = _context.DamagePlayerColliderTriggerEnterProvider;
             if (triggerEnterProvider)
             {
-                var enemy = _context.Enemy;
-                _context.Player.RemoveDamager(enemy.Id);
+                _damageable?.RemoveOverlapDamager(_context.Enemy.Id);
 
                 triggerEnterProvider.OnTriggerEntered -= OnTriggerEntered;
                 triggerEnterProvider.OnTriggerExited -= OnTriggerExited;

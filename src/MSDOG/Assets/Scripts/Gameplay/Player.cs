@@ -13,7 +13,7 @@ using VContainer;
 namespace Gameplay
 {
     public class Player : MonoBehaviour, IUpdatable, IMovingEntity, IEntityWithHealth, IEntityWithAbilities,
-        IExperiencePieceCollector, IProjectileDamageableEntity
+        IExperiencePieceCollector, IProjectileDamageableEntity, IOverlapDamageableEntity
     {
         private const int MaxDamageReductionPercent = 80;
 
@@ -106,19 +106,19 @@ namespace Gameplay
             _animationBlock.SetMoveless(!value);
         }
 
-        public void RegisterDamager(Guid id, int damage)
-        {
-            _accumulativeDamageBlock.RegisterDamager(id, damage);
-        }
-
         public void TakeProjectileDamage(Guid projectileId, int damage)
         {
             _accumulativeDamageBlock.RegisterProjectileDamager(projectileId, damage);
         }
 
-        public void RemoveDamager(Guid id)
+        public void RegisterOverlapDamager(Guid damagerId, int damage)
         {
-            _accumulativeDamageBlock.RemoveDamager(id);
+            _accumulativeDamageBlock.RegisterDamager(damagerId, damage);
+        }
+
+        public void RemoveOverlapDamager(Guid damagerId)
+        {
+            _accumulativeDamageBlock.RemoveDamager(damagerId);
         }
 
         public void CollectExperience(int experience)
