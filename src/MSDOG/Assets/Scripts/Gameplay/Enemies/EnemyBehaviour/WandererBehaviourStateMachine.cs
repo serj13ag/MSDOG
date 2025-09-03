@@ -67,7 +67,7 @@ namespace Gameplay.Enemies.EnemyBehaviour
             var z = Mathf.Sin(angle) * radius;
 
             var randomPositionInsideCircle = new Vector3(x, 0f, z);
-            return randomPositionInsideCircle + _context.Player.transform.position;
+            return randomPositionInsideCircle + _context.Target.GetPosition();
         }
     }
 }

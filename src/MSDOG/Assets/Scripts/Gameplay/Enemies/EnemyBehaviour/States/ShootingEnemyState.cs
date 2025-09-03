@@ -26,13 +26,13 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
 
         public override void OnUpdate(float deltaTime)
         {
+            var targetPosition = _context.Target.GetPosition();
+
             var enemy = _context.Enemy;
-            var player = _context.Player;
+            var lookDirection = (targetPosition - enemy.transform.position).normalized;
+            enemy.transform.rotation = Quaternion.LookRotation(lookDirection);
 
-            enemy.transform.LookAt(player.transform);
-
-            if (Vector3.Distance(enemy.transform.position, player.transform.position) >
-                Constants.Enemy.RangeCloseDistanceOut)
+            if (Vector3.Distance(enemy.transform.position, targetPosition) > Constants.Enemy.RangeCloseDistanceOut)
             {
                 _stateMachine.ChangeStateToWalking();
             }

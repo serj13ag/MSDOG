@@ -19,7 +19,7 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
         {
             base.OnUpdate(deltaTime);
 
-            var distanceToEnemy = Vector3.Distance(_context.Enemy.transform.position, _context.Player.transform.position);
+            var distanceToEnemy = Vector3.Distance(_context.Enemy.transform.position, _context.Target.GetPosition());
             if (distanceToEnemy < Constants.Enemy.RangeCloseDistance)
             {
                 _context.Agent.ResetPath();

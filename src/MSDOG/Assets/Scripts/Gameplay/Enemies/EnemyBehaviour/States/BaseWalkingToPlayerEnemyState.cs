@@ -25,7 +25,7 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
                 return;
             }
 
-            enemyAgent.SetDestination(_context.Player.transform.position);
+            enemyAgent.SetDestination(_context.Target.GetPosition());
         }
 
         public override void Exit()

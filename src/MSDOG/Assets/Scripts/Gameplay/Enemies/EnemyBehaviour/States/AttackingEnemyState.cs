@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Gameplay.Enemies.EnemyBehaviour.States
 {
     public class AttackingEnemyState : BaseTriggerAffectedEnemyState
@@ -21,7 +23,9 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
             base.Enter();
 
             var enemy = _context.Enemy;
-            enemy.transform.LookAt(_context.Player.transform);
+            var lookDirection = (_context.Target.GetPosition() - enemy.transform.position).normalized;
+            enemy.transform.rotation = Quaternion.LookRotation(lookDirection);
+
             _context.Agent.ResetPath();
             _context.AnimationBlock.TriggerAttack();
         }

@@ -20,8 +20,8 @@ namespace Gameplay.Enemies.EnemyBehaviour.States
         {
             base.OnUpdate(deltaTime);
 
-            var distanceToPLayer = Vector3.Distance(_context.Enemy.transform.position, _context.Player.transform.position);
-            if (distanceToPLayer < DistanceToAttack)
+            var distanceToPlayer = Vector3.Distance(_context.Enemy.transform.position, _context.Target.GetPosition());
+            if (distanceToPlayer < DistanceToAttack)
             {
                 _stateMachine.ChangeStateToAttacking();
             }

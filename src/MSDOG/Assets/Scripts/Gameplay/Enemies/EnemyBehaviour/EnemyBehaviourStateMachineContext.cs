@@ -1,4 +1,5 @@
 using Gameplay.Blocks;
+using Gameplay.Interfaces;
 using Gameplay.Providers;
 using UnityEngine.AI;
 using Utility;
@@ -11,7 +12,7 @@ namespace Gameplay.Enemies.EnemyBehaviour
         public NavMeshAgent Agent { get; }
         public AnimationBlock AnimationBlock { get; }
         public ColliderEventProvider DamagePlayerColliderTriggerEnterProvider { get; }
-        public Player Player { get; }
+        public IEntityWithPosition Target { get; }
 
         public EnemyBehaviourStateMachineContext(Enemy enemy, NavMeshAgent agent, AnimationBlock animationBlock,
             ColliderEventProvider damagePlayerColliderTriggerEnterProvider, IPlayerProvider playerProvider)
@@ -20,7 +21,7 @@ namespace Gameplay.Enemies.EnemyBehaviour
             Agent = agent;
             AnimationBlock = animationBlock;
             DamagePlayerColliderTriggerEnterProvider = damagePlayerColliderTriggerEnterProvider;
-            Player = playerProvider.Player;
+            Target = playerProvider.Player;
         }
     }
 }
