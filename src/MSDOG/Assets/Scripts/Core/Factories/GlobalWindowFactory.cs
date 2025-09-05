@@ -18,12 +18,12 @@ namespace Core.Factories
             _windowsData = dataService.GetWindowsData();
         }
 
-        public OptionsWindow CreateOptionsWindow(Transform canvasTransform)
+        public IWindow CreateOptionsWindow(Transform canvasTransform)
         {
             return _container.Instantiate(_windowsData.OptionsWindowPrefab, canvasTransform);
         }
 
-        public CreditsWindow CreateCreditsWindow(Transform canvasTransform)
+        public IWindow CreateCreditsWindow(Transform canvasTransform)
         {
             return _container.Instantiate(_windowsData.CreditsWindowPrefab, canvasTransform);
         }

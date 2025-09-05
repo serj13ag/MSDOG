@@ -19,17 +19,17 @@ namespace Gameplay.Factories
             _windowsData = dataService.GetWindowsData();
         }
 
-        public LoseWindow CreateLoseWindow(Transform canvasTransform)
+        public IWindow CreateLoseWindow(Transform canvasTransform)
         {
             return _container.Instantiate(_windowsData.LoseWindowPrefab, canvasTransform);
         }
 
-        public WinWindow CreateWinWindow(Transform canvasTransform)
+        public IWindow CreateWinWindow(Transform canvasTransform)
         {
             return _container.Instantiate(_windowsData.WinWindowPrefab, canvasTransform);
         }
 
-        public EscapeWindow CreateEscapeWindow(Transform canvasTransform)
+        public IWindow CreateEscapeWindow(Transform canvasTransform)
         {
             return _container.Instantiate(_windowsData.EscapeWindowPrefab, canvasTransform);
         }
