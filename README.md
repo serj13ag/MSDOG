@@ -23,14 +23,14 @@ In each of that scope you can see explicit registration of all modules. <br/>
 State Machine is used to define the core application states (Menu, Gameplay, etc.). <br/>
 Each state implements Enter() and Exit() methods where you can control transitions between states. <br/>
 This keeps the application flow clear and predictable. <br/>
-[GameStateMachine.cs](../master/Assets/Scripts/Infrastructure/StateMachine/GameStateMachine.cs)
+[GameStateMachine.cs](../master/src/MSDOG/Assets/Scripts/Infrastructure/StateMachine/GameStateMachine.cs)
 
 ### 🟢Domain and View Separation
 The core game logic is implemented in pure c# classes, independent of MonoBehaviour. <br/>
 Views are responsible for rendering, physics and input, while domain classes handle game rules and logic. <br/>
 The connection between them is implemented via mediators, presenters or direct reference (when simplicity is enough). <br/>
 That makes the project more testable, maintainable and scalable. <br/>
-[Projectile.cs](../master/Assets/Scripts/Gameplay/Projectiles/Projectile.cs)
-[BaseProjectileView.cs](../master/Assets/Scripts/Gameplay/Projectiles/Views/BaseProjectileView.cs)
-[BaseCooldownAbility.cs](../master/Assets/Scripts/Gameplay/Abilities/Core/BaseCooldownAbility.cs)
-[OneTimeAbilityPresenter.cs](../master/Assets/Scripts/Gameplay/Abilities/View/OneTimeAbilityPresenter.cs)
+[Projectile.cs](../master/src/MSDOG/Assets/Scripts/Gameplay/Projectiles/Projectile.cs)
+[BaseProjectileView.cs](../master/src/MSDOG/Assets/Scripts/Gameplay/Projectiles/Views/BaseProjectileView.cs)
+[BaseCooldownAbility.cs](../master/src/MSDOG/Assets/Scripts/Gameplay/Abilities/Core/BaseCooldownAbility.cs)
+[OneTimeAbilityPresenter.cs](../master/src/MSDOG/Assets/Scripts/Gameplay/Abilities/View/OneTimeAbilityPresenter.cs)
