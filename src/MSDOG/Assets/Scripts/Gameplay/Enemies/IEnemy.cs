@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Gameplay.Enemies
 {
-    public interface IEnemy : IEntityWithPosition, IEntityWithRotation
+    public interface IEnemy : IEntityWithPosition, IEntityWithRotation, IProjectileDamageableEntity, IHitDamageableEntity
     {
         Guid Id { get; }
         float Cooldown { get; }

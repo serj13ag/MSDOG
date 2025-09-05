@@ -16,7 +16,7 @@ using VContainer;
 
 namespace Gameplay.Enemies
 {
-    public class Enemy : BasePooledObject, IEnemy, IUpdatable, IProjectileDamageableEntity, IHitDamageableEntity
+    public class Enemy : BasePooledObject, IEnemy, IUpdatable
     {
         private readonly Vector3 _enemyProjectileOffset = Vector3.up * 0.8f;
         private readonly Vector3 _damageTextOffset = Vector3.up * 3f;
