@@ -117,17 +117,6 @@ namespace Gameplay.Enemies
             _stateMachine.OnUpdate(deltaTime);
         }
 
-        private void OnAnimationAttackHit()
-        {
-            if (!_waitingToShootProjectile)
-            {
-                return;
-            }
-
-            ShootProjectileTowardsPlayer();
-            _waitingToShootProjectile = false;
-        }
-
         public void Shoot()
         {
             _waitingToShootProjectile = true;
@@ -190,6 +179,17 @@ namespace Gameplay.Enemies
         private void OnHealthBlockHealthChanged()
         {
             OnHealthChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void OnAnimationAttackHit()
+        {
+            if (!_waitingToShootProjectile)
+            {
+                return;
+            }
+
+            ShootProjectileTowardsPlayer();
+            _waitingToShootProjectile = false;
         }
 
         private void ShootProjectileTowardsPlayer()
