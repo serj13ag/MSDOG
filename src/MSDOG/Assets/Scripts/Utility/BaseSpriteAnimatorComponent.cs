@@ -76,6 +76,8 @@ namespace Utility
             }
         }
 
+        protected abstract void ChangeSprite(Sprite sprite);
+
         private void LoopEnded()
         {
             if (_isLooped)
@@ -95,8 +97,6 @@ namespace Utility
                 }
             }
         }
-
-        protected abstract void ChangeSprite(Sprite sprite);
 
         private void ResetAndUpdateSprite()
         {

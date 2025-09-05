@@ -41,19 +41,19 @@ namespace Gameplay.Projectiles.Views
             transform.position += Projectile.ForwardDirection * (Projectile.Speed * deltaTime);
         }
 
+        protected override void OnPiercesRunOut(object sender, EventArgs e)
+        {
+            base.OnPiercesRunOut(sender, e);
+
+            CreateImpactVfx();
+        }
+
         private void OnTriggerEntered(Collider other)
         {
             if (other.gameObject.TryGetComponentInHierarchy<IProjectileDamageableEntity>(out var projectileDamageableEntity))
             {
                 Projectile.OnHit(projectileDamageableEntity);
             }
-        }
-
-        protected override void OnPiercesRunOut(object sender, EventArgs e)
-        {
-            base.OnPiercesRunOut(sender, e);
-
-            CreateImpactVfx();
         }
 
         private void CreateImpactVfx()
