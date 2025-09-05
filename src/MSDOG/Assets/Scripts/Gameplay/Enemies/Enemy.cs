@@ -194,7 +194,7 @@ namespace Gameplay.Enemies
 
         private void ShootProjectileTowardsPlayer()
         {
-            var directionToPlayer = (_playerProvider.Player.transform.position - transform.position).normalized;
+            var directionToPlayer = (_playerProvider.Player.GetPosition() - transform.position).normalized;
             directionToPlayer.y = 0f;
 
             var spawnPosition = transform.position + _enemyProjectileOffset;

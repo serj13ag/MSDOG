@@ -26,7 +26,7 @@ namespace Gameplay.Factories
             _objectContainerProvider = objectContainerProvider;
         }
 
-        public Player CreatePlayer()
+        public IPlayer CreatePlayer()
         {
             var player = _container.Instantiate(_dataService.GetSettings().PlayerPrefab);
             player.Init();

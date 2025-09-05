@@ -1,6 +1,6 @@
 namespace Gameplay.Interfaces
 {
-    public interface IExperiencePieceCollector : IEntityWithPosition
+    public interface IExperiencePieceCollector : IEntityWithExperience, IEntityWithPosition
     {
         void CollectExperience(int experience);
     }

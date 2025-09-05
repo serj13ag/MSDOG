@@ -4,10 +4,10 @@ namespace Gameplay.Providers
 {
     public interface IPlayerProvider
     {
-        Player Player { get; }
+        IPlayer Player { get; }
 
         event EventHandler<EventArgs> OnPlayerDied;
 
-        void RegisterPlayer(Player player);
+        void RegisterPlayer(IPlayer player);
     }
 }

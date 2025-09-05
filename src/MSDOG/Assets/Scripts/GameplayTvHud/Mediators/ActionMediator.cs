@@ -19,7 +19,7 @@ namespace GameplayTvHud.Mediators
 
         public Vector3 GetPlayerPosition()
         {
-            return _playerProvider.Player.transform.position;
+            return _playerProvider.Player.GetPosition();
         }
 
         public void ConnectFuse()

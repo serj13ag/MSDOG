@@ -158,7 +158,7 @@ namespace Gameplay.Services
 
         private bool IsPositionValid(Vector3 position, List<Vector3> spawnedEnemyPositions)
         {
-            var distanceToPlayer = Vector3.Distance(position, _playerProvider.Player.transform.position);
+            var distanceToPlayer = Vector3.Distance(position, _playerProvider.Player.GetPosition());
             if (distanceToPlayer < MinDistanceFromPlayer ||
                 distanceToPlayer > MaxDistanceFromPlayer)
             {

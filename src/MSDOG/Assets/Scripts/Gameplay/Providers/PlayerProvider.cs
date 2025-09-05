@@ -4,13 +4,13 @@ namespace Gameplay.Providers
 {
     public class PlayerProvider : IPlayerProvider, IDisposable
     {
-        private Player _player;
+        private IPlayer _player;
 
-        public Player Player => _player;
+        public IPlayer Player => _player;
 
         public event EventHandler<EventArgs> OnPlayerDied;
 
-        public void RegisterPlayer(Player player)
+        public void RegisterPlayer(IPlayer player)
         {
             _player = player;
 
