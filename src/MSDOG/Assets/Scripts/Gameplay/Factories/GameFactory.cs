@@ -33,7 +33,7 @@ namespace Gameplay.Factories
             return player;
         }
 
-        public Enemy CreateEnemy(Vector3 position, EnemyData data)
+        public IEnemy CreateEnemy(Vector3 position, EnemyData data)
         {
             var enemy = _enemyPools.Get(data.Prefab,
                 () => _container.Instantiate(data.Prefab, _objectContainerProvider.EnemyContainer));

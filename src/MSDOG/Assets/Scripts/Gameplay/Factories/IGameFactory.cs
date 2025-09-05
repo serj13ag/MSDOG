@@ -7,6 +7,6 @@ namespace Gameplay.Factories
     public interface IGameFactory
     {
         Player CreatePlayer();
-        Enemy CreateEnemy(Vector3 position, EnemyData data);
+        IEnemy CreateEnemy(Vector3 position, EnemyData data);
     }
 }
