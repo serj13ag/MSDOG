@@ -6,7 +6,6 @@ namespace Gameplay.Factories
     {
         void Prewarm(int levelIndex);
 
-        void CreateAbilityProjectile(ProjectileSpawnData projectileSpawnData);
-        void CreateEnemyProjectile(ProjectileSpawnData projectileSpawnData);
+        void CreateProjectile(ProjectileSpawnData projectileSpawnData);
     }
 }

@@ -200,7 +200,7 @@ namespace Gameplay.Enemies
             var spawnPosition = transform.position + _enemyProjectileOffset;
             var projectileSpawnData = new ProjectileSpawnData(spawnPosition, directionToPlayer, Damage,
                 _projectileSpeed, 0, 0f, 0f, 0f, _dataService.GetEnemyProjectileData());
-            _projectileFactory.CreateEnemyProjectile(projectileSpawnData);
+            _projectileFactory.CreateProjectile(projectileSpawnData);
         }
 
         protected override void Cleanup()

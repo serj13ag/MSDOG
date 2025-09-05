@@ -15,7 +15,6 @@ namespace Gameplay.Projectiles
         private readonly float? _tickTimeout;
         private float _tickRemaining;
 
-        public bool IsPlayer { get; } // TODO: remove?
         public float Speed { get; }
         public float Size { get; }
 
@@ -34,7 +33,7 @@ namespace Gameplay.Projectiles
         public event EventHandler<EventArgs> OnLifetimeEnded;
         public event EventHandler<EventArgs> OnTickTimeoutRaised;
 
-        public Projectile(ProjectileSpawnData projectileSpawnData, bool isPlayer)
+        public Projectile(ProjectileSpawnData projectileSpawnData)
         {
             _id = Guid.NewGuid();
             _damage = projectileSpawnData.Damage;
@@ -49,7 +48,6 @@ namespace Gameplay.Projectiles
             _tickTimeout = tickTimeout == 0f ? null : tickTimeout;
             _tickRemaining = tickTimeout;
 
-            IsPlayer = isPlayer;
             Speed = projectileSpawnData.Speed;
             Size = projectileSpawnData.Size;
             ForwardDirection = projectileSpawnData.ForwardDirection.normalized;

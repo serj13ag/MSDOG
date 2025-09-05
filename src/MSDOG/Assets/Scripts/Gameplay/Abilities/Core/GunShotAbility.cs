@@ -25,7 +25,7 @@ namespace Gameplay.Abilities.Core
             var projectileSpawnData =
                 new ProjectileSpawnData(_entityWithAbilities.GetAbilitySpawnPosition(_abilityData.AbilityType),
                     _entityWithAbilities.GetForwardDirection(), _abilityData);
-            _projectileFactory.CreateAbilityProjectile(projectileSpawnData);
+            _projectileFactory.CreateProjectile(projectileSpawnData);
         }
     }
 }

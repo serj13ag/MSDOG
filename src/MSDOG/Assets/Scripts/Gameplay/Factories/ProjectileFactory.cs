@@ -40,17 +40,9 @@ namespace Gameplay.Factories
             }
         }
 
-        public void CreateAbilityProjectile(ProjectileSpawnData projectileSpawnData)
+        public void CreateProjectile(ProjectileSpawnData projectileSpawnData)
         {
-            var projectile = new Projectile(projectileSpawnData, true);
-
-            var view = GetFromPool(projectileSpawnData);
-            InitializeView(view, projectile, projectileSpawnData);
-        }
-
-        public void CreateEnemyProjectile(ProjectileSpawnData projectileSpawnData)
-        {
-            var projectile = new Projectile(projectileSpawnData, false);
+            var projectile = new Projectile(projectileSpawnData);
 
             var view = GetFromPool(projectileSpawnData);
             InitializeView(view, projectile, projectileSpawnData);
